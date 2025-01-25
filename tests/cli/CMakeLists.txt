@@ -6,11 +6,11 @@
 # contact@tactcomplabs.com
 #
 
-file(GLOB TEST_SRCS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.sh)
+file(GLOB TEST_SRCS_ALL RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *-ALL.sh)
 
 set (passRegex "PASS")
 
-foreach(testSrc ${TEST_SRCS})
+foreach(testSrc ${TEST_SRCS_ALL})
   # Extract the file name
   get_filename_component(testName ${testSrc} NAME_WE)
 

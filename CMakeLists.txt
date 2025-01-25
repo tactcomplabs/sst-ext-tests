@@ -51,6 +51,7 @@ execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/sst-minor-version.sh
 )
 
 message(STATUS "SST MAJOR VERSION=${SST_MAJOR_VERSION}")
+message(STATUS "SST MINOR VERSION=${SST_MINOR_VERSION}")
 
 #-- Compiler Options
 # Compiler Options
@@ -68,6 +69,9 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS}")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -std=c++17 ${FP_MODE_FLAG} -g -pg -O0 -Wall -Wextra ${WERROR_FLAG} -Wvla -Wuninitialized -Wfloat-conversion -Wdouble-promotion -Wno-unused-parameter -Wno-deprecated-declarations -I./ ${LDFLAGS}")
 
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -Wall")
+
+#-- Add testing
+enable_testing()
 
 #-- Subdirectories
 add_subdirectory(tests)
