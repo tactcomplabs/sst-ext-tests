@@ -52,6 +52,8 @@ execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/sst-minor-version.sh
 
 message(STATUS "SST MAJOR VERSION=${SST_MAJOR_VERSION}")
 message(STATUS "SST MINOR VERSION=${SST_MINOR_VERSION}")
+string(CONCAT SST_VERSION  ${SST_MAJOR_VERSION} "." ${SST_MINOR_VERSION})
+message(STATUS "SST FULL VERSION=${SST_VERSION}")
 
 #-- Compiler Options
 # Compiler Options
