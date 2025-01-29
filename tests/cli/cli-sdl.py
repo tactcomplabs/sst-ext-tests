@@ -10,6 +10,8 @@ sst.setProgramOption("timebase", "1ps")
 
 # Tell SST what statistics handling we want
 sst.setStatisticLoadLevel(4)
+sst.enableAllStatisticsForAllComponents()
+sst.setStatisticOutput("sst.statOutputCSV", { "filepath" : "stats.csv", "separator" : "," } )
 
 memory_mb = 1024
 
@@ -26,7 +28,7 @@ gen.addParams({
 })
 
 # Enable statistics outputs
-comp_cpu.enableAllStatistics({"type":"sst.AccumulatorStatistic"})
+#comp_cpu.enableAllStatistics({"type":"sst.AccumulatorStatistic"})
 
 comp_l1cache = sst.Component("l1cache", "memHierarchy.Cache")
 comp_l1cache.addParams({
