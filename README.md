@@ -42,6 +42,7 @@ version of SST.  The `VERSION` string can be written in one of the following for
 - `DEV` : Instructs the harness to enable the test if no known version exists.  EG, the version of 
 SST was installed from a development source tree, not a release tree. EX: `test-DEV.sh`
 - `VERSION` : Instructs the harness to enable the test for the specific version of SST.  EX: `test-14.1.sh`
+- `MINVERSION` : Instructs the harness to enable the test for the minimum version of SST.  EX: `test-MIN14.0.sh`
 
 ## Contributing
 

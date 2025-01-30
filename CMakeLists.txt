@@ -72,6 +72,16 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -std=c++17 ${FP_MODE_FLAG} -g -pg 
 
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -Wall")
 
+#-- Setup supported version arrays
+set(SST_TMP_VER_LIST "13.0" "14.0" "14.1")
+set(SST_VER_LIST "DEV")
+
+foreach(VERSION ${SST_TMP_VER_LIST})
+  if(NOT ${VERSION} VERSION_LESS ${SST_VERSION})
+    list(APPEND SST_VER_LIST ${VERSION})
+  endif()
+endforeach()
+
 #-- Add testing
 enable_testing()
 
