@@ -1,0 +1,246 @@
+#!/usr/bin/env python3
+#
+# Copyright (C) 2017-2025 Tactical Computing Laboratories, LLC
+# All Rights Reserved
+# contact@tactcomplabs.com
+#
+# See LICENSE in the top level directory for licensing details
+#
+
+
+import os
+import argparse
+import json
+import re
+from typing import List
+from pprint import pprint
+
+# =============================================================================
+# print_console_table
+# =============================================================================
+def print_console_table(nested_test_list, param: str = None):
+  """
+  Prints a formatted table of test information.
+
+  Args:
+    nested_test_list (list): Nested list of dictionaries containing test information
+      with keys: testName, pathName, testParams, desc
+    param (str): optional param to filter results
+  """
+  # Flatten the nested list structure
+  test_list = nested_test_list[0] if nested_test_list else []
+
+  if not test_list:  # Check if the list is empty
+    print("No tests to display")
+    return
+
+  # Find the maximum width needed for each column
+  max_test = max(len(str(test['testName'])) for test in test_list)
+  max_params = max(len(str(test['testParams'])) for test in test_list)
+  max_desc = max(len(str(test.get('desc', 'None'))) for test in test_list)
+
+  # Set minimum column widths based on headers
+  max_test = max(max_test, 4)    # "Test" header
+  max_params = max(max_params, 6) # "Params" header
+  max_desc = max(max_desc, 4)     # "Desc" header
+
+  # Create the format string for the header and rows
+  format_str = f"| {{:<{max_test}}} | {{:<{max_params}}} | {{:<{max_desc}}} |"
+
+  # Calculate total width of the table
+  total_width = max_test + max_params + max_desc + 7  # 7 accounts for margins and separators
+
+  # Print the table
+  print("-" * total_width)
+  print(format_str.format("Test", "Params", "Desc"))
+  print("-" * total_width)
+
+  # Print each row
+  if not param:
+    for test in test_list:
+      print(format_str.format(
+        str(test['testName']),
+        str(test['testParams']),
+        str(test.get('desc', 'None'))
+      ))
+  else:
+    for test in test_list:
+      if str(test['testParams']) == param:
+        print(format_str.format(
+          str(test['testName']),
+          str(test['testParams']),
+          str(test.get('desc', 'None'))
+        ))
+
+  print("-" * total_width)
+
+# =============================================================================
+# save_dict_list_as_json
+# =============================================================================
+def save_dict_list_as_json(dict_list: list, file_path: str = None, indent: int = 4) -> None:
+  """
+  Print a list of dictionaries as JSON and optionally save to a file
+
+  Args:
+    dict_list (list): List of dictionaries to print/save
+    file_path (str, optional): Path to save JSON file. If None, just prints.
+    indent (int, optional): Number of spaces for indentation. Defaults to 4.
+  """
+
+  print(json.dumps(dict_list, indent=indent))
+
+  if file_path:
+    try:
+      with open(file_path, 'w', encoding='utf-8') as f:
+        json.dump(dict_list, f, indent=indent)
+    except Exception as e:
+      print(f"Error saving to file: {str(e)}")
+
+# =============================================================================
+# parse_test_files
+# =============================================================================
+def parse_test_files(path: str, ext: str) -> List[dict]:
+  """
+  Parse all files from a target directory path
+
+  Args:
+    path (str): the base file path
+    ext (str): the file extension of the files to parse
+
+  Returns:
+    List[dict]: List of dictionaries containing the parsed data for each file
+    Each dictionary contains:
+      'testName': Name of the actual test
+      'pathName': The full path to the test
+      'testParams': Test parameters dictacting when the test is enabled
+      'desc': Description of the test
+  """
+
+  results = []
+
+  try:
+    # Ensure the extension starts with a dot
+    if not ext.startswith('.'):
+      ext = '.' + ext
+
+    # walk the directory structure
+    for root, _, files in os.walk(path):
+      matching_files = [f for f in files if f.endswith(ext)]
+
+      for filename in matching_files:
+        full_path = os.path.join(root, filename)
+        file_data = {
+          'testName': os.path.splitext(filename)[0],
+          'pathName': full_path,
+          'testParams': None,
+          'desc': None
+        }
+
+        try:
+          with open(full_path, 'r', encoding='utf-8') as f:
+            for line in f:
+              if line.startswith('#EXT_TEST TEST_FILE_PARAM'):
+                tokens = line.strip().split()
+                if len(tokens) >= 3:
+                  file_data['testParams'] = tokens[2]
+              if line.startswith('#EXT_TEST TEST_FILE_DESC'):
+                match = re.search(r'#EXT_TEST TEST_FILE_DESC\s*"([^"]*)"', line)
+                if match:
+                  file_data['desc'] = match.group(1)
+            results.append(file_data)
+        except Exception as e:
+          print(f"Error reading test file {full_path}: {str(e)}")
+  except Exception as e:
+    print(f"Error accessing directory {path}: {str(e)}")
+
+  return results
+
+# =============================================================================
+# parse_cmake_files
+# =============================================================================
+def parse_cmake_files(file_paths: List[str]) -> List[dict]:
+  """
+  Parse CMakeLists.txt files from a list of file paths.
+
+  Args:
+    file_paths (List[str]): List of paths to CMakeLists.txt files
+
+  Returns:
+    List[dict]: List of dictionaries containing the parsed data for each file
+    Each dictionary contains:
+      'testName': Name of the actual test
+      'pathName': The full path to the test
+      'testParams': Test parameters that enable the test
+      'desc': Description of the test
+  """
+
+  results = []
+
+  for path in file_paths:
+    file_ext = ""
+    try:
+      with open(path, 'r', encoding='utf-8') as f:
+        for line in f:
+          if line.startswith('#EXT_TEST TEST_FILE_EXT'):
+            tokens = line.strip().split()
+            file_ext = ""
+            if len(tokens) >= 3:
+              file_ext = tokens[2]
+              result = parse_test_files(os.path.dirname(path), file_ext)
+              results.append(result)
+    except Exception as e:
+      print(f"Error reading file {path}: {str(e)}")
+
+  return results
+
+# =============================================================================
+# find_cmake_files
+# =============================================================================
+def find_cmake_files(directory: str) -> List[str]:
+  """
+  Recursively find all CMakeLists.txt files in the given directory and its subdirectories.
+
+  Args:
+    directory (str): The root directory to start searching from
+
+  Returns:
+    List[str]: List of full paths to all CMakeLists.txt files found
+  """
+  cmake_files = []
+
+  try:
+    # Walk through directory tree
+    for root, _, files in os.walk(directory):
+      if "CMakeLists.txt" in files:
+        # Construct full path and add to results
+        cmake_path = os.path.join(root, "CMakeLists.txt")
+        cmake_files.append(os.path.abspath(cmake_path))
+
+  except PermissionError as e:
+    print(f"Permission error accessing directory: {e}")
+  except Exception as e:
+    print(f"Error during directory traversal: {e}")
+
+  return cmake_files
+
+# =============================================================================
+# main
+# =============================================================================
+if __name__ == "__main__":
+  ap = argparse.ArgumentParser()
+  ap.add_argument("-d", "--directory", required=True, help="sets the base directory to search")
+  ap.add_argument("-j", "--json", required=False, help="prints the results to tests.json")
+  ap.add_argument("-p", "--param", required=False, help="filter the results to 'param'")
+  args = vars(ap.parse_args())
+
+  cmake_files = find_cmake_files(args['directory'])
+
+  results = parse_cmake_files(cmake_files)
+
+  if not args['json']:
+    print_console_table(results, args['param'])
+
+  if args['json']:
+    save_dict_list_as_json(results, args['json'])
+
+# -- EOF

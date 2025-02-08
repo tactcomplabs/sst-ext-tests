@@ -1,4 +1,6 @@
 #!/bin/bash
+#EXT_TEST TEST_FILE_PARAM ALL
+#EXT_TEST TEST_FILE_DESC "Tests the num_threads option for executing a basic SDL file"
 
 sst -n 2 cli-sdl.py
 

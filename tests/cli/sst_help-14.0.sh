@@ -1,4 +1,6 @@
 #!/bin/bash
+#EXT_TEST TEST_FILE_PARAM 14.0
+#EXT_TEST TEST_FILE_DESC "Displays the help menu of the SST 14.0"
 
 sst --help
 

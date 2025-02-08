@@ -1,4 +1,6 @@
 #!/bin/bash
+#EXT_TEST TEST_FILE_PARAM ALL
+#EXT_TEST TEST_FILE_DESC "Displays the help menu for all versions of SST"
 
 sst --help
 

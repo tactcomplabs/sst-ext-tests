@@ -1,4 +1,6 @@
 #!/bin/bash
+#EXT_TEST TEST_FILE_PARAM ALL
+#EXT_TEST TEST_FILE_DESC "Tests outputting run data to a specific directory""
 
 rm -Rf ./FOO
 

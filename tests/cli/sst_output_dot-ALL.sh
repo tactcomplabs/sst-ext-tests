@@ -1,4 +1,6 @@
 #!/bin/bash
+#EXT_TEST TEST_FILE_PARAM ALL
+#EXT_TEST TEST_FILE_DESC "Tests outputting the config graph as a dot file"
 
 sst --output-dot=foo.dot cli-sdl.py
 

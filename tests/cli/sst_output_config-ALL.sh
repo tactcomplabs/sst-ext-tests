@@ -1,4 +1,6 @@
 #!/bin/bash
+#EXT_TEST TEST_FILE_PARAM ALL
+#EXT_TEST TEST_FILE_DESC "Tests outputting the config file back to a python script"
 
 sst --output-config=foo.py cli-sdl.py
 

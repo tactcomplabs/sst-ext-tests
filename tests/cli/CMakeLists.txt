@@ -5,6 +5,8 @@
 # All Rights Reserved
 # contact@tactcomplabs.com
 #
+#EXT_TEST TEST_FILE_EXT sh
+#
 
 set(TEST_FILE_EXT "sh")
 set(passRegex "PASS")

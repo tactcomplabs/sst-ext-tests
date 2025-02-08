@@ -1,4 +1,6 @@
 #!/bin/bash
+#EXT_TEST TEST_FILE_PARAM ALL
+#EXT_TEST TEST_FILE_DESC "Tests the SDL file runtime option"
 
 sst --sdl-file=cli-sdl.py
 
