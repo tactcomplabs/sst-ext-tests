@@ -1,4 +1,7 @@
 #!/bin/bash
+#EXT_TEST TEST_FILE_PARAM ALL
+#EXT_TEST TEST_FILE_DESC "Tests outputting config graph graph data to a dot file with verbosity"
+#EXT_TEST DEP "memHierarchy.Cache memHierarchy.MemController memHierarchy.simpleMem miranda.GUPSGenerator"
 
 sst --output-dot=foo.dot --dot-verbosity=9 cli-sdl.py
 

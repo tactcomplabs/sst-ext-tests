@@ -1,4 +1,6 @@
 #!/bin/bash
+#EXT_TEST TEST_FILE_PARAM ALL
+#EXT_TEST TEST_FILE_DESC "Tests the sst-info XML output with a specified file"
 
 sst-info -x -o foo.xml
 
