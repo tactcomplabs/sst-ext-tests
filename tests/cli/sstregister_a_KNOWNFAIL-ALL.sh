@@ -5,7 +5,7 @@
 sst-register -a
 
 retVal=$?
-if [ $retVal -ne 134 ]; then
+if [ $retVal -eq 0 ]; then
   echo "ERROR: $retVal"
   exit $retVal
 fi

@@ -48,6 +48,7 @@ All new tests must include, at minimum, two units of metadata in the file header
 These are outlined as follows:
 - `EXT_TEST TEST_FILE_PARAM PARAM` : where `PARAM` is the `VERSION` string from above
 - `EXT_TEST TEST_FILE_DESC "DESC"` : where `DESC` is a description of the test
+- `EXT_TEST DEP "COMP1 COMP2"`     : where within the quotes is a list of components
 
 ## Test Interrogation
 `sst-ext-tests` includes a Python tool that discovers appropriately 
@@ -93,6 +94,7 @@ See the [LICENSE](./LICENSE) file
 ## Authors
 * *John Leidel* - [Tactical Computing Labs](http://www.tactcomplabs.com)
 * *Ken Griesser* - [Tactical Computing Labs](http://www.tactcomplabs.com)
+* *Chris Taylor* - [Tactical Computing Labs](http://www.tactcomplabs.com)
 
 ## Acknowledgements
 * TBD

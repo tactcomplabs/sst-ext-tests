@@ -1,6 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_PARAM ALL
 #EXT_TEST TEST_FILE_DESC "Tests the num_threads option for executing a basic SDL file"
+#EXT_TEST DEP "memHierarchy.Cache memHierarchy.MemController memHierarchy.simpleMem miranda.GUPSGenerator"
 
 sst -n 2 cli-sdl.py
 
