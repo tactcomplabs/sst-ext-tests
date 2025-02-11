@@ -7,6 +7,21 @@
 # See LICENSE in the top level directory for licensing details
 #
 
+# ---------------------------------------------------
+# string_contains_number
+# ---------------------------------------------------
+function(string_contains_number str result)
+  string(REGEX MATCH "[0-9]" has_number "${str}")
+  if(has_number)
+    set(${result} TRUE PARENT_SCOPE)
+  else()
+    set(${result} FALSE PARENT_SCOPE)
+  endif()
+endfunction()
+
+# ---------------------------------------------------
+# main
+# ---------------------------------------------------
 #-- Prevent in-source builds
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
   message(FATAL_ERROR "DO NOT BUILD in-tree.")
@@ -50,6 +65,17 @@ execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/sst-minor-version.sh
                 OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
+string_contains_number("${SST_MAJOR_VERSION}" contains_num)
+if(NOT contains_num)
+  set(SST_MAJOR_VERSION "DEV")
+  set(SST_MINOR_VERSION "DEV")
+  execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/sst-git-hash.sh
+                  OUTPUT_VARIABLE SST_GIT_HASH
+                  OUTPUT_STRIP_TRAILING_WHITESPACE
+  )
+  message(STATUS "SST GIT HASH=${SST_GIT_HASH}")
+endif()
+
 message(STATUS "SST MAJOR VERSION=${SST_MAJOR_VERSION}")
 message(STATUS "SST MINOR VERSION=${SST_MINOR_VERSION}")
 string(CONCAT SST_VERSION  ${SST_MAJOR_VERSION} "." ${SST_MINOR_VERSION})
@@ -72,17 +98,18 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -std=c++17 ${FP_MODE_FLAG} -g -pg 
 
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -Wall")
 set(EXT_TEST_DEP_COMMAND "${CMAKE_SOURCE_DIR}/scripts/test-dep.sh")
-message(STATUS "SST TEST DEP SCRIPT=${EXT_TEST_DEP_COMMAND}")
 
 #-- Setup supported version arrays
 set(SST_TMP_VER_LIST "13.0" "14.0" "14.1")
 set(SST_VER_LIST "DEV")
 
-foreach(VERSION ${SST_TMP_VER_LIST})
-  if(NOT ${VERSION} VERSION_LESS ${SST_VERSION})
-    list(APPEND SST_VER_LIST ${VERSION})
-  endif()
-endforeach()
+if(NOT "${SST_MAJOR_VERSION}" STREQUAL "DEV")
+  foreach(VERSION ${SST_TMP_VER_LIST})
+    if(NOT ${VERSION} VERSION_LESS ${SST_VERSION})
+      list(APPEND SST_VER_LIST ${VERSION})
+    endif()
+  endforeach()
+endif()
 
 #-- Add testing
 enable_testing()

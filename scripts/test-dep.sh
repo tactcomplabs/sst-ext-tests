@@ -29,9 +29,8 @@ fi
 COMPS=`grep "#EXT_TEST DEP" "$1" | sed 's/#EXT_TEST DEP "\(.*\)"/\1/' | tr ' ' '\n'`
 
 for C in $COMPS;do
-  sst-info -q $C >> /dev/null 2>&1
-  retVal=$?
-  if [ $retVal -ne 0 ]; then
+  VAL=`sst-info -q $C | grep "ELEMENT LIBRARY"`
+  if [ -z "$VAL" ]; then
     echo "NO_RUN"
     exit -1
   fi
