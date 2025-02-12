@@ -21,12 +21,13 @@ foreach(testSrc ${TEST_SRCS_TARGET_VER})
                 OUTPUT_VARIABLE EXT_TEST_CHECK
                 RESULT_VARIABLE EXT_TEST_RTN
                 OUTPUT_STRIP_TRAILING_WHITESPACE
+		ERROR_QUIET
   )
 
   message(STATUS "Dep Check ${testSrc} = ${EXT_TEST_CHECK}")
 
   # Add the tests for execution
-  if( ${EXT_TEST_RTN} EQUAL 0 )
+  if( "${EXT_TEST_CHECK}" STREQUAL "RUN" )
     add_test(NAME ${testName}
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
       COMMAND ./${testSrc})
@@ -46,12 +47,13 @@ foreach(testVer ${SST_VER_LIST})
                   OUTPUT_VARIABLE EXT_TEST_CHECK
                   RESULT_VARIABLE EXT_TEST_RTN
                   OUTPUT_STRIP_TRAILING_WHITESPACE
+		  ERROR_QUIET
     )
 
     message(STATUS "Dep Check ${testSrc} = ${EXT_TEST_CHECK}")
 
     # Add the tests for execution
-    if( ${EXT_TEST_RTN} EQUAL 0 )
+    if( "${EXT_TEST_CHECK}" STREQUAL "RUN" )
       add_test(NAME ${testName}
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
         COMMAND ./${testSrc})
@@ -70,12 +72,13 @@ foreach(testSrc ${TEST_SRCS_ALL})
                 OUTPUT_VARIABLE EXT_TEST_CHECK
                 RESULT_VARIABLE EXT_TEST_RTN
                 OUTPUT_STRIP_TRAILING_WHITESPACE
+		ERROR_QUIET
   )
 
   message(STATUS "Dep Check ${testSrc} = ${EXT_TEST_CHECK}")
 
   # Add the tests for execution
-  if( ${EXT_TEST_RTN} EQUAL 0 )
+  if( "${EXT_TEST_CHECK}" STREQUAL "RUN" )
     add_test(NAME ${testName}
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
       COMMAND ./${testSrc})
