@@ -1,6 +1,6 @@
 #!/bin/bash
-
-# Test sig1/2 real time actions
+#EXT_TEST TEST_FILE_PARAM MIN14.1
+#EXT_TEST TEST_FILE_DESC "Tests sigusr1/2 for single real time actions"
 # 
 # 0) set pass string 
 # 1) launch the program in the background

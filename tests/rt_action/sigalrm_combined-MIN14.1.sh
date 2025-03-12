@@ -1,6 +1,6 @@
 #!/bin/bash
-
-# Test sigalrm real time with multiple actions (checkpoint is testted separately)
+#EXT_TEST TEST_FILE_PARAM MIN14.1
+#EXT_TEST TEST_FILE_DESC "Tests sigalrm for combinations of two real time actions (checkpoint not included)"
 # 
 # 0) set pass string 
 # 1) launch the program
@@ -10,8 +10,8 @@
 
 # Settings
 SIG="sigalrm"
-ACTION="sst.rt.status.core sst.rt.status.all sst.rt.heartbeat" # sst.rt.checkpoint"
-ACTION2="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat" # sst.rt.checkpoint"
+ACTION="sst.rt.status.core sst.rt.status.all sst.rt.heartbeat"
+ACTION2="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat"
 CONFIG="test_MessageMesh.py"
 
 for sig in $SIG; do
