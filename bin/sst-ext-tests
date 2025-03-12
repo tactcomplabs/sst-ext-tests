@@ -28,7 +28,9 @@ def print_console_table(nested_test_list, param: str = None):
     param (str): optional param to filter results
   """
   # Flatten the nested list structure
-  test_list = nested_test_list[0] if nested_test_list else []
+  test_list = []
+  for sublist in nested_test_list:
+    test_list.extend(sublist)
 
   if not test_list:  # Check if the list is empty
     print("No tests to display")
@@ -87,12 +89,16 @@ def save_dict_list_as_json(dict_list: list, file_path: str = None, indent: int =
     indent (int, optional): Number of spaces for indentation. Defaults to 4.
   """
 
-  print(json.dumps(dict_list, indent=indent))
+  test_list = []
+  for sublist in dict_list:
+    test_list.extend(sublist)
+
+  print(json.dumps(test_list, indent=indent))
 
   if file_path:
     try:
       with open(file_path, 'w', encoding='utf-8') as f:
-        json.dump(dict_list, f, indent=indent)
+        json.dump(test_list, f, indent=indent)
     except Exception as e:
       print(f"Error saving to file: {str(e)}")
 
@@ -208,18 +214,14 @@ def find_cmake_files(directory: str) -> List[str]:
   """
   cmake_files = []
 
-  try:
-    # Walk through directory tree
-    for root, _, files in os.walk(directory):
-      if "CMakeLists.txt" in files:
-        # Construct full path and add to results
+  if not os.path.isdir(directory):
+    print(f"Error: '{directory}' is not a valid directory")
+    return cmake_files
+
+  for root, dirs, files in os.walk(directory):
+    if "CMakeLists.txt" in files:
         cmake_path = os.path.join(root, "CMakeLists.txt")
         cmake_files.append(os.path.abspath(cmake_path))
-
-  except PermissionError as e:
-    print(f"Permission error accessing directory: {e}")
-  except Exception as e:
-    print(f"Error during directory traversal: {e}")
 
   return cmake_files
 
