@@ -15,12 +15,10 @@ SIG="sigusr1 sigusr2"
 ACTION="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat sst.rt.checkpoint"
 CONFIG="test_Checkpoint.py" #test_MessageMesh.py"
 
-rm test.*.out
-
 for sig in $SIG; do
   for action in $ACTION; do
 
-#0 Get pass criterion
+# 0) Get pass criterion
 if [[ $action == "sst.rt.exit.clean" ]]; then
 #echo clean
 PSTR="EXIT-AFTER TIME"
@@ -42,10 +40,14 @@ PSTR="Simulation Checkpoint"
 fi
 
 # 1) Launch the program in the background, running long enough to send signal
+if [[ -f test.$sig.$action.out ]]; then
+  rm test.$sig.$action.out
+fi
+
 LAUNCH="sst --$sig=$action $CONFIG"
 echo $LAUNCH
 
-$LAUNCH > test.$action.out 2>&1 &
+$LAUNCH > test.$sig.$action.out 2>&1 &
 
 # 2) Get the PID
 JOBS=($(jobs -l))
@@ -68,7 +70,7 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-grep "$PSTR" ./test.$action.out > /dev/null
+grep "$PSTR" ./test.$sig.$action.out > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action grep"

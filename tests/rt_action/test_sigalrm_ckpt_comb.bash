@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Test sigalrm real time with multiple actions
+# Test sigalrm with multiple real time actions
 # 
 # 0) set pass string 
 # 1) launch the program
@@ -14,17 +14,14 @@ ACTION="sst.rt.checkpoint"
 ACTION2="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat" # sst.rt.checkpoint"
 CONFIG="test_Checkpoint.py"
 
-if [[ -f test.*.out ]]; then
-  rm test.*.out
-fi
-
 for sig in $SIG; do
   for action in $ACTION; do
     for action2 in $ACTION2; do
 
-PSTR="Simulation Checkpoint"
 
 #0 Get pass criterion
+PSTR="Simulation Checkpoint"
+
 if [[ $action2 == "sst.rt.exit.clean" ]]; then
 #echo clean
 PSTR2="EXIT-AFTER TIME"
@@ -45,12 +42,13 @@ elif [[ $action2 == "sst.rt.checkpoint" ]]; then
 PSTR2="Simulation Checkpoint"
 fi
 
-# 1) Launch the program in the background, running long enough to send signal
+# 1) Launch the program
+if [[ -f test.$sig.$action.$action2.out ]]; then
+  rm test.$sig.$action.$action2.out
+fi
+
 LAUNCH="sst --$sig='$action(interval=1s);$action2(interval=2s)' $CONFIG"
 echo $LAUNCH
-
-#exit
-
 eval $LAUNCH > test.$sig.$action.$action2.out 2>&1 
 
 # 2) wait for completion 

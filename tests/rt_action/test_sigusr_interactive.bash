@@ -12,7 +12,7 @@
 #set -m # enable job control
 
 # Settings
-SIGUSR="sigusr1 sigusr2"
+SIG="sigusr1 sigusr2"
 ACTION="sst.rt.interactive"
 
 # 0) Set up the pipe
@@ -23,13 +23,17 @@ if [[ ! -p $pipe ]]; then
   mkfifo $pipe
 fi
 
-for sigusr in $SIGUSR; do
+for sig in $SIG; do
   for action in $ACTION; do
 
 # 1) Launch the program in the background, running long enough to send signal
-LAUNCH="sst --interactive-console=sst.interactive.simpledebug --$sigusr=$action test_MessageMesh.py"
+if [[ -f test.$sig.$action.out ]]; then
+  rm test.$sig.$action.out
+fi
+
+LAUNCH="sst --interactive-console=sst.interactive.simpledebug --$sig=$action test_MessageMesh.py"
 echo $LAUNCH
-$LAUNCH < $pipe > test.$action.out &
+$LAUNCH < $pipe > test.$sig.$action.out &
 exec 3>$pipe    # Opens pipe for writing
 
 # 2) Get the PID
@@ -39,7 +43,7 @@ PID=${JOBS[1]}
 sleep 2
 
 # 3) Send signal 
-kill -$sigusr $PID
+kill -$sig $PID
 
 # 4) Send run command in interactive console
 #fg $JID
@@ -49,19 +53,19 @@ echo run > $pipe
 # 5) Wait for completion
 wait
 exec 3>&- # close pipe
-echo $sigusr=$action Complete
+echo $sig=$action Complete
 
 # 6) Check results
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $sigusr=$action return code"
+  echo "ERROR $sig=$action return code"
   exit $retVal
 fi
 
-grep "real time action" ./test.$action.out;
+grep "Interactive Console real time action" ./test.$sig.$action.out;
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $sigusr=$action grep"
+  echo "ERROR $sig=$action grep"
   exit $grepVal
 fi
 echo

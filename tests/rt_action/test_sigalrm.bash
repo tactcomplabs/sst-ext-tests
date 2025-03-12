@@ -4,20 +4,14 @@
 # 
 # 0) set pass string 
 # 1) launch the program in the background
-# 2) 'jobs -l' to get the PID
-# 3) 'kill -SIGUSR<N> <PID>' to send the signal
-# 4) wait for completion
-# 5) check result
+# 2) wait for completion
+# 3) check result
 
 
 # Settings
 SIG="sigalrm"
 ACTION="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat sst.rt.checkpoint"
 CONFIG=" test_Checkpoint.py" #test_MessageMesh.py"
-
-if [[ -f test.*.out ]]; then
-  rm test.*.out
-fi
 
 for sig in $SIG; do
   for action in $ACTION; do
@@ -43,11 +37,13 @@ elif [[ $action == "sst.rt.checkpoint" ]]; then
 PSTR="Simulation Checkpoint"
 fi
 
-# 1) Launch the program in the background, running long enough to send signal
+# 1) Launch the program
+if [[ -f test.$sig.$action.out ]]; then
+  rm test.$sig.$action.out
+fi
+
 LAUNCH="sst --$sig='$action(interval=1s)' $CONFIG"
 echo $LAUNCH
-
-#exit
 
 eval $LAUNCH > test.$sig.$action.out 2>&1 
 
