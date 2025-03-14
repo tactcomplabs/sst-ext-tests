@@ -86,4 +86,8 @@ foreach(testSrc ${TEST_SRCS_ALL})
   endif()
 endforeach(testSrc)
 
+# Append test specific labels
+if(TEST sst_heartbeat_90s-DEV)
+  set_property(TEST sst_heartbeat_90s-DEV APPEND PROPERTY LABELS LONG)
+endif()
 # EOF

@@ -26,6 +26,12 @@ ENABLE_ALL_TESTS [OFF]
 ENABLE_CLI_TESTS [OFF]
 ```
 
+To run fast test suite use:
+```
+ctest -LE LONG
+```
+
+
 ## Test Format
 
 *SST-EXT-TESTS* are formatted such that tests can be executed across different 
