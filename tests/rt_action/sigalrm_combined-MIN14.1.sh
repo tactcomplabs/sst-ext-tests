@@ -101,6 +101,9 @@ fi
 echo
 fi    # if $action != $action2
 
+# Cleanup output directories
+rm test.$sig.$action.$action2.out
+
 done  # for $action2
 done  # for $action
 done  # for $sig

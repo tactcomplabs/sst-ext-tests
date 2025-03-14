@@ -79,9 +79,14 @@ fi
 
 echo
 
+# Cleanup output directories
+rm test.$sig.$action.$action2.out
+
 done  # for $action2
 done  # for $action
 done  # for $sig
+
+rm -rf checkpoint*
 
 echo "PASS"
 exit $retVal

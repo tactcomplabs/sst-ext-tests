@@ -67,6 +67,9 @@ if [ $retVal -ne 0 ]; then
 fi
 echo
 
+# Cleanup output directories
+rm test.$sig.$action.out
+
 done  # for $action
 done  # for $sig
 
