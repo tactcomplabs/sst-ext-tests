@@ -1,9 +1,18 @@
+#!/usr/bin/env python3
 #
 # cli-sdl.py : simple sdl file using miranda for cli tests
 #
 # Taken from: https://github.com/sstsimulator/sst-elements/blob/master/src/sst/elements/miranda/tests/gupsgen.py
 #
+import argparse
 import sst
+
+# Test customization
+parser = argparse.ArgumentParser(description="simple sdl for sst cli testing")
+parser.add_argument("--count", type=int, help="miranda.GUPSGenerator item count", default=10000)
+args = parser.parse_args()
+for arg in vars(args):
+  print("[cli-sdl]\t", arg, " = ", getattr(args, arg))
 
 # Define SST core options
 sst.setProgramOption("timebase", "1ps")
@@ -23,7 +32,7 @@ comp_cpu.addParams({
 gen = comp_cpu.setSubComponent("generator", "miranda.GUPSGenerator")
 gen.addParams({
 	"verbose" : 0,
-	"count" : 10000,
+	"count" : args.count,
 	"max_address" : ((memory_mb) // 2) * 1024 * 1024,
 })
 
