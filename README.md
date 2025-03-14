@@ -12,6 +12,20 @@ SST External Test Suite
 
 ## Executing SST-EXT-TESTS
 
+To build and run all tests use:
+
+```
+mkdir build && cd build
+cmake -DENABLE_ALL_TESTS=ON ..
+make test
+```
+
+Flags for test selection include:
+```
+ENABLE_ALL_TESTS [OFF]
+ENABLE_CLI_TESTS [OFF]
+```
+
 ## Test Format
 
 *SST-EXT-TESTS* are formatted such that tests can be executed across different 

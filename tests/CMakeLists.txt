@@ -7,13 +7,12 @@
 # See LICENSE in the top level directory for licensing details
 #
 
-# -- walk each subdirectory and individually enable them
-if(ENABLE_CLI_TESTS)
-  add_subdirectory(cli)
-endif()
+# -- make test options visible to ccmake
+option(ENABLE_CLI_TESTS "Enable CLI testing" OFF)
+option(ENABLE_ALL_TESTS "Enable ALL testing" OFF)
 
-#-- if all tests are enabled, add all the directories
-if(ENABLE_ALL_TESTS)
+# -- walk each subdirectory and individually enable them
+if(ENABLE_CLI_TESTS OR ENABLE_ALL_TESTS)
   add_subdirectory(cli)
 endif()
 
