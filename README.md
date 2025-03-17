@@ -25,6 +25,7 @@ Flags for test selection include:
 ENABLE_ALL_TESTS [OFF]
 ENABLE_CLI_TESTS [OFF]
 ENABLE_RTACTION_TESTS [OFF]
+ENABLE_CORE_CHKPT_TESTS [OFF]
 ```
 
 To run fast test suite use:
