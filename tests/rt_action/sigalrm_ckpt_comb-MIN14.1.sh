@@ -13,6 +13,7 @@ SIG="sigalrm"
 ACTION="sst.rt.checkpoint"
 ACTION2="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat"
 CONFIG="test_Checkpoint.py"
+PREFIX="ckpt_sigalrm"
 
 for sig in $SIG; do
   for action in $ACTION; do
@@ -47,7 +48,7 @@ if [[ -f test.$sig.$action.$action2.out ]]; then
   rm test.$sig.$action.$action2.out
 fi
 
-LAUNCH="sst --$sig='$action(interval=1s);$action2(interval=2s)' $CONFIG"
+LAUNCH="sst --$sig='$action(interval=1s);$action2(interval=2s)' --checkpoint-prefix=$PREFIX $CONFIG"
 echo $LAUNCH
 eval $LAUNCH > test.$sig.$action.$action2.out 2>&1 
 
@@ -86,7 +87,7 @@ done  # for $action2
 done  # for $action
 done  # for $sig
 
-rm -rf checkpoint*
+rm -rf $PREFIX*
 
 echo "PASS"
 exit $retVal

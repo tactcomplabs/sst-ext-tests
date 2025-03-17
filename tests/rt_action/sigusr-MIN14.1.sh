@@ -14,6 +14,7 @@
 SIG="sigusr1 sigusr2"
 ACTION="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat sst.rt.checkpoint"
 CONFIG="test_Checkpoint.py" #test_MessageMesh.py"
+PREFIX="ckpt_sigusr"
 
 for sig in $SIG; do
   for action in $ACTION; do
@@ -44,7 +45,7 @@ if [[ -f test.$sig.$action.out ]]; then
   rm test.$sig.$action.out
 fi
 
-LAUNCH="sst --$sig=$action $CONFIG"
+LAUNCH="sst --$sig=$action --checkpoint-prefix=$PREFIX $CONFIG"
 echo $LAUNCH
 
 $LAUNCH > test.$sig.$action.out 2>&1 &
@@ -80,7 +81,9 @@ echo
 
 # Cleanup output directories
 rm test.$sig.$action.out
-
+if [ $action == "sst.rt.checkpoint" ]; then
+  rm -r $PREFIX*
+fi
 done  # for $action
 done  # for $sig
 
