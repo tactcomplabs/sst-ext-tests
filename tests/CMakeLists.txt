@@ -15,6 +15,10 @@ option(ENABLE_ALL_TESTS "Enable ALL testing" OFF)
 # -- walk each subdirectory and individually enable them
 if(ENABLE_CLI_TESTS OR ENABLE_ALL_TESTS)
   add_subdirectory(cli)
+
+# -- strictly optional tests
+if(ENABLE_CORE_CHKPT_TESTS)
+  add_subdirectory(core-chkpt)
 endif()
 if(ENABLE_RTACTION_TESTS OR ENABLE_ALL_TESTS)
   add_subdirectory(rt_action)
