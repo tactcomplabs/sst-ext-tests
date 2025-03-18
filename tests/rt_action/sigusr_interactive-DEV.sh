@@ -1,6 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_PARAM DEV
 #EXT_TEST TEST_FILE_DESC "Tests sigusr1/2 with interactive console real time action"
+##EXT_TEST TIMEOUT 90
 #
 # 0) Set up pipe
 # 1) launch the program in the background
