@@ -1,9 +1,9 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_PARAM ALL
 #EXT_TEST TEST_FILE_DESC "Tests a 90 second heartbeat using %H:%M:%S syntax"
-#EXT_TEST DEP "memHierarchy.Cache memHierarchy.MemController memHierarchy.simpleMem miranda.GUPSGenerator"
+#EXT_TEST DEP "coreTestElement.coreTestComponent"
 
-# selecting count to run for a few seconds. 
+# selecting count to run for a few seconds.
 # A test component that has ability to specify its runtime in seconds would be more portable
 log=sst_hearbeat_0:1:30.log
 sst --heartbeat-wall-period=0:1:30 cli-sdl.py -- --count=7000000 > $log

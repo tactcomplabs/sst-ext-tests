@@ -1,7 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_PARAM ALL
 #EXT_TEST TEST_FILE_DESC "Basic execution test suitable for all versions of SST"
-#EXT_TEST DEP "memHierarchy.Cache memHierarchy.MemController memHierarchy.simpleMem miranda.GUPSGenerator"
+#EXT_TEST DEP "coreTestElement.coreTestComponent"
 
 sst cli-sdl.py
 

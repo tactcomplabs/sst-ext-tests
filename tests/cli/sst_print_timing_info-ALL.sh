@@ -1,7 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_PARAM ALL
 #EXT_TEST TEST_FILE_DESC "Tests printing the runtime timing info"
-#EXT_TEST DEP "memHierarchy.Cache memHierarchy.MemController memHierarchy.simpleMem miranda.GUPSGenerator"
+#EXT_TEST DEP "coreTestElement.coreTestComponent"
 
 sst --print-timing-info=1 cli-sdl.py
 
