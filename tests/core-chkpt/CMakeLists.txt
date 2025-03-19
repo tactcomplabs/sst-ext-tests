@@ -24,6 +24,12 @@ foreach(testSrc ${TEST_SRCS_TARGET_VER})
                 OUTPUT_STRIP_TRAILING_WHITESPACE
 		ERROR_QUIET
   )
+  execute_process(COMMAND ${EXT_TEST_TIMEOUT_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/${testSrc}
+                OUTPUT_VARIABLE EXT_TEST_TIMEOUT
+                RESULT_VARIABLE EXT_TEST_RTN
+                OUTPUT_STRIP_TRAILING_WHITESPACE
+                ERROR_QUIET
+  )
 
   message(STATUS "Dep Check ${testSrc} = ${EXT_TEST_CHECK}")
 
@@ -34,7 +40,12 @@ foreach(testSrc ${TEST_SRCS_TARGET_VER})
       COMMAND sst --checkpoint-prefix=${testName} --checkpoint-wall-period=1s ./${testSrc})
     set_property(TEST ${testName} PROPERTY LABELS "${SST_VERSION}")
     set_property(TEST ${testName} PROPERTY PASS_REGULAR_EXPRESSION "${passRegex}")
-    set_property(TEST ${testName} PROPERTY TIMEOUT ${timeout})
+    if(NOT ${EXT_TEST_TIMEOUT} EQUAL 0)
+      set_property(TEST ${testName} PROPERTY TIMEOUT ${EXT_TEST_TIMEOUT})
+      message(STATUS "Runtime ${testSrc} = ${EXT_TEST_TIMEOUT}")
+    else()
+      set_property(TEST ${testName} PROPERTY TIMEOUT ${timeout})
+    endif()
   endif()
 endforeach(testSrc)
 
@@ -52,6 +63,12 @@ foreach(testVer ${SST_VER_LIST})
                   OUTPUT_STRIP_TRAILING_WHITESPACE
 		  ERROR_QUIET
     )
+    execute_process(COMMAND ${EXT_TEST_TIMEOUT_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/${testSrc}
+                  OUTPUT_VARIABLE EXT_TEST_TIMEOUT
+                  RESULT_VARIABLE EXT_TEST_RTN
+                  OUTPUT_STRIP_TRAILING_WHITESPACE
+                  ERROR_QUIET
+    )
 
     message(STATUS "Dep Check ${testSrc} = ${EXT_TEST_CHECK}")
 
@@ -62,7 +79,12 @@ foreach(testVer ${SST_VER_LIST})
         COMMAND sst --checkpoint-prefix=${testName} --checkpoint-wall-period=1s ./${testSrc})
       set_property(TEST ${testName} PROPERTY LABELS "${testVer}")
       set_property(TEST ${testName} PROPERTY PASS_REGULAR_EXPRESSION "${passRegex}")
-      set_property(TEST ${testName} PROPERTY TIMEOUT ${timeout})
+      if(NOT ${EXT_TEST_TIMEOUT} EQUAL 0)
+        set_property(TEST ${testName} PROPERTY TIMEOUT ${EXT_TEST_TIMEOUT})
+        message(STATUS "Runtime ${testSrc} = ${EXT_TEST_TIMEOUT}")
+      else()
+        set_property(TEST ${testName} PROPERTY TIMEOUT ${timeout})
+      endif()
     endif()
   endforeach(testSrc)
 endforeach(testVer)
@@ -79,6 +101,12 @@ foreach(testSrc ${TEST_SRCS_ALL})
                 OUTPUT_STRIP_TRAILING_WHITESPACE
 		ERROR_QUIET
   )
+  execute_process(COMMAND ${EXT_TEST_TIMEOUT_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/${testSrc}
+                OUTPUT_VARIABLE EXT_TEST_TIMEOUT
+                RESULT_VARIABLE EXT_TEST_RTN
+                OUTPUT_STRIP_TRAILING_WHITESPACE
+                ERROR_QUIET
+  )
 
   message(STATUS "Dep Check ${testSrc} = ${EXT_TEST_CHECK}")
 
@@ -89,7 +117,12 @@ foreach(testSrc ${TEST_SRCS_ALL})
       COMMAND sst --checkpoint-prefix=${testName} --checkpoint-wall-period=1s ./${testSrc})
     set_property(TEST ${testName} PROPERTY LABELS "ALL")
     set_property(TEST ${testName} PROPERTY PASS_REGULAR_EXPRESSION "${passRegex}")
-    set_property(TEST ${testName} PROPERTY TIMEOUT ${timeout})
+    if(NOT ${EXT_TEST_TIMEOUT} EQUAL 0)
+      set_property(TEST ${testName} PROPERTY TIMEOUT ${EXT_TEST_TIMEOUT})
+      message(STATUS "Runtime ${testSrc} = ${EXT_TEST_TIMEOUT}")
+    else()
+      set_property(TEST ${testName} PROPERTY TIMEOUT ${timeout})
+    endif()
   endif()
 endforeach(testSrc)
 

@@ -70,7 +70,10 @@ All new tests must include, at minimum, two units of metadata in the file header
 These are outlined as follows:
 - `EXT_TEST TEST_FILE_PARAM PARAM` : where `PARAM` is the `VERSION` string from above
 - `EXT_TEST TEST_FILE_DESC "DESC"` : where `DESC` is a description of the test
+
+Optional metadat elements include:
 - `EXT_TEST DEP "COMP1 COMP2"`     : where within the quotes is a list of components
+- `EXT_TEST TIMEOUT XX`            : where XX is the number of seconds for the script to timeout (default is 60)
 
 ## Test Interrogation
 `sst-ext-tests` includes a Python tool that discovers appropriately 
