@@ -1,7 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_PARAM DEV
 #EXT_TEST TEST_FILE_DESC "Tests sigusr1/2 with interactive console real time action"
-##EXT_TEST TIMEOUT 90
+#EXT_TEST TIMEOUT 90
 #
 # 0) Set up pipe
 # 1) launch the program in the background
@@ -45,6 +45,11 @@ sleep 2
 
 # 3) Send signal 
 kill -$sig $PID
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo ERROR with kill -$sig $PID
+  exit $retVal
+fi
 
 # 4) Send run command in interactive console
 #fg $JID
