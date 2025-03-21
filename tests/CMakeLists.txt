@@ -12,6 +12,10 @@ option(ENABLE_CLI_TESTS "Enable CLI testing" OFF)
 option(ENABLE_RTACTION_TESTS "Enable Realtime Action testing" OFF)
 option(ENABLE_ALL_TESTS "Enable ALL testing" OFF)
 
+# -- add the component directory
+add_subdirectory(components)
+
+
 # -- walk each subdirectory and individually enable them
 if(ENABLE_CLI_TESTS OR ENABLE_ALL_TESTS)
   add_subdirectory(cli)
