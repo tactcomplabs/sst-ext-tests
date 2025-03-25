@@ -61,12 +61,12 @@ namespace SST::CaptCrunch{
   void CaptCrunch::serialize_order(SST::Core::Serialization::serializer& ser){
     SST::Component::serialize_order(ser);
     // -- core data structure serialization
-    SST_SER(clockHandler)
-    SST_SER(numStats)
-    SST_SER(numClocks)
+    SST_SER(clockHandler);
+    SST_SER(numStats);
+    SST_SER(numClocks);
 
     // -- statistics serialization
-    SST_SER(VStat)
+    SST_SER(VStat);
 
     // -- serialize everything else
     SST_SER(u8Value);
@@ -90,22 +90,35 @@ namespace SST::CaptCrunch{
 
     SST_SER(strValue);
 
+    //SST_SER(unsignedCharTuple); // TODO: broken
+
     SST_SER(unsignedVect);
     SST_SER(charVect);
+    SST_SER(structVect);
+
     SST_SER(unsignedList);
     SST_SER(charList);
+    SST_SER(structList);
+
     //SST_SER(unsignedArray); // TODO: broken
     //SST_SER(charArray);     // TODO: broken
+    //SST_SER(structArray);   // TODO: broken
+
     SST_SER(unsignedMap);
     SST_SER(charMap);
+    SST_SER(structMap);
+
     SST_SER(unsignedVectVect);
     SST_SER(unsignedListVect);
     //SST_SER(unsignedArrayVect); // TODO: broken
     SST_SER(unsignedMapVect);
+
     SST_SER(unsignedListList);
     SST_SER(unsignedVectList);
     //SST_SER(unsignedArrayList); // TODO: broken
     SST_SER(unsignedMapList);
+
+    SST_SER(unsignedVectVectVect);
   }
 
   void CaptCrunch::initData(){
@@ -144,11 +157,16 @@ namespace SST::CaptCrunch{
 
     strValue = "Crunchatize me, Cap'n!";
 
+    unsignedCharTuple = std::make_tuple(unsignedValue,cValue);
+
     unsignedVect.push_back(unsignedValue);
     unsignedVect.push_back(unsignedValue+1);
 
     charVect.push_back(cValue);
     charVect.push_back(cValue+1);
+
+    structVect.push_back(fTypeStructValue);
+    structVect.push_back(fTypeStructValue);
 
     unsignedList.push_back(unsignedValue);
     unsignedList.push_front(unsignedValue+1);
@@ -156,17 +174,26 @@ namespace SST::CaptCrunch{
     charList.push_back(cValue);
     charList.push_front(cValue+1);
 
+    structList.push_back(fTypeStructValue);
+    structList.push_front(fTypeStructValue);
+
     unsignedArray[0]  = unsignedValue;
     unsignedArray[1]  = unsignedValue+1;
 
     charArray[0]      = cValue;
     charArray[1]      = cValue+1;
 
+    structArray[0]    = fTypeStructValue;
+    structArray[1]    = fTypeStructValue;
+
     unsignedMap[0] = 0x1234;
     unsignedMap[1] = 0x5678;
 
     charMap['A'] = 0xdead;
     charMap['B'] = 0xbeef;
+
+    structMap[0] = fTypeStructValue;
+    structMap[1] = fTypeStructValue;
 
     unsignedVectVect.push_back(unsignedVect);
     unsignedVectVect.push_back(unsignedVect);
@@ -189,6 +216,9 @@ namespace SST::CaptCrunch{
 
     unsignedMapList.push_back(unsignedMap);
     unsignedMapList.push_front(unsignedMap);
+
+    unsignedVectVectVect.push_back(unsignedVectVect);
+    unsignedVectVectVect.push_back(unsignedVectVect);
   }
 
   bool CaptCrunch::clockTick( SST::Cycle_t currentCycle ){

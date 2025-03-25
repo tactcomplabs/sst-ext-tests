@@ -14,6 +14,10 @@
 // -- Standard Headers
 #include <vector>
 #include <queue>
+#include <set>
+#include <array>
+#include <map>
+#include <tuple>
 #include <stdio.h>
 #include <stdlib.h>
 #include <inttypes.h>
@@ -178,17 +182,23 @@ private:
 
   std::string         strValue;
 
+  std::tuple<unsigned,char> unsignedCharTuple;
+
   std::vector<unsigned> unsignedVect;
   std::vector<char>     charVect;
+  std::vector<struct __fundamentalTypeStruct> structVect;
 
   std::list<unsigned>   unsignedList;
   std::list<char>       charList;
+  std::list<struct __fundamentalTypeStruct> structList;
 
   std::array<unsigned,2>unsignedArray;
   std::array<char,2>    charArray;
+  std::array<struct __fundamentalTypeStruct,2> structArray;
 
   std::map<unsigned,unsigned> unsignedMap;
   std::map<char,unsigned>     charMap;
+  std::map<unsigned,struct __fundamentalTypeStruct> structMap;
 
   std::vector<std::vector<unsigned>>        unsignedVectVect;
   std::vector<std::list<unsigned>>          unsignedListVect;
@@ -200,6 +210,8 @@ private:
   std::list<std::array<unsigned,2>>         unsignedArrayList;
   std::list<std::map<unsigned,unsigned>>    unsignedMapList;
 
+  std::vector<std::vector<std::vector<unsigned>>> unsignedVectVectVect;
+
   // ---------------------------------------
   // END SERIALIZED DATA STRUCTURES
   // ---------------------------------------
@@ -207,6 +219,6 @@ private:
 };  // class CaptCrunch
 }   // namespace SST::CaptCrunch
 
-#endif  // _SST_LARGESTATCHKPNT_H_
+#endif  // _SST_CAPTCRUNCH_H_
 
 // EOF
