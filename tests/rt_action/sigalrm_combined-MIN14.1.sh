@@ -1,6 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_PARAM MIN14.1
 #EXT_TEST TEST_FILE_DESC "Tests sigalrm for combinations of two real time actions (checkpoint not included)"
+#EXT_TEST TIMEOUT 75
 # 
 # 0) set pass string 
 # 1) launch the program
@@ -63,14 +64,16 @@ elif [[ $action2 == "sst.rt.checkpoint" ]]; then
 PSTR2="Simulation Checkpoint"
 fi
 
+OUTFILE="test.$sig.$action.$action2.out"
+
 # 1) Launch the program
-if [[ -f test.$sig.$action.$action2.out ]]; then
-  rm test.$sig.$action.$action2.out
+if [[ -f $OUTFILE ]]; then
+  rm $OUTFILE
 fi
 
 LAUNCH="sst --$sig='$action(interval=1s);$action2(interval=2s)' $CONFIG"
 echo $LAUNCH
-eval $LAUNCH > test.$sig.$action.$action2.out 2>&1 
+eval $LAUNCH > $OUTFILE 2>&1 
 
 # 2) wait for completion 
 wait
@@ -83,25 +86,25 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-grep "$PSTR" ./test.$sig.$action.$action2.out > /dev/null
+grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action grep"
   exit $grepVal
 fi
 
-grep "$PSTR2" ./test.$sig.$action.$action2.out > /dev/null
+grep "$PSTR2" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action2 grep"
   exit $grepVal
 fi
 
+# Cleanup output directories
+rm $OUTFILE
+
 echo
 fi    # if $action != $action2
-
-# Cleanup output directories
-rm test.$sig.$action.$action2.out
 
 done  # for $action2
 done  # for $action

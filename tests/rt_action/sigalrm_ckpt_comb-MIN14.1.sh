@@ -13,7 +13,6 @@ SIG="sigalrm"
 ACTION="sst.rt.checkpoint"
 ACTION2="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat"
 CONFIG="test_Checkpoint.py"
-PREFIX="ckpt"
 CLEANUP=1
 
 for sig in $SIG; do
@@ -83,18 +82,15 @@ fi
 
 echo
 
-# Cleanup output directories
+# Cleanup output files and directories
 if [ $CLEANUP -eq 1 ]; then
   rm test.$sig.$action.$action2.out
+  rm -r $PREFIX
 fi
 
 done  # for $action2
 done  # for $action
 done  # for $sig
-
-if [ $CLEANUP -eq 1 ]; then
-  rm -rf $PREFIX*
-fi
 
 echo "PASS"
 exit $retVal

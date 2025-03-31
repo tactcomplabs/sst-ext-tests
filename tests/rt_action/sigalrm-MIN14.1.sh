@@ -12,40 +12,44 @@
 SIG="sigalrm"
 ACTION="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat sst.rt.checkpoint"
 CONFIG=" test_Checkpoint.py" #test_MessageMesh.py"
+CLEANUP=1
 
 for sig in $SIG; do
   for action in $ACTION; do
 
-#0 Get pass criterion
+#0 Get pass criterion, PREFIX, and OUTFILE
 if [[ $action == "sst.rt.exit.clean" ]]; then
-#echo clean
-PSTR="EXIT-AFTER TIME"
+  #echo clean
+  PSTR="EXIT-AFTER TIME"
 elif [[ $action == "sst.rt.exit.emergency" ]]; then
-#echo emergency
-PSTR="EMERGENCY"
+  #echo emergency
+  PSTR="EMERGENCY"
 elif [[ $action == "sst.rt.status.core" ]]; then
-#echo status.core
-PSTR="CurrentSimCycle"
+  #echo status.core
+  PSTR="CurrentSimCycle"
 elif [[ $action == "sst.rt.status.all" ]]; then
-#echo status.all
-PSTR="TimeVortex state"
+  #echo status.all
+  PSTR="TimeVortex state"
 elif [[ $action == "sst.rt.heartbeat" ]]; then
-#echo heartbeat
-PSTR="Heartbeat"
+  #echo heartbeat
+  PSTR="Heartbeat"
 elif [[ $action == "sst.rt.checkpoint" ]]; then
-#echo checkpoint
-PSTR="Simulation Checkpoint"
+  #echo checkpoint
+  PSTR="Simulation Checkpoint"
 fi
+
+PREFIX="ckpt_${sig}_$action"
+OUTFILE="test.$sig.$action.out"
 
 # 1) Launch the program
-if [[ -f test.$sig.$action.out ]]; then
-  rm test.$sig.$action.out
+if [[ -f $OUTFILE ]]; then
+  rm $OUTFILE
 fi
 
-LAUNCH="sst --$sig='$action(interval=1s)' $CONFIG"
+LAUNCH="sst --$sig='$action(interval=1s)' --checkpoint-prefix=$PREFIX $CONFIG"
 echo $LAUNCH
 
-eval $LAUNCH > test.$sig.$action.out 2>&1 
+eval $LAUNCH > $OUTFILE 2>&1 
 
 # 2) wait for completion 
 wait
@@ -58,7 +62,7 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-grep "$PSTR" ./test.$sig.$action.out > /dev/null
+grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action grep"
@@ -67,7 +71,12 @@ fi
 echo
 
 # Cleanup output directories
-rm test.$sig.$action.out
+if [ $CLEANUP -eq 1 ]; then
+  rm $OUTFILE
+  if [[ $action == "sst.rt.checkpoint" ]]; then
+    rm -r $PREFIX
+  fi
+fi
 
 done  # for $action
 done  # for $sig
