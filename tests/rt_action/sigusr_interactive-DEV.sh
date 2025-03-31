@@ -58,11 +58,11 @@ echo run > $pipe
 
 # 5) Wait for completion
 wait
+retVal=$?
 exec 3>&- # close pipe
 echo $sig=$action Complete
 
 # 6) Check results
-retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action return code"
   exit $retVal

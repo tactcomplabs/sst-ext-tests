@@ -61,11 +61,10 @@ kill -$sig $PID
 
 # 4) wait for completion 
 wait
-
+retVal=$?
 echo $sig=$action Complete
 
 # 5) Check result
-retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action return code"
   exit $retVal

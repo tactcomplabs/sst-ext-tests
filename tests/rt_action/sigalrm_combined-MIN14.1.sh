@@ -74,11 +74,10 @@ eval $LAUNCH > test.$sig.$action.$action2.out 2>&1
 
 # 2) wait for completion 
 wait
-
+retVal=$?
 echo $sig=$action $action2 Complete
 
 # 3) Check result
-retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action $action2 return code"
   exit $retVal

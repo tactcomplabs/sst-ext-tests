@@ -13,12 +13,15 @@ SIG="sigalrm"
 ACTION="sst.rt.checkpoint"
 ACTION2="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat"
 CONFIG="test_Checkpoint.py"
-PREFIX="ckpt_sigalrm"
+PREFIX="ckpt"
+CLEANUP=1
 
 for sig in $SIG; do
   for action in $ACTION; do
     for action2 in $ACTION2; do
 
+PREFIX="ckpt_$action2"
+echo $PREFIX
 
 #0 Get pass criterion
 PSTR="Simulation Checkpoint"
@@ -54,11 +57,11 @@ eval $LAUNCH > test.$sig.$action.$action2.out 2>&1
 
 # 2) wait for completion 
 wait
+retVal=$?
 
 echo $sig=$action $action2 Complete
 
 # 3) Check result
-retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action $action2 return code"
   exit $retVal
@@ -81,13 +84,17 @@ fi
 echo
 
 # Cleanup output directories
-rm test.$sig.$action.$action2.out
+if [ $CLEANUP -eq 1 ]; then
+  rm test.$sig.$action.$action2.out
+fi
 
 done  # for $action2
 done  # for $action
 done  # for $sig
 
-rm -rf $PREFIX*
+if [ $CLEANUP -eq 1 ]; then
+  rm -rf $PREFIX*
+fi
 
 echo "PASS"
 exit $retVal
