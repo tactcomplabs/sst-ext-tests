@@ -1,0 +1,38 @@
+Tests in this directory test various types of periodic actions alone or combined
+with checkpoint and checkpoint restart including:
+* siguser1/2=sst.rt.<action>
+* sigalrm=sst.rt.<action> (one or more actions)
+* interactive-console & interactive-start
+* heartbeat-period
+
+
+restart-ckpt-with-* 
+These tests combine checkpoint with various periodic actions above to see if they get carried
+over to the run when the checkpoint is restarted (i.e. --load-checkpoint). Note that the
+heart, interactive, and sigalrm periodic actions should NOT be carried over. Currently,
+* restart-ckpt-with-sigalrm works correctly (does not carry over)
+* restart-ckpt-with-heartbeat Fails: heartbeat does get carried over to restart and triggers error
+* restart-ckpt-with-interactive Fails: triggers an error during checkpoint sst-core issue #1223
+
+
+restart-*
+These tests generate a checkpoint and then restart the simulation with the checkpoint file and the 
+specified periodic action. These currently all Pass.
+* restart-heartbeat: --heartbeat-period
+* restart-interactive: --interactive-console, interactive-start
+* restart-sigalrm: --sigalrm
+
+sigalrm*
+These tests use the --sigalrm flag with different combinations of actions.
+* sigalrm: tests sigalrm with sst.rt.{exit.clean, exit.emergency, status.core, status.all, 
+          status.heartbeat}
+* sigalrm_combined: tests sigalrm with a combination of two actions  
+          e.g. sst.rt.exit.clean and sst.rt.status.core (checkpoint is tested separately)
+* sigalrm_ckpt_comb: tests sigalrm with a combination of sst.rt.checkpoint with other actions
+
+
+sigusr*
+These tests use the --sigusr1 or --sigusr2 flag with different actions.
+* sigusr: Pass: tests sigalrm with sst.rt.{exit.clean, exit.emergency, status.core, status.all,
+          status.heartbeat}
+* sigusr_interactive: Passes with the PR branch: tests sigusr1/2 with interactive console
