@@ -28,9 +28,9 @@ if [ ! -d "$pfx" ]; then
     exit 1
 fi
 cptfiles=(\
- "$pfx/0_10000000/cpt.sstcpt" \
- "$pfx/0_10000000/cpt_0_0.bin" \
- "$pfx/0_10000000/cpt_globals.bin"\
+ "$pfx/1_10000000/cpt.sstcpt" \
+ "$pfx/1_10000000/cpt_0_0.bin" \
+ "$pfx/1_10000000/cpt_globals.bin"\
 )
 for cptfile in "${cptfiles[@]}"; do
     if [ ! -e "$cptfile" ]; then
@@ -52,9 +52,9 @@ if [ ! -d "test2/$pfx" ]; then
     exit 1
 fi
 cptfiles=(\
- "test2/$pfx/0_10000000/${pfx}_cpt.sstcpt" \
- "test2/$pfx/0_10000000/${pfx}_cpt_0_0.bin" \
- "test2/$pfx/0_10000000/${pfx}_cpt_globals.bin"\
+ "test2/$pfx/1_10000000/${pfx}_cpt.sstcpt" \
+ "test2/$pfx/1_10000000/${pfx}_cpt_0_0.bin" \
+ "test2/$pfx/1_10000000/${pfx}_cpt_globals.bin"\
 )
 for cptfile in "${cptfiles[@]}"; do
     if [ ! -e "$cptfile" ]; then

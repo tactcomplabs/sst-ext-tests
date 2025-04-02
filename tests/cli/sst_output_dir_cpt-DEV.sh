@@ -17,9 +17,9 @@ check_odir() {
         exit 1
     fi
     cptfiles=(\
-     "$odir/checkpoint/checkpoint_0_10000000/checkpoint_0_10000000.sstcpt" \
-     "$odir/checkpoint/checkpoint_0_10000000/checkpoint_0_10000000_0_0.bin" \
-     "$odir/checkpoint/checkpoint_0_10000000/checkpoint_0_10000000_globals.bin"\
+     "$odir/checkpoint/checkpoint_1_10000000/checkpoint_1_10000000.sstcpt" \
+     "$odir/checkpoint/checkpoint_1_10000000/checkpoint_1_10000000_0_0.bin" \
+     "$odir/checkpoint/checkpoint_1_10000000/checkpoint_1_10000000_globals.bin"\
     )
     for cptfile in "${cptfiles[@]}"; do
         if [ ! -e "$cptfile" ]; then
