@@ -30,16 +30,18 @@ fi
 sst --load-checkpoint --checkpoint-period=10ns --checkpoint-prefix=$TEST_NAME-POST --add-lib-path=${CMAKE_BINARY_DIR}/tests/components/CaptCrunch/ ./$TEST_NAME-PRE/$TEST_NAME-PRE_9_100000/$TEST_NAME-PRE_9_100000.sstcpt
 
 retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR"
-  exit $retVal
-fi
 
-
-
-echo "PASS"
 rm -Rf ./$TEST_NAME-PRE
 rm -Rf ./$TEST_NAME-POST
 rm $TEST_NAME.py
 rm $TEST_NAME.csv
+
+if [ $retVal -ne 0 ]; then
+  echo "ERROR"
+  exit $retVal
+else
+  echo "PASS"
+  exit 0
+fi
+
 exit 0
