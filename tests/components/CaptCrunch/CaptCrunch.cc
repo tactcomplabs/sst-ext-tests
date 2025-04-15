@@ -96,6 +96,26 @@ namespace SST::CaptCrunch{
     SST_SER(charVect);
     SST_SER(structVect);
 
+    SST_SER(unsignedStack);
+    SST_SER(charStack);
+    SST_SER(structStack);
+
+    SST_SER(unsignedQueue);
+    SST_SER(charQueue);
+    SST_SER(structQueue);
+
+    SST_SER(unsignedPQueue);
+    SST_SER(charPQueue);
+    SST_SER(structPQueue);
+
+    SST_SER(unsignedDQ);
+    SST_SER(charDQ);
+    SST_SER(structDQ);
+
+    SST_SER(unsignedFL);
+    SST_SER(charFL);
+    SST_SER(structFL);
+
     SST_SER(unsignedList);
     SST_SER(charList);
     SST_SER(structList);
@@ -104,9 +124,37 @@ namespace SST::CaptCrunch{
     //SST_SER(charArray);     // TODO: broken
     //SST_SER(structArray);   // TODO: broken
 
+    SST_SER(unsignedSet);
+    SST_SER(charSet);
+    //SST_SER(structSet);     // TODO: broken
+
     SST_SER(unsignedMap);
     SST_SER(charMap);
     SST_SER(structMap);
+
+    SST_SER(unsignedMSet);
+    SST_SER(charMSet);
+    //SST_SER(structMSet);    // TODO: broken
+
+    SST_SER(unsignedMMap);
+    SST_SER(charMMap);
+    SST_SER(structMMap);
+
+    SST_SER(unsignedUnSet);
+    SST_SER(charUnSet);
+    //SST_SER(structUnSet);   // TODO: broken
+
+    SST_SER(unsignedUnMap);
+    SST_SER(charUnMap);
+    SST_SER(structUnMap);
+
+    SST_SER(unsignedUnMSet);
+    SST_SER(charUnMSet);
+    //SST_SER(structUnMSet);  // TODO: broken
+
+    SST_SER(unsignedUnMMap);
+    SST_SER(charUnMMap);
+    SST_SER(structUnMMap);
 
     SST_SER(unsignedVectVect);
     SST_SER(unsignedListVect);
@@ -168,6 +216,51 @@ namespace SST::CaptCrunch{
     structVect.push_back(fTypeStructValue);
     structVect.push_back(fTypeStructValue);
 
+    unsignedStack.push(unsignedValue);
+    unsignedStack.push(unsignedValue+1);
+
+    charStack.push(cValue);
+    charStack.push(cValue+1);
+
+    structStack.push(fTypeStructValue);
+    structStack.push(fTypeStructValue);
+
+    unsignedQueue.push(unsignedValue);
+    unsignedQueue.push(unsignedValue+1);
+
+    charQueue.push(cValue);
+    charQueue.push(cValue+1);
+
+    structQueue.push(fTypeStructValue);
+    structQueue.push(fTypeStructValue);
+
+    unsignedPQueue.push(unsignedValue);
+    unsignedPQueue.push(unsignedValue+1);
+
+    charPQueue.push(cValue);
+    charPQueue.push(cValue+1);
+
+    structQueue.push(fTypeStructValue);
+    structQueue.push(fTypeStructValue);
+
+    unsignedDQ.push_front(unsignedValue);
+    unsignedDQ.push_front(unsignedValue+1);
+
+    charDQ.push_front(cValue);
+    charDQ.push_front(cValue+1);
+
+    structDQ.push_front(fTypeStructValue);
+    structDQ.push_front(fTypeStructValue);
+
+    unsignedFL.push_front(unsignedValue);
+    unsignedFL.push_front(unsignedValue+1);
+
+    charFL.push_front(cValue);
+    charFL.push_front(cValue+1);
+
+    structFL.push_front(fTypeStructValue);
+    structFL.push_front(fTypeStructValue);
+
     unsignedList.push_back(unsignedValue);
     unsignedList.push_front(unsignedValue+1);
 
@@ -194,6 +287,69 @@ namespace SST::CaptCrunch{
 
     structMap[0] = fTypeStructValue;
     structMap[1] = fTypeStructValue;
+
+    unsignedSet.insert(unsignedValue);
+    unsignedSet.insert(unsignedValue+1);
+
+    charSet.insert(cValue);
+    charSet.insert(cValue+1);
+
+    //structSet.insert(fTypeStructValue);
+    //structSet.insert(fTypeStructValue);
+
+    unsignedMSet.insert(unsignedValue);
+    unsignedMSet.insert(unsignedValue+1);
+
+    charMSet.insert(cValue);
+    charMSet.insert(cValue+1);
+
+    //structMSet.insert(fTypeStructValue);
+    //structMSet.insert(fTypeStructValue);
+
+    unsignedMMap.insert({unsignedValue,unsignedValue+1});
+    unsignedMMap.insert({unsignedValue+2,unsignedValue+3});
+
+    charMMap.insert({cValue,unsignedValue});
+    charMMap.insert({cValue+1,unsignedValue+1});
+
+    structMMap.insert({unsignedValue,fTypeStructValue});
+    structMMap.insert({unsignedValue+1,fTypeStructValue});
+
+    unsignedUnSet.insert(unsignedValue);
+    unsignedUnSet.insert(unsignedValue+1);
+
+    charUnSet.insert(cValue);
+    charUnSet.insert(cValue+1);
+
+    //structUnSet.insert(fTypeStructValue);
+    //structUnSet.insert(fTypeStructValue);
+
+    unsignedUnMap.insert({unsignedValue,unsignedValue+1});
+    unsignedUnMap.insert({unsignedValue+2,unsignedValue+3});
+
+    charUnMap.insert({cValue,unsignedValue});
+    charUnMap.insert({cValue+1,unsignedValue+1});
+
+    structUnMap.insert({unsignedValue,fTypeStructValue});
+    structUnMap.insert({unsignedValue+1,fTypeStructValue});
+
+    unsignedUnMSet.insert(unsignedValue);
+    unsignedUnMSet.insert(unsignedValue+1);
+
+    charUnMSet.insert(cValue);
+    charUnMSet.insert(cValue+1);
+
+    //structUnMSet.insert(fTypeStructValue);
+    //structUnMSet.insert(fTypeStructValue);
+
+    unsignedUnMMap.insert({unsignedValue,unsignedValue+1});
+    unsignedUnMMap.insert({unsignedValue+2,unsignedValue+3});
+
+    charUnMMap.insert({cValue,unsignedValue});
+    charUnMMap.insert({cValue+1,unsignedValue+1});
+
+    structUnMMap.insert({unsignedValue,fTypeStructValue});
+    structUnMMap.insert({unsignedValue+1,fTypeStructValue});
 
     unsignedVectVect.push_back(unsignedVect);
     unsignedVectVect.push_back(unsignedVect);

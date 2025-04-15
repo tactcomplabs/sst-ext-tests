@@ -188,6 +188,26 @@ private:
   std::vector<char>     charVect;
   std::vector<struct __fundamentalTypeStruct> structVect;
 
+  std::stack<unsigned> unsignedStack;
+  std::stack<char>     charStack;
+  std::stack<struct __fundamentalTypeStruct> structStack;
+
+  std::queue<unsigned> unsignedQueue;
+  std::queue<char>     charQueue;
+  std::queue<struct __fundamentalTypeStruct> structQueue;
+
+  std::priority_queue<unsigned> unsignedPQueue;
+  std::priority_queue<char>     charPQueue;
+  std::priority_queue<struct __fundamentalTypeStruct> structPQueue;
+
+  std::deque<unsigned> unsignedDQ;
+  std::deque<char>     charDQ;
+  std::deque<struct __fundamentalTypeStruct> structDQ;
+
+  std::forward_list<unsigned> unsignedFL;
+  std::forward_list<char>     charFL;
+  std::forward_list<struct __fundamentalTypeStruct> structFL;
+
   std::list<unsigned>   unsignedList;
   std::list<char>       charList;
   std::list<struct __fundamentalTypeStruct> structList;
@@ -196,9 +216,37 @@ private:
   std::array<char,2>    charArray;
   std::array<struct __fundamentalTypeStruct,2> structArray;
 
+  std::set<unsigned> unsignedSet;
+  std::set<char>     charSet;
+  //std::set<struct __fundamentalTypeStruct> structSet;
+
   std::map<unsigned,unsigned> unsignedMap;
   std::map<char,unsigned>     charMap;
   std::map<unsigned,struct __fundamentalTypeStruct> structMap;
+
+  std::multiset<unsigned> unsignedMSet;
+  std::multiset<char>     charMSet;
+  //std::multiset<struct __fundamentalTypeStruct> structMSet;
+
+  std::multimap<unsigned,unsigned> unsignedMMap;
+  std::multimap<char,unsigned>     charMMap;
+  std::multimap<unsigned,struct __fundamentalTypeStruct> structMMap;
+
+  std::unordered_set<unsigned> unsignedUnSet;
+  std::unordered_set<char>     charUnSet;
+  //std::unordered_set<struct __fundamentalTypeStruct> structUnSet;
+
+  std::unordered_map<unsigned,unsigned> unsignedUnMap;
+  std::unordered_map<char,unsigned>     charUnMap;
+  std::unordered_map<unsigned,struct __fundamentalTypeStruct> structUnMap;
+
+  std::unordered_multiset<unsigned> unsignedUnMSet;
+  std::unordered_multiset<char>     charUnMSet;
+  //std::unordered_multiset<struct __fundamentalTypeStruct> structUnMSet;
+
+  std::unordered_multimap<unsigned,unsigned> unsignedUnMMap;
+  std::unordered_multimap<char,unsigned>     charUnMMap;
+  std::unordered_multimap<unsigned,struct __fundamentalTypeStruct> structUnMMap;
 
   std::vector<std::vector<unsigned>>        unsignedVectVect;
   std::vector<std::list<unsigned>>          unsignedListVect;
