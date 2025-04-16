@@ -176,10 +176,37 @@ private:
       return u64Value != rhs.u64Value;
     }
 
-    size_t operator()(const __fundamentalTypeStruct& r) const {
-        //return std::hash<unsigned long>()(r.uLongValue);
-      return std::hash<std::string>()(std::to_string(r.uLongValue));
-    }
+    struct Hash {
+      size_t operator()(const __fundamentalTypeStruct& s) const {
+        // Use a simple hash combining technique
+        size_t seed = 0;
+
+        // Helper function to combine hash values
+        auto hash_combine = [&seed](size_t hash) {
+          hash += 0x9e3779b9 + (seed << 6) + (seed >> 2);
+          seed ^= hash;
+        };
+
+        // Combine the hashes of all members
+        hash_combine(std::hash<uint8_t>()(s.u8Value));
+        hash_combine(std::hash<uint16_t>()(s.u16Value));
+        hash_combine(std::hash<uint32_t>()(s.u32Value));
+        hash_combine(std::hash<uint64_t>()(s.u64Value));
+        hash_combine(std::hash<int8_t>()(s.s8Value));
+        hash_combine(std::hash<int16_t>()(s.s16Value));
+        hash_combine(std::hash<int32_t>()(s.s32Value));
+        hash_combine(std::hash<int64_t>()(s.s64Value));
+        hash_combine(std::hash<char>()(s.cValue));
+        hash_combine(std::hash<unsigned>()(s.unsignedValue));
+        hash_combine(std::hash<int>()(s.signedValue));
+        hash_combine(std::hash<unsigned long>()(s.uLongValue));
+        hash_combine(std::hash<unsigned long long>()(s.uLongLongValue));
+        hash_combine(std::hash<long>()(s.sLongValue));
+        hash_combine(std::hash<long long>()(s.sLongLongValue));
+
+        return seed;
+      }
+    };
 
     void serialize_order(SST::Core::Serialization::serializer& ser){
       SST_SER(u8Value);
@@ -256,7 +283,7 @@ private:
 
   std::unordered_set<unsigned> unsignedUnSet;
   std::unordered_set<char>     charUnSet;
-  //std::unordered_set<struct __fundamentalTypeStruct> structUnSet;
+  std::unordered_set<struct __fundamentalTypeStruct, __fundamentalTypeStruct::Hash> structUnSet;
 
   std::unordered_map<unsigned,unsigned> unsignedUnMap;
   std::unordered_map<char,unsigned>     charUnMap;
@@ -264,7 +291,7 @@ private:
 
   std::unordered_multiset<unsigned> unsignedUnMSet;
   std::unordered_multiset<char>     charUnMSet;
-  //std::unordered_multiset<struct __fundamentalTypeStruct> structUnMSet;
+  std::unordered_multiset<struct __fundamentalTypeStruct, __fundamentalTypeStruct::Hash> structUnMSet;
 
   std::unordered_multimap<unsigned,unsigned> unsignedUnMMap;
   std::unordered_multimap<char,unsigned>     charUnMMap;

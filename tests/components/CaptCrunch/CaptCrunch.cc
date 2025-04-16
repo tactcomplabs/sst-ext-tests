@@ -142,7 +142,7 @@ namespace SST::CaptCrunch{
 
     SST_SER(unsignedUnSet);
     SST_SER(charUnSet);
-    //SST_SER(structUnSet);   // TODO: broken
+    SST_SER(structUnSet);
 
     SST_SER(unsignedUnMap);
     SST_SER(charUnMap);
@@ -150,7 +150,7 @@ namespace SST::CaptCrunch{
 
     SST_SER(unsignedUnMSet);
     SST_SER(charUnMSet);
-    //SST_SER(structUnMSet);  // TODO: broken
+    SST_SER(structUnMSet);
 
     SST_SER(unsignedUnMMap);
     SST_SER(charUnMMap);
