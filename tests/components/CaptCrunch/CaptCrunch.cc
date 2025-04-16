@@ -90,7 +90,7 @@ namespace SST::CaptCrunch{
 
     SST_SER(strValue);
 
-    //SST_SER(unsignedCharTuple); // TODO: broken
+    SST_SER(unsignedCharTuple);
 
     SST_SER(unsignedVect);
     SST_SER(charVect);
@@ -126,7 +126,7 @@ namespace SST::CaptCrunch{
 
     SST_SER(unsignedSet);
     SST_SER(charSet);
-    //SST_SER(structSet);     // TODO: broken
+    SST_SER(structSet);
 
     SST_SER(unsignedMap);
     SST_SER(charMap);
@@ -134,7 +134,7 @@ namespace SST::CaptCrunch{
 
     SST_SER(unsignedMSet);
     SST_SER(charMSet);
-    //SST_SER(structMSet);    // TODO: broken
+    SST_SER(structMSet);
 
     SST_SER(unsignedMMap);
     SST_SER(charMMap);

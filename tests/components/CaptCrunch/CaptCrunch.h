@@ -160,6 +160,27 @@ private:
     signed long         sLongValue;
     signed long long    sLongLongValue;
 
+    bool operator<(const __fundamentalTypeStruct& rhs) const {
+      return u64Value < rhs.u64Value;
+    }
+
+    bool operator>(const __fundamentalTypeStruct& rhs) const {
+      return u64Value > rhs.u64Value;
+    }
+
+    bool operator==(const __fundamentalTypeStruct& rhs) const {
+      return u64Value == rhs.u64Value;
+    }
+
+    bool operator!=(const __fundamentalTypeStruct& rhs) const {
+      return u64Value != rhs.u64Value;
+    }
+
+    size_t operator()(const __fundamentalTypeStruct& r) const {
+        //return std::hash<unsigned long>()(r.uLongValue);
+      return std::hash<std::string>()(std::to_string(r.uLongValue));
+    }
+
     void serialize_order(SST::Core::Serialization::serializer& ser){
       SST_SER(u8Value);
       SST_SER(u16Value);
@@ -178,6 +199,7 @@ private:
       SST_SER(sLongLongValue);
     }
   };
+
   struct __fundamentalTypeStruct fTypeStructValue;
 
   std::string         strValue;
@@ -218,7 +240,7 @@ private:
 
   std::set<unsigned> unsignedSet;
   std::set<char>     charSet;
-  //std::set<struct __fundamentalTypeStruct> structSet;
+  std::set<struct __fundamentalTypeStruct> structSet;
 
   std::map<unsigned,unsigned> unsignedMap;
   std::map<char,unsigned>     charMap;
@@ -226,7 +248,7 @@ private:
 
   std::multiset<unsigned> unsignedMSet;
   std::multiset<char>     charMSet;
-  //std::multiset<struct __fundamentalTypeStruct> structMSet;
+  std::multiset<struct __fundamentalTypeStruct> structMSet;
 
   std::multimap<unsigned,unsigned> unsignedMMap;
   std::multimap<char,unsigned>     charMMap;
