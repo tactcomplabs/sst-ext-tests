@@ -13,7 +13,7 @@
 ACTION="heartbeat"
 CONFIG=" test_Checkpoint.py" #test_MessageMesh.py"
 PREFIX="ckpt4restart_heartbeat"
-CKPTDIR="ckpt4restart_heartbeat/ckpt4restart_heartbeat_0_1000000000000/ckpt4restart_heartbeat_0_1000000000000.sstcpt"
+CKPTDIR="ckpt4restart_heartbeat/ckpt4restart_heartbeat_1_1000000000000/ckpt4restart_heartbeat_1_1000000000000.sstcpt"
 CLEANUP=1
 
 

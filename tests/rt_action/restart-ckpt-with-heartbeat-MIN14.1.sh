@@ -12,7 +12,7 @@
 # Settings
 CONFIG="test_Checkpoint.py"
 PREFIX="ckpt_restart_heartbeat"
-CKPT_DIR="ckpt_restart_heartbeat/ckpt_restart_heartbeat_0_1000000000000/ckpt_restart_heartbeat_0_1000000000000.sstcpt"
+CKPT_DIR="ckpt_restart_heartbeat/ckpt_restart_heartbeat_1_1000000000000/ckpt_restart_heartbeat_1_1000000000000.sstcpt"
 CLEANUP=1
 
 

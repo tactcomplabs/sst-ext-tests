@@ -12,7 +12,7 @@
 # Settings
 CONFIG="test_Checkpoint.py"
 PREFIX="ckpt_restart_interactive"
-CKPT_DIR="ckpt_restart_interactive/ckpt_restart_interactive_0_1000000000000/ckpt_restart_interactive_0_1000000000000.sstcpt"
+CKPT_DIR="ckpt_restart_interactive/ckpt_restart_interactive_1_1000000000000/ckpt_restart_interactive_1_1000000000000.sstcpt"
 CLEANUP=1
 
 #0 Get pass criterion 

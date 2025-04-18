@@ -32,7 +32,7 @@ elif [[ $action2 == "sst.rt.heartbeat" ]]; then
 fi
 
 PREFIX="ckpt_sigalrm_$action2"
-CKPTDIR="ckpt_sigalrm_$action2/ckpt_sigalrm_${action2}_0_1000000000000/ckpt_sigalrm_${action2}_0_1000000000000.sstcpt"
+CKPTDIR="ckpt_sigalrm_$action2/ckpt_sigalrm_${action2}_1_1000000000000/ckpt_sigalrm_${action2}_1_1000000000000.sstcpt"
 
 
 # 1) Launch sst with sigalrm actions to generate the checkpoint file

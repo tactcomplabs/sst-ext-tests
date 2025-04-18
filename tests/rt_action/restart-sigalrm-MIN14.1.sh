@@ -14,7 +14,7 @@ SIG="sigalrm"
 ACTION="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat sst.rt.checkpoint"
 CONFIG=" test_Checkpoint.py" #test_MessageMesh.py"
 PREFIX="ckpt4restart_sigalrm"
-CKPTDIR="ckpt4restart_sigalrm/ckpt4restart_sigalrm_0_1000000000000/ckpt4restart_sigalrm_0_1000000000000.sstcpt"
+CKPTDIR="ckpt4restart_sigalrm/ckpt4restart_sigalrm_1_1000000000000/ckpt4restart_sigalrm_1_1000000000000.sstcpt"
 CLEANUP=1
 
 

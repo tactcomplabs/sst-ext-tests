@@ -66,6 +66,7 @@ echo $sig=$action Complete
 # 6) Check results
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action return code"
+  rm $pipe
   exit $retVal
 fi
 
@@ -73,12 +74,14 @@ grep "Interactive Console real time action" ./test.$sig.$action.out;
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action grep"
+  rm $pipe
   exit $grepVal
 fi
 echo
 
 # Cleanup output directories
 rm test.$sig.$action.out
+rm $pipe
 
 done  # for $action
 done  # for $sigusr
