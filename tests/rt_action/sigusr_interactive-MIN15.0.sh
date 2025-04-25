@@ -81,10 +81,14 @@ echo
 
 # Cleanup output directories
 rm test.$sig.$action.out
-rm $pipe
+#rm $pipe
 
 done  # for $action
 done  # for $sigusr
+
+
+rm $pipe
+
 
 echo "PASS"
 exit $retVal
