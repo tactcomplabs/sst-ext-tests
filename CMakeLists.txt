@@ -81,6 +81,12 @@ message(STATUS "SST MINOR VERSION=${SST_MINOR_VERSION}")
 string(CONCAT SST_VERSION  ${SST_MAJOR_VERSION} "." ${SST_MINOR_VERSION})
 message(STATUS "SST FULL VERSION=${SST_VERSION}")
 
+#-- MPI Options
+find_package(MPI)
+if(MPIEXEC_EXECUTABLE)
+  message(STATUS "MPI RUN COMMAND=${MPIEXEC_EXECUTABLE}")
+endif()
+
 #-- Compiler Options
 # Compiler Options
 if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")

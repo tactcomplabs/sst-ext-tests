@@ -1,5 +1,5 @@
 #
-# sst-ext-tests/tests/core-chkpt CMake
+# sst-ext-tests/tests/mpi CMake
 #
 # Copyright (C) 2017-2025 Tactical Computing Laboratories, LLC
 # All Rights Reserved
@@ -37,7 +37,7 @@ foreach(testSrc ${TEST_SRCS_TARGET_VER})
   if( "${EXT_TEST_CHECK}" STREQUAL "RUN" )
     add_test(NAME ${testName}
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-      COMMAND sst --checkpoint-prefix=${testName} --checkpoint-wall-period=1s ./${testSrc})
+      COMMAND ${MPIEXEC_EXECUTABLE} sst ./${testSrc})
     set_property(TEST ${testName} PROPERTY LABELS "${SST_VERSION}")
     set_property(TEST ${testName} PROPERTY PASS_REGULAR_EXPRESSION "${passRegex}")
     if(NOT ${EXT_TEST_TIMEOUT} EQUAL 0)
@@ -76,7 +76,7 @@ foreach(testVer ${SST_VER_LIST})
     if( "${EXT_TEST_CHECK}" STREQUAL "RUN" )
       add_test(NAME ${testName}
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        COMMAND sst --checkpoint-prefix=${testName} --checkpoint-wall-period=1s ./${testSrc})
+        COMMAND ${MPIEXEC_EXECUTABLE} sst ./${testSrc})
       set_property(TEST ${testName} PROPERTY LABELS "${testVer}")
       set_property(TEST ${testName} PROPERTY PASS_REGULAR_EXPRESSION "${passRegex}")
       if(NOT ${EXT_TEST_TIMEOUT} EQUAL 0)
@@ -114,7 +114,7 @@ foreach(testSrc ${TEST_SRCS_ALL})
   if( "${EXT_TEST_CHECK}" STREQUAL "RUN" )
     add_test(NAME ${testName}
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-      COMMAND sst --checkpoint-prefix=${testName} --checkpoint-wall-period=1s ./${testSrc})
+      COMMAND ${MPIEXEC_EXECUTABLE} sst ./${testSrc})
     set_property(TEST ${testName} PROPERTY LABELS "ALL")
     set_property(TEST ${testName} PROPERTY PASS_REGULAR_EXPRESSION "${passRegex}")
     if(NOT ${EXT_TEST_TIMEOUT} EQUAL 0)
