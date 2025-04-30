@@ -1,6 +1,7 @@
 #EXT_TEST TEST_FILE_PARAM DEV
 #EXT_TEST TEST_FILE_DESC "Sample test input file"
 #EXT_TEST DEP "coreTestElement.coreTestComponent"
+#EXT_TEST MPIARGS -v -n 2
 import sst
 
 # Define SST core options

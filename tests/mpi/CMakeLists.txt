@@ -30,6 +30,13 @@ foreach(testSrc ${TEST_SRCS_TARGET_VER})
                 OUTPUT_STRIP_TRAILING_WHITESPACE
                 ERROR_QUIET
   )
+  execute_process(COMMAND ${EXT_TEST_MPIARGS_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/${testSrc}
+                OUTPUT_VARIABLE EXT_TEST_MPIARGS
+                RESULT_VARIABLE EXT_TEST_RTN
+                OUTPUT_STRIP_TRAILING_WHITESPACE
+                ERROR_QUIET
+  )
+  string(REPLACE " " ";" MPI_ARG_LIST "${EXT_TEST_MPIARGS}")
 
   message(STATUS "Dep Check ${testSrc} = ${EXT_TEST_CHECK}")
 
@@ -37,7 +44,7 @@ foreach(testSrc ${TEST_SRCS_TARGET_VER})
   if( "${EXT_TEST_CHECK}" STREQUAL "RUN" )
     add_test(NAME ${testName}
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-      COMMAND ${MPIEXEC_EXECUTABLE} sst ./${testSrc})
+      COMMAND ${MPIEXEC_EXECUTABLE} ${MPI_ARG_LIST} sst ./${testSrc})
     set_property(TEST ${testName} PROPERTY LABELS "${SST_VERSION}")
     set_property(TEST ${testName} PROPERTY PASS_REGULAR_EXPRESSION "${passRegex}")
     if(NOT ${EXT_TEST_TIMEOUT} EQUAL 0)
@@ -69,6 +76,13 @@ foreach(testVer ${SST_VER_LIST})
                   OUTPUT_STRIP_TRAILING_WHITESPACE
                   ERROR_QUIET
     )
+    execute_process(COMMAND ${EXT_TEST_MPIARGS_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/${testSrc}
+                  OUTPUT_VARIABLE EXT_TEST_MPIARGS
+                  RESULT_VARIABLE EXT_TEST_RTN
+                  OUTPUT_STRIP_TRAILING_WHITESPACE
+                  ERROR_QUIET
+    )
+    string(REPLACE " " ";" MPI_ARG_LIST "${EXT_TEST_MPIARGS}")
 
     message(STATUS "Dep Check ${testSrc} = ${EXT_TEST_CHECK}")
 
@@ -76,7 +90,7 @@ foreach(testVer ${SST_VER_LIST})
     if( "${EXT_TEST_CHECK}" STREQUAL "RUN" )
       add_test(NAME ${testName}
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        COMMAND ${MPIEXEC_EXECUTABLE} sst ./${testSrc})
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPI_ARG_LIST} sst ./${testSrc})
       set_property(TEST ${testName} PROPERTY LABELS "${testVer}")
       set_property(TEST ${testName} PROPERTY PASS_REGULAR_EXPRESSION "${passRegex}")
       if(NOT ${EXT_TEST_TIMEOUT} EQUAL 0)
@@ -107,6 +121,13 @@ foreach(testSrc ${TEST_SRCS_ALL})
                 OUTPUT_STRIP_TRAILING_WHITESPACE
                 ERROR_QUIET
   )
+  execute_process(COMMAND ${EXT_TEST_MPIARGS_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/${testSrc}
+                OUTPUT_VARIABLE EXT_TEST_MPIARGS
+                RESULT_VARIABLE EXT_TEST_RTN
+                OUTPUT_STRIP_TRAILING_WHITESPACE
+                ERROR_QUIET
+  )
+  string(REPLACE " " ";" MPI_ARG_LIST "${EXT_TEST_MPIARGS}")
 
   message(STATUS "Dep Check ${testSrc} = ${EXT_TEST_CHECK}")
 
@@ -114,7 +135,7 @@ foreach(testSrc ${TEST_SRCS_ALL})
   if( "${EXT_TEST_CHECK}" STREQUAL "RUN" )
     add_test(NAME ${testName}
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-      COMMAND ${MPIEXEC_EXECUTABLE} sst ./${testSrc})
+      COMMAND ${MPIEXEC_EXECUTABLE} ${MPI_ARG_LIST} sst ./${testSrc})
     set_property(TEST ${testName} PROPERTY LABELS "ALL")
     set_property(TEST ${testName} PROPERTY PASS_REGULAR_EXPRESSION "${passRegex}")
     if(NOT ${EXT_TEST_TIMEOUT} EQUAL 0)
