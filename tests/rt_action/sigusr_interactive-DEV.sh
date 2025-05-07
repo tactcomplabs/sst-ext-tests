@@ -44,7 +44,8 @@ PID=${JOBS[1]}
 sleep 2
 
 # 3) Send signal 
-kill -$sig $PID
+kill -s $sig $PID
+
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo ERROR with kill -$sig $PID
