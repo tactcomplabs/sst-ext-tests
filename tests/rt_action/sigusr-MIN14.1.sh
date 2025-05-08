@@ -5,7 +5,7 @@
 # 0) set pass string 
 # 1) launch the program in the background
 # 2) 'jobs -l' to get the PID
-# 3) 'kill -SIGUSR<N> <PID>' to send the signal
+# 3) 'kill -s SIGUSR<N> <PID>' to send the signal
 # 4) wait for completion
 # 5) check result
 
@@ -41,9 +41,9 @@ PSTR="Simulation Checkpoint"
 fi
 
 # 1) Launch the program in the background, running long enough to send signal
-if [[ -f test.$sig.$action.out ]]; then
-  rm test.$sig.$action.out
-fi
+#if [[ -f test.$sig.$action.out ]]; then
+#  rm test.$sig.$action.out
+#fi
 
 LAUNCH="sst --$sig=$action --checkpoint-prefix=$PREFIX $CONFIG"
 echo $LAUNCH
@@ -57,7 +57,7 @@ PID=${JOBS[1]}
 sleep 2
 
 # 3) Send signal 
-kill -$sig $PID
+kill -s $sig $PID
 
 # 4) wait for completion 
 wait
@@ -79,7 +79,7 @@ fi
 echo
 
 # Cleanup output directories
-rm test.$sig.$action.out
+#rm test.$sig.$action.out
 if [ $action == "sst.rt.checkpoint" ]; then
   rm -r $PREFIX*
 fi
