@@ -26,6 +26,7 @@ ENABLE_ALL_TESTS [OFF]
 ENABLE_CLI_TESTS [OFF]
 ENABLE_RTACTION_TESTS [OFF]
 ENABLE_CORE_CHKPT_TESTS [OFF]
+ENABLE_COMPONENT_TESTS [OFF]
 ```
 
 To run fast test suite use:
@@ -119,6 +120,7 @@ See the [LICENSE](./LICENSE) file
 ## Authors
 * *John Leidel* - [Tactical Computing Labs](http://www.tactcomplabs.com)
 * *Ken Griesser* - [Tactical Computing Labs](http://www.tactcomplabs.com)
+* *Shannon Kuntz* - [Tactical Computing Labs](http://www.tactcomplabs.com)
 * *Chris Taylor* - [Tactical Computing Labs](http://www.tactcomplabs.com)
 
 ## Acknowledgements
