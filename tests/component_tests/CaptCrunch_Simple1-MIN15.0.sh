@@ -1,8 +1,8 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM MIN14.1
+#EXT_TEST TEST_FILE_PARAM MIN15.0
 #EXT_TEST TEST_FILE_DESC "Tests CaptCrunch simple data integrity"
 
-TEST_NAME=CaptCrunch_Simple1-MIN14.1
+TEST_NAME=CaptCrunch_Simple1-MIN15.0
 
 cat > $TEST_NAME.py << EOL
 import sst
