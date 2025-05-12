@@ -12,6 +12,29 @@ SST External Test Suite
 
 ## Executing SST-EXT-TESTS
 
+To build and run all tests use:
+
+```
+mkdir build && cd build
+cmake -DENABLE_ALL_TESTS=ON ..
+make test
+```
+
+Flags for test selection include:
+```
+ENABLE_ALL_TESTS [OFF]
+ENABLE_CLI_TESTS [OFF]
+ENABLE_RTACTION_TESTS [OFF]
+ENABLE_CORE_CHKPT_TESTS [OFF]
+ENABLE_COMPONENT_TESTS [OFF]
+```
+
+To run fast test suite use:
+```
+ctest -LE LONG
+```
+
+
 ## Test Format
 
 *SST-EXT-TESTS* are formatted such that tests can be executed across different 
@@ -48,7 +71,10 @@ All new tests must include, at minimum, two units of metadata in the file header
 These are outlined as follows:
 - `EXT_TEST TEST_FILE_PARAM PARAM` : where `PARAM` is the `VERSION` string from above
 - `EXT_TEST TEST_FILE_DESC "DESC"` : where `DESC` is a description of the test
+
+Optional metadat elements include:
 - `EXT_TEST DEP "COMP1 COMP2"`     : where within the quotes is a list of components
+- `EXT_TEST TIMEOUT XX`            : where XX is the number of seconds for the script to timeout (default is 60)
 
 ## Test Interrogation
 `sst-ext-tests` includes a Python tool that discovers appropriately 
@@ -94,6 +120,7 @@ See the [LICENSE](./LICENSE) file
 ## Authors
 * *John Leidel* - [Tactical Computing Labs](http://www.tactcomplabs.com)
 * *Ken Griesser* - [Tactical Computing Labs](http://www.tactcomplabs.com)
+* *Shannon Kuntz* - [Tactical Computing Labs](http://www.tactcomplabs.com)
 * *Chris Taylor* - [Tactical Computing Labs](http://www.tactcomplabs.com)
 
 ## Acknowledgements
