@@ -4,6 +4,7 @@
 
 TEST_NAME=CaptCrunch_Simple1-DEV
 
+rm -Rf $TEST_NAME.py
 cat > $TEST_NAME.py << EOL
 import sst
 sst.setStatisticLoadLevel(4)
@@ -18,7 +19,7 @@ c0.addParams({
 EOL
 
 # -- run the first pass through the sim
-sst --checkpoint-period=10ns --checkpoint-prefix=$TEST_NAME-PRE --add-lib-path=${CMAKE_BINARY_DIR}/tests/components/CaptCrunch/ CaptCrunch_Simple1-DEV.py
+sst --checkpoint-period=10ns --checkpoint-prefix=$TEST_NAME-PRE --add-lib-path=${CMAKE_BINARY_DIR}/tests/components/CaptCrunch/ $TEST_NAME.py
 
 retVal=$?
 if [ $retVal -ne 0 ]; then
