@@ -75,6 +75,9 @@ execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/sst-minor-version.sh
                 OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
+#-- setup the component build directory
+set(ENV{SST_COMPONENT_BASE} "${CMAKE_BINARY_DIR}")
+
 string_contains_number("${SST_MAJOR_VERSION}" contains_num)
 if(NOT contains_num)
   set(SST_MAJOR_VERSION "DEV")
