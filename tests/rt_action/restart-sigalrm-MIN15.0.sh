@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM MIN14.1
+#EXT_TEST TEST_FILE_PARAM MIN15.0
 #EXT_TEST TEST_FILE_DESC "Tests using sigalrm with restart (i.e. load checkpoint)"
 # 
 # 0) launch sst to generate the checkpoint
@@ -61,7 +61,7 @@ elif [[ $action == "sst.rt.status.core" ]]; then
 PSTR="CurrentSimCycle"
 elif [[ $action == "sst.rt.status.all" ]]; then
 #echo status.all
-PSTR="TimeVortex state"
+PSTR="Components:"
 elif [[ $action == "sst.rt.heartbeat" ]]; then
 #echo heartbeat
 PSTR="Heartbeat"

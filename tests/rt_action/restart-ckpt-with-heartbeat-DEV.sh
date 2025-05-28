@@ -1,7 +1,9 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM 15.0
-#EXT_TEST TEST_FILE_DESC "Tests restart for a checkpoint that had heartbeat to see if the heartbeat is carried over. Currently fails with error in restart"
-# 
+#EXT_TEST TEST_FILE_PARAM DEV
+#EXT_TEST TEST_FILE_DESC "Tests restart for a checkpoint that had heartbeat to see if the heartbeat is carried over."
+#
+# SST DEV (after v15.0) Heartbeat SHOULD carry over and SHOULD be overridable
+#
 # 0) set pass string and checkpoint directory
 # 1) launch the program to generate the checkpoint
 # 2) Check the result

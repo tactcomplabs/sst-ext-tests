@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM 14.1
+#EXT_TEST TEST_FILE_PARAM DEV
 #EXT_TEST TEST_FILE_DESC "Tests checkpoint with sigalrm to see if the sigalrm is carried over to restart (i.e. load-checkpoint)"
 # 
 # 0) set pass string
@@ -25,14 +25,14 @@ if [[ $action2 == "sst.rt.status.core" ]]; then
   PSTR2="CurrentSimCycle"
 elif [[ $action2 == "sst.rt.status.all" ]]; then
   #echo status.all
-  PSTR2="TimeVortex state"
+  PSTR2="Components:"
 elif [[ $action2 == "sst.rt.heartbeat" ]]; then
   #echo heartbeat
   PSTR2="Heartbeat"
 fi
 
 PREFIX="ckpt_sigalrm_$action2"
-CKPTDIR="ckpt_sigalrm_$action2/ckpt_sigalrm_${action2}_0_1000000000000/ckpt_sigalrm_${action2}_0_1000000000000.sstcpt"
+CKPTDIR="ckpt_sigalrm_$action2/ckpt_sigalrm_${action2}_1_1000000000000/ckpt_sigalrm_${action2}_1_1000000000000.sstcpt"
 
 
 # 1) Launch sst with sigalrm actions to generate the checkpoint file
