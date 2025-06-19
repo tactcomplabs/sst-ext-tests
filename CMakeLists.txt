@@ -40,6 +40,16 @@ if(NOT SST OR NOT SST_CONFIG)
 endif()
 
 # SST Environment Derivation
+execute_process(COMMAND sst-config --prefix
+                OUTPUT_VARIABLE SST_INSTALL_DIR
+                OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+set(SST_INCLUDE_DIR "${SST_INSTALL_DIR}/include")
+if(NOT (EXISTS "${SST_INSTALL_DIR}"))
+  message(FATAL_ERROR " SST_INSTALL_DIR (${SST_INSTALL_DIR}) is invalid.")
+endif()
+include_directories(SST_SRC ${SST_INSTALL_DIR})
+
 execute_process(COMMAND sst-config --CXX
                 OUTPUT_VARIABLE CXX
                 OUTPUT_STRIP_TRAILING_WHITESPACE
@@ -65,6 +75,9 @@ execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/sst-minor-version.sh
                 OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
+#-- setup the component build directory
+set(ENV{SST_COMPONENT_BASE} "${CMAKE_BINARY_DIR}")
+
 string_contains_number("${SST_MAJOR_VERSION}" contains_num)
 if(NOT contains_num)
   set(SST_MAJOR_VERSION "DEV")
@@ -81,11 +94,16 @@ message(STATUS "SST MINOR VERSION=${SST_MINOR_VERSION}")
 string(CONCAT SST_VERSION  ${SST_MAJOR_VERSION} "." ${SST_MINOR_VERSION})
 message(STATUS "SST FULL VERSION=${SST_VERSION}")
 
+
 #-- MPI Options
 find_package(MPI)
 if(MPIEXEC_EXECUTABLE)
   message(STATUS "MPI RUN COMMAND=${MPIEXEC_EXECUTABLE}")
 endif()
+
+set(SST_COMPONENT_BASE "${CMAKE_CURRENT_SOURCE_DIR}/tests/components")
+message(STATUS "SST-EXT-TESTS COMPONENT BASE DIRECTORY=${SST_COMPONENT_BASE}")
+
 
 #-- Compiler Options
 # Compiler Options
@@ -101,8 +119,8 @@ set(LDFLAGS "${SST_LDFLAGS}")
 set(CMAKE_CXX_FLAGS "-std=c++17 ${FP_MODE_FLAG} -O2 -Wall -Wextra ${WERROR_FLAG} -Wvla -Wuninitialized -Wfloat-conversion -Wdouble-promotion -Wno-unused-parameter -Wno-deprecated-declarations ${CMAKE_CXX_FLAGS} -I./ ${LDFLAGS}")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS}")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -std=c++17 ${FP_MODE_FLAG} -g -pg -O0 -Wall -Wextra ${WERROR_FLAG} -Wvla -Wuninitialized -Wfloat-conversion -Wdouble-promotion -Wno-unused-parameter -Wno-deprecated-declarations -I./ ${LDFLAGS}")
-
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -Wall")
+
 set(EXT_TEST_DEP_COMMAND "${CMAKE_SOURCE_DIR}/scripts/test-dep.sh")
 set(EXT_TEST_TIMEOUT_COMMAND "${CMAKE_SOURCE_DIR}/scripts/test-timeout.sh")
 set(EXT_TEST_MPIARGS_COMMAND "${CMAKE_SOURCE_DIR}/scripts/test-mpiargs.sh")

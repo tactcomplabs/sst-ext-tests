@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM MIN14.1
+#EXT_TEST TEST_FILE_PARAM 15.0
 #EXT_TEST TEST_FILE_DESC "Tests restart for a checkpoint that had interactive console to see if the interactive console is carried over. Currently Fails"
 
 # 0) set pass string 
@@ -12,7 +12,7 @@
 # Settings
 CONFIG="test_Checkpoint.py"
 PREFIX="ckpt_restart_interactive"
-CKPT_DIR="ckpt_restart_interactive/ckpt_restart_interactive_0_1000000000000/ckpt_restart_interactive_0_1000000000000.sstcpt"
+CKPT_DIR="ckpt_restart_interactive/ckpt_restart_interactive_1_1000000000000/ckpt_restart_interactive_1_1000000000000.sstcpt"
 CLEANUP=1
 
 #0 Get pass criterion 

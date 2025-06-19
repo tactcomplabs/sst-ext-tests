@@ -1,12 +1,12 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM DEV
+#EXT_TEST TEST_FILE_PARAM MIN15.0
 #EXT_TEST TEST_FILE_DESC "Tests sigusr1/2 with interactive console real time action"
 #EXT_TEST TIMEOUT 90
 #
 # 0) Set up pipe
 # 1) launch the program in the background
 # 2) 'jobs -l' to get the PID
-# 3) 'kill -SIGUSR<N> <PID>' to send the signal
+# 3) 'kill -s SIGUSR<N> <PID>' to send the signal
 # 4) run command in interactive consols
 # 5) wait for completion
 # 6) compare to expected results (offline?)
@@ -44,10 +44,10 @@ PID=${JOBS[1]}
 sleep 2
 
 # 3) Send signal 
-kill -$sig $PID
+kill -s $sig $PID
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo ERROR with kill -$sig $PID
+  echo ERROR with kill -s $sig $PID
   exit $retVal
 fi
 
@@ -65,6 +65,7 @@ echo $sig=$action Complete
 # 6) Check results
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action return code"
+  rm $pipe
   exit $retVal
 fi
 
@@ -72,15 +73,21 @@ grep "Interactive Console real time action" ./test.$sig.$action.out;
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action grep"
+  rm $pipe
   exit $grepVal
 fi
 echo
 
 # Cleanup output directories
 rm test.$sig.$action.out
+#rm $pipe
 
 done  # for $action
 done  # for $sigusr
+
+
+rm $pipe
+
 
 echo "PASS"
 exit $retVal

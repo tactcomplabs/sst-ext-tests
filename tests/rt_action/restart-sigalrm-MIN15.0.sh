@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM MIN14.1
+#EXT_TEST TEST_FILE_PARAM MIN15.0
 #EXT_TEST TEST_FILE_DESC "Tests using sigalrm with restart (i.e. load checkpoint)"
 # 
 # 0) launch sst to generate the checkpoint
@@ -14,7 +14,7 @@ SIG="sigalrm"
 ACTION="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat sst.rt.checkpoint"
 CONFIG=" test_Checkpoint.py" #test_MessageMesh.py"
 PREFIX="ckpt4restart_sigalrm"
-CKPTDIR="ckpt4restart_sigalrm/ckpt4restart_sigalrm_0_1000000000000/ckpt4restart_sigalrm_0_1000000000000.sstcpt"
+CKPTDIR="ckpt4restart_sigalrm/ckpt4restart_sigalrm_1_1000000000000/ckpt4restart_sigalrm_1_1000000000000.sstcpt"
 CLEANUP=1
 
 
@@ -61,7 +61,7 @@ elif [[ $action == "sst.rt.status.core" ]]; then
 PSTR="CurrentSimCycle"
 elif [[ $action == "sst.rt.status.all" ]]; then
 #echo status.all
-PSTR="TimeVortex state"
+PSTR="Components:"
 elif [[ $action == "sst.rt.heartbeat" ]]; then
 #echo heartbeat
 PSTR="Heartbeat"

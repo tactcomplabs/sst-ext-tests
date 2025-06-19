@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM MIN14.1
+#EXT_TEST TEST_FILE_PARAM 15.0
 #EXT_TEST TEST_FILE_DESC "Tests restart for a checkpoint that had heartbeat to see if the heartbeat is carried over. Currently fails with error in restart"
 # 
 # 0) set pass string and checkpoint directory
@@ -12,7 +12,7 @@
 # Settings
 CONFIG="test_Checkpoint.py"
 PREFIX="ckpt_restart_heartbeat"
-CKPT_DIR="ckpt_restart_heartbeat/ckpt_restart_heartbeat_0_1000000000000/ckpt_restart_heartbeat_0_1000000000000.sstcpt"
+CKPT_DIR="ckpt_restart_heartbeat/ckpt_restart_heartbeat_1_1000000000000/ckpt_restart_heartbeat_1_1000000000000.sstcpt"
 CLEANUP=1
 
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM MIN14.1
+#EXT_TEST TEST_FILE_PARAM MIN15.0
 #EXT_TEST TEST_FILE_DESC "Tests using interactive console with restart (i.e. load checkpoint)"
 # 
 # 0) launch sst to generate the checkpoint
@@ -12,7 +12,7 @@
 # Settings
 CONFIG=" test_Checkpoint.py" #test_MessageMesh.py"
 PREFIX="ckpt4restart_interactive"
-CKPTDIR="ckpt4restart_interactive/ckpt4restart_interactive_0_1000000000000/ckpt4restart_interactive_0_1000000000000.sstcpt"
+CKPTDIR="ckpt4restart_interactive/ckpt4restart_interactive_1_1000000000000/ckpt4restart_interactive_1_1000000000000.sstcpt"
 CLEANUP=1
 
 
@@ -75,6 +75,7 @@ echo restart.interactive Complete
 # 4) Check result
 if [ $retVal -ne 0 ]; then
   echo "ERROR restart.interactive return code"
+  rm $pipe
   exit $retVal
 fi
 
@@ -82,6 +83,7 @@ grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR restart.interactive grep"
+  rm $pipe
   exit $grepVal
 fi
 echo
@@ -90,6 +92,7 @@ echo
 if [ $CLEANUP -eq 1 ]; then
   rm $OUTFILE
   rm -r $PREFIX
+  rm $pipe
 fi
 
 echo "PASS"

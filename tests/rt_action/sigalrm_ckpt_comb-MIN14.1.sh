@@ -36,7 +36,7 @@ elif [[ $action2 == "sst.rt.status.core" ]]; then
 PSTR2="CurrentSimCycle"
 elif [[ $action2 == "sst.rt.status.all" ]]; then
 #echo status.all
-PSTR2="TimeVortex state"
+PSTR2="Components:"
 elif [[ $action2 == "sst.rt.heartbeat" ]]; then
 #echo heartbeat
 PSTR2="Heartbeat"
