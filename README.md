@@ -26,6 +26,7 @@ ENABLE_ALL_TESTS [OFF]
 ENABLE_CLI_TESTS [OFF]
 ENABLE_RTACTION_TESTS [OFF]
 ENABLE_CORE_CHKPT_TESTS [OFF]
+ENABLE_MPI_TESTS [OFF]
 ENABLE_COMPONENT_TESTS [OFF]
 ```
 
@@ -72,9 +73,10 @@ These are outlined as follows:
 - `EXT_TEST TEST_FILE_PARAM PARAM` : where `PARAM` is the `VERSION` string from above
 - `EXT_TEST TEST_FILE_DESC "DESC"` : where `DESC` is a description of the test
 
-Optional metadat elements include:
+Optional metadata elements include:
 - `EXT_TEST DEP "COMP1 COMP2"`     : where within the quotes is a list of components
 - `EXT_TEST TIMEOUT XX`            : where XX is the number of seconds for the script to timeout (default is 60)
+- `EXT_TEST MPIARGS arg1 arg2`     : where arg1, arg2, etc are the arguments for the MPI execution command (mpirun, mpiexec)
 
 ## Test Interrogation
 `sst-ext-tests` includes a Python tool that discovers appropriately 

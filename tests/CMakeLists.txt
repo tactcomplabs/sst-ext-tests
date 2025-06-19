@@ -32,4 +32,12 @@ if(ENABLE_CORE_CHKPT_TESTS)
   add_subdirectory(core-chkpt)
 endif()
 
+if(ENABLE_MPI_TESTS)
+  if(MPIEXEC_EXECUTABLE)
+    add_subdirectory(mpi)
+  else()
+    message(FATAL_ERROR "Could not discover `mpirun` or `mpiexec`. Cannot enable MPI tests")
+  endif()
+endif()
+
 # EOF
