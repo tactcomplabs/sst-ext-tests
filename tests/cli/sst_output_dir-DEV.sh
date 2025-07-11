@@ -29,7 +29,7 @@ check_odir $tname.$$
 check_odir ./$tname.$$
 
 # Check 3: Absolute path
-check_odir "$(realpath .)/$tname.$$"
+check_odir "$(readlink -f .)/$tname.$$"
 
 # Check 4: 2 level subdirectory
 check_odir "$tname.$$/level2"
