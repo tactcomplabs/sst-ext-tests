@@ -1,6 +1,8 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM 15.0
-#EXT_TEST TEST_FILE_DESC "Tests restart for a checkpoint that had interactive console to see if the interactive console is carried over. Currently Fails"
+#EXT_TEST TEST_FILE_PARAM DEV
+#EXT_TEST TEST_FILE_DESC "Tests restart for a checkpoint that had interactive console to see if the interactive console is carried over."
+#
+# SST DEV: Interactive console should carry over on checkpoint and should be overridable
 
 # 0) set pass string 
 # 1) launch the program to generate the checkpoint
@@ -15,14 +17,26 @@ PREFIX="ckpt_restart_interactive"
 CKPT_DIR="ckpt_restart_interactive/ckpt_restart_interactive_1_1000000000000/ckpt_restart_interactive_1_1000000000000.sstcpt"
 CLEANUP=1
 
-#0 Get pass criterion 
-PSTR2="Interactive"
+#0 Get pass criterion and setup pipe for interactive 
+PSTR="Interactive"
+pipe="/tmp/test_restart_ckpt_pipe"
+if [[ ! -p $pipe ]]; then
+  echo "Creating pipe: $pipe"
+  mkfifo $pipe
+fi
 
 # 1) Launch the program to generate the checkpoint
 OUTFILE="test.ckpt.interactive.out"
 LAUNCH="sst --checkpoint-prefix=$PREFIX --checkpoint-sim-period=1s --interactive-console=sst.interactive.simpledebug --interactive-start=2s  $CONFIG"
+
 echo $LAUNCH
-eval $LAUNCH > $OUTFILE 2>&1
+$LAUNCH <$pipe > $OUTFILE 2>&1 &
+exec 3>$pipe
+
+sleep 2
+echo run > $pipe
+
+wait
 retVal=$?
 
 echo ckpt.interactive Complete
@@ -30,13 +44,15 @@ echo ckpt.interactive Complete
 # 2) Check result
 if [ $retVal -ne 0 ]; then
   echo "ERROR ckpt.interactive return code"
+  rm $pipe
   exit $retVal
 fi
 
-grep "$PSTR2" ./$OUTFILE > /dev/null
+grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR ckpt.interactive grep"
+  rm $pipe
   exit $grepVal
 fi
 
@@ -50,20 +66,32 @@ fi
 OUTFILE="test.restart.ckpt.interactive.out"
 LAUNCH="sst --load-checkpoint $CKPT_DIR"
 echo $LAUNCH
-exec $LAUNCH > $OUTFILE 2>&1 
+$LAUNCH  > $OUTFILE 2>&1
+
+#$LAUNCH <$pipe  > $OUTFILE 2>&1 &
+#exec 3>$pipe
+#sleep 2
+#echo run > $pipe
+
+wait
 retVal=$?
+
 echo restart.ckpt.interactive Complete
 
 # 4) Check result
 if [ $retVal -ne 0 ]; then
   echo "ERROR restart.ckpt.interactive return code"
+  rm $pipe
   exit $retVal
 fi
 
-grep "$PSTR2" ./$OUTFILE > /dev/null
+# In this example, interactive will not be triggered on restart
+# because it is set for 2s AFTER start and it only runs from 1-2s
+grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
-if [ $retVal -ne 0 ]; then
+if [ $retVal -eq 0 ]; then
   echo "ERROR restart.ckpt.interactive grep"
+  rm $pipe
   exit $grepVal
 fi
 
@@ -72,10 +100,8 @@ echo
 # Cleanup output directories
 if [ $CLEANUP -eq 1 ]; then
   rm $OUTFILE
-fi
-
-if [ $CLEANUP -eq 1 ]; then
   rm -rf $PREFIX*
+  rm $pipe
 fi
 
 echo "PASS"

@@ -15,6 +15,7 @@ SIG="sigusr1 sigusr2"
 ACTION="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat sst.rt.checkpoint"
 CONFIG="test_Checkpoint.py" #test_MessageMesh.py"
 PREFIX="ckpt_sigusr"
+CLEANUP=1
 
 for sig in $SIG; do
   for action in $ACTION; do
@@ -31,7 +32,7 @@ elif [[ $action == "sst.rt.status.core" ]]; then
 PSTR="CurrentSimCycle"
 elif [[ $action == "sst.rt.status.all" ]]; then
 #echo status.all
-PSTR="TimeVortex state"
+PSTR="Components:"
 elif [[ $action == "sst.rt.heartbeat" ]]; then
 #echo heartbeat
 PSTR="Heartbeat"
@@ -79,10 +80,13 @@ fi
 echo
 
 # Cleanup output directories
-#rm test.$sig.$action.out
-if [ $action == "sst.rt.checkpoint" ]; then
-  rm -r $PREFIX*
+if [ $CLEANUP == 1 ]; then
+  rm test.$sig.$action.out
+  if [ $action == "sst.rt.checkpoint" ]; then
+    rm -r $PREFIX*
+  fi
 fi
+
 done  # for $action
 done  # for $sig
 

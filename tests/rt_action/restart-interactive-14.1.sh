@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM MIN14.1
+#EXT_TEST TEST_FILE_PARAM 14.1
 #EXT_TEST TEST_FILE_DESC "Tests using interactive console with restart (i.e. load checkpoint)"
 # 
 # 0) launch sst to generate the checkpoint

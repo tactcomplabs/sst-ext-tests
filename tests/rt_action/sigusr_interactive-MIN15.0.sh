@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM DEV
+#EXT_TEST TEST_FILE_PARAM MIN15.0
 #EXT_TEST TEST_FILE_DESC "Tests sigusr1/2 with interactive console real time action"
 #EXT_TEST TIMEOUT 90
 #
