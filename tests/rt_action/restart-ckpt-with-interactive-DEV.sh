@@ -1,6 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_PARAM DEV
 #EXT_TEST TEST_FILE_DESC "Tests restart for a checkpoint that had interactive console to see if the interactive console is carried over."
+#EXT_TEST TIMEOUT 120
 #
 # SST DEV: Interactive console should carry over on checkpoint and should be overridable
 

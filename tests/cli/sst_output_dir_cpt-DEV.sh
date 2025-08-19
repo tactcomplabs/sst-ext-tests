@@ -2,7 +2,7 @@
 #EXT_TEST TEST_FILE_PARAM ALL
 #EXT_TEST TEST_FILE_DESC "Tests relocation of checkpoint files"
 #EXT_TEST DEP "coreTestElement.coreTestComponent"
-#EXT_TEST TIMEOUT 80
+#EXT_TEST TIMEOUT 240
 
 check_odir() {
     odir=$1

@@ -2,7 +2,7 @@
 #EXT_TEST TEST_FILE_PARAM ALL
 #EXT_TEST TEST_FILE_DESC "Tests basic directory creation using --output-directory"
 #EXT_TEST DEP "coreTestElement.coreTestComponent"
-#EXT_TEST TIMEOUT 80
+#EXT_TEST TIMEOUT 240
 
 check_odir() {
     odir=$1

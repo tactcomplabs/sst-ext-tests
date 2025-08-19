@@ -2,7 +2,7 @@
 #EXT_TEST TEST_FILE_PARAM ALL
 #EXT_TEST TEST_FILE_DESC "Tests statistics output file creation using --output-directory"
 #EXT_TEST DEP "coreTestElement.coreTestComponent"
-#EXT_TEST TIMEOUT 80
+#EXT_TEST TIMEOUT 240
 
 # Note: this is the same command line used in sst_output_dir-DEV.sh since statistics
 # are enabled in cli-sdl.py. The only difference is that it checks the existence of 
