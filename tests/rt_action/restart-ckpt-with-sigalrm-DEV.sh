@@ -1,6 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_PARAM DEV
 #EXT_TEST TEST_FILE_DESC "Tests checkpoint with sigalrm to see if the sigalrm is carried over to restart (i.e. load-checkpoint)"
+#EXT_TEST TIMEOUT 240
 # 
 # 0) set pass string
 # 1) launch sst to generate the checkpoint

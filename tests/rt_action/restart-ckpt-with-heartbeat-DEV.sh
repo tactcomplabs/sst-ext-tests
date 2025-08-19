@@ -1,6 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_PARAM DEV
 #EXT_TEST TEST_FILE_DESC "Tests restart for a checkpoint that had heartbeat to see if the heartbeat is carried over."
+#EXT_TEST TIMEOUT 120
 #
 # SST DEV (after v15.0) Heartbeat SHOULD carry over and SHOULD be overridable
 #
