@@ -8,21 +8,29 @@
 #
 
 # -- make test options visible to ccmake
+option(ENABLE_ALL_TESTS "Enable ALL testing" OFF)
 option(ENABLE_CLI_TESTS "Enable CLI testing" OFF)
 option(ENABLE_RTACTION_TESTS "Enable Realtime Action testing" OFF)
-option(ENABLE_ALL_TESTS "Enable ALL testing" OFF)
 option(ENABLE_COMPONENT_TESTS "Enable embedded component testing" OFF)
+option(ENABLE_CORE_CHKPT_TESTS "Purely optional: Enable sst-core checkpointing tests" OFF)
+option(ENABLE_MPI_TESTS "Purely optional: Enable multi-rank MPI testing" OFF)
+
+if (ENABLE_ALL_TESTS)
+  set(ENABLE_CLI_TESTS ON CACHE BOOL "Enable CLI testing" FORCE)
+  set(ENABLE_RTACTION_TESTS ON CACHE BOOL "Enable Realtime Action testing" FORCE)
+  set(ENABLE_COMPONENT_TESTS ON CACHE BOOL "Enable embedded component testing" FORCE)
+endif()
 
 # -- walk each subdirectory and individually enable them
-if(ENABLE_CLI_TESTS OR ENABLE_ALL_TESTS)
+if(ENABLE_CLI_TESTS)
   add_subdirectory(cli)
 endif()
 
-if(ENABLE_RTACTION_TESTS OR ENABLE_ALL_TESTS)
+if(ENABLE_RTACTION_TESTS)
   add_subdirectory(rt_action)
 endif()
 
-if(ENABLE_COMPONENT_TESTS OR ENABLE_ALL_TESTS)
+if(ENABLE_COMPONENT_TESTS)
   add_subdirectory(components)
   add_subdirectory(component_tests)
 endif()
