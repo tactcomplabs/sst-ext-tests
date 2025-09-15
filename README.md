@@ -22,12 +22,18 @@ make test
 
 Flags for test selection include:
 ```
-ENABLE_ALL_TESTS [OFF]
+# Enables golden test suite
+ENABLE_ALL_TESTS [OFF] 
+
+# Individual suites by ENABLE_ALL_TESTS=ON
 ENABLE_CLI_TESTS [OFF]
-ENABLE_RTACTION_TESTS [OFF]
-ENABLE_CORE_CHKPT_TESTS [OFF]
-ENABLE_MPI_TESTS [OFF]
 ENABLE_COMPONENT_TESTS [OFF]
+ENABLE_RTACTION_TESTS [OFF]
+
+# Currently optional tests
+ENABLE_MPI_TESTS [OFF]
+ENABLE_CORE_CHKPT_TESTS [OFF]
+
 ```
 
 To run fast test suite use:
