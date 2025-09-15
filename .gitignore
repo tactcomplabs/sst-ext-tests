@@ -33,3 +33,6 @@
 
 # Build area
 build/
+
+# Backup files
+*~

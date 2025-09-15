@@ -140,6 +140,10 @@ endif()
 #-- Add testing
 enable_testing()
 
+#-- Custom Commands
+add_custom_target(uninstall COMMAND
+  "${CMAKE_CURRENT_SOURCE_DIR}/scripts/uninstall.sh")
+
 #-- Subdirectories
 add_subdirectory(tests)
 
