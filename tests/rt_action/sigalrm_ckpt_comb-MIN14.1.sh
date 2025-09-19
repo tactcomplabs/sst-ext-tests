@@ -70,14 +70,14 @@ grep "$PSTR" ./test.$sig.$action.$action2.out > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action grep"
-  exit $grepVal
+  exit $retVal
 fi
 
 grep "$PSTR2" ./test.$sig.$action.$action2.out > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action2 grep"
-  exit $grepVal
+  exit $retVal
 fi
 
 echo

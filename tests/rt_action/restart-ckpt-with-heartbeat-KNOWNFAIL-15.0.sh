@@ -38,7 +38,7 @@ grep "$PSTR2" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR ckpt.heartbeat grep"
-  exit $grepVal
+  exit $retVal
 fi
 
 # Cleanup output file
@@ -67,7 +67,7 @@ grep "$PSTR2" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR restart.ckpt.heartbeat grep"
-  exit $grepVal
+  exit $retVal
 fi
 
 echo

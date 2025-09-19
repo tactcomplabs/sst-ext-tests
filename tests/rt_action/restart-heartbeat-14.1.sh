@@ -36,7 +36,7 @@ grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $PREFIX grep"
-  exit $grepVal
+  exit $retVal
 fi
 
 # Cleanup output file
@@ -70,7 +70,7 @@ grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR restart.heartbeat grep"
-  exit $grepVal
+  exit $retVal
 fi
 echo
 

@@ -54,7 +54,7 @@ retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR ckpt.interactive grep"
   rm $pipe
-  exit $grepVal
+  exit $retVal
 fi
 
 # Cleanup output file
@@ -93,7 +93,7 @@ retVal=$?
 if [ $retVal -eq 0 ]; then
   echo "ERROR restart.ckpt.interactive grep"
   rm $pipe
-  exit $grepVal
+  exit $retVal
 fi
 
 echo
