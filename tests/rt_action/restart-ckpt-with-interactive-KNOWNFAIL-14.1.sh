@@ -37,7 +37,7 @@ grep "$PSTR2" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR ckpt.interactive grep"
-  exit $grepVal
+  exit $retVal
 fi
 
 # Cleanup output file
@@ -64,7 +64,7 @@ grep "$PSTR2" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR restart.ckpt.interactive grep"
-  exit $grepVal
+  exit $retVal
 fi
 
 echo
