@@ -6,17 +6,16 @@
 # SST DEV: 
 
 # Settings
+CLEANUP=1
 TNAME=int-change-value
 CONFIG="../rt_action/test_Checkpoint.py"
 PSTR="c7 finished. teststring=HelloMyNameIsC7AndICannotQuoteAString"
-OUTFILE=$TNAME.out
-CLEANUP=1
+LOGFILE=$TNAME.out
 
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s  $CONFIG"
-
 echo $LAUNCH
-$LAUNCH <<EOF | tee $OUTFILE
+$LAUNCH <<EOF | tee $LOGFILE || exit 1
 ls
 cd c7
 ls
@@ -36,17 +35,17 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-grep "$PSTR" $OUTFILE > /dev/null
+grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $OUTFILE \"$PSTR\""
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
   exit $retVal
 fi
-
 echo "Found pass string \"$PSTR\""
+
 # Cleanup output file on pass
 if [ $CLEANUP -eq 1 ]; then
-  rm $OUTFILE
+  rm $LOGFILE
 fi
 
 echo "PASS"
