@@ -43,7 +43,6 @@ $LAUNCH << EOF | tee $LOGFILE || exit 1
 quit
 EOF
 
-wait
 retVal=$?
 
 echo $TNAME Complete
@@ -67,11 +66,7 @@ if [ $CLEANUP -eq 1 ]; then
   rm -f $LOGFILE $OUTFILE $CMDFILE $CHKFILE
 fi
 
+
+wait
 echo "PASS"
 exit $retVal
-
-
-
-
-
-

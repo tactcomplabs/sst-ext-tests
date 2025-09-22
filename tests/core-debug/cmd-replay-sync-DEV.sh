@@ -1,6 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_PARAM DEV
-#EXT_TEST TEST_FILE_DESC "Enter interactive mode and log commands to an external file"
+#EXT_TEST TEST_FILE_DESC "Basic check that a simple conditional watch trigger occurs when replayed from file"
 #EXT_TEST TIMEOUT 30
 #
 # SST DEV: 
@@ -11,7 +11,7 @@ SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 CONFIG="../rt_action/test_Checkpoint.py"
-PSTR="c7 finished. teststring=HelloMyNameIsC7AndICannotQuoteAString"
+PSTR="^Entering interactive mode at time 140000000"
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -19,20 +19,19 @@ CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
 cat << EOF > $CMDFILE
-logging $OUTFILE
 ls
 cd c7
-ls
-set test_string HelloMyNameIsC7AndICannotQuoteAString
-print test_string
+watch duty_cycle_count == 1
+run
+# See PSTR for expected time to break into interactive mode
+# Triggers should be disabled on quit or test will hang
 quit
 EOF
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s $CONFIG"
+LAUNCH="sst --replay-file=$CMDFILE --interactive-console=sst.interactive.simpledebug --interactive-start=0s $CONFIG"
 echo $LAUNCH
-$LAUNCH < $CMDFILE > $LOGFILE || exit 1
-
+$LAUNCH | tee $LOGFILE || exit 1
 retVal=$?
 
 echo $TNAME Complete
@@ -40,15 +39,6 @@ echo $TNAME Complete
 # Check result
 if [ $retVal -ne 0 ]; then
   echo "ERROR $NAME returned $retVal"
-  exit $retVal
-fi
-
-# Should match except for the first 'logging' line
-grep -v logging $CMDFILE > $CHKFILE
-diff -q $CHKFILE $OUTFILE
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR console output does not match expected result"
   exit $retVal
 fi
 
@@ -68,3 +58,11 @@ fi
 wait
 echo "PASS"
 exit $retVal
+
+
+
+
+
+
+
+

@@ -24,7 +24,6 @@ print test_string
 quit
 EOF
 
-wait
 retVal=$?
 
 echo $TNAME Complete
@@ -48,11 +47,6 @@ if [ $CLEANUP -eq 1 ]; then
   rm $LOGFILE
 fi
 
+wait
 echo "PASS"
 exit $retVal
-
-
-
-
-
-
