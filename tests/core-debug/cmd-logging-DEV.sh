@@ -7,7 +7,9 @@
 
 # Settings
 CLEANUP=1
-TNAME=cmd-logging-DEV
+SCRIPT_NAME=$(basename "$0")
+TNAME="${SCRIPT_NAME%.*}"
+echo "TESTNAME=$TNAME"
 CONFIG="../rt_action/test_Checkpoint.py"
 PSTR="c7 finished. teststring=HelloMyNameIsC7AndICannotQuoteAString"
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_PARAM DEV
-#EXT_TEST TEST_FILE_DESC "Enter interactive mode and replay session from an external file provided by SST command line option. Check comments have now effect"
+#EXT_TEST TEST_FILE_DESC "Basic check that a simple conditional watch trigger occurs"
 #EXT_TEST TIMEOUT 30
 #
 # SST DEV: 
@@ -11,7 +11,7 @@ SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 CONFIG="../rt_action/test_Checkpoint.py"
-PSTR="c7 finished. teststring=HelloMyNameIsC7AndICannotQuoteAString"
+PSTR="TRIGGER DETECTED. PASS"
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -19,21 +19,15 @@ CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
 cat << EOF > $CMDFILE
-# comments and leading whitespace should have no effect if commented out
-# shutdown
-#shutdown 
-   #    shutdown shutdown shutdown
-# Also do some random white spaces
-  ls
-      cd         c7
-
-
 ls
-
-		
-set test_string HelloMyNameIsC7AndICannotQuoteAString
-print test_string
-        quit
+cd c7
+watch duty_cycle_count == 1
+run
+# Entering interactive mode at time 140000000
+# Watch point c7/duty_cycle_count buffer
+$PSTR
+# Triggers should be disabled on quit
+quit
 EOF
 
 # Launch the program to start interactive mode at time 0
