@@ -11,29 +11,23 @@ SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 CONFIG="../rt_action/test_Checkpoint.py"
-PSTR="TRIGGER DETECTED. PASS"
+PSTR="^Entering interactive mode at time 140000000"
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
 CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
-cat << EOF > $CMDFILE
+# Launch the program to start interactive mode at time 0
+LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s $CONFIG"
+echo $LAUNCH
+$LAUNCH << EOF | tee $LOGFILE || exit 1
 ls
 cd c7
 watch duty_cycle_count == 1
 run
-# Entering interactive mode at time 140000000
-# Watch point c7/duty_cycle_count buffer
-$PSTR
-# Triggers should be disabled on quit
-quit
-EOF
-
-# Launch the program to start interactive mode at time 0
-LAUNCH="sst --replay-file=$CMDFILE --interactive-console=sst.interactive.simpledebug --interactive-start=0s $CONFIG"
-echo $LAUNCH
-$LAUNCH << EOF | tee $LOGFILE || exit 1
+# See PSTR for expected time to break into interactive mode
+# Triggers should be disabled on quit or test will hang
 quit
 EOF
 
