@@ -1,0 +1,69 @@
+#!/bin/bash
+#EXT_TEST TEST_FILE_PARAM DEV
+#EXT_TEST TEST_FILE_DESC "Log history to file and check it"
+#EXT_TEST TIMEOUT 30
+#
+# SST DEV: 
+
+# Settings
+CLEANUP=1
+SCRIPT_NAME=$(basename "$0")
+TNAME="${SCRIPT_NAME%.*}"
+echo "TESTNAME=$TNAME"
+CONFIG="../rt_action/test_Checkpoint.py"
+PSTR="0 10000000 15000000 20000000 23000000 30000000 31000000 39000000 "
+
+LOGFILE=$TNAME.log
+OUTFILE=$TNAME.console.out
+CMDFILE=$TNAME.cmd
+CHKFILE=$TNAME.chk
+
+# Launch the program to start interactive mode at time 0
+LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s $CONFIG"
+echo $LAUNCH
+$LAUNCH << EOF | tee $LOGFILE || exit
+ls
+cd c7
+watch duty_cycle_count changed
+run
+!!:p
+!!
+h
+!-1
+!-2
+h
+!!4
+!?un
+!r
+shutdown
+EOF
+
+retVal=$?
+
+echo $TNAME Complete
+
+# Check result
+if [ $retVal -ne 0 ]; then
+  echo "ERROR $NAME returned $retVal"
+  exit $retVal
+fi
+
+check=$(awk '/interactive mode at time/ {printf("%s ", $NF)}' $LOGFILE)
+echo "Checking for match:"
+echo "\"$check\""
+echo "\"$PSTR\""
+if [[ "$check" == "$PSTR" ]]; then
+  echo "Found match"
+else
+  echo "ERROR mismatch"
+  exit 1
+fi
+
+# Cleanup output file on pass
+if [ $CLEANUP -eq 1 ]; then
+  rm -f $LOGFILE $OUTFILE $CMDFILE $CHKFILE
+fi
+
+wait
+echo "PASS"
+exit 0
