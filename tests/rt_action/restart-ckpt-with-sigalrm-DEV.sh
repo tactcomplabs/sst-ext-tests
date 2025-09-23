@@ -59,7 +59,7 @@ grep "$PSTR2" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR ckpt.$sig.$action2 grep"
-  exit $grepVal
+  exit $retVal
 fi
 
 if [ $CLEANUP -eq 1 ]; then
@@ -85,7 +85,7 @@ grep "$PSTR2" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -eq 0 ]; then
   echo "ERROR restart.ckpt.$sig.$action grep"
-  exit $grepVal
+  exit $retVal
 fi
 
 echo

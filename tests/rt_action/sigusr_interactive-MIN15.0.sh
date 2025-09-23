@@ -74,7 +74,7 @@ retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action grep"
   rm $pipe
-  exit $grepVal
+  exit $retVal
 fi
 echo
 

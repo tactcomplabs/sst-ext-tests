@@ -1,0 +1,36 @@
+SST-Core Version (-dev)
+/Users/kgriesser/work/sst-ext-tests/build
+Test project /Users/kgriesser/work/sst-ext-tests/build
+  Test  #1: sst_base-ALL
+  Test  #2: sst_heartbeat_0:1:30-ALL
+  Test  #3: sst_heartbeat_1s-ALL
+  Test  #4: sst_help-ALL
+  Test  #5: sst_numthreads-ALL
+  Test  #6: sst_output_config-ALL
+  Test  #7: sst_output_dot-ALL
+  Test  #8: sst_output_dot_verbosity-ALL
+  Test  #9: sst_output_json-ALL
+  Test #10: sst_output_prefix-ALL
+  Test #11: sst_print_timing_info-ALL
+  Test #12: sst_register_list-ALL
+  Test #13: sst_sdlfile-ALL
+  Test #14: sst_version-ALL
+  Test #15: sstconfig_help-ALL
+  Test #16: sstconfig_list-ALL
+  Test #17: sstconfig_list_CXXFLAGS-ALL
+  Test #18: sstinfo_help-ALL
+  Test #19: sstinfo_list-ALL
+  Test #20: sstinfo_list_elem-ALL
+  Test #21: sstinfo_list_env-ALL
+  Test #22: sstinfo_list_nodisplay-ALL
+  Test #23: sstinfo_list_quiet-ALL
+  Test #24: sstinfo_list_xml-ALL
+  Test #25: sstinfo_list_xml_file-ALL
+  Test #26: sstinfo_sst-ALL
+  Test #27: sstregister_a_KNOWNFAIL-ALL
+  Test #28: restart-ckpt-with-heartbeat-DEV
+  Test #29: restart-ckpt-with-interactive-DEV
+  Test #30: restart-ckpt-with-sigalrm-DEV
+  Test #31: CaptCrunch_Simple1-DEV
+
+Total Tests: 31

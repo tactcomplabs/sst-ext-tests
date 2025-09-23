@@ -90,14 +90,14 @@ grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action grep"
-  exit $grepVal
+  exit $retVal
 fi
 
 grep "$PSTR2" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action2 grep"
-  exit $grepVal
+  exit $retVal
 fi
 
 # Cleanup output directories
