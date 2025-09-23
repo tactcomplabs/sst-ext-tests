@@ -44,6 +44,7 @@ if(ENABLE_CORE_CHKPT_TESTS)
 endif()
 
 if (ENABLE_DEBUG_TESTS)
+  add_subdirectory(core-debug-components)
   add_subdirectory(core-debug)
 endif()
 

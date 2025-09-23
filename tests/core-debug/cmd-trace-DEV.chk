@@ -1,0 +1,2204 @@
+debug probe demo configuration:
+	 probeStartCycle  =  0
+	 probeEndCycle  =  0
+	 probeBufferSize  =  16
+	 probePostDelay  =  8
+	 probePort  =  0
+	 verbose  =  1
+	 cliControl  =  0
+DbgSST15[cp0:DbgSST15:0]: numPorts=1
+DbgSST15[cp0:DbgSST15:0]: minData=1
+DbgSST15[cp0:DbgSST15:0]: maxData=100
+DbgSST15[cp0:DbgSST15:0]: clockDelay=100
+DbgSST15[cp0:DbgSST15:0]: clocks=10000
+DbgSST15[cp0:DbgSST15:0]: traceMode=2
+DbgSST15[cp0:DbgSST15:0]: tracing RECV events
+DbgSST15[cp1:DbgSST15:0]: numPorts=1
+DbgSST15[cp1:DbgSST15:0]: minData=1
+DbgSST15[cp1:DbgSST15:0]: maxData=100
+DbgSST15[cp1:DbgSST15:0]: clockDelay=100
+DbgSST15[cp1:DbgSST15:0]: clocks=10000
+DbgSST15[cp1:DbgSST15:0]: traceMode=1
+DbgSST15[cp1:DbgSST15:0]: tracing SEND events
+DbgSST15[cp1:ProbeControl:0]: probeMode=1
+DbgSST15[cp1:ProbeControl:0]: probeStartCycle=0
+DbgSST15[cp1:ProbeControl:0]: probeEndCycle=0
+DbgSST15[cp1:ProbeControl:0]: probeBufferSize=16
+DbgSST15[cp1:ProbeControl:0]: probePort=0
+DbgSST15[cp1:ProbeControl:0]: probePostDelay=8
+DbgSST15[cp1:ProbeControl:0]: cliControl=0
+0 s
+Entering interactive mode at time 0 
+Interactive start at 0
+> > *probe_/ (SSTDEBUG::DbgSST15::DbgSST15_Probe)
+cliType = 0 (unsigned int)
+clockDelay = 100 (unsigned long)
+clockHandler/ (SST::SSTHandler2<bool, unsigned long, SSTDEBUG::DbgSST15::DbgSST15, void, &SSTDEBUG::DbgSST15::DbgSST15::clockTick>)
+clocks = 10000 (unsigned long)
+component_state_ = 3 (SST::BaseComponent::ComponentState)
+curCycle = 0 (unsigned long)
+linkHandlers/ (std::vector<SST::Link*, std::allocator<SST::Link*> >)
+maxData = 100 (unsigned long)
+mersenne/ (SST::RNG::MersenneRNG)
+minData = 1 (unsigned long)
+my_info_/ ()
+my_info_/ (SST::ComponentInfo*)
+numPorts = 1 (unsigned int)
+rCheck = 0 (long)
+size = 0 (unsigned long)
+traceMode = 2 (unsigned int)
+v_bool = 1 (bool)
+v_char = 1 (char)
+v_double = 2.000000 (double)
+v_float = 1.000000 (float)
+v_int = -3 (int)
+v_ldouble = 3.000000 (long double)
+v_ll = -5 (long long)
+v_long = -4 (long)
+v_schar = -1 (signed char)
+v_short = -2 (short)
+v_uint = 3 (unsigned int)
+v_ull = 5 (unsigned long long)
+v_ulong = 4 (unsigned int)
+v_ushort = 2 (unsigned short)
+> > WP0: ALL : cp0/size > 50  : bufsize = 32 postDelay = 4 : cp0/size  : interactive
+> WP 0 - cp0/size
+> WP0: ALL : cp0/size > 50  : bufsize = 32 postDelay = 4 : cp0/size cp0/rCheck  : interactive
+>   Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:0 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:1 first:0 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:2 first:0 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:3 first:0 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:4 first:0 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:5 first:0 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:6 first:0 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:7 first:0 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:8 first:0 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:9 first:0 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:10 first:0 cur:10 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:11 first:0 cur:11 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:12 first:0 cur:12 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:13 first:0 cur:13 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:14 first:0 cur:14 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:15 first:0 cur:15 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:16 first:0 cur:16 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:17 first:0 cur:17 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:18 first:0 cur:18 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:19 first:0 cur:19 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:20 first:0 cur:20 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:21 first:0 cur:21 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:22 first:0 cur:22 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:23 first:0 cur:23 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:24 first:0 cur:24 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:25 first:0 cur:25 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:26 first:0 cur:26 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:27 first:0 cur:27 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:28 first:0 cur:28 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:29 first:0 cur:29 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:30 first:0 cur:30 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:31 first:0 cur:31 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:32 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:33 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:34 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:35 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:36 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:37 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:38 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:39 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:40 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:41 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:42 first:10 cur:10 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:43 first:11 cur:11 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:44 first:12 cur:12 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:45 first:13 cur:13 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:46 first:14 cur:14 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:47 first:15 cur:15 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:48 first:16 cur:16 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:49 first:17 cur:17 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:50 first:18 cur:18 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:51 first:19 cur:19 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:52 first:20 cur:20 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:53 first:21 cur:21 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:54 first:22 cur:22 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:55 first:23 cur:23 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:56 first:24 cur:24 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:57 first:25 cur:25 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:58 first:26 cur:26 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:59 first:27 cur:27 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:60 first:28 cur:28 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:61 first:29 cur:29 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:62 first:30 cur:30 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:63 first:31 cur:31 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:64 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:65 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:66 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:67 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:68 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:69 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:70 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:71 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:72 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:73 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:74 first:10 cur:10 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:75 first:11 cur:11 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:76 first:12 cur:12 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:77 first:13 cur:13 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:78 first:14 cur:14 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:79 first:15 cur:15 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:80 first:16 cur:16 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:81 first:17 cur:17 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:82 first:18 cur:18 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:83 first:19 cur:19 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:84 first:20 cur:20 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:85 first:21 cur:21 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:86 first:22 cur:22 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:87 first:23 cur:23 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:88 first:24 cur:24 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:89 first:25 cur:25 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:90 first:26 cur:26 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:91 first:27 cur:27 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:92 first:28 cur:28 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:93 first:29 cur:29 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:94 first:30 cur:30 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:95 first:31 cur:31 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:96 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:97 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:98 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:99 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:100 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:101 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:102 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:103 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:104 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:105 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:106 first:10 cur:10 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:107 first:11 cur:11 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:108 first:12 cur:12 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:109 first:13 cur:13 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:110 first:14 cur:14 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:111 first:15 cur:15 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:112 first:16 cur:16 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:113 first:17 cur:17 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:114 first:18 cur:18 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:115 first:19 cur:19 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:116 first:20 cur:20 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:117 first:21 cur:21 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:118 first:22 cur:22 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:119 first:23 cur:23 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:120 first:24 cur:24 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:121 first:25 cur:25 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:122 first:26 cur:26 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:123 first:27 cur:27 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:124 first:28 cur:28 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:125 first:29 cur:29 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:126 first:30 cur:30 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:127 first:31 cur:31 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:128 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:129 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:130 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:131 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:132 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:133 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:134 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:135 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:136 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:137 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:138 first:10 cur:10 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:139 first:11 cur:11 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:140 first:12 cur:12 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:141 first:13 cur:13 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:142 first:14 cur:14 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:143 first:15 cur:15 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:144 first:16 cur:16 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:145 first:17 cur:17 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:146 first:18 cur:18 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:147 first:19 cur:19 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:148 first:20 cur:20 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:149 first:21 cur:21 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:150 first:22 cur:22 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:151 first:23 cur:23 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:152 first:24 cur:24 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:153 first:25 cur:25 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:154 first:26 cur:26 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:155 first:27 cur:27 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:156 first:28 cur:28 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:157 first:29 cur:29 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:158 first:30 cur:30 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:159 first:31 cur:31 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:160 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:161 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:162 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:163 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:164 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:165 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:166 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:167 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:168 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:169 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:170 first:10 cur:10 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:171 first:11 cur:11 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:172 first:12 cur:12 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:173 first:13 cur:13 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:174 first:14 cur:14 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:175 first:15 cur:15 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:176 first:16 cur:16 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:177 first:17 cur:17 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:178 first:18 cur:18 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:179 first:19 cur:19 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:180 first:20 cur:20 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:181 first:21 cur:21 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:182 first:22 cur:22 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:183 first:23 cur:23 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:184 first:24 cur:24 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:185 first:25 cur:25 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:186 first:26 cur:26 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:187 first:27 cur:27 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:188 first:28 cur:28 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:189 first:29 cur:29 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:190 first:30 cur:30 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:191 first:31 cur:31 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:192 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:193 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:194 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:195 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:196 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:AC: numRecs:197 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> false
+    Sample:BC: numRecs:198 first:6 cur:6 state:- isOverrun:false samplesLost:0
+DbgSST15[cp0:sendData:100000]: data.size = 84
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> true
+    Sample:AC: numRecs:199 first:7 cur:7 state:! isOverrun:false samplesLost:0
+DbgSST15[cp1:sendData:100000]: data.size = 87
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> true
+    Sample:BC: numRecs:200 first:8 cur:8 state:+ isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> true
+    Sample:AC: numRecs:201 first:9 cur:9 state:+ isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> true
+    Sample:BC: numRecs:202 first:10 cur:10 state:+ isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size > 50  -> true
+    Sample:AC: numRecs:203 first:11 cur:11 state:+ isOverrun:false samplesLost:0
+    Invoke Action
+    Set Buffer Reset
+    SetInteractive
+Entering interactive mode at time 102000 
+Watch point cp0/size buffer
+> TriggerRecord:@cycle102000: samples lost = 0: cp0/size=84 cp0/rCheck=-15 
+buf[12] BC @87000 (-) cp0/size=0 cp0/rCheck=0 
+buf[13] AC @87000 (-) cp0/size=0 cp0/rCheck=0 
+buf[14] BC @88000 (-) cp0/size=0 cp0/rCheck=0 
+buf[15] AC @88000 (-) cp0/size=0 cp0/rCheck=0 
+buf[16] BC @89000 (-) cp0/size=0 cp0/rCheck=0 
+buf[17] AC @89000 (-) cp0/size=0 cp0/rCheck=0 
+buf[18] BC @90000 (-) cp0/size=0 cp0/rCheck=0 
+buf[19] AC @90000 (-) cp0/size=0 cp0/rCheck=0 
+buf[20] BC @91000 (-) cp0/size=0 cp0/rCheck=0 
+buf[21] AC @91000 (-) cp0/size=0 cp0/rCheck=0 
+buf[22] BC @92000 (-) cp0/size=0 cp0/rCheck=0 
+buf[23] AC @92000 (-) cp0/size=0 cp0/rCheck=0 
+buf[24] BC @93000 (-) cp0/size=0 cp0/rCheck=0 
+buf[25] AC @93000 (-) cp0/size=0 cp0/rCheck=0 
+buf[26] BC @94000 (-) cp0/size=0 cp0/rCheck=0 
+buf[27] AC @94000 (-) cp0/size=0 cp0/rCheck=0 
+buf[28] BC @95000 (-) cp0/size=0 cp0/rCheck=0 
+buf[29] AC @95000 (-) cp0/size=0 cp0/rCheck=0 
+buf[30] BC @96000 (-) cp0/size=0 cp0/rCheck=0 
+buf[31] AC @96000 (-) cp0/size=0 cp0/rCheck=0 
+buf[0] BC @97000 (-) cp0/size=0 cp0/rCheck=0 
+buf[1] AC @97000 (-) cp0/size=0 cp0/rCheck=0 
+buf[2] BC @98000 (-) cp0/size=0 cp0/rCheck=0 
+buf[3] AC @98000 (-) cp0/size=0 cp0/rCheck=0 
+buf[4] BC @99000 (-) cp0/size=0 cp0/rCheck=0 
+buf[5] AC @99000 (-) cp0/size=0 cp0/rCheck=0 
+buf[6] BC @100000 (-) cp0/size=0 cp0/rCheck=0 
+buf[7] AC @100000 (!) cp0/size=84 cp0/rCheck=-15 
+buf[8] BC @101000 (+) cp0/size=84 cp0/rCheck=-15 
+buf[9] AC @101000 (+) cp0/size=84 cp0/rCheck=-15 
+buf[10] BC @102000 (+) cp0/size=84 cp0/rCheck=-15 
+buf[11] AC @102000 (+) cp0/size=84 cp0/rCheck=-15 
+>     Reset Trace Buffer
+> No trace samples in current buffer
+> > >   Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:0 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:1 first:0 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:2 first:0 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:3 first:0 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:4 first:0 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:5 first:0 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:6 first:0 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:7 first:0 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:8 first:0 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:9 first:0 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:10 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:11 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:12 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:13 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:14 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:15 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:16 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:17 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:18 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:19 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:20 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:21 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:22 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:23 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:24 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:25 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:26 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:27 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:28 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:29 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:30 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:31 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:32 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:33 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:34 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:35 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:36 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:37 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:38 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:39 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:40 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:41 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:42 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:43 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:44 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:45 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:46 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:47 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:48 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:49 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:50 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:51 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:52 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:53 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:54 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:55 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:56 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:57 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:58 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:59 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:60 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:61 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:62 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:63 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:64 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:65 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:66 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:67 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:68 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:69 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:70 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:71 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:72 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:73 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:74 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:75 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:76 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:77 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:78 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:79 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:80 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:81 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:82 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:83 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:84 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:85 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:86 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:87 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:88 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:89 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:90 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:91 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:92 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:93 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:94 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:95 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:96 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:97 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:98 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:99 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:100 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:101 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:102 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:103 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:104 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:105 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:106 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:107 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:108 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:109 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:110 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:111 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:112 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:113 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:114 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:115 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:116 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:117 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:118 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:119 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:120 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:121 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:122 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:123 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:124 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:125 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:126 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:127 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:128 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:129 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:130 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:131 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:132 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:133 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:134 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:135 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:136 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:137 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:138 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:139 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:140 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:141 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:142 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:143 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:144 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:145 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:146 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:147 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:148 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:149 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:150 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:151 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:152 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:153 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:154 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:155 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:156 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:157 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:158 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:159 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:160 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:161 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:162 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:163 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:164 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:165 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:166 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:167 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:168 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:169 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:170 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:171 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:172 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:173 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:174 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:175 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:176 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:177 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:178 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:179 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:180 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:181 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:182 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:183 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:184 first:4 cur:4 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:185 first:5 cur:5 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:186 first:6 cur:6 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:187 first:7 cur:7 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:188 first:8 cur:8 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:189 first:9 cur:9 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:190 first:0 cur:0 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:191 first:1 cur:1 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:192 first:2 cur:2 state:- isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:193 first:3 cur:3 state:- isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:194 first:4 cur:4 state:- isOverrun:false samplesLost:0
+DbgSST15[cp0:sendData:200000]: data.size = 78
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> true
+    Sample:AC: numRecs:195 first:5 cur:5 state:! isOverrun:false samplesLost:0
+DbgSST15[cp1:sendData:200000]: data.size = 16
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:BC: numRecs:196 first:6 cur:6 state:+ isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+    Sample:AC: numRecs:197 first:7 cur:7 state:+ isOverrun:false samplesLost:0
+    Invoke Action
+    Set Buffer Reset
+    SetInteractive
+Entering interactive mode at time 201000 
+Watch point cp0/size buffer
+> TriggerRecord:@cycle200000: samples lost = 0: cp0/size=78 cp0/rCheck=-21 
+buf[8] BC @197000 (-) cp0/size=84 cp0/rCheck=-15 
+buf[9] AC @197000 (-) cp0/size=84 cp0/rCheck=-15 
+buf[0] BC @198000 (-) cp0/size=84 cp0/rCheck=-15 
+buf[1] AC @198000 (-) cp0/size=84 cp0/rCheck=-15 
+buf[2] BC @199000 (-) cp0/size=84 cp0/rCheck=-15 
+buf[3] AC @199000 (-) cp0/size=84 cp0/rCheck=-15 
+buf[4] BC @200000 (-) cp0/size=84 cp0/rCheck=-15 
+buf[5] AC @200000 (!) cp0/size=78 cp0/rCheck=-21 
+buf[6] BC @201000 (+) cp0/size=78 cp0/rCheck=-21 
+buf[7] AC @201000 (+) cp0/size=78 cp0/rCheck=-21 
+>     Reset Trace Buffer
+> No trace samples in current buffer
+> > In ObjectMapComparison_var: cp0/minData cp0/size
+getType(v1): unsigned long
+getType(v2): unsigned long
+> WP0: ALL : cp0/minData < cp0/size  : bufsize = 8 postDelay = 0 : cp0/size  : interactive
+> WP 0 - cp0/minData
+> WP0: ALL : cp0/minData < cp0/size  : bufsize = 8 postDelay = 0 : cp0/size cp0/maxData  : interactive
+>   Before Clock Handler
+  CMP: Same type
+    WatchPoint cp0/minData tests:
+      cp0/minData < cp0/size  -> true
+    Sample:BC: numRecs:0 first:0 cur:0 state:! isOverrun:false samplesLost:0
+    Invoke Action
+    Set Buffer Reset
+    SetInteractive
+  After Clock Handler
+  CMP: Same type
+    WatchPoint cp0/minData tests:
+      cp0/minData < cp0/size  -> true
+    Sample:AC: numRecs:1 first:0 cur:1 state:+ isOverrun:false samplesLost:0
+    Invoke Action
+    Set Buffer Reset
+    SetInteractive
+Entering interactive mode at time 202000 
+Watch point cp0/minData buffer
+> TriggerRecord:@cycle202000: samples lost = 0: cp0/size=78 cp0/maxData=100 
+buf[0] BC @202000 (!) cp0/size=78 cp0/maxData=100 
+buf[1] AC @202000 (+) cp0/size=78 cp0/maxData=100 
+> > In ObjectMapComparison_var: cp0/minData cp0/maxData
+getType(v1): unsigned long
+getType(v2): unsigned long
+> WP0: ALL : cp0/size CHANGED cp0/maxData > 90 cp0/minData < cp0/maxData cp0/rCheck CHANGED  : bufsize = 4 postDelay = 2 : cp0/rCheck cp0/size cp0/minData cp0/maxData  : interactive
+>   Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+      cp0/maxData > 90  -> true
+        AND -> false
+  CMP: Same type
+      cp0/minData < cp0/maxData  -> true
+        OR -> true
+      cp0/rCheck CHANGED  -> false
+        OR -> true
+    Sample:BC: numRecs:0 first:0 cur:0 state:! isOverrun:false samplesLost:0
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+      cp0/maxData > 90  -> true
+        AND -> false
+  CMP: Same type
+      cp0/minData < cp0/maxData  -> true
+        OR -> true
+      cp0/rCheck CHANGED  -> false
+        OR -> true
+    Sample:AC: numRecs:1 first:0 cur:1 state:+ isOverrun:false samplesLost:0
+  Before Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+      cp0/maxData > 90  -> true
+        AND -> false
+  CMP: Same type
+      cp0/minData < cp0/maxData  -> true
+        OR -> true
+      cp0/rCheck CHANGED  -> false
+        OR -> true
+    Sample:BC: numRecs:2 first:0 cur:2 state:+ isOverrun:false samplesLost:0
+    Invoke Action
+    Set Buffer Reset
+    SetInteractive
+  After Clock Handler
+    WatchPoint cp0/size tests:
+      cp0/size CHANGED  -> false
+      cp0/maxData > 90  -> true
+        AND -> false
+  CMP: Same type
+      cp0/minData < cp0/maxData  -> true
+        OR -> true
+      cp0/rCheck CHANGED  -> false
+        OR -> true
+    Sample:AC: numRecs:3 first:0 cur:3 state:+ isOverrun:false samplesLost:0
+    Invoke Action
+    Set Buffer Reset
+    SetInteractive
+Entering interactive mode at time 204000 
+Watch point cp0/size buffer
+> TriggerRecord:@cycle204000: samples lost = 0: cp0/rCheck=-21 cp0/size=78 cp0/minData=1 cp0/maxData=100 
+buf[0] BC @203000 (!) cp0/rCheck=-21 cp0/size=78 cp0/minData=1 cp0/maxData=100 
+buf[1] AC @203000 (+) cp0/rCheck=-21 cp0/size=78 cp0/minData=1 cp0/maxData=100 
+buf[2] BC @204000 (+) cp0/rCheck=-21 cp0/size=78 cp0/minData=1 cp0/maxData=100 
+buf[3] AC @204000 (+) cp0/rCheck=-21 cp0/size=78 cp0/minData=1 cp0/maxData=100 
+> Removing all watchpoints and exiting ObjectExplorer
+DbgSST15[cp0:sendData:300000]: data.size = 94
+DbgSST15[cp1:sendData:300000]: data.size = 36
+DbgSST15[cp0:sendData:400000]: data.size = 87
+DbgSST15[cp1:sendData:400000]: data.size = 93
+DbgSST15[cp0:sendData:500000]: data.size = 50
+DbgSST15[cp1:sendData:500000]: data.size = 22
+DbgSST15[cp0:sendData:600000]: data.size = 63
+DbgSST15[cp1:sendData:600000]: data.size = 28
+DbgSST15[cp0:sendData:700000]: data.size = 91
+DbgSST15[cp1:sendData:700000]: data.size = 60
+DbgSST15[cp0:sendData:800000]: data.size = 64
+DbgSST15[cp1:sendData:800000]: data.size = 27
+DbgSST15[cp0:sendData:900000]: data.size = 41
+DbgSST15[cp1:sendData:900000]: data.size = 27
+DbgSST15[cp0:sendData:1000000]: data.size = 73
+DbgSST15[cp1:sendData:1000000]: data.size = 37
+DbgSST15[cp0:sendData:1100000]: data.size = 12
+DbgSST15[cp1:sendData:1100000]: data.size = 69
+DbgSST15[cp1:handleEvent:1100000]: size = 84
+DbgSST15[cp0:handleEvent:1100000]: size = 87
+DbgSST15[cp0:sendData:1200000]: data.size = 68
+DbgSST15[cp1:sendData:1200000]: data.size = 30
+DbgSST15[cp1:handleEvent:1200000]: size = 78
+DbgSST15[cp0:handleEvent:1200000]: size = 16
+DbgSST15[cp0:sendData:1300000]: data.size = 83
+DbgSST15[cp1:sendData:1300000]: data.size = 31
+DbgSST15[cp1:handleEvent:1300000]: size = 94
+DbgSST15[cp0:handleEvent:1300000]: size = 36
+DbgSST15[cp0:sendData:1400000]: data.size = 63
+DbgSST15[cp1:sendData:1400000]: data.size = 24
+DbgSST15[cp1:handleEvent:1400000]: size = 87
+DbgSST15[cp0:handleEvent:1400000]: size = 93
+DbgSST15[cp0:sendData:1500000]: data.size = 68
+DbgSST15[cp1:sendData:1500000]: data.size = 36
+DbgSST15[cp1:handleEvent:1500000]: size = 50
+DbgSST15[cp0:handleEvent:1500000]: size = 22
+DbgSST15[cp0:sendData:1600000]: data.size = 30
+DbgSST15[cp1:sendData:1600000]: data.size = 3
+DbgSST15[cp1:handleEvent:1600000]: size = 63
+DbgSST15[cp0:handleEvent:1600000]: size = 28
+DbgSST15[cp0:sendData:1700000]: data.size = 23
+DbgSST15[cp1:sendData:1700000]: data.size = 59
+DbgSST15[cp1:handleEvent:1700000]: size = 91
+DbgSST15[cp0:handleEvent:1700000]: size = 60
+DbgSST15[cp0:sendData:1800000]: data.size = 70
+DbgSST15[cp1:sendData:1800000]: data.size = 68
+DbgSST15[cp1:handleEvent:1800000]: size = 64
+DbgSST15[cp0:handleEvent:1800000]: size = 27
+DbgSST15[cp0:sendData:1900000]: data.size = 94
+DbgSST15[cp1:sendData:1900000]: data.size = 57
+DbgSST15[cp1:handleEvent:1900000]: size = 41
+DbgSST15[cp0:handleEvent:1900000]: size = 27
+DbgSST15[cp0:sendData:2000000]: data.size = 12
+DbgSST15[cp1:sendData:2000000]: data.size = 43
+DbgSST15[cp1:handleEvent:2000000]: size = 73
+DbgSST15[cp0:handleEvent:2000000]: size = 37
+DbgSST15[cp0:sendData:2100000]: data.size = 30
+DbgSST15[cp1:sendData:2100000]: data.size = 74
+DbgSST15[cp1:handleEvent:2100000]: size = 12
+DbgSST15[cp0:handleEvent:2100000]: size = 69
+DbgSST15[cp0:sendData:2200000]: data.size = 22
+DbgSST15[cp1:sendData:2200000]: data.size = 20
+DbgSST15[cp1:handleEvent:2200000]: size = 68
+DbgSST15[cp0:handleEvent:2200000]: size = 30
+DbgSST15[cp0:sendData:2300000]: data.size = 85
+DbgSST15[cp1:sendData:2300000]: data.size = 38
+DbgSST15[cp1:handleEvent:2300000]: size = 83
+DbgSST15[cp0:handleEvent:2300000]: size = 31
+DbgSST15[cp0:sendData:2400000]: data.size = 99
+DbgSST15[cp1:sendData:2400000]: data.size = 25
+DbgSST15[cp1:handleEvent:2400000]: size = 63
+DbgSST15[cp0:handleEvent:2400000]: size = 24
+DbgSST15[cp0:sendData:2500000]: data.size = 16
+DbgSST15[cp1:sendData:2500000]: data.size = 71
+DbgSST15[cp1:handleEvent:2500000]: size = 68
+DbgSST15[cp0:handleEvent:2500000]: size = 36
+DbgSST15[cp0:sendData:2600000]: data.size = 14
+DbgSST15[cp1:sendData:2600000]: data.size = 27
+DbgSST15[cp1:handleEvent:2600000]: size = 30
+DbgSST15[cp0:handleEvent:2600000]: size = 3
+DbgSST15[cp0:sendData:2700000]: data.size = 92
+DbgSST15[cp1:sendData:2700000]: data.size = 81
+DbgSST15[cp1:handleEvent:2700000]: size = 23
+DbgSST15[cp0:handleEvent:2700000]: size = 59
+DbgSST15[cp0:sendData:2800000]: data.size = 57
+DbgSST15[cp1:sendData:2800000]: data.size = 74
+DbgSST15[cp1:handleEvent:2800000]: size = 70
+DbgSST15[cp0:handleEvent:2800000]: size = 68
+DbgSST15[cp0:sendData:2900000]: data.size = 63
+DbgSST15[cp1:sendData:2900000]: data.size = 71
+DbgSST15[cp1:handleEvent:2900000]: size = 94
+DbgSST15[cp0:handleEvent:2900000]: size = 57
+DbgSST15[cp0:sendData:3000000]: data.size = 97
+DbgSST15[cp1:sendData:3000000]: data.size = 82
+DbgSST15[cp1:handleEvent:3000000]: size = 12
+DbgSST15[cp0:handleEvent:3000000]: size = 43
+DbgSST15[cp0:sendData:3100000]: data.size = 6
+DbgSST15[cp1:sendData:3100000]: data.size = 26
+DbgSST15[cp1:handleEvent:3100000]: size = 30
+DbgSST15[cp0:handleEvent:3100000]: size = 74
+DbgSST15[cp0:sendData:3200000]: data.size = 85
+DbgSST15[cp1:sendData:3200000]: data.size = 28
+DbgSST15[cp1:handleEvent:3200000]: size = 22
+DbgSST15[cp0:handleEvent:3200000]: size = 20
+DbgSST15[cp0:sendData:3300000]: data.size = 37
+DbgSST15[cp1:sendData:3300000]: data.size = 6
+DbgSST15[cp1:handleEvent:3300000]: size = 85
+DbgSST15[cp0:handleEvent:3300000]: size = 38
+DbgSST15[cp0:sendData:3400000]: data.size = 47
+DbgSST15[cp1:sendData:3400000]: data.size = 30
+DbgSST15[cp1:handleEvent:3400000]: size = 99
+DbgSST15[cp0:handleEvent:3400000]: size = 25
+DbgSST15[cp0:sendData:3500000]: data.size = 14
+DbgSST15[cp1:sendData:3500000]: data.size = 58
+DbgSST15[cp1:handleEvent:3500000]: size = 16
+DbgSST15[cp0:handleEvent:3500000]: size = 71
+DbgSST15[cp0:sendData:3600000]: data.size = 25
+DbgSST15[cp1:sendData:3600000]: data.size = 96
+DbgSST15[cp1:handleEvent:3600000]: size = 14
+DbgSST15[cp0:handleEvent:3600000]: size = 27
+DbgSST15[cp0:sendData:3700000]: data.size = 83
+DbgSST15[cp1:sendData:3700000]: data.size = 46
+DbgSST15[cp1:handleEvent:3700000]: size = 92
+DbgSST15[cp0:handleEvent:3700000]: size = 81
+DbgSST15[cp0:sendData:3800000]: data.size = 15
+DbgSST15[cp1:sendData:3800000]: data.size = 68
+DbgSST15[cp1:handleEvent:3800000]: size = 57
+DbgSST15[cp0:handleEvent:3800000]: size = 74
+DbgSST15[cp0:sendData:3900000]: data.size = 35
+DbgSST15[cp1:sendData:3900000]: data.size = 65
+DbgSST15[cp1:handleEvent:3900000]: size = 63
+DbgSST15[cp0:handleEvent:3900000]: size = 71
+DbgSST15[cp0:sendData:4000000]: data.size = 44
+DbgSST15[cp1:sendData:4000000]: data.size = 51
+DbgSST15[cp1:handleEvent:4000000]: size = 97
+DbgSST15[cp0:handleEvent:4000000]: size = 82
+DbgSST15[cp0:sendData:4100000]: data.size = 88
+DbgSST15[cp1:sendData:4100000]: data.size = 9
+DbgSST15[cp1:handleEvent:4100000]: size = 6
+DbgSST15[cp0:handleEvent:4100000]: size = 26
+DbgSST15[cp0:sendData:4200000]: data.size = 77
+DbgSST15[cp1:sendData:4200000]: data.size = 79
+DbgSST15[cp1:handleEvent:4200000]: size = 85
+DbgSST15[cp0:handleEvent:4200000]: size = 28
+DbgSST15[cp0:sendData:4300000]: data.size = 89
+DbgSST15[cp1:sendData:4300000]: data.size = 85
+DbgSST15[cp1:handleEvent:4300000]: size = 37
+DbgSST15[cp0:handleEvent:4300000]: size = 6
+DbgSST15[cp0:sendData:4400000]: data.size = 4
+DbgSST15[cp1:sendData:4400000]: data.size = 52
+DbgSST15[cp1:handleEvent:4400000]: size = 47
+DbgSST15[cp0:handleEvent:4400000]: size = 30
+DbgSST15[cp0:sendData:4500000]: data.size = 55
+DbgSST15[cp1:sendData:4500000]: data.size = 100
+DbgSST15[cp1:handleEvent:4500000]: size = 14
+DbgSST15[cp0:handleEvent:4500000]: size = 58
+DbgSST15[cp0:sendData:4600000]: data.size = 33
+DbgSST15[cp1:sendData:4600000]: data.size = 61
+DbgSST15[cp1:handleEvent:4600000]: size = 25
+DbgSST15[cp0:handleEvent:4600000]: size = 96
+DbgSST15[cp0:sendData:4700000]: data.size = 77
+DbgSST15[cp1:sendData:4700000]: data.size = 69
+DbgSST15[cp1:handleEvent:4700000]: size = 83
+DbgSST15[cp0:handleEvent:4700000]: size = 46
+DbgSST15[cp0:sendData:4800000]: data.size = 40
+DbgSST15[cp1:sendData:4800000]: data.size = 13
+DbgSST15[cp1:handleEvent:4800000]: size = 15
+DbgSST15[cp0:handleEvent:4800000]: size = 68
+DbgSST15[cp0:sendData:4900000]: data.size = 27
+DbgSST15[cp1:sendData:4900000]: data.size = 87
+DbgSST15[cp1:handleEvent:4900000]: size = 35
+DbgSST15[cp0:handleEvent:4900000]: size = 65
+DbgSST15[cp0:sendData:5000000]: data.size = 95
+DbgSST15[cp1:sendData:5000000]: data.size = 40
+DbgSST15[cp1:handleEvent:5000000]: size = 44
+DbgSST15[cp0:handleEvent:5000000]: size = 51
+DbgSST15[cp0:sendData:5100000]: data.size = 96
+DbgSST15[cp1:sendData:5100000]: data.size = 71
+DbgSST15[cp1:handleEvent:5100000]: size = 88
+DbgSST15[cp0:handleEvent:5100000]: size = 9
+DbgSST15[cp0:sendData:5200000]: data.size = 35
+DbgSST15[cp1:sendData:5200000]: data.size = 79
+DbgSST15[cp1:handleEvent:5200000]: size = 77
+DbgSST15[cp0:handleEvent:5200000]: size = 79
+DbgSST15[cp0:sendData:5300000]: data.size = 68
+DbgSST15[cp1:sendData:5300000]: data.size = 2
+DbgSST15[cp1:handleEvent:5300000]: size = 89
+DbgSST15[cp0:handleEvent:5300000]: size = 85
+DbgSST15[cp0:sendData:5400000]: data.size = 98
+DbgSST15[cp1:sendData:5400000]: data.size = 3
+DbgSST15[cp1:handleEvent:5400000]: size = 4
+DbgSST15[cp0:handleEvent:5400000]: size = 52
+DbgSST15[cp0:sendData:5500000]: data.size = 18
+DbgSST15[cp1:sendData:5500000]: data.size = 93
+DbgSST15[cp1:handleEvent:5500000]: size = 55
+DbgSST15[cp0:handleEvent:5500000]: size = 100
+DbgSST15[cp0:sendData:5600000]: data.size = 53
+DbgSST15[cp1:sendData:5600000]: data.size = 57
+DbgSST15[cp1:handleEvent:5600000]: size = 33
+DbgSST15[cp0:handleEvent:5600000]: size = 61
+DbgSST15[cp0:sendData:5700000]: data.size = 2
+DbgSST15[cp1:sendData:5700000]: data.size = 81
+DbgSST15[cp1:handleEvent:5700000]: size = 77
+DbgSST15[cp0:handleEvent:5700000]: size = 69
+DbgSST15[cp0:sendData:5800000]: data.size = 87
+DbgSST15[cp1:sendData:5800000]: data.size = 42
+DbgSST15[cp1:handleEvent:5800000]: size = 40
+DbgSST15[cp0:handleEvent:5800000]: size = 13
+DbgSST15[cp0:sendData:5900000]: data.size = 66
+DbgSST15[cp1:sendData:5900000]: data.size = 90
+DbgSST15[cp1:handleEvent:5900000]: size = 27
+DbgSST15[cp0:handleEvent:5900000]: size = 87
+DbgSST15[cp0:sendData:6000000]: data.size = 45
+DbgSST15[cp1:sendData:6000000]: data.size = 20
+DbgSST15[cp1:handleEvent:6000000]: size = 95
+DbgSST15[cp0:handleEvent:6000000]: size = 40
+DbgSST15[cp0:sendData:6100000]: data.size = 41
+DbgSST15[cp1:sendData:6100000]: data.size = 30
+DbgSST15[cp1:handleEvent:6100000]: size = 96
+DbgSST15[cp0:handleEvent:6100000]: size = 71
+DbgSST15[cp0:sendData:6200000]: data.size = 32
+DbgSST15[cp1:sendData:6200000]: data.size = 18
+DbgSST15[cp1:handleEvent:6200000]: size = 35
+DbgSST15[cp0:handleEvent:6200000]: size = 79
+DbgSST15[cp0:sendData:6300000]: data.size = 98
+DbgSST15[cp1:sendData:6300000]: data.size = 72
+DbgSST15[cp1:handleEvent:6300000]: size = 68
+DbgSST15[cp0:handleEvent:6300000]: size = 2
+DbgSST15[cp0:sendData:6400000]: data.size = 82
+DbgSST15[cp1:sendData:6400000]: data.size = 76
+DbgSST15[cp1:handleEvent:6400000]: size = 98
+DbgSST15[cp0:handleEvent:6400000]: size = 3
+DbgSST15[cp0:sendData:6500000]: data.size = 10
+DbgSST15[cp1:sendData:6500000]: data.size = 28
+DbgSST15[cp1:handleEvent:6500000]: size = 18
+DbgSST15[cp0:handleEvent:6500000]: size = 93
+DbgSST15[cp0:sendData:6600000]: data.size = 68
+DbgSST15[cp1:sendData:6600000]: data.size = 57
+DbgSST15[cp1:handleEvent:6600000]: size = 53
+DbgSST15[cp0:handleEvent:6600000]: size = 57
+DbgSST15[cp0:sendData:6700000]: data.size = 98
+DbgSST15[cp1:sendData:6700000]: data.size = 54
+DbgSST15[cp1:handleEvent:6700000]: size = 2
+DbgSST15[cp0:handleEvent:6700000]: size = 81
+DbgSST15[cp0:sendData:6800000]: data.size = 87
+DbgSST15[cp1:sendData:6800000]: data.size = 66
+DbgSST15[cp1:handleEvent:6800000]: size = 87
+DbgSST15[cp0:handleEvent:6800000]: size = 42
+DbgSST15[cp0:sendData:6900000]: data.size = 7
+DbgSST15[cp1:sendData:6900000]: data.size = 84
+DbgSST15[cp1:handleEvent:6900000]: size = 66
+DbgSST15[cp0:handleEvent:6900000]: size = 90
+DbgSST15[cp0:sendData:7000000]: data.size = 20
+DbgSST15[cp1:sendData:7000000]: data.size = 25
+DbgSST15[cp1:handleEvent:7000000]: size = 45
+DbgSST15[cp0:handleEvent:7000000]: size = 20
+DbgSST15[cp0:sendData:7100000]: data.size = 29
+DbgSST15[cp1:sendData:7100000]: data.size = 72
+DbgSST15[cp1:handleEvent:7100000]: size = 41
+DbgSST15[cp0:handleEvent:7100000]: size = 30
+DbgSST15[cp0:sendData:7200000]: data.size = 33
+DbgSST15[cp1:sendData:7200000]: data.size = 30
+DbgSST15[cp1:handleEvent:7200000]: size = 32
+DbgSST15[cp0:handleEvent:7200000]: size = 18
+DbgSST15[cp0:sendData:7300000]: data.size = 4
+DbgSST15[cp1:sendData:7300000]: data.size = 20
+DbgSST15[cp1:handleEvent:7300000]: size = 98
+DbgSST15[cp0:handleEvent:7300000]: size = 72
+DbgSST15[cp0:sendData:7400000]: data.size = 71
+DbgSST15[cp1:sendData:7400000]: data.size = 69
+DbgSST15[cp1:handleEvent:7400000]: size = 82
+DbgSST15[cp0:handleEvent:7400000]: size = 76
+DbgSST15[cp0:sendData:7500000]: data.size = 9
+DbgSST15[cp1:sendData:7500000]: data.size = 16
+DbgSST15[cp1:handleEvent:7500000]: size = 10
+DbgSST15[cp0:handleEvent:7500000]: size = 28
+DbgSST15[cp0:sendData:7600000]: data.size = 41
+DbgSST15[cp1:sendData:7600000]: data.size = 50
+DbgSST15[cp1:handleEvent:7600000]: size = 68
+DbgSST15[cp0:handleEvent:7600000]: size = 57
+DbgSST15[cp0:sendData:7700000]: data.size = 97
+DbgSST15[cp1:sendData:7700000]: data.size = 24
+DbgSST15[cp1:handleEvent:7700000]: size = 98
+DbgSST15[cp0:handleEvent:7700000]: size = 54
+DbgSST15[cp0:sendData:7800000]: data.size = 19
+DbgSST15[cp1:sendData:7800000]: data.size = 46
+DbgSST15[cp1:handleEvent:7800000]: size = 87
+DbgSST15[cp0:handleEvent:7800000]: size = 66
+DbgSST15[cp0:sendData:7900000]: data.size = 47
+DbgSST15[cp1:sendData:7900000]: data.size = 52
+DbgSST15[cp1:handleEvent:7900000]: size = 7
+DbgSST15[cp0:handleEvent:7900000]: size = 84
+DbgSST15[cp0:sendData:8000000]: data.size = 22
+DbgSST15[cp1:sendData:8000000]: data.size = 56
+DbgSST15[cp1:handleEvent:8000000]: size = 20
+DbgSST15[cp0:handleEvent:8000000]: size = 25
+DbgSST15[cp0:sendData:8100000]: data.size = 80
+DbgSST15[cp1:sendData:8100000]: data.size = 89
+DbgSST15[cp1:handleEvent:8100000]: size = 29
+DbgSST15[cp0:handleEvent:8100000]: size = 72
+DbgSST15[cp0:sendData:8200000]: data.size = 65
+DbgSST15[cp1:sendData:8200000]: data.size = 29
+DbgSST15[cp1:handleEvent:8200000]: size = 33
+DbgSST15[cp0:handleEvent:8200000]: size = 30
+DbgSST15[cp0:sendData:8300000]: data.size = 42
+DbgSST15[cp1:sendData:8300000]: data.size = 51
+DbgSST15[cp1:handleEvent:8300000]: size = 4
+DbgSST15[cp0:handleEvent:8300000]: size = 20
+DbgSST15[cp0:sendData:8400000]: data.size = 94
+DbgSST15[cp1:sendData:8400000]: data.size = 1
+DbgSST15[cp1:handleEvent:8400000]: size = 71
+DbgSST15[cp0:handleEvent:8400000]: size = 69
+DbgSST15[cp0:sendData:8500000]: data.size = 35
+DbgSST15[cp1:sendData:8500000]: data.size = 65
+DbgSST15[cp1:handleEvent:8500000]: size = 9
+DbgSST15[cp0:handleEvent:8500000]: size = 16
+DbgSST15[cp0:sendData:8600000]: data.size = 25
+DbgSST15[cp1:sendData:8600000]: data.size = 15
+DbgSST15[cp1:handleEvent:8600000]: size = 41
+DbgSST15[cp0:handleEvent:8600000]: size = 50
+DbgSST15[cp0:sendData:8700000]: data.size = 88
+DbgSST15[cp1:sendData:8700000]: data.size = 57
+DbgSST15[cp1:handleEvent:8700000]: size = 97
+DbgSST15[cp0:handleEvent:8700000]: size = 24
+DbgSST15[cp0:sendData:8800000]: data.size = 44
+DbgSST15[cp1:sendData:8800000]: data.size = 92
+DbgSST15[cp1:handleEvent:8800000]: size = 19
+DbgSST15[cp0:handleEvent:8800000]: size = 46
+DbgSST15[cp0:sendData:8900000]: data.size = 28
+DbgSST15[cp1:sendData:8900000]: data.size = 66
+DbgSST15[cp1:handleEvent:8900000]: size = 47
+DbgSST15[cp0:handleEvent:8900000]: size = 52
+DbgSST15[cp0:sendData:9000000]: data.size = 60
+DbgSST15[cp1:sendData:9000000]: data.size = 37
+DbgSST15[cp1:handleEvent:9000000]: size = 22
+DbgSST15[cp0:handleEvent:9000000]: size = 56
+DbgSST15[cp0:sendData:9100000]: data.size = 33
+DbgSST15[cp1:sendData:9100000]: data.size = 52
+DbgSST15[cp1:handleEvent:9100000]: size = 80
+DbgSST15[cp0:handleEvent:9100000]: size = 89
+DbgSST15[cp0:sendData:9200000]: data.size = 38
+DbgSST15[cp1:sendData:9200000]: data.size = 29
+DbgSST15[cp1:handleEvent:9200000]: size = 65
+DbgSST15[cp0:handleEvent:9200000]: size = 29
+DbgSST15[cp0:sendData:9300000]: data.size = 76
+DbgSST15[cp1:sendData:9300000]: data.size = 8
+DbgSST15[cp1:handleEvent:9300000]: size = 42
+DbgSST15[cp0:handleEvent:9300000]: size = 51
+DbgSST15[cp0:sendData:9400000]: data.size = 75
+DbgSST15[cp1:sendData:9400000]: data.size = 22
+DbgSST15[cp1:handleEvent:9400000]: size = 94
+DbgSST15[cp0:handleEvent:9400000]: size = 1
+DbgSST15[cp0:sendData:9500000]: data.size = 59
+DbgSST15[cp1:sendData:9500000]: data.size = 96
+DbgSST15[cp1:handleEvent:9500000]: size = 35
+DbgSST15[cp0:handleEvent:9500000]: size = 65
+DbgSST15[cp0:sendData:9600000]: data.size = 30
+DbgSST15[cp1:sendData:9600000]: data.size = 38
+DbgSST15[cp1:handleEvent:9600000]: size = 25
+DbgSST15[cp0:handleEvent:9600000]: size = 15
+DbgSST15[cp0:sendData:9700000]: data.size = 36
+DbgSST15[cp1:sendData:9700000]: data.size = 94
+DbgSST15[cp1:handleEvent:9700000]: size = 88
+DbgSST15[cp0:handleEvent:9700000]: size = 57
+DbgSST15[cp0:sendData:9800000]: data.size = 19
+DbgSST15[cp1:sendData:9800000]: data.size = 29
+DbgSST15[cp1:handleEvent:9800000]: size = 44
+DbgSST15[cp0:handleEvent:9800000]: size = 92
+DbgSST15[cp0:sendData:9900000]: data.size = 44
+DbgSST15[cp1:sendData:9900000]: data.size = 12
+DbgSST15[cp1:handleEvent:9900000]: size = 28
+DbgSST15[cp0:handleEvent:9900000]: size = 66
+DbgSST15[cp0:sendData:10000000]: data.size = 29
+DbgSST15[cp0:clockTick:10000000]: cp0 ready to end simulation
+DbgSST15[cp1:sendData:10000000]: data.size = 30
+DbgSST15[cp1:clockTick:10000000]: cp1 ready to end simulation
+DbgSST15[cp1:handleEvent:10000000]: size = 60
+DbgSST15[cp0:handleEvent:10000000]: size = 37
+Simulation is complete, simulated time: 10 us
