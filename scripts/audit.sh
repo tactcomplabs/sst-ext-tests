@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Audit tests included.
+# Intended to be compared against results from the alternate test flow (alt.sh)
+
 # Directory containing script
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
