@@ -39,3 +39,6 @@ build/
 
 # Alternate test make flow
 *.shlog
+
+# vscode
+.vscode

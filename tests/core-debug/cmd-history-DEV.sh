@@ -11,7 +11,7 @@ SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 CONFIG="../rt_action/test_Checkpoint.py"
-PSTR="0 10000000 15000000 20000000 23000000 30000000 31000000 39000000 "
+PSTR="0 10000000 15000000 20000000 23000000 30000000 31000000 39000000 40000000 47000000 50000000 "
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -22,6 +22,7 @@ CHKFILE=$TNAME.chk
 LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s $CONFIG"
 echo $LAUNCH
 $LAUNCH << EOF | tee $LOGFILE || exit
+logging $OUTFILE
 ls
 cd c7
 watch duty_cycle_count changed
@@ -29,12 +30,19 @@ run
 !!:p
 !!
 h
-!-1
 !-2
+!-3
 h
-!!4
+!5
 !?un
 !r
+pwd
+pwd
+run
+!-1
+pwd
+!-3
+h
 shutdown
 EOF
 
@@ -50,12 +58,44 @@ fi
 
 check=$(awk '/interactive mode at time/ {printf("%s ", $NF)}' $LOGFILE)
 echo "Checking for match:"
-echo "\"$check\""
-echo "\"$PSTR\""
+echo "\"$PSTR\" (expected)"
+echo "\"$check\" (acquired)"
 if [[ "$check" == "$PSTR" ]]; then
   echo "Found match"
 else
   echo "ERROR mismatch"
+  exit 1
+fi
+
+# extra check of console logging to make sure command substitution occured.
+cat << EOF > $CHKFILE
+ls
+cd c7
+watch duty_cycle_count changed
+run
+run
+run
+h
+run
+run
+h
+run
+run
+run
+pwd
+pwd
+run
+run
+pwd
+run
+h
+shutdown
+EOF
+
+echo "diff $CHKFILE $OUTFILE"
+diff $CHKFILE $OUTFILE
+if [ $? -ne 0 ]; then
+  echo "ERROR: console log mismatch"
   exit 1
 fi
 
