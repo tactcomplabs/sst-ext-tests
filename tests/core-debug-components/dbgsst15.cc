@@ -63,6 +63,7 @@ DbgSST15::DbgSST15(SST::ComponentId_t id, const SST::Params& params ) :
 
   // setup the rng
   mersenne = new SST::RNG::MersenneRNG(params.find<unsigned int>("rngSeed", 1223));
+  mersenne2 = new SST::RNG::MersenneRNG(params.find<unsigned int>("rngSeed", 1224));
 
   // setup the links
   for( unsigned i=0; i<numPorts; i++ ){
@@ -141,6 +142,7 @@ void DbgSST15::serialize_order(SST::Core::Serialization::serializer& ser){
   SST_SER(clocks);
   SST_SER(curCycle);
   SST_SER(mersenne);
+  SST_SER(mersenne2);
   SST_SER(linkHandlers);
 
   SST_SER(traceMode);
@@ -237,7 +239,8 @@ void DbgSST15::sendData(){
     // generate a new payload
     std::vector<unsigned> data;
     uint64_t range = maxData - minData + 1;
-    uint64_t r = uint64_t(rand()) % range + minData;
+    // so as to not conflict with checking use different rng here
+    uint64_t r = mersenne2->generateNextUInt32() % range + minData;
 #if 0
     /// debug probe trigger (advance to post-trigger state)
     bool trace = (traceMode & 1) == 1;

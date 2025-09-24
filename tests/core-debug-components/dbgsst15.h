@@ -287,6 +287,7 @@ ProbeBuffer<int>* test_ProbeBuffer;
 #endif
 // -- rng objects
 SST::RNG::Random* mersenne;                     ///< mersenne twister object
+SST::RNG::Random* mersenne2;
 
 std::vector<SST::Link *> linkHandlers;          ///< LinkHandler objects
 
