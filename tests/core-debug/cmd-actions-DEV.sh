@@ -11,7 +11,7 @@ SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 CONFIG="dbgsst15.py"
-PSTR="^Entering interactive mode at time 140000000"
+PSTR=""
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -37,7 +37,7 @@ unwatch 0
 ls
 trace maxData > 13 : 8 0 : minData : set minData 10
 run 1us
-ls
+print minData
 shutdown
 EOF
 
@@ -51,14 +51,64 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-#grep "$PSTR" $LOGFILE > /dev/null
-diff $LOGFILE $CHKFILE > /dev/null
+# Avoid diff due to differences btwn mac and linux
+#diff $LOGFILE $CHKFILE > /dev/null
+#retVal=$?
+#if [ $retVal -ne 0 ]; then
+#  echo "ERROR in diff $LOGFILE $CHKFILE"
+#  exit $retVal
+#fi
+#echo "Log file matches check file"
+
+# Need one for each action
+# Interactive
+PSTR="Entering interactive mode at time 1000"
+grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR in diff $LOGFILE $CHKFILE"
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
   exit $retVal
 fi
-echo "Log file matches check file"
+echo "Found pass string \"$PSTR\""
+
+PSTR="> TriggerRecord:@cycle1000: samples lost = 0: cp0/maxData=100"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# printTrace
+PSTR="TriggerRecord:@cycle68000: samples lost = 0: cp0/maxData=100"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# printStatus
+PSTR="to be delivered at time: 1100000"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+#set
+PSTR="> minData = 10"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
 
 # Cleanup output file on pass
 if [ $CLEANUP -eq 1 ]; then

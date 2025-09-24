@@ -57,14 +57,45 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-#grep "$PSTR" $LOGFILE > /dev/null
-diff $LOGFILE $CHKFILE > /dev/null
+# all
+PSTR="> WP0: ALL : cp0/size CHANGED  : bufsize = 16 postDelay = 14 : cp0/size  : interactive"
+grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR in diff $LOGFILE $CHKFILE"
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
   exit $retVal
 fi
-echo "Log file matches check file"
+echo "Found pass string \"$PSTR\""
+
+# ac ae
+PSTR="> WP0: AC AE : cp0/size CHANGED  : bufsize = 16 postDelay = 14 : cp0/size  : interactive"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# bc be
+PSTR="> WP0: BC BE : cp0/size CHANGED  : bufsize = 16 postDelay = 14 : cp0/size  : interactive"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# ae
+PSTR="> WP0: AE : cp0/size CHANGED  : bufsize = 16 postDelay = 14 : cp0/size  : interactive"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
 
 # Cleanup output file on pass
 if [ $CLEANUP -eq 1 ]; then

@@ -23,17 +23,20 @@ LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-star
 echo $LAUNCH
 $LAUNCH << EOF | tee $LOGFILE || exit 1
 cd cp0
-ls
 watch size > 0
+printWatchpoint 0
 run
 unwatch 0
 watch size changed
+printWatchpoint 0
 run
 unwatch 0
 watch size > minData
+printWatchpoint 0
 run
 unwatch 0
 watch size > minData && size < maxData || rCheck changed
+printWatchpoint 0
 run
 shutdown
 EOF
@@ -48,14 +51,95 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-#grep "$PSTR" $LOGFILE > /dev/null
-diff $LOGFILE $CHKFILE > /dev/null
+# watch size > 0, printWatchpoint 0
+PSTR="WP0: ALL : cp0/size > 0  : interactive"
+grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR in diff $LOGFILE"
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
   exit $retVal
 fi
-echo "Log file matches check file"
+echo "Found pass string \"$PSTR\""
+
+# run
+PSTR="Entering interactive mode at time 100000"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# watch size changed, printWatchpoint
+PSTR=" WP0: ALL : cp0/size CHANGED  : interactive"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# run
+PSTR="Entering interactive mode at time 200000"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# watch size > minData, printWatchpoint 0
+PSTR=" WP0: ALL : cp0/size > cp0/minData  : interactive"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# run
+PSTR="Entering interactive mode at time 201000"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# watch size > minData && size < maxData || rCheck changed, printWatchpoint
+PSTR="WP0: ALL : cp0/size > cp0/minData cp0/size < cp0/maxData cp0/rCheck CHANGED  : interactive"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# run
+PSTR="Entering interactive mode at time 300000"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# shutdown
+PSTR="Exiting ObjectExplorer and shutting down simulation"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
 
 # Cleanup output file on pass
 if [ $CLEANUP -eq 1 ]; then
