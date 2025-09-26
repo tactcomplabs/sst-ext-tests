@@ -50,6 +50,16 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
+# Simulation Complete
+PSTR="Simulation is complete"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
 # Check that checkpoint files exist
 if [ ! -d "$CKPTPREFIX" ]; then
 	echo "ERROR checkpoint directory '$CKPTPREFIX' does not exits"

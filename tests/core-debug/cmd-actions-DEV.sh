@@ -19,7 +19,7 @@ CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s $CONFIG"
+LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/tests/core-debug-components $CONFIG"
 echo $LAUNCH
 $LAUNCH 2>&1 << EOF | tee $LOGFILE || exit 1
 cd cp0
@@ -30,10 +30,10 @@ printTrace 0
 unwatch 0
 trace maxData > 11 : 8 0 : maxData : printTrace
 run 1us
-unwatch 0
+unwatch 1
 trace maxData > 12 : 8 0 : maxData : printStatus
 run 1us
-unwatch 0
+unwatch 2
 ls
 trace maxData > 13 : 8 0 : minData : set minData 10
 run 1us
@@ -102,6 +102,16 @@ echo "Found pass string \"$PSTR\""
 
 #set
 PSTR="> minData = 10"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# Simulation Complete
+PSTR="Simulation is complete"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
