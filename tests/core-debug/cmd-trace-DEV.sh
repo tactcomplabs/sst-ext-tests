@@ -19,7 +19,7 @@ CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s $CONFIG"
+LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/tests/core-debug-components $CONFIG"
 echo $LAUNCH
 $LAUNCH << EOF | tee $LOGFILE || exit 1
 cd cp0
@@ -33,24 +33,25 @@ resetTrace 0
 printTrace 0
 unwatch 0
 trace size changed : 10 2 : size rCheck : interactive
-printWatchpoint 0
+printWatchpoint 1
 run
-prt 0
-rst 0
-prt 0
-uw 0
+prt 1
+rst 1
+prt 1
+uw 1
 trace minData < size : 8 0 : size : interactive
-printWatchpoint 0
-add 0 maxData
-printWatchpoint 0
+printWatchpoint 2
+add 2 maxData
+printWatchpoint 2
 run 
-printTrace 0
-unwatch 0
+printTrace 2
+unwatch 2
 trace size changed && maxData > 90 || minData < maxData || rCheck changed : 4 2 : rCheck size minData maxData : interactive
-printWatchpoint 0
+printWatchpoint 3
 run
-printTrace 0
+printTrace 3
 quit
+yes
 EOF
 
 retVal=$?
@@ -105,7 +106,7 @@ echo "Found pass string \"$PSTR\""
 
 
 # trace size changed, printWatchpoint 
-PSTR="WP0: ALL : cp0/size CHANGED  : bufsize = 10 postDelay = 2 : cp0/size cp0/rCheck  : interactive"
+PSTR="WP1: ALL : cp0/size CHANGED  : bufsize = 10 postDelay = 2 : cp0/size cp0/rCheck  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -126,7 +127,7 @@ echo "Found pass string \"$PSTR\""
 
 
 # trace minData < size, printWP
-PSTR="WP0: ALL : cp0/minData < cp0/size  : bufsize = 8 postDelay = 0 : cp0/size  : interactive"
+PSTR="WP2: ALL : cp0/minData < cp0/size  : bufsize = 8 postDelay = 0 : cp0/size  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -136,7 +137,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # add, printWatchpoint
-PSTR="WP0: ALL : cp0/minData < cp0/size  : bufsize = 8 postDelay = 0 : cp0/size cp0/maxData  : interactive"
+PSTR="WP2: ALL : cp0/minData < cp0/size  : bufsize = 8 postDelay = 0 : cp0/size cp0/maxData  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -156,7 +157,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # trace size changed && maxData > 90, printWatchpoint
-PSTR=" WP0: ALL : cp0/size CHANGED cp0/maxData > 90 cp0/minData < cp0/maxData cp0/rCheck CHANGED  : bufsize = 4 postDelay = 2 : cp0/rCheck cp0/size cp0/minData cp0/maxData  : interactive"
+PSTR="WP3: ALL : cp0/size CHANGED cp0/maxData > 90 cp0/minData < cp0/maxData cp0/rCheck CHANGED  : bufsize = 4 postDelay = 2 : cp0/rCheck cp0/size cp0/minData cp0/maxData  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -176,7 +177,17 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # quit
-PSTR=" Removing all watchpoints and exiting ObjectExplorer"
+PSTR="Removing all watchpoints and exiting ObjectExplorer"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# Simulation Complete
+PSTR="Simulation is complete"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then

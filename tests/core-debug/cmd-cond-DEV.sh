@@ -10,7 +10,7 @@ CLEANUP=1
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG="../rt_action/test_Checkpoint.py"
+CONFIG="test_Checkpoint_4ms.py"
 PSTR="^Entering interactive mode at time 140000000"
 
 LOGFILE=$TNAME.log
@@ -29,6 +29,7 @@ run
 # See PSTR for expected time to break into interactive mode
 # Triggers should be disabled on quit or test will hang
 quit
+yes
 EOF
 
 retVal=$?

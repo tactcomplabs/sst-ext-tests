@@ -10,7 +10,7 @@ CLEANUP=1
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG="../rt_action/test_Checkpoint.py"
+CONFIG="test_Checkpoint_4ms.py"
 PSTR="^Entering interactive mode at time 140000000"
 
 LOGFILE=$TNAME.log
@@ -19,6 +19,7 @@ CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
 cat << EOF > $CMDFILE
+confirm false
 ls
 cd c7
 watch duty_cycle_count == 1
