@@ -38,7 +38,9 @@ ls
 trace maxData > 13 : 8 0 : minData : set minData 10
 run 1us
 print minData
-shutdown
+trace maxData > 14 : 8 0 : maxData : shutdown
+run
+# previous trace will trigger shutdown
 EOF
 
 retVal=$?
@@ -102,6 +104,16 @@ echo "Found pass string \"$PSTR\""
 
 #set
 PSTR="> minData = 10"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# shutdown
+PSTR="Trigger action shutting down simulation"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then

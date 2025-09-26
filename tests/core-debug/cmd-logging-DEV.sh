@@ -62,7 +62,7 @@ echo "Found pass string \"$PSTR\""
 
 # Cleanup output file on pass
 if [ $CLEANUP -eq 1 ]; then
-  rm -f $CMDFILE $CHKFILE
+  rm -f $LOGFILE $OUTFILE $CMDFILE $CHKFILE
 fi
 
 wait
