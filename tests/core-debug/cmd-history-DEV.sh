@@ -99,6 +99,17 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# One more sanity check for printing history
+h_check="10 h 11 run 12 run 13 run 14 pwd 15 pwd 16 run 17 run 18 pwd 19 run "
+h_actual=$(egrep '^[0-9]+ [a-z]+$'  $LOGFILE | tail -10 | tr '\n' ' ')
+echo "checking history string"
+echo "expect: $h_check"
+echo "actual: $h_actual"
+if [ "$h_check" != "$h_actual" ]; then
+  echo "ERROR: history check failed"
+  exit 2
+fi
+
 # Cleanup output file on pass
 if [ $CLEANUP -eq 1 ]; then
   rm -f $LOGFILE $OUTFILE $CMDFILE $CHKFILE
