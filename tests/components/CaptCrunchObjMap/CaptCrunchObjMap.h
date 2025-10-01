@@ -1,0 +1,321 @@
+//
+// _CaptCrunchObjMap_h_
+//
+// Copyright (C) 2017-2025 Tactical Computing Laboratories, LLC
+// All Rights Reserved
+// contact@tactcomplabs.com
+//
+// See LICENSE in the top level directory for licensing details
+//
+
+#ifndef _SST_CAPTCRUNCHOBJMAP_H_
+#define _SST_CAPTCRUNCHOBJMAP_H_
+
+// -- Standard Headers
+#include <vector>
+#include <queue>
+#include <set>
+#include <array>
+#include <map>
+#include <tuple>
+#include <stdio.h>
+#include <stdlib.h>
+#include <inttypes.h>
+#include <time.h>
+#include <string>
+
+// -- SST Headers
+#include <sst/core/sst_config.h>
+#include <sst/core/component.h>
+#include <sst/core/event.h>
+#include <sst/core/interfaces/simpleNetwork.h>
+#include <sst/core/link.h>
+#include <sst/core/output.h>
+#include <sst/core/statapi/stataccumulator.h>
+#include <sst/core/subcomponent.h>
+#include <sst/core/timeConverter.h>
+#include <sst/core/model/element_python.h>
+
+namespace SST::CaptCrunchObjMap{
+
+// -------------------------------------------------------
+// CaptCrunchObjMap
+// -------------------------------------------------------
+class CaptCrunchObjMap : public SST::Component{
+public:
+  /// LargeStat: top-level SST component constructor
+  CaptCrunchObjMap( SST::ComponentId_t id, const SST::Params& params );
+
+  /// CaptCrunchObjMap: top-level SST component destructor
+  ~CaptCrunchObjMap();
+
+  /// CaptCrunchObjMap: standard SST component 'setup' function
+  void setup() override;
+
+  /// CaptCrunchObjMap: standard SST component 'finish' function
+  void finish() override;
+
+  /// CaptCrunchObjMap: standard SST component init function
+  void init( unsigned int phase ) override;
+
+  /// CaptCrunchObjMap: standard SST component clock function
+  bool clockTick( SST::Cycle_t currentCycle );
+
+  // -------------------------------------------------------
+  // CaptCrunchObjMap Component Registration Data
+  // -------------------------------------------------------
+  /// CaptCrunchObjMap: Register the component with the SST core
+  SST_ELI_REGISTER_COMPONENT( CaptCrunchObjMap,     // component class
+                              "captcrunchobjmap",   // component library
+                              "CaptCrunchObjMap",   // component name
+                              SST_ELI_ELEMENT_VERSION( 1, 0, 0 ),
+                              "Crunchatize me, Cap'n!",
+                              COMPONENT_CATEGORY_UNCATEGORIZED )
+
+  SST_ELI_DOCUMENT_PARAMS(
+    {"verbose",         "Sets the verbosity level of output",           "0" },
+    {"numStats",        "Sets the number of stats to create",           "1" },
+    {"numClocks",       "Sets the number of clock cycles to execute",   "1" },
+  )
+
+  // -------------------------------------------------------
+  // CaptCrunchObjMap SubComponent Parameter Data
+  // -------------------------------------------------------
+  SST_ELI_DOCUMENT_SUBCOMPONENT_SLOTS()
+
+  // -------------------------------------------------------
+  // CaptCrunchObjMap Component Statistics Data
+  // -------------------------------------------------------
+  SST_ELI_DOCUMENT_STATISTICS(
+    {"STAT_", "Basic stat handler", "count", 1},
+  )
+
+  // -------------------------------------------------------
+  // CaptCrunchObjMap Component Checkpoint Methods
+  // -------------------------------------------------------
+  /// Chkpnt: serialization constructor
+  CaptCrunchObjMap() : SST::Component() {}
+
+  /// CaptCrunchObjMapObjMap: serialization
+  void serialize_order(SST::Core::Serialization::serializer& ser) override;
+
+  /// CaptCrunchObjMapObjMap: serialization implementations
+  ImplementSerializable(SST::CaptCrunchObjMap::CaptCrunchObjMap)
+
+private:
+  // -- internal handlers
+  SST::Output    output;                          ///< SST output handler
+  TimeConverter* timeConverter;                   ///< SST time conversion handler
+  SST::Clock::HandlerBase* clockHandler;          ///< Clock Handler
+
+  uint64_t numStats;                              ///< Number of stats to create
+  uint64_t numClocks;                             ///< Number of clock cycles to run
+
+  std::vector<Statistic<uint64_t>*> VStat;        ///< Statistics vector
+
+  // -- internal functions
+  /// CaptCrunchObjMap: initializes the internal data elements
+  void initData();
+
+  // ---------------------------------------
+  // BEGIN SERIALIZED DATA STRUCTURES
+  //
+  // All data structures defined here must
+  // be initialized in `initData` and
+  // be serialized in `serialize_order`
+  // ---------------------------------------
+
+  uint8_t     u8Value;
+  uint16_t    u16Value;
+  uint32_t    u32Value;
+  uint64_t    u64Value;
+  int8_t      s8Value;
+  int16_t     s16Value;
+  int32_t     s32Value;
+  int64_t     s64Value;
+  char        cValue;
+
+  unsigned            unsignedValue;
+  signed              signedValue;
+  unsigned long       uLongValue;
+  unsigned long long  uLongLongValue;
+  signed long         sLongValue;
+  signed long long    sLongLongValue;
+
+  struct __fundamentalTypeStruct{
+    uint8_t     u8Value;
+    uint16_t    u16Value;
+    uint32_t    u32Value;
+    uint64_t    u64Value;
+    int8_t      s8Value;
+    int16_t     s16Value;
+    int32_t     s32Value;
+    int64_t     s64Value;
+    char        cValue;
+
+    unsigned            unsignedValue;
+    signed              signedValue;
+    unsigned long       uLongValue;
+    unsigned long long  uLongLongValue;
+    signed long         sLongValue;
+    signed long long    sLongLongValue;
+
+    bool operator<(const __fundamentalTypeStruct& rhs) const {
+      return u64Value < rhs.u64Value;
+    }
+
+    bool operator>(const __fundamentalTypeStruct& rhs) const {
+      return u64Value > rhs.u64Value;
+    }
+
+    bool operator==(const __fundamentalTypeStruct& rhs) const {
+      return u64Value == rhs.u64Value;
+    }
+
+    bool operator!=(const __fundamentalTypeStruct& rhs) const {
+      return u64Value != rhs.u64Value;
+    }
+
+    struct Hash {
+      size_t operator()(const __fundamentalTypeStruct& s) const {
+        // Use a simple hash combining technique
+        size_t seed = 0;
+
+        // Helper function to combine hash values
+        auto hash_combine = [&seed](size_t hash) {
+          hash += 0x9e3779b9 + (seed << 6) + (seed >> 2);
+          seed ^= hash;
+        };
+
+        // Combine the hashes of all members
+        hash_combine(std::hash<uint8_t>()(s.u8Value));
+        hash_combine(std::hash<uint16_t>()(s.u16Value));
+        hash_combine(std::hash<uint32_t>()(s.u32Value));
+        hash_combine(std::hash<uint64_t>()(s.u64Value));
+        hash_combine(std::hash<int8_t>()(s.s8Value));
+        hash_combine(std::hash<int16_t>()(s.s16Value));
+        hash_combine(std::hash<int32_t>()(s.s32Value));
+        hash_combine(std::hash<int64_t>()(s.s64Value));
+        hash_combine(std::hash<char>()(s.cValue));
+        hash_combine(std::hash<unsigned>()(s.unsignedValue));
+        hash_combine(std::hash<int>()(s.signedValue));
+        hash_combine(std::hash<unsigned long>()(s.uLongValue));
+        hash_combine(std::hash<unsigned long long>()(s.uLongLongValue));
+        hash_combine(std::hash<long>()(s.sLongValue));
+        hash_combine(std::hash<long long>()(s.sLongLongValue));
+
+        return seed;
+      }
+    };
+
+    void serialize_order(SST::Core::Serialization::serializer& ser){
+      SST_SER(u8Value);
+      SST_SER(u16Value);
+      SST_SER(u32Value);
+      SST_SER(u64Value);
+      SST_SER(s8Value);
+      SST_SER(s16Value);
+      SST_SER(s32Value);
+      SST_SER(s64Value);
+      SST_SER(cValue);
+      SST_SER(unsignedValue);
+      SST_SER(signedValue);
+      SST_SER(uLongValue);
+      SST_SER(uLongLongValue);
+      SST_SER(sLongValue);
+      SST_SER(sLongLongValue);
+    }
+  };
+
+  struct __fundamentalTypeStruct fTypeStructValue;
+
+  std::string         strValue;
+
+  std::tuple<unsigned,char> unsignedCharTuple;
+
+  std::vector<unsigned> unsignedVect;
+  std::vector<char>     charVect;
+  std::vector<struct __fundamentalTypeStruct> structVect;
+
+  std::stack<unsigned> unsignedStack;
+  std::stack<char>     charStack;
+  std::stack<struct __fundamentalTypeStruct> structStack;
+
+  std::queue<unsigned> unsignedQueue;
+  std::queue<char>     charQueue;
+  std::queue<struct __fundamentalTypeStruct> structQueue;
+
+  std::priority_queue<unsigned> unsignedPQueue;
+  std::priority_queue<char>     charPQueue;
+  std::priority_queue<struct __fundamentalTypeStruct> structPQueue;
+
+  std::deque<unsigned> unsignedDQ;
+  std::deque<char>     charDQ;
+  std::deque<struct __fundamentalTypeStruct> structDQ;
+
+  std::forward_list<unsigned> unsignedFL;
+  std::forward_list<char>     charFL;
+  std::forward_list<struct __fundamentalTypeStruct> structFL;
+
+  std::list<unsigned>   unsignedList;
+  std::list<char>       charList;
+  std::list<struct __fundamentalTypeStruct> structList;
+
+  std::array<unsigned,2>unsignedArray;
+  std::array<char,2>    charArray;
+  std::array<struct __fundamentalTypeStruct,2> structArray;
+
+  std::set<unsigned> unsignedSet;
+  std::set<char>     charSet;
+  std::set<struct __fundamentalTypeStruct> structSet;
+
+  std::map<unsigned,unsigned> unsignedMap;
+  std::map<char,unsigned>     charMap;
+  std::map<unsigned,struct __fundamentalTypeStruct> structMap;
+
+  std::multiset<unsigned> unsignedMSet;
+  std::multiset<char>     charMSet;
+  std::multiset<struct __fundamentalTypeStruct> structMSet;
+
+  std::multimap<unsigned,unsigned> unsignedMMap;
+  std::multimap<char,unsigned>     charMMap;
+  std::multimap<unsigned,struct __fundamentalTypeStruct> structMMap;
+
+  std::unordered_set<unsigned> unsignedUnSet;
+  std::unordered_set<char>     charUnSet;
+  std::unordered_set<struct __fundamentalTypeStruct, __fundamentalTypeStruct::Hash> structUnSet;
+
+  std::unordered_map<unsigned,unsigned> unsignedUnMap;
+  std::unordered_map<char,unsigned>     charUnMap;
+  std::unordered_map<unsigned,struct __fundamentalTypeStruct> structUnMap;
+
+  std::unordered_multiset<unsigned> unsignedUnMSet;
+  std::unordered_multiset<char>     charUnMSet;
+  std::unordered_multiset<struct __fundamentalTypeStruct, __fundamentalTypeStruct::Hash> structUnMSet;
+
+  std::unordered_multimap<unsigned,unsigned> unsignedUnMMap;
+  std::unordered_multimap<char,unsigned>     charUnMMap;
+  std::unordered_multimap<unsigned,struct __fundamentalTypeStruct> structUnMMap;
+
+  std::vector<std::vector<unsigned>>        unsignedVectVect;
+  std::vector<std::list<unsigned>>          unsignedListVect;
+  std::vector<std::array<unsigned,2>>       unsignedArrayVect;
+  std::vector<std::map<unsigned,unsigned>>  unsignedMapVect;
+
+  std::list<std::list<unsigned>>            unsignedListList;
+  std::list<std::vector<unsigned>>          unsignedVectList;
+  std::list<std::array<unsigned,2>>         unsignedArrayList;
+  std::list<std::map<unsigned,unsigned>>    unsignedMapList;
+
+  std::vector<std::vector<std::vector<unsigned>>> unsignedVectVectVect;
+
+  // ---------------------------------------
+  // END SERIALIZED DATA STRUCTURES
+  // ---------------------------------------
+
+};  // class CaptCrunchObjMap
+}   // namespace SST::CaptCrunchObjMap
+
+#endif  // _SST_CAPTCRUNCH_H_
+
+// EOF

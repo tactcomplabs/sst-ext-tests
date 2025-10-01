@@ -1,0 +1,41 @@
+Example directory for testing object map of various containers
+Uses the same containers as for the serialization tests.
+
+This is the relevant issue from when I was testing the various 
+containers by hand:
+https://github.com/sstsimulator/sst-core/issues/1354
+
+The /tests/components/CaptCrunch directory has the original tests
+used to test serialization of basic types and containers. 
+The /tests/components/CaptCrunchObjMap directory has bascially the 
+same components, but I've #defined and/or commented out most of them
+so that you can focus on just a few at a time. 
+
+The /test/component_tests/cmd-unsignedSet-DEV.sh provides an example
+test script for the unsignedSet. It does the following:
+-----------------------------------------------------------
+Entering interactive mode at time 0
+Interactive start at 0
+> cd c0
+> ls
+charSet/ (std::set<char, std::less<char>, std::allocator<char> >)
+clockHandler/ (SST::SSTHandler2<bool, unsigned long, SST::CaptCrunchObjMap::CaptCrunchObjMap, void, &SST::CaptCrunchObjMap::CaptCrunchObjMap::clockTick>)
+component_state_ = 3 (SST::BaseComponent::ComponentState)
+my_info_/ ()
+my_info_/ (SST::ComponentInfo*)
+numClocks = 10000 (unsigned long)
+numStats = 100 (unsigned long)
+structSet/ (std::set<SST::CaptCrunchObjMap::CaptCrunchObjMap::__fundamentalTypeStruct, std::less<SST::CaptCrunchObjMap::CaptCrunchObjMap::__fundamentalTypeStruct>, std::allocator<SST::CaptCrunchObjMap::CaptCrunchObjMap::__fundamentalTypeStruct> >)
+unsignedSet/ (std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> >)
+> cd unsignedSet
+> ls
+0 = 1234 (unsigned int)
+1 = 1235 (unsigned int)
+----------------------------------------------------------------
+
+It greps for correct output in the output file and will print PASS if found.
+i.e.
+0 = 1234
+1 = 1235
+
+
