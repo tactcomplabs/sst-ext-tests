@@ -17,6 +17,7 @@ To build and run all tests use:
 ```
 mkdir build && cd build
 cmake -DENABLE_ALL_TESTS=ON ..
+make install
 make test
 ```
 
