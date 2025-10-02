@@ -20,7 +20,7 @@ CHKFILE=$TNAME.chk
 CKPTPREFIX=ckpt_$TNAME
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s --checkpoint-sim-period=5ms --checkpoint-prefix=$CKPTPREFIX $CONFIG"
+LAUNCH="sst --interactive-start=0s --checkpoint-enable --checkpoint-prefix=$CKPTPREFIX $CONFIG"
 echo $LAUNCH
 $LAUNCH << EOF | tee $LOGFILE || exit 1
 cd c0

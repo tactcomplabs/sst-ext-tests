@@ -10,6 +10,8 @@
 set(DbgSST15Srcs
   dbgsst15.cc
   dbgsst15.h
+  ICDbgSST15.cc
+  ICDbgSST15.h
   probe.cc
   probe.h
 )
@@ -19,5 +21,6 @@ target_include_directories(dbgsst15 PUBLIC ${SST_INSTALL_DIR}/include)
 install(TARGETS dbgsst15 DESTINATION ${CMAKE_CURRENT_SOURCE_DIR})
 install(CODE "execute_process(COMMAND sst-register dbgsst15 dbgsst15_LIBDIR=${CMAKE_CURRENT_SOURCE_DIR})")
 
+install(CODE "execute_process(COMMAND sst-register ICDebugSST15 dgbsst15_LIBDIR=${CMAKE_CURRENT_SOURCE_DIR})")
 
 # EOF
