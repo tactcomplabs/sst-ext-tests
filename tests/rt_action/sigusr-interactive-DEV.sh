@@ -30,13 +30,14 @@ for sig in $SIG; do
   for action in $ACTION; do
 
 # 1) Launch the program in the background, running long enough to send signal
-if [[ -f test.$sig.$action.out ]]; then
-  rm test.$sig.$action.out
+outfile="sigusr-interactive-DEV-$sig-$action-$PPID.out"
+if [[ -f $outfile ]]; then
+  rm $outfile
 fi
 
 LAUNCH="sst --interactive-console=sst.interactive.simpledebug --$sig=$action test_Checkpoint.py"
 echo $LAUNCH
-$LAUNCH < $pipe > test.$sig.$action.out &
+$LAUNCH < $pipe > $outfile &
 exec 3>$pipe    # Opens pipe for writing
 
 # 2) Get the PID
@@ -71,7 +72,7 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-grep "Interactive Console real time action" ./test.$sig.$action.out;
+grep "Interactive Console real time action" $outfile
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action grep"
@@ -82,7 +83,7 @@ echo
 
 # Cleanup output directories
 if [ $CLEANUP -eq 1 ]; then
-  rm test.$sig.$action.out
+  rm $outfile
 fi
 
 done  # for $action
