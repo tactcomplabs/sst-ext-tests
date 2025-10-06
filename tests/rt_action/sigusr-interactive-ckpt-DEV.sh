@@ -25,7 +25,7 @@ OUTFILE=$TNAME.console.out
 CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 CKPTPREFIX=ckpt_$TNAME
-PIPE=/tmp/$TNAME.pipe
+PIPE="/tmp/${TNAME}-${PPID}.pipe"
 
 SIG="sigusr1 sigusr2"
 ACTION="sst.rt.interactive"
@@ -135,4 +135,5 @@ done  # for $sigusr
 
 rm $PIPE
 echo "PASS"
+wait
 exit $retVal

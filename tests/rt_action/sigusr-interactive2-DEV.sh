@@ -15,6 +15,7 @@
 # Settings
 SIG="sigusr1 sigusr2"
 ACTION="sst.rt.interactive"
+CLEANUP=1
 
 # 0) Set up the pipe
 pipe=/tmp/testpipe
@@ -79,8 +80,9 @@ fi
 echo
 
 # Cleanup output directories
-rm test.$sig.$action.out
-#rm $pipe
+if [ $CLEANUP -eq 1 ]; then
+  rm test.$sig.$action.out
+fi
 
 done  # for $action
 done  # for $sigusr
@@ -90,11 +92,5 @@ rm $pipe
 
 
 echo "PASS"
+wait
 exit $retVal
-
-
-
-
-
-
-

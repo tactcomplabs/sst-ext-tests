@@ -15,11 +15,11 @@
 # Settings
 SIG="sigusr1 sigusr2"
 ACTION="sst.rt.interactive"
-CLEANUP=0
+CLEANUP=1
 
 
 # 0) Set up the pipe
-pipe=/tmp/testpipe
+pipe="/tmp/sigusr-interactive-DEV-$PPID"
 #mkfifo $pipe
 if [[ ! -p $pipe ]]; then
   echo "Creating pipe: $pipe"
@@ -93,11 +93,5 @@ rm $pipe
 
 
 echo "PASS"
+wait
 exit $retVal
-
-
-
-
-
-
-
