@@ -187,8 +187,8 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # v_double
-PSTR="v_double = 1.01415900000000008e+01"
-grep "$PSTR" $LOGFILE > /dev/null
+PSTR="v_double = 1.01415900000000[0-9]+e\+01"
+egrep "v_double = 1.01415900000000[0-9]+e\+01" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
@@ -196,9 +196,9 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# v_ldouble
-PSTR="v_ldouble = 1.11415900000000008e+01"
-grep "$PSTR" $LOGFILE > /dev/null
+# v_ldouble (full precision value varies across platforms)
+PSTR="vl_double = 1.114159000000000[0-9]+e\+01"
+egrep "v_ldouble = 1.114159000000000[0-9]+e\+01" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
