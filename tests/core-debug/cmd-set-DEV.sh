@@ -187,7 +187,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # v_double
-PSTR="v_double = 10.141590"
+PSTR="v_double = 1.01415900000000008e+01"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -197,7 +197,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # v_ldouble
-PSTR="v_ldouble = 11.141590"
+PSTR="v_ldouble = 1.11415900000000008e+01"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
