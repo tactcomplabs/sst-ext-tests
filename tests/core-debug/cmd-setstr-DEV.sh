@@ -1,6 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_PARAM DEV
-#EXT_TEST TEST_FILE_DESC "Check for set and print commands"
+#EXT_TEST TEST_FILE_DESC "Check set string with spaces"
 #EXT_TEST TIMEOUT 30
 #
 # SST DEV: 

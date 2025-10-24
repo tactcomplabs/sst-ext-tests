@@ -1,6 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_PARAM DEV
-#EXT_TEST TEST_FILE_DESC "Check that trace checkpoint action triggers checkpoints"
+#EXT_TEST TEST_FILE_DESC "Check that checkpoint action triggers error when checkpoint not enabled"
 #EXT_TEST TIMEOUT 30
 #
 # SST DEV: 

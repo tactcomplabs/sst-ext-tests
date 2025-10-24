@@ -1,6 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_PARAM DEV
-#EXT_TEST TEST_FILE_DESC "Tests the use of --interactive-console with custom IC"
+#EXT_TEST TEST_FILE_DESC "Tests use of default IC with interactive-start"
 #EXT_TEST TIMEOUT 30
 #
 # SST DEV: 
