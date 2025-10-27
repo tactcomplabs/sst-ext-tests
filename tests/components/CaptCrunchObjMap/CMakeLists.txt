@@ -7,7 +7,6 @@
 # See LICENSE in the top level directory for licensing details
 #
 
-
 set(CaptCrunchObjMapSrcs
   CaptCrunchObjMap.cc
   CaptCrunchObjMap.h

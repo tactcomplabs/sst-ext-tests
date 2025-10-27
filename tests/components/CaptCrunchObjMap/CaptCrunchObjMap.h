@@ -36,7 +36,32 @@
 #include <sst/core/timeConverter.h>
 #include <sst/core/model/element_python.h>
 
-namespace SST::CaptCrunchObjMap{
+namespace SST::CaptCrunchObjMap {
+
+enum CaptCrunchTestSuite : int {
+   IntegralTypes,
+   StringTypes,
+   UserDefinedTypes,
+   CharTupleTypes,
+   VectorTypes,
+   StackTypes,
+   QueueTypes,
+   DQTypes,
+   FLTypes,
+   ListTypes,
+   ArrayTypes,
+   SetTypes,
+   MapTypes,
+   MSetTypes,
+   MMapTypes,
+   UnSetTypes,
+   UnMapTypes,
+   UnMSetTypes,
+   UnMMapTypes,
+   VectVectTypes,
+   ListListTypes,
+   VectVectVectTypes, 
+};
 
 // -------------------------------------------------------
 // CaptCrunchObjMap
@@ -61,6 +86,51 @@ public:
   /// CaptCrunchObjMap: standard SST component clock function
   bool clockTick( SST::Cycle_t currentCycle );
 
+  void testSuiteIntegral(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitIntegral();
+  void testSuiteString(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitString();
+  void testSuiteUserDefinedType(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitUserDefinedType();
+  void testSuiteCharTuple(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitCharTuple();
+  void testSuiteVector(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitVector();
+  void testSuiteStack(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitStack();
+  void testSuiteQueue(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitQueue();
+  void testSuiteDQ(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitDQ();
+  void testSuiteFL(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitFL();
+  void testSuiteList(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitList();
+  void testSuiteArray(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitArray();
+  void testSuiteSet(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitSet();
+  void testSuiteMap(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitMap();
+  void testSuiteMSet(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitMSet();
+  void testSuiteMMap(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitMMap();
+  void testSuiteUnSet(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitUnSet();
+  void testSuiteUnMap(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitUnMap();
+  void testSuiteUnMSet(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitUnMSet();
+  void testSuiteUnMMap(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitUnMMap();
+  void testSuiteVectVect(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitVectVect();
+  void testSuiteListList(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitListList();
+  void testSuiteVectVectVect(SST::Core::Serialization::serializer& ser);
+  void testSuiteInitVectVectVect();
+
   // -------------------------------------------------------
   // CaptCrunchObjMap Component Registration Data
   // -------------------------------------------------------
@@ -76,6 +146,7 @@ public:
     {"verbose",         "Sets the verbosity level of output",           "0" },
     {"numStats",        "Sets the number of stats to create",           "1" },
     {"numClocks",       "Sets the number of clock cycles to execute",   "1" },
+    {"testSuiteParam",  "Sets the test suite to run",                   "0" },
   )
 
   // -------------------------------------------------------
@@ -110,6 +181,7 @@ private:
 
   uint64_t numStats;                              ///< Number of stats to create
   uint64_t numClocks;                             ///< Number of clock cycles to run
+  uint64_t testSuiteParam;
 
   std::vector<Statistic<uint64_t>*> VStat;        ///< Statistics vector
 
