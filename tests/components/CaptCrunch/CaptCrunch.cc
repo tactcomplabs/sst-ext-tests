@@ -10,6 +10,11 @@
 
 #include "CaptCrunch.h"
 
+// The goal is to undefine this
+#define NOMAP SerOption::no_map
+
+// #define _CAPTAIN_ALL
+
 namespace SST::CaptCrunch{
 
   //------------------------------------------
@@ -90,7 +95,7 @@ namespace SST::CaptCrunch{
 
     SST_SER(strValue);
 
-    SST_SER(unsignedCharTuple);
+    SST_SER(unsignedCharTuple, NOMAP);
 
     SST_SER(unsignedVect);
     SST_SER(charVect);
@@ -120,9 +125,9 @@ namespace SST::CaptCrunch{
     SST_SER(charList);
     SST_SER(structList);
 
-    //SST_SER(unsignedArray); // TODO: broken
-    //SST_SER(charArray);     // TODO: broken
-    //SST_SER(structArray);   // TODO: broken
+    SST_SER(unsignedArray);
+    SST_SER(charArray);    
+    SST_SER(structArray);  
 
     SST_SER(unsignedSet);
     SST_SER(charSet);
@@ -136,9 +141,9 @@ namespace SST::CaptCrunch{
     SST_SER(charMSet);
     SST_SER(structMSet);
 
-    SST_SER(unsignedMMap);
-    SST_SER(charMMap);
-    SST_SER(structMMap);
+    SST_SER(unsignedMMap, NOMAP); 
+    SST_SER(charMMap, NOMAP);
+    SST_SER(structMMap, NOMAP);
 
     SST_SER(unsignedUnSet);
     SST_SER(charUnSet);
@@ -152,18 +157,18 @@ namespace SST::CaptCrunch{
     SST_SER(charUnMSet);
     SST_SER(structUnMSet);
 
-    SST_SER(unsignedUnMMap);
-    SST_SER(charUnMMap);
-    SST_SER(structUnMMap);
+    SST_SER(unsignedUnMMap, NOMAP);
+    SST_SER(charUnMMap, NOMAP);
+    SST_SER(structUnMMap, NOMAP);
 
     SST_SER(unsignedVectVect);
     SST_SER(unsignedListVect);
-    //SST_SER(unsignedArrayVect); // TODO: broken
+    SST_SER(unsignedArrayVect);
     SST_SER(unsignedMapVect);
 
     SST_SER(unsignedListList);
     SST_SER(unsignedVectList);
-    //SST_SER(unsignedArrayList); // TODO: broken
+    SST_SER(unsignedArrayList);
     SST_SER(unsignedMapList);
 
     SST_SER(unsignedVectVectVect);
