@@ -11,6 +11,7 @@
 #include "CaptCrunchObjMap.h"
 
 #include <functional>
+#include <limits>
 
 namespace SST::CaptCrunchObjMap{
 
@@ -37,7 +38,31 @@ static std::map<int, std::function<void(SST::CaptCrunchObjMap::CaptCrunchObjMap&
    { SST::CaptCrunchObjMap::CaptCrunchTestSuite::UnMMapTypes, [](SST::CaptCrunchObjMap::CaptCrunchObjMap& c, SST::Core::Serialization::serializer& ser) { c.testSuiteMMap(ser); } },
    { SST::CaptCrunchObjMap::CaptCrunchTestSuite::VectVectTypes, [](SST::CaptCrunchObjMap::CaptCrunchObjMap& c, SST::Core::Serialization::serializer& ser) { c.testSuiteVectVect(ser); } },
    { SST::CaptCrunchObjMap::CaptCrunchTestSuite::ListListTypes, [](SST::CaptCrunchObjMap::CaptCrunchObjMap& c, SST::Core::Serialization::serializer& ser) { c.testSuiteListList(ser); } },
-   { SST::CaptCrunchObjMap::CaptCrunchTestSuite::VectVectVectTypes, [](SST::CaptCrunchObjMap::CaptCrunchObjMap& c, SST::Core::Serialization::serializer& ser) { c.testSuiteVectVectVect(ser); } }
+   { SST::CaptCrunchObjMap::CaptCrunchTestSuite::VectVectVectTypes, [](SST::CaptCrunchObjMap::CaptCrunchObjMap& c, SST::Core::Serialization::serializer& ser) { c.testSuiteVectVectVect(ser); } },
+   { std::numeric_limits<std::uint64_t>::max(), [](SST::CaptCrunchObjMap::CaptCrunchObjMap& c, SST::Core::Serialization::serializer& ser) {
+      c.testSuiteIntegral(ser);
+      c.testSuiteString(ser);
+      c.testSuiteUserDefinedType(ser);
+      c.testSuiteCharTuple(ser);
+      c.testSuiteVector(ser);
+      c.testSuiteStack(ser);
+      c.testSuiteQueue(ser);
+      c.testSuiteDQ(ser);
+      c.testSuiteFL(ser);
+      c.testSuiteList(ser);
+      c.testSuiteArray(ser);
+      c.testSuiteSet(ser);
+      c.testSuiteMap(ser);
+      c.testSuiteMSet(ser);
+      c.testSuiteMMap(ser);
+      c.testSuiteUnSet(ser);
+      c.testSuiteUnMap(ser);
+      c.testSuiteUnMSet(ser);
+      c.testSuiteMMap(ser);
+      c.testSuiteVectVect(ser);
+      c.testSuiteListList(ser);
+      c.testSuiteVectVectVect(ser);
+   }}
 
 };
 
@@ -64,8 +89,31 @@ static std::map<int, std::function<void(SST::CaptCrunchObjMap::CaptCrunchObjMap&
    { SST::CaptCrunchObjMap::CaptCrunchTestSuite::UnMMapTypes, [](SST::CaptCrunchObjMap::CaptCrunchObjMap& c) { c.testSuiteInitUnMMap(); } },
    { SST::CaptCrunchObjMap::CaptCrunchTestSuite::VectVectTypes, [](SST::CaptCrunchObjMap::CaptCrunchObjMap& c) { c.testSuiteInitVectVect(); } },
    { SST::CaptCrunchObjMap::CaptCrunchTestSuite::ListListTypes, [](SST::CaptCrunchObjMap::CaptCrunchObjMap& c) { c.testSuiteInitListList(); } },
-   { SST::CaptCrunchObjMap::CaptCrunchTestSuite::VectVectVectTypes, [](SST::CaptCrunchObjMap::CaptCrunchObjMap& c) { c.testSuiteInitVectVectVect(); } }
-
+   { SST::CaptCrunchObjMap::CaptCrunchTestSuite::VectVectVectTypes, [](SST::CaptCrunchObjMap::CaptCrunchObjMap& c) { c.testSuiteInitVectVectVect(); } },
+   { std::numeric_limits<std::uint64_t>::max(), [](SST::CaptCrunchObjMap::CaptCrunchObjMap& c) {
+      c.testSuiteInitIntegral();
+      c.testSuiteInitString();
+      c.testSuiteInitUserDefinedType();
+      c.testSuiteInitCharTuple();
+      c.testSuiteInitVector();
+      c.testSuiteInitStack();
+      c.testSuiteInitQueue();
+      c.testSuiteInitDQ();
+      c.testSuiteInitFL();
+      c.testSuiteInitList();
+      c.testSuiteInitArray();
+      c.testSuiteInitSet();
+      c.testSuiteInitMap();
+      c.testSuiteInitMSet();
+      c.testSuiteInitMMap();
+      c.testSuiteInitUnSet();
+      c.testSuiteInitUnMap();
+      c.testSuiteInitUnMSet();
+      c.testSuiteInitUnMMap();
+      c.testSuiteInitVectVect();
+      c.testSuiteInitListList();
+      c.testSuiteInitVectVectVect();
+   }}
 };
 
   //------------------------------------------
@@ -88,11 +136,12 @@ static std::map<int, std::function<void(SST::CaptCrunchObjMap::CaptCrunchObjMap&
     // read the remainder of the parameters
     numStats = params.find<uint64_t>( "numStats", 1 );
     numClocks = params.find<uint64_t>( "numClocks", 1);
-    testSuiteParam = params.find<uint64_t>( "testSuiteParam", 1);
+    testSuiteParam = params.find<uint64_t>( "testSuiteParam", std::numeric_limits<uint64_t>::max());
 
     output.verbose( CALL_INFO, 0, 0, "numStats=%" PRIu64 "\n", numStats );
     output.verbose( CALL_INFO, 0, 0, "numClocks=%" PRIu64 "\n", numClocks );
     output.verbose( CALL_INFO, 0, 0, "testSuiteParam=%" PRIu64 "\n", testSuiteParam );
+    output.verbose( CALL_INFO, 0, 0, "testSuiteParamMAX=%" PRIu64 "\n", (uint64_t)(testSuiteParam == std::numeric_limits<uint64_t>::max()) );
 
     // initialize the statistics
     for( auto i = 0x00ull; i<numStats; i++ ){
