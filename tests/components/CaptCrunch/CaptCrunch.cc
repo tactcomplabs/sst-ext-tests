@@ -10,10 +10,8 @@
 
 #include "CaptCrunch.h"
 
-// The goal is to undefine this
-#define NOMAP SerOption::no_map
-
-// #define _CAPTAIN_ALL
+// The goal is to keep this undefined
+// #define NOMAP SerOption::no_map
 
 namespace SST::CaptCrunch{
 
@@ -95,7 +93,8 @@ namespace SST::CaptCrunch{
 
     SST_SER(strValue);
 
-    SST_SER(unsignedCharTuple, NOMAP);
+    // SST_SER(unsignedCharTuple, NOMAP); // fixed with #1427
+    SST_SER(unsignedCharTuple);    
 
     SST_SER(unsignedVect);
     SST_SER(charVect);
@@ -141,10 +140,14 @@ namespace SST::CaptCrunch{
     SST_SER(charMSet);
     SST_SER(structMSet);
 
-    SST_SER(unsignedMMap, NOMAP); 
-    SST_SER(charMMap, NOMAP);
-    SST_SER(structMMap, NOMAP);
-
+    // Fixed with #1472
+    // SST_SER(unsignedMMap, NOMAP); 
+    // SST_SER(charMMap, NOMAP);
+    // SST_SER(structMMap, NOMAP);
+    SST_SER(unsignedMMap); 
+    SST_SER(charMMap);
+    SST_SER(structMMap);
+    
     SST_SER(unsignedUnSet);
     SST_SER(charUnSet);
     SST_SER(structUnSet);
@@ -157,9 +160,13 @@ namespace SST::CaptCrunch{
     SST_SER(charUnMSet);
     SST_SER(structUnMSet);
 
-    SST_SER(unsignedUnMMap, NOMAP);
-    SST_SER(charUnMMap, NOMAP);
-    SST_SER(structUnMMap, NOMAP);
+    // Fixed with #1472
+    // SST_SER(unsignedUnMMap, NOMAP);
+    // SST_SER(charUnMMap, NOMAP);
+    // SST_SER(structUnMMap, NOMAP);
+    SST_SER(unsignedUnMMap);
+    SST_SER(charUnMMap);
+    SST_SER(structUnMMap);
 
     SST_SER(unsignedVectVect);
     SST_SER(unsignedListVect);
