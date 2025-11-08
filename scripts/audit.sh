@@ -14,14 +14,20 @@ if [ ! -d "${BUILD_DIR}" ]; then
 fi
 
 cd ${BUILD_DIR}
-
-# SST version at top of file
-sst --version
 pwd
-# Clear cmake cache and remake
-rm -rf * .cmake
-cmake .. -DENABLE_ALL_TESTS=ON > /dev/null || exit 2
-# List the tests
-ctest --show-only
+
+# CMakeLists.txt:129
+versions=("13.0" "14.0" "14.1" "15.0" "15.1" "DEV")
+for v in "${versions[@]}"; do
+    echo
+    echo "### Checking test selection for sst version $v ###"
+    echo
+    # Clear cmake cache and remake
+    rm -rf * .cmake
+    export SST_EXT_TESTS_FORCE_VERSION=$v
+    cmake .. -DENABLE_ALL_TESTS=ON > /dev/null || exit 2
+    # List the tests
+    ctest --show-only
+done
 
 # EOF

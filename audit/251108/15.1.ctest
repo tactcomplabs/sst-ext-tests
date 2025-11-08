@@ -1,0 +1,176 @@
+Test project /Users/kgriesser/work/sst-ext-tests/build
+      Start 39: restart-ckpt-with-sigalrm-15.0
+      Start 42: restart-sigalrm-14.1
+      Start 43: restart-sigalrm
+      Start 44: sigalrm_ckpt_comb
+      Start 45: sigalrm_combined
+      Start 50: sigusr
+      Start 15: sst_output_dot_verbosity
+      Start  8: sst_numthreads
+ 1/76 Test #45: sigalrm_combined .................***Failed  Required regular expression not found. Regex=[PASS
+]  0.21 sec
+      Start 13: sst_output_dir_stats
+ 2/76 Test #44: sigalrm_ckpt_comb ................***Failed  Required regular expression not found. Regex=[PASS
+]  1.71 sec
+      Start 11: sst_output_dir_cpt
+ 3/76 Test #42: restart-sigalrm-14.1 .............***Failed  Required regular expression not found. Regex=[PASS
+]  3.31 sec
+      Start 10: sst_output_dir_config
+ 4/76 Test #43: restart-sigalrm ..................***Failed  Required regular expression not found. Regex=[PASS
+]  4.40 sec
+      Start 14: sst_output_dir
+ 5/76 Test  #8: sst_numthreads ...................   Passed    5.09 sec
+      Start 12: sst_output_dir_json
+ 6/76 Test #39: restart-ckpt-with-sigalrm-15.0 ...***Failed  Required regular expression not found. Regex=[PASS
+]  7.53 sec
+      Start 46: sigalrm
+ 7/76 Test #13: sst_output_dir_stats .............   Passed   17.16 sec
+      Start  2: sst_checkpoint_name_format
+ 8/76 Test #50: sigusr ...........................***Failed  Required regular expression not found. Regex=[PASS
+] 18.51 sec
+      Start 68: cmd-replay2
+ 9/76 Test #11: sst_output_dir_cpt ...............   Passed   17.13 sec
+      Start 67: cmd-replay
+10/76 Test #46: sigalrm ..........................   Passed   12.63 sec
+      Start 69: cmd-replay3
+11/76 Test #10: sst_output_dir_config ............   Passed   17.06 sec
+      Start 70: cmd-sanity
+12/76 Test #14: sst_output_dir ...................   Passed   17.22 sec
+      Start 48: sigusr-interactive
+13/76 Test #12: sst_output_dir_json ..............   Passed   17.21 sec
+      Start 49: sigusr-interactive2
+14/76 Test  #2: sst_checkpoint_name_format .......   Passed    8.50 sec
+      Start 59: cmd-comments-ws
+15/76 Test #68: cmd-replay2 ......................   Passed    7.74 sec
+      Start 41: restart-interactive
+16/76 Test #67: cmd-replay .......................   Passed    8.38 sec
+      Start 40: restart-heartbeat
+17/76 Test #48: sigusr-interactive ...............   Passed    5.81 sec
+      Start 65: cmd-logging
+18/76 Test #49: sigusr-interactive2 ..............   Passed    5.62 sec
+      Start 21: sst_sdlfile
+19/76 Test #70: cmd-sanity .......................   Passed    8.24 sec
+      Start 19: sst_print_timing_info
+20/76 Test #69: cmd-replay3 ......................   Passed    8.66 sec
+      Start  1: sst_base
+21/76 Test #59: cmd-comments-ws ..................   Passed    5.35 sec
+      Start 17: sst_output_json
+22/76 Test #40: restart-heartbeat ................   Passed    4.27 sec
+      Start  5: sst_heartbeat_90s
+23/76 Test #21: sst_sdlfile ......................   Passed    4.26 sec
+      Start 18: sst_output_prefix
+24/76 Test #65: cmd-logging ......................   Passed    4.98 sec
+      Start 16: sst_output_dot
+25/76 Test #41: restart-interactive ..............   Passed    6.07 sec
+      Start  3: sst_heartbeat_0.1.30
+26/76 Test #19: sst_print_timing_info ............   Passed    4.23 sec
+      Start  4: sst_heartbeat_1s
+27/76 Test  #1: sst_base .........................   Passed    4.23 sec
+      Start  9: sst_output_config
+28/76 Test #17: sst_output_json ..................   Passed    4.27 sec
+      Start 38: restart-ckpt-with-heartbeat
+29/76 Test  #5: sst_heartbeat_90s ................   Passed    4.28 sec
+      Start 47: sigusr-interactive-ckpt
+30/76 Test #18: sst_output_prefix ................   Passed    4.27 sec
+      Start 28: sstinfo_list_elem
+31/76 Test #16: sst_output_dot ...................   Passed    4.27 sec
+      Start 53: cmd-actions
+32/76 Test  #3: sst_heartbeat_0.1.30 .............   Passed    4.26 sec
+      Start 57: cmd-cmp-types-false
+33/76 Test #28: sstinfo_list_elem ................   Passed    0.55 sec
+      Start 29: sstinfo_list_env
+34/76 Test #57: cmd-cmp-types-false ..............   Passed    0.34 sec
+      Start 58: cmd-cmp-types-true
+35/76 Test #29: sstinfo_list_env .................   Passed    0.12 sec
+      Start  6: sst_help-MIN14.0
+36/76 Test  #4: sst_heartbeat_1s .................   Passed    4.22 sec
+      Start  7: sst_help
+37/76 Test #53: cmd-actions ......................   Passed    0.63 sec
+      Start 23: sst-help-15.1
+38/76 Test  #6: sst_help-MIN14.0 .................   Passed    0.29 sec
+      Start 71: cmd-set
+39/76 Test  #9: sst_output_config ................   Passed    4.18 sec
+      Start 73: cmd-trace
+40/76 Test #58: cmd-cmp-types-true ...............   Passed    0.33 sec
+      Start 74: cmd-unwatch
+41/76 Test  #7: sst_help .........................   Passed    0.30 sec
+      Start 54: cmd-basic
+42/76 Test #23: sst-help-15.1 ....................   Passed    0.28 sec
+      Start 75: cmd-watch
+43/76 Test #74: cmd-unwatch ......................   Passed    0.18 sec
+      Start 72: cmd-setstr
+44/76 Test #73: cmd-trace ........................   Passed    0.21 sec
+      Start 56: cmd-ckptaction
+45/76 Test #71: cmd-set ..........................   Passed    0.22 sec
+      Start 55: cmd-ckptaction-err
+46/76 Test #54: cmd-basic ........................   Passed    0.20 sec
+      Start 64: cmd-history
+47/76 Test #75: cmd-watch ........................   Passed    0.19 sec
+      Start 63: cmd-handler
+48/76 Test #72: cmd-setstr .......................   Passed    0.18 sec
+      Start 66: cmd-replay-sync
+49/76 Test #55: cmd-ckptaction-err ...............   Passed    0.18 sec
+      Start 60: cmd-cond
+50/76 Test #56: cmd-ckptaction ...................   Passed    0.19 sec
+      Start 61: cmd-custom-ic
+51/76 Test #64: cmd-history ......................   Passed    0.18 sec
+      Start 62: cmd-default-ic
+52/76 Test #63: cmd-handler ......................   Passed    0.18 sec
+      Start 22: sst_version
+53/76 Test #66: cmd-replay-sync ..................   Passed    0.19 sec
+      Start 32: sstinfo_list_xml_file
+54/76 Test #61: cmd-custom-ic ....................   Passed    0.18 sec
+      Start 33: sstinfo_list_xml
+55/76 Test #60: cmd-cond .........................   Passed    0.19 sec
+      Start 30: sstinfo_list_nodisplay
+56/76 Test #22: sst_version ......................   Passed    0.14 sec
+      Start 34: sstinfo_list
+57/76 Test #30: sstinfo_list_nodisplay ...........   Passed    0.12 sec
+      Start 31: sstinfo_list_quiet
+58/76 Test #33: sstinfo_list_xml .................   Passed    0.12 sec
+      Start 35: sstinfo_sst
+59/76 Test #62: cmd-default-ic ...................   Passed    0.18 sec
+      Start 27: sstinfo_help
+60/76 Test #32: sstinfo_list_xml_file ............   Passed    0.12 sec
+      Start 76: testinfo
+61/76 Test #76: testinfo .........................   Passed    0.05 sec
+      Start 20: sst_register_list
+62/76 Test #20: sst_register_list ................   Passed    0.01 sec
+      Start 24: sstconfig_help
+63/76 Test #24: sstconfig_help ...................   Passed    0.01 sec
+      Start 26: sstconfig_list
+64/76 Test #26: sstconfig_list ...................   Passed    0.01 sec
+      Start 25: sstconfig_list_CXXFLAGS
+65/76 Test #15: sst_output_dot_verbosity .........   Passed   38.20 sec
+      Start 36: sstregister_a_KNOWNFAIL
+66/76 Test #25: sstconfig_list_CXXFLAGS ..........   Passed    0.01 sec
+      Start 37: testinfo
+67/76 Test #36: sstregister_a_KNOWNFAIL ..........   Passed    0.01 sec
+      Start 51: testinfo
+68/76 Test #34: sstinfo_list .....................   Passed    0.12 sec
+      Start 52: testinfo
+69/76 Test #27: sstinfo_help .....................   Passed    0.11 sec
+70/76 Test #35: sstinfo_sst ......................   Passed    0.11 sec
+71/76 Test #31: sstinfo_list_quiet ...............   Passed    0.12 sec
+72/76 Test #37: testinfo .........................   Passed    0.05 sec
+73/76 Test #51: testinfo .........................   Passed    0.05 sec
+74/76 Test #52: testinfo .........................   Passed    0.05 sec
+75/76 Test #38: restart-ckpt-with-heartbeat ......   Passed    3.98 sec
+76/76 Test #47: sigusr-interactive-ckpt ..........***Failed  Required regular expression not found. Regex=[PASS
+]  5.85 sec
+
+91% tests passed, 7 tests failed out of 76
+
+Label Time Summary:
+15.1    = 309.97 sec*proc (76 tests)
+
+Total Test time (real) =  41.81 sec
+
+The following tests FAILED:
+	 39 - restart-ckpt-with-sigalrm-15.0 (Failed)           15.1
+	 42 - restart-sigalrm-14.1 (Failed)                     15.1
+	 43 - restart-sigalrm (Failed)                          15.1
+	 44 - sigalrm_ckpt_comb (Failed)                        15.1
+	 45 - sigalrm_combined (Failed)                         15.1
+	 47 - sigusr-interactive-ckpt (Failed)                  15.1
+	 50 - sigusr (Failed)                                   15.1

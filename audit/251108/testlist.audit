@@ -1,0 +1,360 @@
+/Users/kgriesser/work/sst-ext-tests/build
+
+### Checking test selection for sst version 13.0 ###
+
+Test project /Users/kgriesser/work/sst-ext-tests/build
+  Test  #1: sst_base
+  Test  #2: sst_heartbeat_0.1.30
+  Test  #3: sst_heartbeat_1s
+  Test  #4: sst_help-13.0
+  Test  #5: sst_help
+  Test  #6: sst_numthreads
+  Test  #7: sst_output_config
+  Test  #8: sst_output_dir_config
+  Test  #9: sst_output_dir_cpt
+  Test #10: sst_output_dir_json
+  Test #11: sst_output_dir_stats
+  Test #12: sst_output_dir
+  Test #13: sst_output_dot_verbosity
+  Test #14: sst_output_dot
+  Test #15: sst_output_json
+  Test #16: sst_output_prefix
+  Test #17: sst_print_timing_info
+  Test #18: sst_register_list
+  Test #19: sst_sdlfile
+  Test #20: sst_version
+  Test #21: sstconfig_help
+  Test #22: sstconfig_list_CXXFLAGS
+  Test #23: sstconfig_list
+  Test #24: sstinfo_help
+  Test #25: sstinfo_list_elem
+  Test #26: sstinfo_list_env
+  Test #27: sstinfo_list_nodisplay
+  Test #28: sstinfo_list_quiet
+  Test #29: sstinfo_list_xml_file
+  Test #30: sstinfo_list_xml
+  Test #31: sstinfo_list
+  Test #32: sstinfo_sst
+  Test #33: sstregister_a_KNOWNFAIL
+  Test #34: testinfo
+  Test #35: testinfo
+  Test #36: testinfo
+  Test #37: testinfo
+
+Total Tests: 37
+
+### Checking test selection for sst version 14.0 ###
+
+Test project /Users/kgriesser/work/sst-ext-tests/build
+  Test  #1: sst_base
+  Test  #2: sst_heartbeat_0.1.30
+  Test  #3: sst_heartbeat_1s
+  Test  #4: sst_help-14.0
+  Test  #5: sst_help-MIN14.0
+  Test  #6: sst_help
+  Test  #7: sst_numthreads
+  Test  #8: sst_output_config
+  Test  #9: sst_output_dir_config
+  Test #10: sst_output_dir_cpt
+  Test #11: sst_output_dir_json
+  Test #12: sst_output_dir_stats
+  Test #13: sst_output_dir
+  Test #14: sst_output_dot_verbosity
+  Test #15: sst_output_dot
+  Test #16: sst_output_json
+  Test #17: sst_output_prefix
+  Test #18: sst_print_timing_info
+  Test #19: sst_register_list
+  Test #20: sst_sdlfile
+  Test #21: sst_version
+  Test #22: sstconfig_help
+  Test #23: sstconfig_list_CXXFLAGS
+  Test #24: sstconfig_list
+  Test #25: sstinfo_help
+  Test #26: sstinfo_list_elem
+  Test #27: sstinfo_list_env
+  Test #28: sstinfo_list_nodisplay
+  Test #29: sstinfo_list_quiet
+  Test #30: sstinfo_list_xml_file
+  Test #31: sstinfo_list_xml
+  Test #32: sstinfo_list
+  Test #33: sstinfo_sst
+  Test #34: sstregister_a_KNOWNFAIL
+  Test #35: testinfo
+  Test #36: testinfo
+  Test #37: testinfo
+  Test #38: testinfo
+
+Total Tests: 38
+
+### Checking test selection for sst version 14.1 ###
+
+Test project /Users/kgriesser/work/sst-ext-tests/build
+  Test  #1: sst_base
+  Test  #2: sst_heartbeat_0.1.30
+  Test  #3: sst_heartbeat_1s
+  Test  #4: sst_help-14.1
+  Test  #5: sst_help-MIN14.0
+  Test  #6: sst_help
+  Test  #7: sst_numthreads
+  Test  #8: sst_output_config
+  Test  #9: sst_output_dir_config
+  Test #10: sst_output_dir_cpt
+  Test #11: sst_output_dir_json
+  Test #12: sst_output_dir_stats
+  Test #13: sst_output_dir
+  Test #14: sst_output_dot_verbosity
+  Test #15: sst_output_dot
+  Test #16: sst_output_json
+  Test #17: sst_output_prefix
+  Test #18: sst_print_timing_info
+  Test #19: sst_register_list
+  Test #20: sst_sdlfile
+  Test #21: sst_version
+  Test #22: sstconfig_help
+  Test #23: sstconfig_list_CXXFLAGS
+  Test #24: sstconfig_list
+  Test #25: sstinfo_help
+  Test #26: sstinfo_list_elem
+  Test #27: sstinfo_list_env
+  Test #28: sstinfo_list_nodisplay
+  Test #29: sstinfo_list_quiet
+  Test #30: sstinfo_list_xml_file
+  Test #31: sstinfo_list_xml
+  Test #32: sstinfo_list
+  Test #33: sstinfo_sst
+  Test #34: sstregister_a_KNOWNFAIL
+  Test #35: testinfo
+  Test #36: restart-heartbeat-14.1
+  Test #37: restart-interactive-14.1
+  Test #38: restart-sigalrm-14.1
+  Test #39: sigalrm_ckpt_comb
+  Test #40: sigalrm_combined
+  Test #41: sigalrm
+  Test #42: testinfo
+  Test #43: testinfo
+  Test #44: testinfo
+
+Total Tests: 44
+
+### Checking test selection for sst version 15.0 ###
+
+Test project /Users/kgriesser/work/sst-ext-tests/build
+  Test  #1: sst_base
+  Test  #2: sst_checkpoint_name_format
+  Test  #3: sst_heartbeat_0.1.30
+  Test  #4: sst_heartbeat_1s
+  Test  #5: sst_heartbeat_90s
+  Test  #6: sst_help-15.0
+  Test  #7: sst_help-MIN14.0
+  Test  #8: sst_help
+  Test  #9: sst_numthreads
+  Test #10: sst_output_config
+  Test #11: sst_output_dir_config
+  Test #12: sst_output_dir_cpt
+  Test #13: sst_output_dir_json
+  Test #14: sst_output_dir_stats
+  Test #15: sst_output_dir
+  Test #16: sst_output_dot_verbosity
+  Test #17: sst_output_dot
+  Test #18: sst_output_json
+  Test #19: sst_output_prefix
+  Test #20: sst_print_timing_info
+  Test #21: sst_register_list
+  Test #22: sst_sdlfile
+  Test #23: sst_version
+  Test #24: sstconfig_help
+  Test #25: sstconfig_list_CXXFLAGS
+  Test #26: sstconfig_list
+  Test #27: sstinfo_help
+  Test #28: sstinfo_list_elem
+  Test #29: sstinfo_list_env
+  Test #30: sstinfo_list_nodisplay
+  Test #31: sstinfo_list_quiet
+  Test #32: sstinfo_list_xml_file
+  Test #33: sstinfo_list_xml
+  Test #34: sstinfo_list
+  Test #35: sstinfo_sst
+  Test #36: sstregister_a_KNOWNFAIL
+  Test #37: testinfo
+  Test #38: restart-ckpt-with-sigalrm-15.0
+  Test #39: restart-heartbeat
+  Test #40: restart-interactive
+  Test #41: restart-sigalrm-14.1
+  Test #42: restart-sigalrm
+  Test #43: sigalrm_ckpt_comb
+  Test #44: sigalrm_combined
+  Test #45: sigalrm
+  Test #46: sigusr_interactive-15.0
+  Test #47: testinfo
+  Test #48: testinfo
+  Test #49: testinfo
+
+Total Tests: 49
+
+### Checking test selection for sst version 15.1 ###
+
+Test project /Users/kgriesser/work/sst-ext-tests/build
+  Test  #1: sst_base
+  Test  #2: sst_checkpoint_name_format
+  Test  #3: sst_heartbeat_0.1.30
+  Test  #4: sst_heartbeat_1s
+  Test  #5: sst_heartbeat_90s
+  Test  #6: sst_help-MIN14.0
+  Test  #7: sst_help
+  Test  #8: sst_numthreads
+  Test  #9: sst_output_config
+  Test #10: sst_output_dir_config
+  Test #11: sst_output_dir_cpt
+  Test #12: sst_output_dir_json
+  Test #13: sst_output_dir_stats
+  Test #14: sst_output_dir
+  Test #15: sst_output_dot_verbosity
+  Test #16: sst_output_dot
+  Test #17: sst_output_json
+  Test #18: sst_output_prefix
+  Test #19: sst_print_timing_info
+  Test #20: sst_register_list
+  Test #21: sst_sdlfile
+  Test #22: sst_version
+  Test #23: sst-help-15.1
+  Test #24: sstconfig_help
+  Test #25: sstconfig_list_CXXFLAGS
+  Test #26: sstconfig_list
+  Test #27: sstinfo_help
+  Test #28: sstinfo_list_elem
+  Test #29: sstinfo_list_env
+  Test #30: sstinfo_list_nodisplay
+  Test #31: sstinfo_list_quiet
+  Test #32: sstinfo_list_xml_file
+  Test #33: sstinfo_list_xml
+  Test #34: sstinfo_list
+  Test #35: sstinfo_sst
+  Test #36: sstregister_a_KNOWNFAIL
+  Test #37: testinfo
+  Test #38: restart-ckpt-with-heartbeat
+  Test #39: restart-ckpt-with-sigalrm-15.0
+  Test #40: restart-heartbeat
+  Test #41: restart-interactive
+  Test #42: restart-sigalrm-14.1
+  Test #43: restart-sigalrm
+  Test #44: sigalrm_ckpt_comb
+  Test #45: sigalrm_combined
+  Test #46: sigalrm
+  Test #47: sigusr-interactive-ckpt
+  Test #48: sigusr-interactive
+  Test #49: sigusr-interactive2
+  Test #50: sigusr
+  Test #51: testinfo
+  Test #52: testinfo
+  Test #53: cmd-actions
+  Test #54: cmd-basic
+  Test #55: cmd-ckptaction-err
+  Test #56: cmd-ckptaction
+  Test #57: cmd-cmp-types-false
+  Test #58: cmd-cmp-types-true
+  Test #59: cmd-comments-ws
+  Test #60: cmd-cond
+  Test #61: cmd-custom-ic
+  Test #62: cmd-default-ic
+  Test #63: cmd-handler
+  Test #64: cmd-history
+  Test #65: cmd-logging
+  Test #66: cmd-replay-sync
+  Test #67: cmd-replay
+  Test #68: cmd-replay2
+  Test #69: cmd-replay3
+  Test #70: cmd-sanity
+  Test #71: cmd-set
+  Test #72: cmd-setstr
+  Test #73: cmd-trace
+  Test #74: cmd-unwatch
+  Test #75: cmd-watch
+  Test #76: testinfo
+
+Total Tests: 76
+
+### Checking test selection for sst version DEV ###
+
+Test project /Users/kgriesser/work/sst-ext-tests/build
+  Test  #1: sst_base
+  Test  #2: sst_checkpoint_name_format
+  Test  #3: sst_heartbeat_0.1.30
+  Test  #4: sst_heartbeat_1s
+  Test  #5: sst_heartbeat_90s
+  Test  #6: sst_help-MIN14.0
+  Test  #7: sst_help
+  Test  #8: sst_numthreads
+  Test  #9: sst_output_config
+  Test #10: sst_output_dir_config
+  Test #11: sst_output_dir_cpt
+  Test #12: sst_output_dir_json
+  Test #13: sst_output_dir_stats
+  Test #14: sst_output_dir
+  Test #15: sst_output_dot_verbosity
+  Test #16: sst_output_dot
+  Test #17: sst_output_json
+  Test #18: sst_output_prefix
+  Test #19: sst_print_timing_info
+  Test #20: sst_register_list
+  Test #21: sst_sdlfile
+  Test #22: sst_version
+  Test #23: sstconfig_help
+  Test #24: sstconfig_list_CXXFLAGS
+  Test #25: sstconfig_list
+  Test #26: sstinfo_help
+  Test #27: sstinfo_list_elem
+  Test #28: sstinfo_list_env
+  Test #29: sstinfo_list_nodisplay
+  Test #30: sstinfo_list_quiet
+  Test #31: sstinfo_list_xml_file
+  Test #32: sstinfo_list_xml
+  Test #33: sstinfo_list
+  Test #34: sstinfo_sst
+  Test #35: sstregister_a_KNOWNFAIL
+  Test #36: testinfo
+  Test #37: restart-ckpt-with-heartbeat
+  Test #38: restart-ckpt-with-interactive
+  Test #39: restart-ckpt-with-sigalrm-15.0
+  Test #40: restart-ckpt-with-sigalrm
+  Test #41: restart-heartbeat
+  Test #42: restart-interactive
+  Test #43: restart-sigalrm-14.1
+  Test #44: restart-sigalrm
+  Test #45: sigalrm_ckpt_comb
+  Test #46: sigalrm_combined
+  Test #47: sigalrm
+  Test #48: sigusr-interactive-ckpt
+  Test #49: sigusr-interactive
+  Test #50: sigusr-interactive2
+  Test #51: sigusr
+  Test #52: testinfo
+  Test #53: CaptCrunch_Interactive
+  Test #54: CaptCrunch_Simple1
+  Test #55: testinfo
+  Test #56: cmd-actions
+  Test #57: cmd-basic
+  Test #58: cmd-ckptaction-err
+  Test #59: cmd-ckptaction
+  Test #60: cmd-cmp-types-false
+  Test #61: cmd-cmp-types-true
+  Test #62: cmd-comments-ws
+  Test #63: cmd-cond
+  Test #64: cmd-custom-ic
+  Test #65: cmd-default-ic
+  Test #66: cmd-handler
+  Test #67: cmd-history
+  Test #68: cmd-logging
+  Test #69: cmd-replay-sync
+  Test #70: cmd-replay
+  Test #71: cmd-replay2
+  Test #72: cmd-replay3
+  Test #73: cmd-sanity
+  Test #74: cmd-set
+  Test #75: cmd-setstr
+  Test #76: cmd-trace
+  Test #77: cmd-unwatch
+  Test #78: cmd-watch
+  Test #79: testinfo
+
+Total Tests: 79

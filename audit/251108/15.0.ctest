@@ -1,0 +1,112 @@
+Test project /Users/kgriesser/work/sst-ext-tests/build
+      Start  1: sst_base
+      Start  2: sst_checkpoint_name_format
+      Start  3: sst_heartbeat_0.1.30
+      Start  4: sst_heartbeat_1s
+      Start  5: sst_heartbeat_90s
+      Start  6: sst_help-15.0
+      Start  7: sst_help-MIN14.0
+      Start  8: sst_help
+      Start  9: sst_numthreads
+      Start 10: sst_output_config
+      Start 11: sst_output_dir_config
+      Start 12: sst_output_dir_cpt
+      Start 13: sst_output_dir_json
+      Start 14: sst_output_dir_stats
+      Start 15: sst_output_dir
+      Start 16: sst_output_dot_verbosity
+      Start 17: sst_output_dot
+      Start 18: sst_output_json
+      Start 19: sst_output_prefix
+      Start 20: sst_print_timing_info
+ 1/48 Test  #6: sst_help-15.0 ....................   Passed    0.79 sec
+      Start 21: sst_register_list
+ 2/48 Test  #8: sst_help .........................   Passed    0.80 sec
+      Start 22: sst_sdlfile
+ 3/48 Test #21: sst_register_list ................   Passed    0.02 sec
+      Start 23: sst_version
+ 4/48 Test  #7: sst_help-MIN14.0 .................   Passed    0.82 sec
+      Start 24: sstconfig_help
+ 5/48 Test #24: sstconfig_help ...................   Passed    0.02 sec
+      Start 25: sstconfig_list_CXXFLAGS
+ 6/48 Test #25: sstconfig_list_CXXFLAGS ..........   Passed    0.02 sec
+      Start 26: sstconfig_list
+ 7/48 Test #26: sstconfig_list ...................   Passed    0.01 sec
+      Start 27: sstinfo_help
+ 8/48 Test #27: sstinfo_help .....................   Passed    0.12 sec
+      Start 28: sstinfo_list_elem
+ 9/48 Test #23: sst_version ......................   Passed    0.18 sec
+      Start 29: sstinfo_list_env
+10/48 Test #29: sstinfo_list_env .................   Passed    0.40 sec
+      Start 30: sstinfo_list_nodisplay
+11/48 Test #30: sstinfo_list_nodisplay ...........   Passed    0.13 sec
+      Start 31: sstinfo_list_quiet
+12/48 Test #31: sstinfo_list_quiet ...............   Passed    0.12 sec
+      Start 32: sstinfo_list_xml_file
+13/48 Test #28: sstinfo_list_elem ................   Passed    0.76 sec
+      Start 33: sstinfo_list_xml
+14/48 Test #32: sstinfo_list_xml_file ............   Passed    0.13 sec
+      Start 34: sstinfo_list
+15/48 Test #33: sstinfo_list_xml .................   Passed    0.13 sec
+      Start 35: sstinfo_sst
+16/48 Test #34: sstinfo_list .....................   Passed    0.12 sec
+      Start 36: sstregister_a_KNOWNFAIL
+17/48 Test #35: sstinfo_sst ......................   Passed    0.11 sec
+      Start 37: testinfo
+18/48 Test #36: sstregister_a_KNOWNFAIL ..........   Passed    0.10 sec
+      Start 38: restart-ckpt-with-sigalrm-15.0
+19/48 Test #37: testinfo .........................   Passed    0.07 sec
+      Start 39: restart-heartbeat
+20/48 Test #17: sst_output_dot ...................   Passed    8.11 sec
+      Start 40: restart-interactive
+21/48 Test  #4: sst_heartbeat_1s .................   Passed    8.18 sec
+      Start 41: restart-sigalrm-14.1
+22/48 Test  #3: sst_heartbeat_0.1.30 .............   Passed    8.20 sec
+      Start 42: restart-sigalrm
+23/48 Test  #5: sst_heartbeat_90s ................   Passed    8.21 sec
+      Start 43: sigalrm_ckpt_comb
+24/48 Test #20: sst_print_timing_info ............   Passed    8.29 sec
+      Start 44: sigalrm_combined
+25/48 Test #18: sst_output_json ..................   Passed    8.33 sec
+      Start 45: sigalrm
+26/48 Test #19: sst_output_prefix ................   Passed    8.36 sec
+      Start 46: sigusr_interactive-15.0
+27/48 Test #10: sst_output_config ................   Passed    8.39 sec
+      Start 47: testinfo
+28/48 Test  #1: sst_base .........................   Passed    8.46 sec
+      Start 48: testinfo
+29/48 Test #47: testinfo .........................   Passed    0.07 sec
+30/48 Test #48: testinfo .........................   Passed    0.08 sec
+31/48 Test #22: sst_sdlfile ......................   Passed    8.02 sec
+32/48 Test #39: restart-heartbeat ................   Passed    7.46 sec
+33/48 Test #41: restart-sigalrm-14.1 .............***Failed  Required regular expression not found. Regex=[PASS
+]  4.77 sec
+34/48 Test #42: restart-sigalrm ..................***Failed  Required regular expression not found. Regex=[PASS
+]  4.80 sec
+35/48 Test #38: restart-ckpt-with-sigalrm-15.0 ...***Failed  Required regular expression not found. Regex=[PASS
+] 11.89 sec
+36/48 Test  #2: sst_checkpoint_name_format .......   Passed   14.48 sec
+37/48 Test #40: restart-interactive ..............   Passed    8.32 sec
+38/48 Test  #9: sst_numthreads ...................   Passed   22.21 sec
+39/48 Test #46: sigusr_interactive-15.0 ..........   Passed   14.07 sec
+40/48 Test #13: sst_output_dir_json ..............   Passed   23.42 sec
+41/48 Test #12: sst_output_dir_cpt ...............   Passed   23.58 sec
+42/48 Test #11: sst_output_dir_config ............   Passed   23.61 sec
+43/48 Test #15: sst_output_dir ...................   Passed   23.62 sec
+44/48 Test #14: sst_output_dir_stats .............   Passed   23.66 sec
+45/48 Test #45: sigalrm ..........................   Passed   16.44 sec
+46/48 Test #43: sigalrm_ckpt_comb ................   Passed   18.00 sec
+47/48 Test #16: sst_output_dot_verbosity .........   Passed   44.72 sec
+48/48 Test #44: sigalrm_combined .................   Passed   47.86 sec
+
+94% tests passed, 3 tests failed out of 48
+
+Label Time Summary:
+15.0    = 420.45 sec*proc (48 tests)
+
+Total Test time (real) =  56.18 sec
+
+The following tests FAILED:
+	 38 - restart-ckpt-with-sigalrm-15.0 (Failed)           15.0
+	 41 - restart-sigalrm-14.1 (Failed)                     15.0
+	 42 - restart-sigalrm (Failed)                          15.0

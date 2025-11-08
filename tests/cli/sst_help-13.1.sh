@@ -1,5 +1,6 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM 13.1
+#EXT_TEST TEST_FILE_MINVER 13.1
+#EXT_TEST TEST_FILE_MAXVER 13.1
 #EXT_TEST TEST_FILE_DESC "Displays the help menu of SST 13.1"
 
 sst --help

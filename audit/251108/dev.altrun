@@ -1,0 +1,80 @@
+SST-Core Version (-dev)
+####################
+make -C /Users/kgriesser/work/sst-ext-tests/tests/rt_action clean
+make -C /Users/kgriesser/work/sst-ext-tests/tests/rt_action -j
+####################
+sigalrm_combined.shlog ... Failed
+testinfo.shlog ... Passed
+sigalrm_ckpt_comb.shlog ... Failed
+sigusr_interactive-15.0.shlog ... Failed
+sigusr-interactive2.shlog ... Failed
+restart-sigalrm-14.1.shlog ... Failed
+restart-heartbeat-14.1.shlog ... Failed
+restart-sigalrm.shlog ... Failed
+restart-ckpt-with-interactive.shlog ... Failed
+sigusr-interactive-ckpt.shlog ... Passed
+restart-ckpt-with-heartbeat.shlog ... Passed
+restart-heartbeat.shlog ... Passed
+restart-interactive-14.1.shlog ... Passed
+restart-interactive.shlog ... Failed
+sigusr-interactive.shlog ... Passed
+restart-ckpt-with-sigalrm-15.0.shlog ... Failed
+sigusr.shlog ... Failed
+sigalrm.shlog ... Passed
+restart-ckpt-with-sigalrm.shlog ... Failed
+Testing Done [/Users/kgriesser/work/sst-ext-tests/tests/rt_action]
+####################
+make -C /Users/kgriesser/work/sst-ext-tests/tests/cli clean
+make -C /Users/kgriesser/work/sst-ext-tests/tests/cli -j
+####################
+sstconfig_help.shlog ... Passed
+sst_register_list.shlog ... Passed
+sstconfig_list.shlog ... Passed
+sstconfig_list_CXXFLAGS.shlog ... Passed
+testinfo.shlog ... Passed
+sstregister_a_KNOWNFAIL.shlog ... Passed
+sstinfo_list_env.shlog ... Passed
+sstinfo_list_xml.shlog ... Passed
+sstinfo_sst.shlog ... Passed
+sstinfo_list_xml_file.shlog ... Passed
+sstinfo_help.shlog ... Passed
+sstinfo_list_nodisplay.shlog ... Passed
+sstinfo_list_quiet.shlog ... Passed
+sstinfo_list.shlog ... Passed
+sst_version.shlog ... Passed
+sstinfo_list_elem.shlog ... Passed
+sst_help-14.1.shlog ... Passed
+sst-help-15.1.shlog ... Passed
+sst_help-14.0.shlog ... Passed
+sst_help-MIN14.0.shlog ... Passed
+sst_help-13.0.shlog ... Passed
+sst_help-13.1.shlog ... Passed
+sst_help.shlog ... Passed
+sst_help-15.0.shlog ... Passed
+sst_base.shlog ... Passed
+sst_heartbeat_90s.shlog ... Passed
+sst_output_dot.shlog ... Passed
+sst_output_config.shlog ... Passed
+sst_output_prefix.shlog ... Passed
+sst_print_timing_info.shlog ... Passed
+sst_sdlfile.shlog ... Passed
+sst_heartbeat_1s.shlog ... Passed
+sst_output_json.shlog ... Passed
+sst_heartbeat_0.1.30.shlog ... Passed
+sst_checkpoint_name_format.shlog ... Passed
+sst_numthreads.shlog ... Passed
+sst_output_dir.shlog ... Passed
+sst_output_dir_config.shlog ... Passed
+sst_output_dir_cpt.shlog ... Passed
+sst_output_dir_stats.shlog ... Passed
+sst_output_dir_json.shlog ... Passed
+sst_output_dot_verbosity.shlog ... Passed
+Testing Done [/Users/kgriesser/work/sst-ext-tests/tests/cli]
+####################
+make -C /Users/kgriesser/work/sst-ext-tests/tests/component_tests clean
+make -C /Users/kgriesser/work/sst-ext-tests/tests/component_tests -j
+####################
+testinfo.shlog ... Passed
+CaptCrunch_Interactive.shlog ... Passed
+CaptCrunch_Simple1.shlog ... Passed
+Testing Done [/Users/kgriesser/work/sst-ext-tests/tests/component_tests]

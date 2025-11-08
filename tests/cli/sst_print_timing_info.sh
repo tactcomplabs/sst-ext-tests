@@ -1,0 +1,14 @@
+#!/bin/bash
+#EXT_TEST TEST_FILE_MINVER 13.0
+#EXT_TEST TEST_FILE_DESC "Tests printing the runtime timing info"
+#EXT_TEST DEP "coreTestElement.coreTestComponent"
+
+sst --print-timing-info=1 cli-sdl.py
+
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR"
+  exit $retVal
+fi
+echo "PASS"
+exit 0

@@ -1,5 +1,6 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM 15.0
+#EXT_TEST TEST_FILE_MINVER 15.0
+#EXT_TEST TEST_FILE_MAXVER 15.0
 #EXT_TEST TEST_FILE_DESC "Displays the help menu of SST 15.0"
 
 sst --help

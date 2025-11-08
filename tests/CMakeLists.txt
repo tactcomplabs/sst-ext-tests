@@ -10,6 +10,7 @@
 # -- make test options visible to ccmake
 option(ENABLE_ALL_TESTS "Enable ALL testing" OFF)
 option(ENABLE_CLI_TESTS "Enable CLI testing" OFF)
+
 option(ENABLE_DEBUG_TESTS "Interactive debug mode tests")
 option(ENABLE_RTACTION_TESTS "Enable Realtime Action testing" OFF)
 option(ENABLE_COMPONENT_TESTS "Enable embedded component testing" OFF)
@@ -34,18 +35,27 @@ if(ENABLE_RTACTION_TESTS)
 endif()
 
 if(ENABLE_COMPONENT_TESTS)
-  add_subdirectory(components)
-  add_subdirectory(component_tests)
-endif()
-
-# -- strictly optional tests
-if(ENABLE_CORE_CHKPT_TESTS)
-  add_subdirectory(core-chkpt)
+  if ( (${SST_VERSION} STREQUAL "DEV") OR (${SST_MAJOR_VERSION} VERSION_GREATER_EQUAL "15.0") )
+    add_subdirectory(components)
+    add_subdirectory(component_tests)
+  else()
+    message(STATUS "component_tests tests only available for SST 15.0 or later")
+  endif()
 endif()
 
 if (ENABLE_DEBUG_TESTS)
-  add_subdirectory(core-debug-components)
-  add_subdirectory(core-debug)
+  if ( (${SST_VERSION} STREQUAL "DEV") OR (${SST_MAJOR_VERSION} VERSION_GREATER_EQUAL "15.1") )
+    add_subdirectory(core-debug-components)
+    add_subdirectory(core-debug)
+  else() 
+    message(STATUS "core-debug tests only available for SST 15.1 or later")
+  endif()
+endif()
+
+# -- strictly optional tests 
+# TODO these have not been updated
+if(ENABLE_CORE_CHKPT_TESTS)
+  add_subdirectory(core-chkpt)
 endif()
 
 if(ENABLE_MPI_TESTS)
