@@ -1,5 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER 15.0
+#EXT_TEST TEST_FILE_MAXVER 15.0
 #EXT_TEST TEST_FILE_DESC "Tests using sigalrm with restart (i.e. load checkpoint)"
 # 
 # 0) launch sst to generate the checkpoint

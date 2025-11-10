@@ -1,5 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER 14.1
+#EXT_TEST TEST_FILE_MAXVER 15.0
 #EXT_TEST TEST_FILE_DESC "Tests sigalrm for combinations of two real time actions (checkpoint not included)"
 #EXT_TEST TIMEOUT 90
 # 

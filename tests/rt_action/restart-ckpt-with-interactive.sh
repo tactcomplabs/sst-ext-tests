@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_MINVER 15.1
 #EXT_TEST TEST_FILE_DESC "Tests restart for a checkpoint that had interactive console to see if the interactive console is carried over."
 #EXT_TEST TIMEOUT 120
 #

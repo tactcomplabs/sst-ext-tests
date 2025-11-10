@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_MINVER 15.1
 #EXT_TEST TEST_FILE_DESC "Tests CaptCrunch simple data integrity"
 
 TEST_NAME=CaptCrunch_Interactive
