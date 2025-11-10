@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER 13.0
+#EXT_TEST TEST_FILE_MINVER 14.1
 #EXT_TEST TEST_FILE_DESC "Tests a 1 second heartbeat"
 #EXT_TEST DEP "coreTestElement.coreTestComponent"
 

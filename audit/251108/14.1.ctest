@@ -1,116 +1,78 @@
-Test project /Users/kgriesser/work/sst-ext-tests/build
+Test project /home/ken/work/sst-ext-tests/build
       Start  1: sst_base
-      Start  2: sst_heartbeat_0.1.30
-      Start  3: sst_heartbeat_1s
-      Start  4: sst_help-14.1
-      Start  5: sst_help-MIN14.0
-      Start  6: sst_help
-      Start  7: sst_numthreads
-      Start  8: sst_output_config
- 1/42 Test  #5: sst_help-MIN14.0 .................   Passed    0.07 sec
-      Start  9: sst_output_dir_config
- 2/42 Test  #4: sst_help-14.1 ....................   Passed    0.07 sec
-      Start 10: sst_output_dir_cpt
- 3/42 Test  #6: sst_help .........................   Passed    0.07 sec
-      Start 11: sst_output_dir_json
- 4/42 Test #11: sst_output_dir_json ..............***Failed  Required regular expression not found. Regex=[PASS
-]  0.13 sec
-      Start 12: sst_output_dir_stats
- 5/42 Test  #9: sst_output_dir_config ............***Failed  Required regular expression not found. Regex=[PASS
-]  0.21 sec
-      Start 13: sst_output_dir
- 6/42 Test  #2: sst_heartbeat_0.1.30 .............   Passed    4.05 sec
-      Start 14: sst_output_dot_verbosity
- 7/42 Test  #1: sst_base .........................   Passed    4.06 sec
-      Start 15: sst_output_dot
- 8/42 Test  #8: sst_output_config ................   Passed    4.06 sec
-      Start 16: sst_output_json
- 9/42 Test  #3: sst_heartbeat_1s .................   Passed    4.06 sec
-      Start 17: sst_output_prefix
-10/42 Test #10: sst_output_dir_cpt ...............***Failed  Required regular expression not found. Regex=[PASS
-]  4.03 sec
-      Start 18: sst_print_timing_info
-11/42 Test #12: sst_output_dir_stats .............***Failed  Required regular expression not found. Regex=[PASS
-]  4.08 sec
-      Start 19: sst_register_list
-12/42 Test #13: sst_output_dir ...................***Failed  Required regular expression not found. Regex=[PASS
-]  4.07 sec
-      Start 20: sst_sdlfile
-13/42 Test #19: sst_register_list ................   Passed    0.20 sec
-      Start 21: sst_version
-14/42 Test #21: sst_version ......................   Passed    0.02 sec
-      Start 22: sstconfig_help
-15/42 Test #22: sstconfig_help ...................   Passed    0.01 sec
-      Start 23: sstconfig_list_CXXFLAGS
-16/42 Test #23: sstconfig_list_CXXFLAGS ..........   Passed    0.01 sec
-      Start 24: sstconfig_list
-17/42 Test #24: sstconfig_list ...................   Passed    0.01 sec
-      Start 25: sstinfo_help
-18/42 Test #25: sstinfo_help .....................   Passed    0.02 sec
-      Start 26: sstinfo_list_elem
-19/42 Test #26: sstinfo_list_elem ................   Passed    0.14 sec
-      Start 27: sstinfo_list_env
-20/42 Test  #7: sst_numthreads ...................   Passed    4.70 sec
-      Start 28: sstinfo_list_nodisplay
-21/42 Test #27: sstinfo_list_env .................   Passed    0.11 sec
-      Start 29: sstinfo_list_quiet
-22/42 Test #28: sstinfo_list_nodisplay ...........***Failed  Required regular expression not found. Regex=[PASS
-]  0.17 sec
-      Start 30: sstinfo_list_xml_file
-23/42 Test #29: sstinfo_list_quiet ...............***Failed  Required regular expression not found. Regex=[PASS
-]  0.16 sec
-      Start 31: sstinfo_list_xml
-24/42 Test #30: sstinfo_list_xml_file ............***Failed  Required regular expression not found. Regex=[PASS
-]  0.16 sec
-      Start 32: sstinfo_list
-25/42 Test #31: sstinfo_list_xml .................***Failed  Required regular expression not found. Regex=[PASS
-]  0.16 sec
-      Start 33: sstinfo_sst
-26/42 Test #33: sstinfo_sst ......................   Passed    0.02 sec
-      Start 34: sstregister_a_KNOWNFAIL
-27/42 Test #32: sstinfo_list .....................***Failed  Required regular expression not found. Regex=[PASS
-]  0.16 sec
+      Start  2: sstconfig_help
+      Start  3: sstconfig_list_CXXFLAGS
+      Start  4: sstconfig_list
+      Start  5: sst_heartbeat_0.1.30
+      Start  6: sst_heartbeat_1s
+      Start  7: sst_help-14.1
+      Start  8: sst_help-MIN14.0
+      Start  9: sst_help
+      Start 10: sstinfo_help
+      Start 11: sstinfo_list_elem
+      Start 12: sstinfo_list_env
+      Start 13: sstinfo_list_nodisplay
+      Start 14: sstinfo_list_quiet
+      Start 15: sstinfo_list
+      Start 16: sstinfo_list_xml_file
+      Start 17: sstinfo_list_xml
+      Start 18: sstinfo_sst
+      Start 19: sst_numthreads
+      Start 20: sst_output_config
+ 1/35 Test  #2: sstconfig_help ...................   Passed    0.04 sec
+      Start 21: sst_output_dot
+ 2/35 Test  #3: sstconfig_list_CXXFLAGS ..........   Passed    0.04 sec
+      Start 22: sst_output_dot_verbosity
+ 3/35 Test  #4: sstconfig_list ...................   Passed    0.04 sec
+      Start 23: sst_output_json
+ 4/35 Test #10: sstinfo_help .....................   Passed    0.03 sec
+      Start 24: sst_output_prefix
+ 5/35 Test #12: sstinfo_list_env .................   Passed    0.03 sec
+      Start 25: sst_print_timing_info
+ 6/35 Test #14: sstinfo_list_quiet ...............   Passed    0.02 sec
+      Start 26: sstregister_a
+ 7/35 Test #13: sstinfo_list_nodisplay ...........   Passed    0.03 sec
+      Start 27: sst_register_list
+ 8/35 Test #15: sstinfo_list .....................   Passed    0.03 sec
+      Start 28: sst_sdlfile
+ 9/35 Test #16: sstinfo_list_xml_file ............   Passed    0.03 sec
+      Start 29: sst_version
+10/35 Test #18: sstinfo_sst ......................   Passed    0.02 sec
+      Start 30: testinfo
+11/35 Test #17: sstinfo_list_xml .................   Passed    0.03 sec
+      Start 31: restart-heartbeat-14.1
+12/35 Test #27: sst_register_list ................   Passed    0.01 sec
+      Start 32: restart-interactive-14.1
+13/35 Test #11: sstinfo_list_elem ................   Passed    0.05 sec
+      Start 33: restart-sigalrm-14.1
+14/35 Test #30: testinfo .........................   Passed    0.08 sec
+      Start 34: sigalrm
+15/35 Test #29: sst_version ......................   Passed    0.56 sec
       Start 35: testinfo
-28/42 Test #34: sstregister_a_KNOWNFAIL ..........   Passed    0.07 sec
-      Start 36: restart-heartbeat-14.1
-29/42 Test #35: testinfo .........................   Passed    0.05 sec
-      Start 37: restart-interactive-14.1
-30/42 Test #17: sst_output_prefix ................   Passed    3.68 sec
-      Start 38: restart-sigalrm-14.1
-31/42 Test #16: sst_output_json ..................   Passed    3.69 sec
-      Start 39: sigalrm_ckpt_comb
-32/42 Test #15: sst_output_dot ...................   Passed    3.70 sec
-      Start 40: sigalrm_combined
-33/42 Test #18: sst_print_timing_info ............   Passed    3.68 sec
-      Start 41: sigalrm
-34/42 Test #20: sst_sdlfile ......................   Passed    3.65 sec
-      Start 42: testinfo
-35/42 Test #42: testinfo .........................   Passed    0.05 sec
-36/42 Test #36: restart-heartbeat-14.1 ...........   Passed    4.22 sec
-37/42 Test #37: restart-interactive-14.1 .........   Passed    6.06 sec
-38/42 Test #38: restart-sigalrm-14.1 .............   Passed   11.11 sec
-39/42 Test #41: sigalrm ..........................   Passed   13.44 sec
-40/42 Test #39: sigalrm_ckpt_comb ................***Failed  Required regular expression not found. Regex=[PASS
-] 16.18 sec
-41/42 Test #14: sst_output_dot_verbosity .........   Passed   36.78 sec
-42/42 Test #40: sigalrm_combined .................   Passed   44.46 sec
+16/35 Test #35: testinfo .........................   Passed    0.07 sec
+17/35 Test  #9: sst_help .........................   Passed    1.06 sec
+18/35 Test  #8: sst_help-MIN14.0 .................   Passed    1.07 sec
+19/35 Test  #7: sst_help-14.1 ....................   Passed    1.09 sec
+20/35 Test #26: sstregister_a ....................   Passed    1.19 sec
+21/35 Test  #6: sst_heartbeat_1s .................   Passed    6.43 sec
+22/35 Test #20: sst_output_config ................   Passed    6.41 sec
+23/35 Test #23: sst_output_json ..................   Passed    6.43 sec
+24/35 Test #24: sst_output_prefix ................   Passed    6.43 sec
+25/35 Test #25: sst_print_timing_info ............   Passed    6.45 sec
+26/35 Test  #5: sst_heartbeat_0.1.30 .............   Passed    6.60 sec
+27/35 Test  #1: sst_base .........................   Passed    6.61 sec
+28/35 Test #21: sst_output_dot ...................   Passed    6.61 sec
+29/35 Test #28: sst_sdlfile ......................   Passed    6.62 sec
+30/35 Test #19: sst_numthreads ...................   Passed    7.18 sec
+31/35 Test #31: restart-heartbeat-14.1 ...........   Passed    7.97 sec
+32/35 Test #32: restart-interactive-14.1 .........   Passed    9.27 sec
+33/35 Test #33: restart-sigalrm-14.1 .............   Passed   13.51 sec
+34/35 Test #34: sigalrm ..........................   Passed   15.82 sec
+35/35 Test #22: sst_output_dot_verbosity .........   Passed   48.46 sec
 
-74% tests passed, 11 tests failed out of 42
+100% tests passed, 0 tests failed out of 35
 
 Label Time Summary:
-14.1    = 185.81 sec*proc (42 tests)
+14.1    = 166.30 sec*proc (35 tests)
 
-Total Test time (real) =  52.22 sec
-
-The following tests FAILED:
-	  9 - sst_output_dir_config (Failed)                    14.1
-	 10 - sst_output_dir_cpt (Failed)                       14.1
-	 11 - sst_output_dir_json (Failed)                      14.1
-	 12 - sst_output_dir_stats (Failed)                     14.1
-	 13 - sst_output_dir (Failed)                           14.1
-	 28 - sstinfo_list_nodisplay (Failed)                   14.1
-	 29 - sstinfo_list_quiet (Failed)                       14.1
-	 30 - sstinfo_list_xml_file (Failed)                    14.1
-	 31 - sstinfo_list_xml (Failed)                         14.1
-	 32 - sstinfo_list (Failed)                             14.1
-	 39 - sigalrm_ckpt_comb (Failed)                        14.1
+Total Test time (real) =  48.50 sec

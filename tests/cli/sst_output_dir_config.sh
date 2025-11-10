@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER 13.0
+#EXT_TEST TEST_FILE_MINVER 15.0
 #EXT_TEST TEST_FILE_DESC "Tests relocation of config files"
 #EXT_TEST DEP "coreTestElement.coreTestComponent"
 #EXT_TEST TIMEOUT 240
