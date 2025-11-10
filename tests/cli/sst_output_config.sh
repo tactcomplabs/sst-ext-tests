@@ -1,0 +1,14 @@
+#!/bin/bash
+#EXT_TEST TEST_FILE_MINVER 13.0
+#EXT_TEST TEST_FILE_DESC "Tests outputting the config file back to a python script"
+#EXT_TEST DEP "coreTestElement.coreTestComponent"
+
+sst --output-config=foo.py cli-sdl.py
+
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR : $retVal"
+  exit $retVal
+fi
+echo "PASS"
+exit 0

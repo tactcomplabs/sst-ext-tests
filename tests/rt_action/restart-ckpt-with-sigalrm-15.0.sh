@@ -1,5 +1,6 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM 15.0
+#EXT_TEST TEST_FILE_MINVER 15.0
+#EXT_TEST TEST_FILE_MAXVER 15.0
 #EXT_TEST TEST_FILE_DESC "Tests checkpoint with sigalrm to see if the sigalrm is carried over to restart (i.e. load-checkpoint)"
 # 
 # 0) set pass string
