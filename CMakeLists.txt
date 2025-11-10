@@ -131,7 +131,7 @@ set(EXT_TEST_TIMEOUT_COMMAND "${CMAKE_SOURCE_DIR}/scripts/test-timeout.sh")
 set(EXT_TEST_MPIARGS_COMMAND "${CMAKE_SOURCE_DIR}/scripts/test-mpiargs.sh")
 
 #-- Setup supported version arrays
-set(SST_TMP_VER_LIST "13.0" "14.0" "14.1" "15.0" "15.1")
+set(SST_TMP_VER_LIST "13.0" "13.1" "14.0" "14.1" "15.0" "15.1")
 set(SST_VER_LIST "DEV")
 
 if(NOT "${SST_MAJOR_VERSION}" STREQUAL "DEV")
