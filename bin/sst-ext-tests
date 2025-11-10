@@ -24,7 +24,7 @@ def print_console_table(nested_test_list, param: str = None):
 
   Args:
     nested_test_list (list): Nested list of dictionaries containing test information
-      with keys: testName, pathName, testParams, desc
+      with keys: testName, pathName, testMinVer, testMaxVer, desc
     param (str): optional param to filter results
   """
   # Flatten the nested list structure
@@ -38,23 +38,25 @@ def print_console_table(nested_test_list, param: str = None):
 
   # Find the maximum width needed for each column
   max_test = max(len(str(test['testName'])) for test in test_list)
-  max_params = max(len(str(test['testParams'])) for test in test_list)
+  max_minver = max(len(str(test['testMinVer'])) for test in test_list)
+  max_maxver = max(len(str(test['testMaxVer'])) for test in test_list)
   max_desc = max(len(str(test.get('desc', 'None'))) for test in test_list)
 
   # Set minimum column widths based on headers
-  max_test = max(max_test, 4)    # "Test" header
-  max_params = max(max_params, 6) # "Params" header
+  max_test = max(max_test, 4)     # "Test" header
+  max_minver = max(max_minver, 6) # "MinVer" header
+  max_maxver = max(max_maxver, 6) # "MinVer" header
   max_desc = max(max_desc, 4)     # "Desc" header
 
   # Create the format string for the header and rows
-  format_str = f"| {{:<{max_test}}} | {{:<{max_params}}} | {{:<{max_desc}}} |"
+  format_str = f"| {{:<{max_test}}} | {{:<{max_minver}}} | {{:<{max_maxver}}} | {{:<{max_desc}}} |"
 
   # Calculate total width of the table
-  total_width = max_test + max_params + max_desc + 7  # 7 accounts for margins and separators
+  total_width = max_test + max_minver + max_maxver + max_desc + 8  # 8 accounts for margins and separators
 
   # Print the table
   print("-" * total_width)
-  print(format_str.format("Test", "Params", "Desc"))
+  print(format_str.format("Test", "MinVer", "MaxVer", "Desc"))
   print("-" * total_width)
 
   # Print each row
@@ -62,15 +64,17 @@ def print_console_table(nested_test_list, param: str = None):
     for test in test_list:
       print(format_str.format(
         str(test['testName']),
-        str(test['testParams']),
+        str(test['testMinVer']),
+        str(test['testMaxVer']),
         str(test.get('desc', 'None'))
       ))
   else:
     for test in test_list:
-      if str(test['testParams']) == param:
+      if str(test['testMinVer']) == param:
         print(format_str.format(
           str(test['testName']),
-          str(test['testParams']),
+          str(test['testMinVer']),
+          str(test['testMaxVer']),
           str(test.get('desc', 'None'))
         ))
 
@@ -118,7 +122,8 @@ def parse_test_files(path: str, ext: str) -> List[dict]:
     Each dictionary contains:
       'testName': Name of the actual test
       'pathName': The full path to the test
-      'testParams': Test parameters dictacting when the test is enabled
+      'testMinVer': Minimum version test supports
+      'testMaxVer': Maximum version test supports
       'desc': Description of the test
   """
 
@@ -138,17 +143,22 @@ def parse_test_files(path: str, ext: str) -> List[dict]:
         file_data = {
           'testName': os.path.splitext(filename)[0],
           'pathName': full_path,
-          'testParams': None,
+          'testMinVer': None,
+          'testMaxVer': None,
           'desc': None
         }
 
         try:
           with open(full_path, 'r', encoding='utf-8') as f:
             for line in f:
-              if line.startswith('#EXT_TEST TEST_FILE_PARAM'):
+              if line.startswith('#EXT_TEST TEST_FILE_MINVER'):
                 tokens = line.strip().split()
                 if len(tokens) >= 3:
-                  file_data['testParams'] = tokens[2]
+                  file_data['testMinVer'] = tokens[2]
+              if line.startswith('#EXT_TEST TEST_FILE_MAXVER'):
+                tokens = line.strip().split()
+                if len(tokens) >= 3:
+                  file_data['testMaxVer'] = tokens[2]
               if line.startswith('#EXT_TEST TEST_FILE_DESC'):
                 match = re.search(r'#EXT_TEST TEST_FILE_DESC\s*"([^"]*)"', line)
                 if match:
@@ -176,7 +186,8 @@ def parse_cmake_files(file_paths: List[str]) -> List[dict]:
     Each dictionary contains:
       'testName': Name of the actual test
       'pathName': The full path to the test
-      'testParams': Test parameters that enable the test
+      'testMinVer': Minimum version required
+      'testMaxVer': Maximum version allowed (empty for all versions at or above the minumum)
       'desc': Description of the test
   """
 

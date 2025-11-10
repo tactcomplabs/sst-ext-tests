@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM MIN14.0
+#EXT_TEST TEST_FILE_MINVER 14.0
 #EXT_TEST TEST_FILE_DESC "Displays the help menu for SST versions of minimum of SST 14.0"
 
 sst --help

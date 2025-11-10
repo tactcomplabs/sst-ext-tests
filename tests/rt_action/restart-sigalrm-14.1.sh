@@ -1,5 +1,6 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM 14.1
+#EXT_TEST TEST_FILE_MINVER 14.1
+#EXT_TEST TEST_FILE_MAXVER 14.1
 #EXT_TEST TEST_FILE_DESC "Tests using sigalrm with restart (i.e. load checkpoint)"
 # 
 # 0) launch sst to generate the checkpoint
@@ -37,7 +38,7 @@ grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $PREFIX grep"
-  exit $grepVal
+  exit $retVal
 fi
 
 # Cleanup output file
@@ -93,7 +94,7 @@ grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR restart.$sig.$action grep"
-  exit $grepVal
+  exit $retVal
 fi
 echo
 

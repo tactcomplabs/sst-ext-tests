@@ -8,6 +8,8 @@
 #EXT_TEST TEST_FILE_EXT py
 #
 
+#TODO!!! This file not update for new test selection conventions
+
 set(TEST_FILE_EXT "py")
 set(passRegex "Simulation is complete")
 set(timeout "60")
@@ -51,7 +53,7 @@ endforeach(testSrc)
 
 #-- SST Enabled Test Versions
 foreach(testVer ${SST_VER_LIST})
-  message(STATUS "building tests for SST VERSION ${testVer}")
+  message(STATUS "### [core-chkpt] building tests for SST VERSION ${testVer} ###")
   file(GLOB TEST_SRCS_VER RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *-${testVer}.${TEST_FILE_EXT})
   foreach(testSrc ${TEST_SRCS_VER})
     # Extract the file name

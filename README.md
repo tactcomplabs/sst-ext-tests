@@ -17,17 +17,24 @@ To build and run all tests use:
 ```
 mkdir build && cd build
 cmake -DENABLE_ALL_TESTS=ON ..
+make install
 make test
 ```
 
 Flags for test selection include:
 ```
-ENABLE_ALL_TESTS [OFF]
+# Enables golden test suite
+ENABLE_ALL_TESTS [OFF] 
+
+# Individual suites by ENABLE_ALL_TESTS=ON
 ENABLE_CLI_TESTS [OFF]
-ENABLE_RTACTION_TESTS [OFF]
-ENABLE_CORE_CHKPT_TESTS [OFF]
-ENABLE_MPI_TESTS [OFF]
 ENABLE_COMPONENT_TESTS [OFF]
+ENABLE_RTACTION_TESTS [OFF]
+
+# Currently optional tests
+ENABLE_MPI_TESTS [OFF]
+ENABLE_CORE_CHKPT_TESTS [OFF]
+
 ```
 
 To run fast test suite use:
@@ -49,34 +56,24 @@ will provide the ability to specify an SST install location.
 Each test subdirectory will contain a number of test drivers.  Each subdirectory 
 will contain an additional *README.md* file that will describe the type of tests 
 and the constituent file extensions that are supported for that directory tree.
-However, the file name convention for each subdirectory will drive whether tests 
-are enabled or disabled.
+However, metadata in each test file will drive whether tests are enabled or disabled.
 
-Files are named in the following form:
-```
-testname-VERSION.ext
-```
+All new tests must include metadata in the file header describing which versions of
+SST are allowed for the test as well as a short test description
 
-The `testname` is an arbitrary string that contain underscores, dashes and periods.
-The filename extension `ext` is based upon the current subdirectory's harness.  
-The `VERSION` string determines whether the test will be enabled for the specific 
-version of SST.  The `VERSION` string can be written in one of the following forms:
-
-- `ALL` : Instructs the harness to enable the test for all versions of SST.  EX: `test-ALL.sh`
-- `DEV` : Instructs the harness to enable the test if no known version exists.  EG, the version of 
-SST was installed from a development source tree, not a release tree. EX: `test-DEV.sh`
-- `VERSION` : Instructs the harness to enable the test for the specific version of SST.  EX: `test-14.1.sh`
-- `MINVERSION` : Instructs the harness to enable the test for the minimum version of SST.  EX: `test-MIN14.0.sh`
-
-All new tests must include, at minimum, two units of metadata in the file header.  
 These are outlined as follows:
-- `EXT_TEST TEST_FILE_PARAM PARAM` : where `PARAM` is the `VERSION` string from above
-- `EXT_TEST TEST_FILE_DESC "DESC"` : where `DESC` is a description of the test
+- `#EXT_TEST TEST_FILE_MINVER minver` : where `minver` is the minimum allowed version number (e.g. 14.0)
+- `#EXT_TEST TEST_FILE_MAXVER maxver` : where `maxver` is the maximum allowed version number (e.g. 15.1)
+- `#EXT_TEST TEST_FILE_DESC "DESC"` : where `DESC` is a description of the test
+
+If either the minimum or maximum version number is omitted then that constraint is not used in test selection.
+For example, to select all versions of SST starting at 13.1, set the minimum version to 13.1 and 
+omit the maximum version. To select only version 13.1, select both min and max to 13.1.
 
 Optional metadata elements include:
-- `EXT_TEST DEP "COMP1 COMP2"`     : where within the quotes is a list of components
-- `EXT_TEST TIMEOUT XX`            : where XX is the number of seconds for the script to timeout (default is 60)
-- `EXT_TEST MPIARGS arg1 arg2`     : where arg1, arg2, etc are the arguments for the MPI execution command (mpirun, mpiexec)
+- `#EXT_TEST DEP "COMP1 COMP2"`     : where within the quotes is a list of components
+- `#EXT_TEST TIMEOUT XX`            : where XX is the number of seconds for the script to timeout (default is 60)
+- `#EXT_TEST MPIARGS arg1 arg2`     : where arg1, arg2, etc are the arguments for the MPI execution command (mpirun, mpiexec)
 
 ## Test Interrogation
 `sst-ext-tests` includes a Python tool that discovers appropriately 
