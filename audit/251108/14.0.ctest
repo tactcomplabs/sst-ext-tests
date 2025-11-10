@@ -19,50 +19,50 @@ Test project /home/ken/work/sst-ext-tests/build
       Start 18: sst_numthreads
       Start 19: sst_output_config
       Start 20: sst_output_dot
- 1/30 Test  #2: sstconfig_help ...................   Passed    0.04 sec
+ 1/30 Test  #2: sstconfig_help ...................   Passed    0.03 sec
       Start 21: sst_output_dot_verbosity
- 2/30 Test  #3: sstconfig_list_CXXFLAGS ..........   Passed    0.04 sec
+ 2/30 Test  #3: sstconfig_list_CXXFLAGS ..........   Passed    0.03 sec
       Start 22: sst_output_json
- 3/30 Test  #4: sstconfig_list ...................   Passed    0.04 sec
+ 3/30 Test  #4: sstconfig_list ...................   Passed    0.03 sec
       Start 23: sst_output_prefix
  4/30 Test  #9: sstinfo_help .....................   Passed    0.03 sec
       Start 24: sst_print_timing_info
- 5/30 Test #11: sstinfo_list_env .................   Passed    0.03 sec
+ 5/30 Test #11: sstinfo_list_env .................   Passed    0.02 sec
       Start 25: sstregister_a
- 6/30 Test #12: sstinfo_list_nodisplay ...........   Passed    0.03 sec
+ 6/30 Test #12: sstinfo_list_nodisplay ...........   Passed    0.02 sec
       Start 26: sst_register_list
- 7/30 Test #13: sstinfo_list_quiet ...............   Passed    0.03 sec
+ 7/30 Test #13: sstinfo_list_quiet ...............   Passed    0.02 sec
       Start 27: sst_sdlfile
- 8/30 Test #14: sstinfo_list .....................   Passed    0.03 sec
+ 8/30 Test #15: sstinfo_list_xml_file ............   Passed    0.02 sec
       Start 28: sst_version
- 9/30 Test #15: sstinfo_list_xml_file ............   Passed    0.03 sec
+ 9/30 Test #14: sstinfo_list .....................   Passed    0.03 sec
       Start 29: testinfo
-10/30 Test #17: sstinfo_sst ......................   Passed    0.03 sec
+10/30 Test #16: sstinfo_list_xml .................   Passed    0.02 sec
       Start 30: testinfo
-11/30 Test #16: sstinfo_list_xml .................   Passed    0.03 sec
-12/30 Test #10: sstinfo_list_elem ................   Passed    0.04 sec
-13/30 Test #26: sst_register_list ................   Passed    0.01 sec
-14/30 Test #29: testinfo .........................   Passed    0.08 sec
+11/30 Test #17: sstinfo_sst ......................   Passed    0.03 sec
+12/30 Test #26: sst_register_list ................   Passed    0.01 sec
+13/30 Test #10: sstinfo_list_elem ................   Passed    0.04 sec
+14/30 Test #29: testinfo .........................   Passed    0.07 sec
 15/30 Test #30: testinfo .........................   Passed    0.08 sec
-16/30 Test  #5: sst_heartbeat_0.1.30 .............   Passed    0.54 sec
-17/30 Test #28: sst_version ......................   Passed    0.51 sec
-18/30 Test  #8: sst_help .........................   Passed    1.01 sec
-19/30 Test  #6: sst_help-14.0 ....................   Passed    1.03 sec
-20/30 Test  #7: sst_help-MIN14.0 .................   Passed    1.04 sec
-21/30 Test #25: sstregister_a ....................   Passed    1.18 sec
-22/30 Test #19: sst_output_config ................   Passed    5.91 sec
-23/30 Test #22: sst_output_json ..................   Passed    6.03 sec
-24/30 Test #27: sst_sdlfile ......................   Passed    6.08 sec
-25/30 Test  #1: sst_base .........................   Passed    6.18 sec
-26/30 Test #24: sst_print_timing_info ............   Passed    6.19 sec
-27/30 Test #20: sst_output_dot ...................   Passed    6.21 sec
-28/30 Test #23: sst_output_prefix ................   Passed    6.20 sec
-29/30 Test #18: sst_numthreads ...................   Passed    6.50 sec
-30/30 Test #21: sst_output_dot_verbosity .........   Passed   47.68 sec
+16/30 Test  #5: sst_heartbeat_0.1.30 .............   Passed    0.53 sec
+17/30 Test #28: sst_version ......................   Passed    0.53 sec
+18/30 Test  #8: sst_help .........................   Passed    0.99 sec
+19/30 Test  #6: sst_help-14.0 ....................   Passed    1.01 sec
+20/30 Test  #7: sst_help-MIN14.0 .................   Passed    1.02 sec
+21/30 Test #25: sstregister_a ....................   Passed    1.19 sec
+22/30 Test #22: sst_output_json ..................   Passed    5.82 sec
+23/30 Test #19: sst_output_config ................   Passed    5.90 sec
+24/30 Test  #1: sst_base .........................   Passed    5.97 sec
+25/30 Test #24: sst_print_timing_info ............   Passed    5.95 sec
+26/30 Test #23: sst_output_prefix ................   Passed    5.98 sec
+27/30 Test #27: sst_sdlfile ......................   Passed    5.97 sec
+28/30 Test #20: sst_output_dot ...................   Passed    6.03 sec
+29/30 Test #18: sst_numthreads ...................   Passed    6.55 sec
+30/30 Test #21: sst_output_dot_verbosity .........   Passed   46.78 sec
 
 100% tests passed, 0 tests failed out of 30
 
 Label Time Summary:
-14.0    = 102.87 sec*proc (30 tests)
+14.0    = 100.71 sec*proc (30 tests)
 
-Total Test time (real) =  47.73 sec
+Total Test time (real) =  46.82 sec

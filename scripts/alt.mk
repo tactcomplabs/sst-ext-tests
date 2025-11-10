@@ -33,7 +33,7 @@ all: $(TARGS)
 	@ echo "Testing Done [$(CURDIR)]"
 
 %.shlog: %.sh
-	@($(TIMEOUT_COMMAND) $(TIMEOUT) $< >& $@ ) && echo "$@ ... Passed" || echo "$@ ... Failed"
+	@ ($(TIMEOUT_COMMAND) $(TIMEOUT) ./$< > $@ 2>&1 ) && echo "$@ ... Passed" || echo "$@ ... Failed"
 
 .PHONY: clean
 

@@ -9,92 +9,94 @@ Test project /home/ken/work/sst-ext-tests/build
       Start  8: sst_heartbeat_90s
       Start  9: sst_help-15.0
       Start 10: sst_help-MIN14.0
+ 1/47 Test  #3: sstconfig_help ...................   Passed    0.01 sec
       Start 11: sst_help
+ 2/47 Test  #4: sstconfig_list_CXXFLAGS ..........   Passed    0.01 sec
       Start 12: sstinfo_help
+ 3/47 Test  #5: sstconfig_list ...................   Passed    0.01 sec
       Start 13: sstinfo_list_elem
+ 4/47 Test #12: sstinfo_help .....................   Passed    0.01 sec
       Start 14: sstinfo_list_env
+ 5/47 Test #14: sstinfo_list_env .................   Passed    0.02 sec
       Start 15: sstinfo_list_nodisplay
+ 6/47 Test #15: sstinfo_list_nodisplay ...........   Passed    0.02 sec
       Start 16: sstinfo_list_quiet
+ 7/47 Test #13: sstinfo_list_elem ................   Passed    0.05 sec
       Start 17: sstinfo_list
+ 8/47 Test #16: sstinfo_list_quiet ...............   Passed    0.01 sec
       Start 18: sstinfo_list_xml_file
+ 9/47 Test #17: sstinfo_list .....................   Passed    0.02 sec
       Start 19: sstinfo_list_xml
+10/47 Test #18: sstinfo_list_xml_file ............   Passed    0.02 sec
       Start 20: sstinfo_sst
- 1/44 Test  #3: sstconfig_help ...................   Passed    0.04 sec
+11/47 Test #20: sstinfo_sst ......................   Passed    0.01 sec
       Start 21: sst_numthreads
- 2/44 Test  #4: sstconfig_list_CXXFLAGS ..........   Passed    0.04 sec
+12/47 Test #19: sstinfo_list_xml .................   Passed    0.02 sec
       Start 22: sst_output_config
- 3/44 Test  #5: sstconfig_list ...................   Passed    0.03 sec
+13/47 Test  #9: sst_help-15.0 ....................   Passed    0.93 sec
       Start 23: sst_output_dir_config
- 4/44 Test #12: sstinfo_help .....................   Passed    0.02 sec
+14/47 Test #10: sst_help-MIN14.0 .................   Passed    0.96 sec
       Start 24: sst_output_dir_cpt
- 5/44 Test #14: sstinfo_list_env .................   Passed    0.02 sec
+15/47 Test #11: sst_help .........................   Passed    0.97 sec
       Start 25: sst_output_dir_json
- 6/44 Test #15: sstinfo_list_nodisplay ...........   Passed    0.02 sec
+16/47 Test  #7: sst_heartbeat_1s .................   Passed    5.87 sec
       Start 26: sst_output_dir
- 7/44 Test #17: sstinfo_list .....................   Passed    0.02 sec
+17/47 Test  #6: sst_heartbeat_0.1.30 .............   Passed    6.18 sec
       Start 27: sst_output_dir_stats
- 8/44 Test #16: sstinfo_list_quiet ...............   Passed    0.03 sec
+18/47 Test  #8: sst_heartbeat_90s ................   Passed    6.19 sec
       Start 28: sst_output_dot
- 9/44 Test #20: sstinfo_sst ......................   Passed    0.02 sec
+19/47 Test  #1: sst_base .........................   Passed    6.22 sec
       Start 29: sst_output_dot_verbosity
-10/44 Test #18: sstinfo_list_xml_file ............   Passed    0.03 sec
+20/47 Test #22: sst_output_config ................   Passed    6.13 sec
       Start 30: sst_output_json
-11/44 Test #19: sstinfo_list_xml .................   Passed    0.03 sec
+21/47 Test #21: sst_numthreads ...................   Passed    6.81 sec
       Start 31: sst_output_prefix
-12/44 Test #13: sstinfo_list_elem ................   Passed    0.06 sec
+22/47 Test #28: sst_output_dot ...................   Passed    5.76 sec
       Start 32: sst_print_timing_info
-13/44 Test #11: sst_help .........................   Passed    1.10 sec
+23/47 Test  #2: sst_checkpoint_name_format .......   Passed   12.14 sec
       Start 33: sstregister_a
-14/44 Test #10: sst_help-MIN14.0 .................   Passed    1.13 sec
+24/47 Test #30: sst_output_json ..................   Passed    6.17 sec
       Start 34: sst_register_list
-15/44 Test #34: sst_register_list ................   Passed    0.01 sec
+25/47 Test #34: sst_register_list ................   Passed    0.01 sec
       Start 35: sst_sdlfile
-16/44 Test  #9: sst_help-15.0 ....................   Passed    1.14 sec
+26/47 Test #31: sst_output_prefix ................   Passed    5.82 sec
       Start 36: sst_version
-17/44 Test #36: sst_version ......................   Passed    0.53 sec
+27/47 Test #36: sst_version ......................   Passed    0.46 sec
       Start 37: testinfo
-18/44 Test #37: testinfo .........................   Passed    0.07 sec
+28/47 Test #37: testinfo .........................   Passed    0.07 sec
       Start 38: restart-ckpt-with-sigalrm-15.0
-19/44 Test #33: sstregister_a ....................   Passed    1.16 sec
+29/47 Test #33: sstregister_a ....................   Passed    1.16 sec
       Start 39: restart-heartbeat
-20/44 Test #39: restart-heartbeat ................***Failed  Required regular expression not found. Regex=[PASS
-]  4.22 sec
+30/47 Test #32: sst_print_timing_info ............   Passed    5.85 sec
       Start 40: restart-interactive
-21/44 Test  #1: sst_base .........................   Passed    6.61 sec
-      Start 41: sigalrm
-22/44 Test  #8: sst_heartbeat_90s ................   Passed    6.60 sec
-      Start 42: sigusr_interactive-15.0
-23/44 Test  #6: sst_heartbeat_0.1.30 .............   Passed    6.60 sec
-      Start 43: testinfo
-24/44 Test #31: sst_output_prefix ................   Passed    6.60 sec
-      Start 44: testinfo
-25/44 Test #32: sst_print_timing_info ............   Passed    6.59 sec
-26/44 Test #22: sst_output_config ................   Passed    6.63 sec
-27/44 Test #43: testinfo .........................   Passed    0.07 sec
-28/44 Test #28: sst_output_dot ...................   Passed    6.65 sec
-29/44 Test #44: testinfo .........................   Passed    0.07 sec
-30/44 Test #30: sst_output_json ..................   Passed    6.68 sec
-31/44 Test  #7: sst_heartbeat_1s .................   Passed    6.74 sec
-32/44 Test #21: sst_numthreads ...................   Passed    7.38 sec
-33/44 Test #35: sst_sdlfile ......................   Passed    6.49 sec
-34/44 Test  #2: sst_checkpoint_name_format .......   Passed   12.85 sec
-35/44 Test #40: restart-interactive ..............   Passed    7.40 sec
-36/44 Test #38: restart-ckpt-with-sigalrm-15.0 ...   Passed   15.91 sec
-37/44 Test #41: sigalrm ..........................   Passed   16.13 sec
-38/44 Test #42: sigusr_interactive-15.0 ..........   Passed   16.36 sec
-39/44 Test #26: sst_output_dir ...................   Passed   23.82 sec
-40/44 Test #27: sst_output_dir_stats .............   Passed   23.83 sec
-41/44 Test #25: sst_output_dir_json ..............   Passed   24.01 sec
-42/44 Test #23: sst_output_dir_config ............   Passed   24.57 sec
-43/44 Test #24: sst_output_dir_cpt ...............   Passed   24.59 sec
-44/44 Test #29: sst_output_dot_verbosity .........   Passed   49.80 sec
+31/47 Test #35: sst_sdlfile ......................   Passed    6.08 sec
+      Start 41: restart-sigalrm-15.0
+32/47 Test #39: restart-heartbeat ................   Passed    5.22 sec
+      Start 42: sigalrm_ckpt_comb
+33/47 Test #40: restart-interactive ..............   Passed    6.71 sec
+      Start 43: sigalrm_combined
+34/47 Test #24: sst_output_dir_cpt ...............   Passed   24.00 sec
+      Start 44: sigalrm
+35/47 Test #25: sst_output_dir_json ..............   Passed   24.14 sec
+      Start 45: sigusr_interactive-15.0
+36/47 Test #23: sst_output_dir_config ............   Passed   24.45 sec
+      Start 46: testinfo
+37/47 Test #46: testinfo .........................   Passed    0.06 sec
+      Start 47: testinfo
+38/47 Test #47: testinfo .........................   Passed    0.06 sec
+39/47 Test #38: restart-ckpt-with-sigalrm-15.0 ...   Passed   15.82 sec
+40/47 Test #26: sst_output_dir ...................   Passed   24.01 sec
+41/47 Test #27: sst_output_dir_stats .............   Passed   23.99 sec
+42/47 Test #41: restart-sigalrm-15.0 .............   Passed   14.05 sec
+43/47 Test #42: sigalrm_ckpt_comb ................   Passed   15.44 sec
+44/47 Test #44: sigalrm ..........................   Passed   15.17 sec
+45/47 Test #45: sigusr_interactive-15.0 ..........   Passed   15.32 sec
+46/47 Test #29: sst_output_dot_verbosity .........   Passed   51.16 sec
+47/47 Test #43: sigalrm_combined .................   Passed   57.55 sec
 
-98% tests passed, 1 tests failed out of 44
+100% tests passed, 0 tests failed out of 47
 
 Label Time Summary:
-15.0    = 322.70 sec*proc (44 tests)
+15.0    = 401.14 sec*proc (47 tests)
 
-Total Test time (real) =  49.86 sec
-
-The following tests FAILED:
-	 39 - restart-heartbeat (Failed)
+Total Test time (real) =  82.08 sec
