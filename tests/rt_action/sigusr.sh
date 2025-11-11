@@ -9,11 +9,20 @@
 # 4) wait for completion
 # 5) check result
 
+# Set component options
+OPTS="--sleep 3"
+# Optional first argument for number of clocks
+if [ $# -eq 1 ]; then
+  OPTS+=" --clocks $1"
+fi
+
+# Sleep time for bash
+BASH_SLEEP=2
 
 # Settings
 SIG="sigusr1 sigusr2"
 ACTION="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat sst.rt.checkpoint"
-CONFIG="test_Checkpoint.py" #test_MessageMesh.py"
+CONFIG="rt_action.py" #"test_Checkpoint.py" #test_MessageMesh.py"
 PREFIX="ckpt_sigusr"
 CLEANUP=1
 
@@ -46,16 +55,16 @@ fi
 #  rm test.$sig.$action.out
 #fi
 
-LAUNCH="sst --$sig=$action --checkpoint-prefix=$PREFIX $CONFIG"
+LAUNCH="sst --$sig=$action --checkpoint-prefix=$PREFIX $CONFIG -- $OPTS"
 echo $LAUNCH
 
-$LAUNCH > test.$sig.$action.out 2>&1 &
+$LAUNCH | tee test.$sig.$action.out 2>&1 &
 
 # 2) Get the PID
 JOBS=($(jobs -l))
 PID=${JOBS[1]}
 #echo $PID
-sleep 2
+sleep $BASH_SLEEP
 
 # 3) Send signal 
 kill -s $sig $PID
@@ -67,14 +76,14 @@ echo $sig=$action Complete
 
 # 5) Check result
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $sig=$action return code"
+  echo "ERROR $sig=$action return code [$retVal]"
   exit $retVal
 fi
 
 grep "$PSTR" ./test.$sig.$action.out > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $sig=$action grep"
+  echo "ERROR $sig=$action missing grep [$PSTR]"
   exit $retVal
 fi
 echo
@@ -92,9 +101,4 @@ done  # for $sig
 
 echo "PASS"
 exit $retVal
-
-
-
-
-
 
