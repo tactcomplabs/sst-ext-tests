@@ -8,9 +8,9 @@
 // See LICENSE in the top level directory for licensing details
 //
 
+#include <thread>
+#include <chrono>
 #include "dbgsst15.h"
-#include "tcldbg.h"
-
 
 namespace SSTDEBUG::DbgSST15{
 
@@ -22,7 +22,6 @@ DbgSST15::DbgSST15(SST::ComponentId_t id, const SST::Params& params ) :
   numPorts(1), minData(1), maxData(2), clockDelay(1), clocks(1000),
   curCycle(0), rCheck(0), size(0) {
   
-  tcldbg::spinner("SPINNER");
   const uint32_t Verbosity = params.find< uint32_t >( "verbose", 0 );
   output.init(
     "DbgSST15[" + getName() + ":@p:@t]: ",
@@ -39,6 +38,7 @@ DbgSST15::DbgSST15(SST::ComponentId_t id, const SST::Params& params ) :
   maxData = params.find<uint64_t>("maxData", 2);
   clockDelay = params.find<uint64_t>("clockDelay", 1);
   clocks = params.find<uint64_t>("clocks", 1000);
+  sleep = params.find<uint64_t>("sleep", 0);
   traceMode = params.find<unsigned>("traceMode", 0);
   cliType = params.find<unsigned>("cliType", 0);
   
@@ -47,6 +47,7 @@ DbgSST15::DbgSST15(SST::ComponentId_t id, const SST::Params& params ) :
   output.verbose(CALL_INFO, 1, 0, "maxData=%" PRIu64 "\n", maxData);
   output.verbose(CALL_INFO, 1, 0, "clockDelay=%" PRIu64 "\n", clockDelay);
   output.verbose(CALL_INFO, 1, 0, "clocks=%" PRIu64 "\n", clocks);
+  output.verbose(CALL_INFO, 1, 0, "sleep=%" PRIu64 "\n", sleep);
 
   output.verbose(CALL_INFO, 1, 0, "traceMode=%" PRIu32 "\n", traceMode);
   if (traceMode & 1) output.verbose(CALL_INFO, 1, 0, "tracing SEND events\n");
@@ -272,7 +273,11 @@ void DbgSST15::sendData(){
 
 bool DbgSST15::clockTick( SST::Cycle_t currentCycle ){
 
-  tcldbg::spinner("CP0_SPINNER", getName().compare("cp1")==0);
+  if (currentCycle==1 && sleep>0 ) {
+        output.verbose(CALL_INFO,0,0,"Sleeping for %" PRIu64 " seconds\n", sleep);
+        std::this_thread::sleep_for(std::chrono::seconds(sleep));
+        output.verbose(CALL_INFO,0,0,"I'm awake I'm awake ...\n");
+  }
 
   // check to see whether we need to send data over the links
   curCycle++;

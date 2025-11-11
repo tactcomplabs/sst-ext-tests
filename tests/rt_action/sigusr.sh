@@ -9,12 +9,23 @@
 # 4) wait for completion
 # 5) check result
 
+# Set component options
+OPTS=""
+# Optional first argument for number of clocks
+if [ $# -eq 1 ]; then
+  OPTS+=" --clocks $1"
+fi
+
+# Sleep times for sst and bash
+OPTS+=" --sleep 3"
+BASH_SLEEP=2
 
 # Settings
 SIG="sigusr1 sigusr2"
 ACTION="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat sst.rt.checkpoint"
-CONFIG="test_Checkpoint.py" #test_MessageMesh.py"
-PREFIX="ckpt_sigusr"
+CONFIG="rt_action.py" #"test_Checkpoint.py" #test_MessageMesh.py"
+# TODO directory creation fails when using a relative path
+PREFIX="$PWD/ckpt_sigusr"
 CLEANUP=1
 
 for sig in $SIG; do
@@ -46,7 +57,7 @@ fi
 #  rm test.$sig.$action.out
 #fi
 
-LAUNCH="sst --$sig=$action --checkpoint-prefix=$PREFIX $CONFIG"
+LAUNCH="sst --$sig=$action --checkpoint-prefix=${PREFIX} $CONFIG -- $OPTS"
 echo $LAUNCH
 
 $LAUNCH > test.$sig.$action.out 2>&1 &
@@ -55,9 +66,10 @@ $LAUNCH > test.$sig.$action.out 2>&1 &
 JOBS=($(jobs -l))
 PID=${JOBS[1]}
 #echo $PID
-sleep 2
+sleep $BASH_SLEEP
 
 # 3) Send signal 
+echo ">>>>>>> kill -s $sig $PID" | tee test.$sig.$action.out
 kill -s $sig $PID
 
 # 4) wait for completion 
@@ -67,14 +79,16 @@ echo $sig=$action Complete
 
 # 5) Check result
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $sig=$action return code"
+  cat test.$sig.$action.out
+  echo "ERROR $sig=$action return code [$retVal]"
   exit $retVal
 fi
 
 grep "$PSTR" ./test.$sig.$action.out > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $sig=$action grep"
+  cat test.$sig.$action.out
+  echo "ERROR $sig=$action missing grep [$PSTR]"
   exit $retVal
 fi
 echo
@@ -83,7 +97,8 @@ echo
 if [ $CLEANUP == 1 ]; then
   rm test.$sig.$action.out
   if [ $action == "sst.rt.checkpoint" ]; then
-    rm -r $PREFIX*
+    # If checkpoint directory did not get created then fail ( not fool proof )
+    rm -r $PREFIX* || exit 99
   fi
 fi
 
@@ -92,9 +107,4 @@ done  # for $sig
 
 echo "PASS"
 exit $retVal
-
-
-
-
-
 

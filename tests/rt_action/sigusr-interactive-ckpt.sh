@@ -24,12 +24,23 @@ LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
 CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
-CKPTPREFIX=ckpt_$TNAME
+# TODO if this is an absolute path the checkpoint directory is incorrect.
+CKPTPREFIX="ckpt_${TNAME}"
 PIPE="/tmp/${TNAME}-${PPID}.pipe"
 
 SIG="sigusr1 sigusr2"
 ACTION="sst.rt.interactive"
 
+# Set component options
+OPTS=""
+# Optional first argument for number of clocks
+if [ $# -eq 1 ]; then
+  OPTS+=" --clocks $1"
+fi
+
+# Sleep times for sst and bash
+OPTS+=" --sleep 3"
+BASH_SLEEP=2
 # 0) Set up the PIPE
 #mkfifo $PIPE
 if [[ ! -p $PIPE ]]; then
@@ -46,7 +57,7 @@ for sig in $SIG; do
     rm $LOGFILE
   fi
 
-  LAUNCH="sst --$sig=$action --checkpoint-enable --checkpoint-prefix=$CKPTPREFIX test_Checkpoint.py"
+  LAUNCH="sst --$sig=$action --checkpoint-enable --checkpoint-prefix=$CKPTPREFIX rt_action.py -- $OPTS"
   echo $LAUNCH
   $LAUNCH < $PIPE > $LOGFILE &
   exec 3>$PIPE    # Opens PIPE for writing
@@ -55,24 +66,26 @@ for sig in $SIG; do
   JOBS=($(jobs -l))
   JSTR=${JOBS[0]}
   PID=${JOBS[1]}
-  sleep 2
+  sleep $BASH_SLEEP
 
   # 3) Send signal 
+  echo "kill -s $sig $PID" | tee $LOGFILE
   kill -s $sig $PID
   retVal=$?
   if [ $retVal -ne 0 ]; then
+    cat $LOGFILE
     echo ERROR sending signal: kill -s $sig $PID
     exit $retVal
   fi
 
   # 4) Send run command in interactive console
   #fg $JID
-  echo cd c0 > $PIPE
-  echo cd xorshift > $PIPE
-  echo trace w changed : 32 4 : w x y z : checkpoint > $PIPE
+  echo cd cp0 > $PIPE
+  echo ls > $PIPE
+  echo trace curCycle == 0 : 32 4 : curCycle : checkpoint > $PIPE
   echo setHandler 0 ae ac > $PIPE
   echo printWatchpoint 0 > $PIPE
-  echo run 400us > $PIPE
+  echo run 1us > $PIPE
   echo shutdown > $PIPE
 
   # 5) Wait for completion
@@ -84,6 +97,7 @@ for sig in $SIG; do
 
   # 6) Check results
   if [ $retVal -ne 0 ]; then
+    cat $LOGFILE
     echo "ERROR $sig=$action returned $retVal"
     rm $PIPE
     exit $retVal
@@ -93,6 +107,7 @@ for sig in $SIG; do
   grep "$PSTR" $LOGFILE > /dev/null
   retVal=$?
   if [ $retVal -ne 0 ]; then
+    cat $LOGFILE
     echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
     rm $PIPE
     exit $retVal
@@ -103,6 +118,7 @@ for sig in $SIG; do
   grep "$PSTR" $LOGFILE > /dev/null
   retVal=$?
   if [ $retVal -ne 0 ]; then
+    cat $LOGFILE
     echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
     rm $PIPE
     exit $retVal
@@ -113,6 +129,7 @@ for sig in $SIG; do
   grep "$PSTR" $LOGFILE > /dev/null
   retVal=$?
   if [ $retVal -ne 0 ]; then
+    cat $LOGFILE
     echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
     rm $PIPE
     exit $retVal
