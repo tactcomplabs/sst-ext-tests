@@ -36,6 +36,7 @@ cp0.addParams({
   "maxData" : MAX_DATA,
   "clockDelay" : 100,
   "clocks" : args.clocks,
+  "sleep" : args.sleep,
   "rngSeed" : 1223,
   "clockFreq" : "1Ghz",
 })

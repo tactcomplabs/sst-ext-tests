@@ -10,13 +10,14 @@
 # 5) check result
 
 # Set component options
-OPTS="--sleep 3"
+OPTS=""
 # Optional first argument for number of clocks
 if [ $# -eq 1 ]; then
   OPTS+=" --clocks $1"
 fi
 
-# Sleep time for bash
+# Sleep times for sst and bash
+OPTS+=" --sleep 3"
 BASH_SLEEP=2
 
 # Settings
@@ -55,10 +56,10 @@ fi
 #  rm test.$sig.$action.out
 #fi
 
-LAUNCH="sst --$sig=$action --checkpoint-prefix=$PREFIX $CONFIG -- $OPTS"
+LAUNCH="sst --$sig=$action --checkpoint-prefix="${PWD}/${PREFIX}" $CONFIG -- $OPTS"
 echo $LAUNCH
 
-$LAUNCH | tee test.$sig.$action.out 2>&1 &
+$LAUNCH > test.$sig.$action.out 2>&1 &
 
 # 2) Get the PID
 JOBS=($(jobs -l))
@@ -67,6 +68,7 @@ PID=${JOBS[1]}
 sleep $BASH_SLEEP
 
 # 3) Send signal 
+echo ">>>>>>> kill -s $sig $PID" | tee test.$sig.$action.out
 kill -s $sig $PID
 
 # 4) wait for completion 
@@ -76,6 +78,7 @@ echo $sig=$action Complete
 
 # 5) Check result
 if [ $retVal -ne 0 ]; then
+  cat test.$sig.$action.out
   echo "ERROR $sig=$action return code [$retVal]"
   exit $retVal
 fi
@@ -83,6 +86,7 @@ fi
 grep "$PSTR" ./test.$sig.$action.out > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
+  cat test.$sig.$action.out
   echo "ERROR $sig=$action missing grep [$PSTR]"
   exit $retVal
 fi
@@ -92,6 +96,7 @@ echo
 if [ $CLEANUP == 1 ]; then
   rm test.$sig.$action.out
   if [ $action == "sst.rt.checkpoint" ]; then
+    # TODO did checkpoint actually get created?
     rm -r $PREFIX*
   fi
 fi
