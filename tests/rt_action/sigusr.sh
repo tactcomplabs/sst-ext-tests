@@ -24,7 +24,8 @@ BASH_SLEEP=2
 SIG="sigusr1 sigusr2"
 ACTION="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat sst.rt.checkpoint"
 CONFIG="rt_action.py" #"test_Checkpoint.py" #test_MessageMesh.py"
-PREFIX="ckpt_sigusr"
+# TODO directory creation fails when using a relative path
+PREFIX="$PWD/ckpt_sigusr"
 CLEANUP=1
 
 for sig in $SIG; do
@@ -56,7 +57,7 @@ fi
 #  rm test.$sig.$action.out
 #fi
 
-LAUNCH="sst --$sig=$action --checkpoint-prefix="${PWD}/${PREFIX}" $CONFIG -- $OPTS"
+LAUNCH="sst --$sig=$action --checkpoint-prefix=${PREFIX} $CONFIG -- $OPTS"
 echo $LAUNCH
 
 $LAUNCH > test.$sig.$action.out 2>&1 &
@@ -96,8 +97,8 @@ echo
 if [ $CLEANUP == 1 ]; then
   rm test.$sig.$action.out
   if [ $action == "sst.rt.checkpoint" ]; then
-    # TODO did checkpoint actually get created?
-    rm -r $PREFIX*
+    # If checkpoint directory did not get created then fail ( not fool proof )
+    rm -r $PREFIX* || exit 99
   fi
 fi
 
