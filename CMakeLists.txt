@@ -116,8 +116,7 @@ if(MPIEXEC_EXECUTABLE)
 endif()
 
 #-- setup the component build directory
-set(ENV{SST_COMPONENT_BASE} "${CMAKE_BINARY_DIR}")
-# set(SST_COMPONENT_BASE "${CMAKE_CURRENT_SOURCE_DIR}/tests/components")
+set(ENV{SST_COMPONENT_BASE} "${CMAKE_BINARY_DIR}/components")
 message(STATUS "SST-EXT-TESTS ENV{SST_COMPONENT_BASE}=$ENV{SST_COMPONENT_BASE}")
 
 #-- Compiler Options
@@ -159,6 +158,9 @@ enable_testing()
 #-- Custom Commands
 add_custom_target(uninstall COMMAND
   "${CMAKE_CURRENT_SOURCE_DIR}/scripts/uninstall.sh")
+
+#-- SST Component Libraries
+add_subdirectory(components)
 
 #-- Subdirectories
 add_subdirectory(tests)
