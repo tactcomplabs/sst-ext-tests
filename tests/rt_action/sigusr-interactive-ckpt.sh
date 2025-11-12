@@ -57,7 +57,8 @@ for sig in $SIG; do
     rm $LOGFILE
   fi
 
-  LAUNCH="sst --$sig=$action --checkpoint-enable --checkpoint-prefix=$CKPTPREFIX rt_action.py -- $OPTS"
+  echo "SST_COMPONENT_BASE=${SST_COMPONENT_BASE}"
+  LAUNCH="sst --$sig=$action --checkpoint-enable --checkpoint-prefix=$CKPTPREFIX --add-lib-path=$SST_COMPONENT_BASE/tests/core-debug-components rt_action.py -- $OPTS"
   echo $LAUNCH
   $LAUNCH < $PIPE > $LOGFILE &
   exec 3>$PIPE    # Opens PIPE for writing

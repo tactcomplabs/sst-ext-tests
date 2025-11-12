@@ -56,8 +56,8 @@ fi
 #if [[ -f test.$sig.$action.out ]]; then
 #  rm test.$sig.$action.out
 #fi
-
-LAUNCH="sst --$sig=$action --checkpoint-prefix=${PREFIX} $CONFIG -- $OPTS"
+echo "SST_COMPONENT_BASE=${SST_COMPONENT_BASE}"
+LAUNCH="sst --$sig=$action --checkpoint-prefix=${PREFIX} --add-lib-path=$SST_COMPONENT_BASE/tests/core-debug-components $CONFIG -- $OPTS"
 echo $LAUNCH
 
 $LAUNCH > test.$sig.$action.out 2>&1 &
