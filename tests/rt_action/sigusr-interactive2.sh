@@ -17,6 +17,17 @@ SIG="sigusr1 sigusr2"
 ACTION="sst.rt.interactive"
 CLEANUP=1
 
+# Set component options
+OPTS=""
+# Optional first argument for number of clocks
+if [ $# -eq 1 ]; then
+  OPTS+=" --clocks $1"
+fi
+
+# Sleep times for sst and bash
+OPTS+=" --sleep 3"
+BASH_SLEEP=2
+
 # 0) Set up the pipe
 pipe=/tmp/testpipe
 #mkfifo $pipe
@@ -33,7 +44,8 @@ if [[ -f test.$sig.$action.out ]]; then
   rm test.$sig.$action.out
 fi
 
-LAUNCH="sst --$sig=$action test_Checkpoint.py"
+echo "SST_COMPONENT_BASE=${SST_COMPONENT_BASE}"
+LAUNCH="sst --$sig=$action --add-lib-path=$SST_COMPONENT_BASE/tests/core-debug-components rt_action.py -- $OPTS"
 echo $LAUNCH
 $LAUNCH < $pipe > test.$sig.$action.out &
 exec 3>$pipe    # Opens pipe for writing
@@ -42,9 +54,10 @@ exec 3>$pipe    # Opens pipe for writing
 JOBS=($(jobs -l))
 JSTR=${JOBS[0]}
 PID=${JOBS[1]}
-sleep 2
+sleep $BASH_SLEEP
 
 # 3) Send signal 
+echo "kill -s $sig $PID" | tee $test.$sig.$action.out
 kill -s $sig $PID
 retVal=$?
 if [ $retVal -ne 0 ]; then

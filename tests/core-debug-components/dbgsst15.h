@@ -171,6 +171,8 @@ public:
     {"clocks",          "Clock cycles to execute",               "1000"},
     {"rngSeed",         "Mersenne RNG Seed",                     "1223"},
     {"clockFreq",       "Clock frequency",                       "1GHz"},
+    // Lazy synchronization help for bash signaling
+    {"sleep",           "Time (s) for comp0 to sleep on 1st clock","0" },
     // component specific probe controls
     {"traceMode",       "0-none, 1-send, 2-recv",                   "0"},
     // TODO Should get rest into base class. Component extends Probe instead of instantiating it
@@ -235,6 +237,7 @@ private:
   uint64_t clockDelay;                            ///< clock delay between sends
   uint64_t clocks;                                ///< number of clocks to execute
   uint64_t curCycle;                              ///< current cycle delay
+  uint64_t sleep = 0;                             ///< sleep time (s) for 1st clock
   // -- probing
   unsigned traceMode;                             ///< 0-none, 1-send, 2-recv, 3-both
   unsigned cliType;                               ///< 0-serializer-entry, 1-initiateInteractive
