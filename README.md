@@ -88,6 +88,15 @@ of doing so include:
 ./bin/sst-ext-tests -d ./tests -j output.json
 ./bin/sst-ext-tests -d ./tests -p ALL
 ```
+## Test Selection
+
+The default set of sets will be based on the version of SST found in the PATH
+environment variable. To override this, use `cmake -DSST_VERSION=<version>`.
+Example:
+
+```
+cmake .. -DSST_VERSION=14.1 -DENABLE_ALL_TESTS=ON
+```
 
 ## Contributing
 

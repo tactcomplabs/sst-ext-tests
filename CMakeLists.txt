@@ -50,6 +50,18 @@ if(NOT (EXISTS "${SST_INSTALL_DIR}"))
 endif()
 include_directories(SST_SRC ${SST_INSTALL_DIR})
 
+# SST Version found in path
+execute_process(COMMAND sst --version
+                OUTPUT_VARIABLE SST_VERSION_STRING
+                OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+message(STATUS "${SST_VERSION_STRING}")
+
+# Allow override using -DSST_VERSION=n
+if (DEFINED SST_VERSION)  
+  message(STATUS "SST_VERSION test selection override: ${SST_VERSION}")
+endif()
+
 execute_process(COMMAND sst-config --CXX
                 OUTPUT_VARIABLE CXX
                 OUTPUT_STRIP_TRAILING_WHITESPACE
@@ -66,11 +78,11 @@ execute_process(COMMAND sst-config SST_ELEMENT_LIBRARY SST_ELEMENT_LIBRARY_LIBDI
                 OUTPUT_VARIABLE SST_ELEMENT_LIBRARY_LIBDIR
                 OUTPUT_STRIP_TRAILING_WHITESPACE
 )
-execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/sst-major-version.sh
+execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/sst-major-version.sh ${SST_VERSION}
                 OUTPUT_VARIABLE SST_MAJOR_VERSION
                 OUTPUT_STRIP_TRAILING_WHITESPACE
 )
-execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/sst-minor-version.sh
+execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/sst-minor-version.sh ${SST_VERSION}
                 OUTPUT_VARIABLE SST_MINOR_VERSION
                 OUTPUT_STRIP_TRAILING_WHITESPACE
 )
@@ -86,6 +98,7 @@ if(NOT contains_num)
   message(STATUS "SST GIT HASH=${SST_GIT_HASH}")
 endif()
 
+#-- Create version variables (will rewrite command line provided SST_VERSION)
 message(STATUS "SST MAJOR VERSION=${SST_MAJOR_VERSION}")
 message(STATUS "SST MINOR VERSION=${SST_MINOR_VERSION}")
 if ("${SST_MAJOR_VERSION}" STREQUAL "DEV")
