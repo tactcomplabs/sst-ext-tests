@@ -120,19 +120,29 @@ set(ENV{SST_COMPONENT_BASE} "${CMAKE_BINARY_DIR}/components")
 message(STATUS "SST-EXT-TESTS ENV{SST_COMPONENT_BASE}=$ENV{SST_COMPONENT_BASE}")
 
 #-- Compiler Options
-# Compiler Options
-if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
-  set(WERROR_FLAG "")
-  set(FP_MODE_FLAG "-ffp-model=strict")
-else()
+option(SST_WERROR "Compile with warnings as errors" ON)
+if (SST_WERROR)
   set(WERROR_FLAG "-Werror")
-  set(FP_MODE_FLAG "-frounding-math")
+endif()
+
+option(SST_ASAN "Compile using address sanitizer" OFF)
+if (SST_ASAN)
+  set (SANITIZE_FLAG "-fsanitize=address -fno-omit-frame-pointer")
+endif()
+
+if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+  set(FP_MODE_FLAG "-ffp-model=strict -frounding-math -ftrapping-math")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-command-line-argument")
+else()
+  set(FP_MODE_FLAG "-frounding-math -ftrapping-math")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wmissing-format-attribute -Wsuggest-final-methods -Wsuggest-final-types -Wvolatile")
 endif()
 
 set(LDFLAGS "${SST_LDFLAGS}")
-set(CMAKE_CXX_FLAGS "-std=c++17 ${FP_MODE_FLAG} -O2 -Wall -Wextra ${WERROR_FLAG} -Wvla -Wuninitialized -Wfloat-conversion -Wdouble-promotion -Wno-unused-parameter -Wno-deprecated-declarations ${CMAKE_CXX_FLAGS} -I./ ${LDFLAGS}")
+
+set(CMAKE_CXX_FLAGS "-std=c++17 ${FP_MODE_FLAG} -O2 -Wall -Wextra -Wsuggest-override -Wvla -Wuninitialized -Wfloat-conversion -Wdouble-promotion -Wno-unused-parameter -Wno-deprecated-declarations -Wsign-conversion -Wconversion -Wno-unused-parameter -Wno-deprecated-declarations -Wno-macro-redefined ${WERROR_FLAG} ${SANITIZE_FLAG} ${CMAKE_CXX_FLAGS} -I./ ${LDFLAGS}")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS}")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -std=c++17 ${FP_MODE_FLAG} -g -pg -O0 -Wall -Wextra ${WERROR_FLAG} -Wvla -Wuninitialized -Wfloat-conversion -Wdouble-promotion -Wno-unused-parameter -Wno-deprecated-declarations -I./ ${LDFLAGS}")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -Wall")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -Wall")
 
 set(EXT_TEST_LIST_COMMAND "${CMAKE_SOURCE_DIR}/scripts/gen-testlist.sh")
