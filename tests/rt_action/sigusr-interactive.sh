@@ -45,7 +45,8 @@ if [[ -f $outfile ]]; then
   rm $outfile
 fi
 
-LAUNCH="sst --interactive-console=sst.interactive.simpledebug --$sig=$action rt_action.py -- $OPTS"
+echo "SST_COMPONENT_BASE=${SST_COMPONENT_BASE}"
+LAUNCH="sst --interactive-console=sst.interactive.simpledebug --$sig=$action --add-lib-path=$SST_COMPONENT_BASE/tests/core-debug-components rt_action.py -- $OPTS"
 echo $LAUNCH
 $LAUNCH < $pipe > $outfile &
 exec 3>$pipe    # Opens pipe for writing

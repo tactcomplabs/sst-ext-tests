@@ -75,9 +75,6 @@ execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/sst-minor-version.sh
                 OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
-#-- setup the component build directory
-set(ENV{SST_COMPONENT_BASE} "${CMAKE_BINARY_DIR}")
-
 string_contains_number("${SST_MAJOR_VERSION}" contains_num)
 if(NOT contains_num)
   set(SST_MAJOR_VERSION "DEV")
@@ -105,9 +102,10 @@ if(MPIEXEC_EXECUTABLE)
   message(STATUS "MPI RUN COMMAND=${MPIEXEC_EXECUTABLE}")
 endif()
 
-set(SST_COMPONENT_BASE "${CMAKE_CURRENT_SOURCE_DIR}/tests/components")
-message(STATUS "SST-EXT-TESTS COMPONENT BASE DIRECTORY=${SST_COMPONENT_BASE}")
-
+#-- setup the component build directory
+set(ENV{SST_COMPONENT_BASE} "${CMAKE_BINARY_DIR}")
+# set(SST_COMPONENT_BASE "${CMAKE_CURRENT_SOURCE_DIR}/tests/components")
+message(STATUS "SST-EXT-TESTS ENV{SST_COMPONENT_BASE}=$ENV{SST_COMPONENT_BASE}")
 
 #-- Compiler Options
 # Compiler Options
