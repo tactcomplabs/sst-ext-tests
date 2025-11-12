@@ -1,0 +1,158 @@
+Test project /scratch/kgriesser/work/sst-ext-tests/build
+      Start  1: sst_base
+      Start  2: sst_checkpoint_name_format
+      Start  3: sstconfig_help
+      Start  4: sstconfig_list_CXXFLAGS
+      Start  5: sstconfig_list
+      Start  6: sst_heartbeat_0.1.30
+      Start  7: sst_heartbeat_1s
+      Start  8: sst_heartbeat_90s
+      Start  9: sst-help-15.1
+      Start 10: sst_help-MIN14.0
+      Start 11: sst_help
+      Start 12: sstinfo_help
+      Start 13: sstinfo_list_elem
+      Start 14: sstinfo_list_env
+      Start 15: sstinfo_list_nodisplay
+      Start 16: sstinfo_list_quiet
+      Start 17: sstinfo_list
+      Start 18: sstinfo_list_xml_file
+      Start 19: sstinfo_list_xml
+      Start 20: sstinfo_sst
+ 1/75 Test  #3: sstconfig_help ...................   Passed    0.23 sec
+      Start 21: sst_numthreads
+ 2/75 Test  #5: sstconfig_list ...................   Passed    0.24 sec
+      Start 22: sst_output_config
+ 3/75 Test  #4: sstconfig_list_CXXFLAGS ..........   Passed    0.26 sec
+      Start 23: sst_output_dir_config
+ 4/75 Test #12: sstinfo_help .....................   Passed    0.34 sec
+      Start 24: sst_output_dir_cpt
+ 5/75 Test #20: sstinfo_sst ......................   Passed    0.35 sec
+      Start 25: sst_output_dir_json
+ 6/75 Test #15: sstinfo_list_nodisplay ...........   Passed    0.58 sec
+      Start 26: sst_output_dir
+ 7/75 Test #16: sstinfo_list_quiet ...............   Passed    0.60 sec
+      Start 27: sst_output_dir_stats
+ 8/75 Test #17: sstinfo_list .....................   Passed    0.62 sec
+      Start 28: sst_output_dot
+ 9/75 Test #18: sstinfo_list_xml_file ............   Passed    0.62 sec
+      Start 29: sst_output_dot_verbosity
+10/75 Test #14: sstinfo_list_env .................   Passed    0.63 sec
+      Start 30: sst_output_json
+11/75 Test #19: sstinfo_list_xml .................   Passed    0.64 sec
+      Start 31: sst_output_prefix
+12/75 Test #11: sst_help .........................   Passed    2.63 sec
+      Start 32: sst_print_timing_info
+13/75 Test #10: sst_help-MIN14.0 .................   Passed    2.68 sec
+      Start 33: sstregister_a
+14/75 Test  #9: sst-help-15.1 ....................   Passed    2.97 sec
+      Start 34: sst_register_list
+15/75 Test #33: sstregister_a ....................   Passed    0.34 sec
+      Start 35: sst_sdlfile
+16/75 Test #34: sst_register_list ................   Passed    0.14 sec
+      Start 36: sst_version
+17/75 Test #13: sstinfo_list_elem ................   Passed    4.25 sec
+      Start 37: testinfo
+18/75 Test #36: sst_version ......................   Passed    1.15 sec
+      Start 38: restart-ckpt-with-heartbeat
+19/75 Test #37: testinfo .........................   Passed    0.26 sec
+      Start 39: restart-ckpt-with-interactive
+20/75 Test  #1: sst_base .........................   Passed    6.78 sec
+      Start 40: restart-ckpt-with-sigalrm
+21/75 Test  #7: sst_heartbeat_1s .................   Passed    6.83 sec
+      Start 41: restart-heartbeat
+22/75 Test  #8: sst_heartbeat_90s ................   Passed    6.92 sec
+      Start 42: restart-interactive
+23/75 Test #22: sst_output_config ................   Passed    6.81 sec
+      Start 43: sigalrm
+24/75 Test  #6: sst_heartbeat_0.1.30 .............   Passed    7.12 sec
+      Start 44: sigusr-interactive2
+25/75 Test #28: sst_output_dot ...................   Passed    6.54 sec
+      Start 45: sigusr-interactive-ckpt
+26/75 Test #30: sst_output_json ..................   Passed    6.57 sec
+      Start 46: sigusr-interactive
+27/75 Test #31: sst_output_prefix ................   Passed    6.59 sec
+      Start 47: sigusr
+28/75 Test #32: sst_print_timing_info ............   Passed    6.43 sec
+      Start 48: testinfo
+29/75 Test #48: testinfo .........................   Passed    0.30 sec
+      Start 49: CaptCrunch_Interactive
+30/75 Test #35: sst_sdlfile ......................   Passed    6.40 sec
+      Start 50: CaptCrunch_Simple1
+31/75 Test #21: sst_numthreads ...................   Passed    9.28 sec
+      Start 51: testinfo
+32/75 Test #51: testinfo .........................   Passed    0.25 sec
+      Start 52: cmd-actions
+33/75 Test #49: CaptCrunch_Interactive ...........   Passed    2.43 sec
+      Start 53: cmd-basic
+34/75 Test #52: cmd-actions ......................   Passed    2.68 sec
+      Start 54: cmd-ckptaction-err
+35/75 Test #38: restart-ckpt-with-heartbeat ......   Passed    9.11 sec
+      Start 55: cmd-ckptaction
+36/75 Test  #2: sst_checkpoint_name_format .......   Passed   13.60 sec
+      Start 56: cmd-cmp-types-false
+37/75 Test #39: restart-ckpt-with-interactive ....   Passed    9.22 sec
+      Start 57: cmd-cmp-types-true
+38/75 Test #53: cmd-basic ........................   Passed    2.43 sec
+      Start 58: cmd-comments-ws
+39/75 Test #54: cmd-ckptaction-err ...............   Passed    2.27 sec
+      Start 59: cmd-cond
+40/75 Test #55: cmd-ckptaction ...................   Passed    2.28 sec
+      Start 60: cmd-custom-ic
+41/75 Test #41: restart-heartbeat ................   Passed    9.15 sec
+      Start 61: cmd-default-ic
+42/75 Test #42: restart-interactive ..............   Passed    9.87 sec
+      Start 62: cmd-handler
+43/75 Test #59: cmd-cond .........................   Passed    2.29 sec
+      Start 63: cmd-history
+44/75 Test #56: cmd-cmp-types-false ..............   Passed    3.55 sec
+      Start 64: cmd-logging
+45/75 Test #57: cmd-cmp-types-true ...............   Passed    3.55 sec
+      Start 65: cmd-replay2
+46/75 Test #60: cmd-custom-ic ....................   Passed    2.25 sec
+      Start 66: cmd-replay3
+47/75 Test #44: sigusr-interactive2 ..............   Passed   11.04 sec
+      Start 67: cmd-replay
+48/75 Test #61: cmd-default-ic ...................   Passed    2.19 sec
+      Start 68: cmd-replay-sync
+49/75 Test #46: sigusr-interactive ...............   Passed   10.94 sec
+      Start 69: cmd-sanity
+50/75 Test #45: sigusr-interactive-ckpt ..........   Passed   11.00 sec
+      Start 70: cmd-set
+51/75 Test #62: cmd-handler ......................   Passed    2.45 sec
+      Start 71: cmd-setstr
+52/75 Test #63: cmd-history ......................   Passed    2.39 sec
+      Start 72: cmd-trace
+53/75 Test #58: cmd-comments-ws ..................   Passed    5.74 sec
+      Start 73: cmd-unwatch
+54/75 Test #68: cmd-replay-sync ..................   Passed    2.49 sec
+      Start 74: cmd-watch
+55/75 Test #70: cmd-set ..........................   Passed    2.67 sec
+      Start 75: testinfo
+56/75 Test #75: testinfo .........................   Passed    0.33 sec
+57/75 Test #71: cmd-setstr .......................   Passed    2.35 sec
+58/75 Test #72: cmd-trace ........................   Passed    2.55 sec
+59/75 Test #73: cmd-unwatch ......................   Passed    2.38 sec
+60/75 Test #64: cmd-logging ......................   Passed    5.74 sec
+61/75 Test #74: cmd-watch ........................   Passed    2.53 sec
+62/75 Test #27: sst_output_dir_stats .............   Passed   25.84 sec
+63/75 Test #23: sst_output_dir_config ............   Passed   26.33 sec
+64/75 Test #25: sst_output_dir_json ..............   Passed   26.21 sec
+65/75 Test #26: sst_output_dir ...................   Passed   25.99 sec
+66/75 Test #24: sst_output_dir_cpt ...............   Passed   26.31 sec
+67/75 Test #65: cmd-replay2 ......................   Passed   10.63 sec
+68/75 Test #50: CaptCrunch_Simple1 ...............   Passed   19.44 sec
+69/75 Test #43: sigalrm ..........................   Passed   22.66 sec
+70/75 Test #67: cmd-replay .......................   Passed   11.98 sec
+71/75 Test #66: cmd-replay3 ......................   Passed   12.63 sec
+72/75 Test #69: cmd-sanity .......................   Passed   12.63 sec
+73/75 Test #40: restart-ckpt-with-sigalrm ........   Passed   25.17 sec
+74/75 Test #29: sst_output_dot_verbosity .........   Passed   56.61 sec
+75/75 Test #47: sigusr ...........................   Passed   64.51 sec
+
+100% tests passed, 0 tests failed out of 75
+
+Label Time Summary:
+15.1    = 604.74 sec*proc (75 tests)
+
+Total Test time (real) =  71.80 sec

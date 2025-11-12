@@ -98,6 +98,21 @@ Example:
 cmake .. -DSST_VERSION=14.1 -DENABLE_ALL_TESTS=ON
 ```
 
+## Automation for Legacy SST Testing
+
+For systems supporting environment `modules`, a reference script is provided
+to test all supported versions of sst. Some customization will likely be
+required.
+
+Usage:
+
+```
+cd audit
+../scripts/audit-gizmo.sh | tee log
+```
+
+Refer to the `audit` directory for example output.
+
 ## Contributing
 
 We welcome outside contributions from corporate, academic and individual
