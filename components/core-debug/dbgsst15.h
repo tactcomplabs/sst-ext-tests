@@ -257,7 +257,7 @@ private:
   unsigned long long v_ull = 5;
   float v_float = 1.0;
   double v_double = 2.0;
-  long double v_ldouble = 3.0;
+  long double v_ldouble = 3.0L;
 
 
 #if PROBE
