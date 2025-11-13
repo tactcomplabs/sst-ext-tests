@@ -25,16 +25,7 @@
 #include <string>
 
 // -- SST Headers
-#include <sst/core/sst_config.h>
-#include <sst/core/component.h>
-#include <sst/core/event.h>
-#include <sst/core/interfaces/simpleNetwork.h>
-#include <sst/core/link.h>
-#include <sst/core/output.h>
-#include <sst/core/statapi/stataccumulator.h>
-#include <sst/core/subcomponent.h>
-#include <sst/core/timeConverter.h>
-#include <sst/core/model/element_python.h>
+#include "SST.h"
 
 namespace SST::CaptCrunch{
 

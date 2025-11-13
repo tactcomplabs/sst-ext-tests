@@ -44,8 +44,7 @@ if [[ -f test.$sig.$action.out ]]; then
   rm test.$sig.$action.out
 fi
 
-echo "SST_COMPONENT_BASE=${SST_COMPONENT_BASE}"
-LAUNCH="sst --$sig=$action --add-lib-path=$SST_COMPONENT_BASE/tests/core-debug-components rt_action.py -- $OPTS"
+LAUNCH="sst --$sig=$action --add-lib-path=$SST_COMPONENT_BASE/core-debug rt_action.py -- $OPTS"
 echo $LAUNCH
 $LAUNCH < $pipe > test.$sig.$action.out &
 exec 3>$pipe    # Opens pipe for writing

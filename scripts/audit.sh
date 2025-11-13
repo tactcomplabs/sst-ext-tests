@@ -24,8 +24,7 @@ for v in "${versions[@]}"; do
     echo
     # Clear cmake cache and remake
     rm -rf * .cmake
-    export SST_EXT_TESTS_FORCE_VERSION=$v
-    cmake .. -DENABLE_ALL_TESTS=ON > /dev/null || exit 2
+    cmake .. -DSST_VERSION=$v -DENABLE_ALL_TESTS=ON > /dev/null || exit 2
     # List the tests
     ctest --show-only
 done

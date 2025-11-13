@@ -1,0 +1,20 @@
+Wed Nov 12 13:52:31 CST 2025
+gizmo.dev.tactcomplabs.com
+Linux gizmo.dev.tactcomplabs.com 4.18.0-477.10.1.el8_8.x86_64 #1 SMP Tue May 16 11:38:37 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
+On branch sst-override
+Your branch is up to date with 'origin/sst-override'.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	deleted:    13.0.0.ctest
+	deleted:    13.1.0.ctest
+	deleted:    14.0.0.ctest
+	deleted:    14.1.0.ctest
+	deleted:    15.0.0.ctest
+	deleted:    15.1.0.ctest
+	modified:   info.audit
+	deleted:    testlist.audit
+
+no changes added to commit (use "git add" and/or "git commit -a")
+7ebc2f1 modules based automation for testing all supported sst versions

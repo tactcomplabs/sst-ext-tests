@@ -13,7 +13,7 @@ option(ENABLE_CLI_TESTS "Enable CLI testing" OFF)
 
 option(ENABLE_DEBUG_TESTS "Interactive debug mode tests")
 option(ENABLE_RTACTION_TESTS "Enable Realtime Action testing" OFF)
-option(ENABLE_COMPONENT_TESTS "Enable embedded component testing" OFF)
+option(ENABLE_CAPTCRUNCH_TESTS "Enable Captain Crunch testing" OFF)
 # -- purely optional tests
 option(ENABLE_CORE_CHKPT_TESTS "Purely optional: Enable sst-core checkpointing tests" OFF)
 option(ENABLE_MPI_TESTS "Purely optional: Enable multi-rank MPI testing" OFF)
@@ -22,7 +22,7 @@ if (ENABLE_ALL_TESTS)
   set(ENABLE_CLI_TESTS ON CACHE BOOL "Enable CLI testing" FORCE)
   set(ENABLE_DEBUG_TESTS ON CACHE BOOL "Interactive debug mode tests" FORCE)
   set(ENABLE_RTACTION_TESTS ON CACHE BOOL "Enable Realtime Action testing" FORCE)
-  set(ENABLE_COMPONENT_TESTS ON CACHE BOOL "Enable embedded component testing" FORCE)
+  set(ENABLE_CAPTCRUNCH_TESTS ON CACHE BOOL "Enable Captain Crunch testing" FORCE)
 endif()
 
 # -- walk each subdirectory and individually enable them
@@ -34,22 +34,12 @@ if(ENABLE_RTACTION_TESTS)
   add_subdirectory(rt_action)
 endif()
 
-if(ENABLE_COMPONENT_TESTS)
-  if ( (${SST_VERSION} STREQUAL "DEV") OR (${SST_VERSION} VERSION_GREATER_EQUAL "15.0") )
-    add_subdirectory(components)
-    add_subdirectory(component_tests)
-  else()
-    message(STATUS "component_tests tests only available for SST 15.0 or later")
-  endif()
+if(ENABLE_CAPTCRUNCH_TESTS)
+  add_subdirectory(CaptCrunch)
 endif()
 
 if (ENABLE_DEBUG_TESTS)
-  if ( (${SST_VERSION} STREQUAL "DEV") OR (${SST_VERSION} VERSION_GREATER_EQUAL "15.1") )
-    add_subdirectory(core-debug-components)
-    add_subdirectory(core-debug)
-  else() 
-    message(STATUS "core-debug tests only available for SST 15.1 or later")
-  endif()
+  add_subdirectory(core-debug)
 endif()
 
 # -- strictly optional tests 
