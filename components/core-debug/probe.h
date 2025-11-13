@@ -101,7 +101,7 @@ public:
                     int probeMode, SST::SimTime_t probeStartCycle, SST::SimTime_t  probeEndCycle,
                     int probeBufferSize, int probePort,  int probePostDelay,
                     uint64_t cliControl);
-    // skk virtual 
+    // skk 
     ~ProbeControl();
     /// Disallow copying and assignment
     ProbeControl( const ProbeControl& )            = delete;
@@ -404,13 +404,13 @@ public:
     };
 
     ProbeSocket(uint16_t port, ProbeControl * probeControl, SST::Component * comp, SST::Output* out);
-    virtual ~ProbeSocket();
+    ~ProbeSocket();
     /// Create a valid socket
     RESULT create();
     /// Wait for connection from client 
     RESULT connect();
     /// Handle client commands and return a response
-    virtual RESULT cli_handler();
+    RESULT cli_handler();
     /// Utility for client to check state before entering CLI loop
     inline bool connected() { return socket_state_ == SOCKET_STATE::CONNECTED;}
 
