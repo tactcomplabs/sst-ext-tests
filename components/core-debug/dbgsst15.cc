@@ -227,7 +227,7 @@ void DbgSST15::handleEvent(SST::Event *ev){
   // Used to trigger watchpoint for rCheck > 0
   uint64_t range = maxData - minData + 1;
   size_t r = cev->getData().size();
-  rCheck = r - (range - 1);
+  rCheck = (int64_t)r - (int64_t)(range - 1);
   size = r;
   output.verbose(CALL_INFO, 1, 0, "size = %ld\n", size); // skk debug
 
@@ -249,7 +249,7 @@ void DbgSST15::sendData(){
     ///
 #else
     // Used to trigger watchpoint for rCheck > 0
-    rCheck = r - (range-1);
+    rCheck = (int64_t)r - (int64_t)(range-1);
     size = r;
 #endif
     for( size_t i=0; i<(unsigned)r; i++ ){

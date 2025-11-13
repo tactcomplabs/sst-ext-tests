@@ -2,7 +2,7 @@
 #EXT_TEST TEST_FILE_MINVER 15.1
 #EXT_TEST TEST_FILE_DESC "Tests CaptCrunch simple data integrity"
 
-TEST_NAME=CaptCrunch_Simple1
+TEST_NAME=CaptCrunch_Interactive
 
 rm -Rf $TEST_NAME.py
 cat > $TEST_NAME.py << EOL
@@ -18,9 +18,17 @@ c0.addParams({
 })
 EOL
 
+# -- for starters just enter 1 component and do not segfault
+# -- TODO print and check. Each data member through the heirarchy
 # -- run the first pass through the sim
-echo "SST_COMPONENT_BASE=${SST_COMPONENT_BASE}"
-sst --checkpoint-period=10ns --checkpoint-prefix=$TEST_NAME-PRE --add-lib-path=$SST_COMPONENT_BASE/tests/components/CaptCrunch/ $TEST_NAME.py
+
+sst --interactive-start=0 --add-lib-path=$SST_COMPONENT_BASE/CaptCrunch/ $TEST_NAME.py <<EOF
+ls
+confirm false
+cd c0
+ls
+quit
+EOF
 
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -28,12 +36,6 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-CPTFILE=`find ./$TEST_NAME-PRE -name "$TEST_NAME-PRE_9_*" | grep sstcpt`
-
-# -- restart the sim from a known good checkpoint
-sst --load-checkpoint --checkpoint-period=10ns --checkpoint-prefix=$TEST_NAME-POST --add-lib-path=$SST_COMPONENT_BASE/tests/components/CaptCrunch/ $CPTFILE
-
-retVal=$?
 
 rm -Rf ./$TEST_NAME-PRE
 rm -Rf ./$TEST_NAME-POST

@@ -1,8 +1,8 @@
-/home/ken/work/sst-ext-tests/build
+/scratch/kgriesser/work/sst-ext-tests/build
 
 ### Checking test selection for sst version 13.0 ###
 
-Test project /home/ken/work/sst-ext-tests/build
+Test project /scratch/kgriesser/work/sst-ext-tests/build
   Test  #1: sst_base
   Test  #2: sstconfig_help
   Test  #3: sstconfig_list_CXXFLAGS
@@ -37,7 +37,7 @@ Total Tests: 29
 
 ### Checking test selection for sst version 13.1 ###
 
-Test project /home/ken/work/sst-ext-tests/build
+Test project /scratch/kgriesser/work/sst-ext-tests/build
   Test  #1: sst_base
   Test  #2: sstconfig_help
   Test  #3: sstconfig_list_CXXFLAGS
@@ -72,7 +72,7 @@ Total Tests: 29
 
 ### Checking test selection for sst version 14.0 ###
 
-Test project /home/ken/work/sst-ext-tests/build
+Test project /scratch/kgriesser/work/sst-ext-tests/build
   Test  #1: sst_base
   Test  #2: sstconfig_help
   Test  #3: sstconfig_list_CXXFLAGS
@@ -108,7 +108,7 @@ Total Tests: 30
 
 ### Checking test selection for sst version 14.1 ###
 
-Test project /home/ken/work/sst-ext-tests/build
+Test project /scratch/kgriesser/work/sst-ext-tests/build
   Test  #1: sst_base
   Test  #2: sstconfig_help
   Test  #3: sstconfig_list_CXXFLAGS
@@ -151,7 +151,7 @@ Total Tests: 37
 
 ### Checking test selection for sst version 15.0 ###
 
-Test project /home/ken/work/sst-ext-tests/build
+Test project /scratch/kgriesser/work/sst-ext-tests/build
   Test  #1: sst_base
   Test  #2: sst_checkpoint_name_format
   Test  #3: sstconfig_help
@@ -204,7 +204,7 @@ Total Tests: 47
 
 ### Checking test selection for sst version 15.1 ###
 
-Test project /home/ken/work/sst-ext-tests/build
+Test project /scratch/kgriesser/work/sst-ext-tests/build
   Test  #1: sst_base
   Test  #2: sst_checkpoint_name_format
   Test  #3: sstconfig_help
@@ -285,7 +285,7 @@ Total Tests: 75
 
 ### Checking test selection for sst version DEV ###
 
-Test project /home/ken/work/sst-ext-tests/build
+Test project /scratch/kgriesser/work/sst-ext-tests/build
   Test  #1: sst_base
   Test  #2: sst_checkpoint_name_format
   Test  #3: sstconfig_help

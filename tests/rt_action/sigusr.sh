@@ -1,5 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER 15.1
+#EXT_TEST TIMEOUT 90
 #EXT_TEST TEST_FILE_DESC "Tests sigusr1/2 for single real time actions"
 # 
 # 0) set pass string 
@@ -56,8 +57,7 @@ fi
 #if [[ -f test.$sig.$action.out ]]; then
 #  rm test.$sig.$action.out
 #fi
-echo "SST_COMPONENT_BASE=${SST_COMPONENT_BASE}"
-LAUNCH="sst --$sig=$action --checkpoint-prefix=${PREFIX} --add-lib-path=$SST_COMPONENT_BASE/tests/core-debug-components $CONFIG -- $OPTS"
+LAUNCH="sst --$sig=$action --checkpoint-prefix=${PREFIX} --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- $OPTS"
 echo $LAUNCH
 
 $LAUNCH > test.$sig.$action.out 2>&1 &

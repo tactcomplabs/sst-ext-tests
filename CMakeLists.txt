@@ -50,6 +50,18 @@ if(NOT (EXISTS "${SST_INSTALL_DIR}"))
 endif()
 include_directories(SST_SRC ${SST_INSTALL_DIR})
 
+# SST Version found in path
+execute_process(COMMAND sst --version
+                OUTPUT_VARIABLE SST_VERSION_STRING
+                OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+message(STATUS "${SST_VERSION_STRING}")
+
+# Allow override using -DSST_VERSION=n
+if (DEFINED SST_VERSION)  
+  message(STATUS "SST_VERSION test selection override: ${SST_VERSION}")
+endif()
+
 execute_process(COMMAND sst-config --CXX
                 OUTPUT_VARIABLE CXX
                 OUTPUT_STRIP_TRAILING_WHITESPACE
@@ -66,11 +78,11 @@ execute_process(COMMAND sst-config SST_ELEMENT_LIBRARY SST_ELEMENT_LIBRARY_LIBDI
                 OUTPUT_VARIABLE SST_ELEMENT_LIBRARY_LIBDIR
                 OUTPUT_STRIP_TRAILING_WHITESPACE
 )
-execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/sst-major-version.sh
+execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/sst-major-version.sh ${SST_VERSION}
                 OUTPUT_VARIABLE SST_MAJOR_VERSION
                 OUTPUT_STRIP_TRAILING_WHITESPACE
 )
-execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/sst-minor-version.sh
+execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/sst-minor-version.sh ${SST_VERSION}
                 OUTPUT_VARIABLE SST_MINOR_VERSION
                 OUTPUT_STRIP_TRAILING_WHITESPACE
 )
@@ -86,6 +98,7 @@ if(NOT contains_num)
   message(STATUS "SST GIT HASH=${SST_GIT_HASH}")
 endif()
 
+#-- Create version variables (will rewrite command line provided SST_VERSION)
 message(STATUS "SST MAJOR VERSION=${SST_MAJOR_VERSION}")
 message(STATUS "SST MINOR VERSION=${SST_MINOR_VERSION}")
 if ("${SST_MAJOR_VERSION}" STREQUAL "DEV")
@@ -103,24 +116,33 @@ if(MPIEXEC_EXECUTABLE)
 endif()
 
 #-- setup the component build directory
-set(ENV{SST_COMPONENT_BASE} "${CMAKE_BINARY_DIR}")
-# set(SST_COMPONENT_BASE "${CMAKE_CURRENT_SOURCE_DIR}/tests/components")
+set(ENV{SST_COMPONENT_BASE} "${CMAKE_BINARY_DIR}/components")
 message(STATUS "SST-EXT-TESTS ENV{SST_COMPONENT_BASE}=$ENV{SST_COMPONENT_BASE}")
 
 #-- Compiler Options
-# Compiler Options
-if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
-  set(WERROR_FLAG "")
-  set(FP_MODE_FLAG "-ffp-model=strict")
-else()
+option(SST_WERROR "Compile with warnings as errors" ON)
+if (SST_WERROR)
   set(WERROR_FLAG "-Werror")
-  set(FP_MODE_FLAG "-frounding-math")
+endif()
+
+option(SST_ASAN "Compile using address sanitizer" OFF)
+if (SST_ASAN)
+  set (SANITIZE_FLAG "-fsanitize=address -fno-omit-frame-pointer")
+endif()
+
+if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+  set(FP_MODE_FLAG "-ffp-model=strict -frounding-math -ftrapping-math")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-command-line-argument")
+else()
+  set(FP_MODE_FLAG "-frounding-math -ftrapping-math")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wmissing-format-attribute -Wsuggest-final-methods -Wsuggest-final-types -Wvolatile")
 endif()
 
 set(LDFLAGS "${SST_LDFLAGS}")
-set(CMAKE_CXX_FLAGS "-std=c++17 ${FP_MODE_FLAG} -O2 -Wall -Wextra ${WERROR_FLAG} -Wvla -Wuninitialized -Wfloat-conversion -Wdouble-promotion -Wno-unused-parameter -Wno-deprecated-declarations ${CMAKE_CXX_FLAGS} -I./ ${LDFLAGS}")
+
+set(CMAKE_CXX_FLAGS "-std=c++17 ${FP_MODE_FLAG} -O2 -Wall -Wextra -Wsuggest-override -Wvla -Wuninitialized -Wfloat-conversion -Wdouble-promotion -Wno-unused-parameter -Wno-deprecated-declarations -Wsign-conversion -Wconversion -Wno-unused-parameter -Wno-deprecated-declarations -Wno-macro-redefined ${WERROR_FLAG} ${SANITIZE_FLAG} ${CMAKE_CXX_FLAGS} -I./ ${LDFLAGS}")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS}")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -std=c++17 ${FP_MODE_FLAG} -g -pg -O0 -Wall -Wextra ${WERROR_FLAG} -Wvla -Wuninitialized -Wfloat-conversion -Wdouble-promotion -Wno-unused-parameter -Wno-deprecated-declarations -I./ ${LDFLAGS}")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -Wall")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -Wall")
 
 set(EXT_TEST_LIST_COMMAND "${CMAKE_SOURCE_DIR}/scripts/gen-testlist.sh")
@@ -146,6 +168,9 @@ enable_testing()
 #-- Custom Commands
 add_custom_target(uninstall COMMAND
   "${CMAKE_CURRENT_SOURCE_DIR}/scripts/uninstall.sh")
+
+#-- SST Component Libraries
+add_subdirectory(components)
 
 #-- Subdirectories
 add_subdirectory(tests)

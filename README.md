@@ -28,7 +28,7 @@ ENABLE_ALL_TESTS [OFF]
 
 # Individual suites by ENABLE_ALL_TESTS=ON
 ENABLE_CLI_TESTS [OFF]
-ENABLE_COMPONENT_TESTS [OFF]
+ENABLE_CAPTCRUNCH_TESTS [OFF]
 ENABLE_RTACTION_TESTS [OFF]
 
 # Currently optional tests
@@ -88,6 +88,30 @@ of doing so include:
 ./bin/sst-ext-tests -d ./tests -j output.json
 ./bin/sst-ext-tests -d ./tests -p ALL
 ```
+## Test Selection
+
+The default set of sets will be based on the version of SST found in the PATH
+environment variable. To override this, use `cmake -DSST_VERSION=<version>`.
+Example:
+
+```
+cmake .. -DSST_VERSION=14.1 -DENABLE_ALL_TESTS=ON
+```
+
+## Automation for Legacy SST Testing
+
+For systems supporting environment `modules`, a reference script is provided
+to test all supported versions of sst. Some customization will likely be
+required.
+
+Usage:
+
+```
+cd audit
+../scripts/audit-gizmo.sh | tee log
+```
+
+Refer to the `audit` directory for example output.
 
 ## Contributing
 

@@ -5,11 +5,12 @@
 #
 
 # Allow for test audit without messing with sst binary
-if [[ -n "$SST_EXT_TESTS_FORCE_VERSION" ]]; then
-    sstver="SST-Core Version ($SST_EXT_TESTS_FORCE_VERSION)"
+if [ "$#" == 1 ]; then
+    sstver="SST-Core Version ($1)"
 else
     sstver=$(sst --version)
 fi
+
 echo $sstver | awk '{print $3}' | tr -d '()' | awk '{split($0,a,"."); print a[2]}'
 
 # EOF
