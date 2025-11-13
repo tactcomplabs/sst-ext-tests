@@ -1,5 +1,5 @@
 #
-# sst-ext-tests/tests/component_tests CMake
+# sst-ext-tests/tests/CaptCrunch CMake
 #
 # Copyright (C) 2017-2025 Tactical Computing Laboratories, LLC
 # All Rights Reserved
@@ -51,7 +51,6 @@ foreach(testSrc ${TEST_SRCS_TARGET_VER})
       COMMAND ./${testSrc})
     set_property(TEST ${testName} PROPERTY LABELS "${SST_VERSION}")
     set_property(TEST ${testName} PROPERTY PASS_REGULAR_EXPRESSION "${passRegex}")
-    # message(STATUS "${testName} SST_COMPONENT_BASE=$ENV{SST_COMPONENT_BASE}")
     set_property(TEST ${testName} PROPERTY ENVIRONMENT "SST_COMPONENT_BASE=$ENV{SST_COMPONENT_BASE}")
     if(NOT ${EXT_TEST_TIMEOUT} EQUAL 0)
       set_property(TEST ${testName} PROPERTY TIMEOUT ${EXT_TEST_TIMEOUT})

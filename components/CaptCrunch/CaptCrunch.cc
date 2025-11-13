@@ -21,7 +21,7 @@ namespace SST::CaptCrunch{
   CaptCrunch::CaptCrunch(SST::ComponentId_t id, const SST::Params& params ) :
     SST::Component( id ), timeConverter(nullptr), clockHandler(nullptr),
     numStats(1), numClocks(1) {
-    const int Verbosity = params.find< int >( "verbose", 0 );
+    const unsigned Verbosity = params.find< unsigned >( "verbose", 0 );
     output.init(
       "CaptCrunch[" + getName() + ":@p:@t]: ",
       Verbosity, 0, SST::Output::STDOUT );
@@ -196,8 +196,13 @@ namespace SST::CaptCrunch{
     signedValue     = -1234;
     uLongValue      = 1234ul;
     uLongLongValue  = 1234ull;
+
+    // Presumably intentional  unsigned to signed type conversions
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wsign-conversion"
     sLongValue      = -1234ul;
     sLongLongValue  = -1234ull;
+    #pragma GCC diagnostic pop
 
     fTypeStructValue.u8Value        = 0x01;
     fTypeStructValue.u16Value       = 0x02;
@@ -212,8 +217,11 @@ namespace SST::CaptCrunch{
     fTypeStructValue.signedValue    = -0x12;
     fTypeStructValue.uLongValue     = 0x13ul;
     fTypeStructValue.uLongLongValue = 0x13ull;
+    #pragma GCC diagnostic push
+    #pragma GCC diagnostic ignored "-Wsign-conversion"
     fTypeStructValue.sLongValue     = -0x13ul;
     fTypeStructValue.sLongLongValue = -0x13ull;
+    #pragma GCC diagnostic pop
 
     strValue = "Crunchatize me, Cap'n!";
 
