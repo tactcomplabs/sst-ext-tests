@@ -3,13 +3,7 @@
 #EXT_TEST TEST_FILE_DESC "Tests restart for a checkpoint that had interactive console to see if the interactive console is carried over."
 #EXT_TEST TIMEOUT 120
 #
-# SST DEV: Interactive console should carry over on checkpoint and should be overridable
-
-# 0) set pass string 
-# 1) launch the program to generate the checkpoint
-# 2) Check the result
-# 3) Launch the checkpoint restart with interactive consolse
-# 4) check result
+# After v15.0, Interactive console should carry over on checkpoint and should be overridable
 
 
 # Settings
@@ -18,8 +12,14 @@ PREFIX="ckpt_restart_interactive"
 CKPT_DIR="ckpt_restart_interactive/ckpt_restart_interactive_1_1000000000000/ckpt_restart_interactive_1_1000000000000.sstcpt"
 CLEANUP=1
 
-#0 Get pass criterion and setup pipe for interactive 
+#0 Get pass criterion, remove stale ckpt dir, and setup pipe for interactive 
 PSTR="Interactive"
+
+if [[ -d $PREFIX ]]; then
+  echo "Removing stale checkpoint directory: $PREFIX"
+  rm -r $PREFIX
+fi
+
 pipe="/tmp/test_restart_ckpt_pipe"
 if [[ ! -p $pipe ]]; then
   echo "Creating pipe: $pipe"
@@ -52,7 +52,7 @@ fi
 grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR ckpt.interactive grep"
+  echo "ERROR did not find pass string in $OUTFILE: $PSTR"
   rm $pipe
   exit $retVal
 fi
@@ -62,17 +62,11 @@ if [ $CLEANUP -eq 1 ]; then
   rm $OUTFILE
 fi
 
-
 # 3) Launch the checkpoint restart
 OUTFILE="test.restart.ckpt.interactive.out"
 LAUNCH="sst --load-checkpoint $CKPT_DIR"
 echo $LAUNCH
 $LAUNCH  > $OUTFILE 2>&1
-
-#$LAUNCH <$pipe  > $OUTFILE 2>&1 &
-#exec 3>$pipe
-#sleep 2
-#echo run > $pipe
 
 wait
 retVal=$?
@@ -91,7 +85,7 @@ fi
 grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -eq 0 ]; then
-  echo "ERROR restart.ckpt.interactive grep"
+  echo "ERROR found fail string in $OUTFILE: $PSTR"
   rm $pipe
   exit $retVal
 fi
@@ -101,7 +95,7 @@ echo
 # Cleanup output directories
 if [ $CLEANUP -eq 1 ]; then
   rm $OUTFILE
-  rm -rf $PREFIX*
+  rm -rf $PREFIX
   rm $pipe
 fi
 

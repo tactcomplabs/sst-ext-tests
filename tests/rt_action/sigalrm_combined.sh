@@ -14,7 +14,8 @@
 SIG="sigalrm"
 ACTION="sst.rt.status.core sst.rt.status.all sst.rt.heartbeat"
 ACTION2="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat"
-CONFIG="test_MessageMesh.py"
+CONFIG="test_Checkpoint.py"
+CLEANUP=1
 
 for sig in $SIG; do
   for action in $ACTION; do
@@ -68,16 +69,12 @@ fi
 OUTFILE="test.$sig.$action.$action2.out"
 
 # 1) Launch the program
-if [[ -f $OUTFILE ]]; then
-  rm $OUTFILE
-fi
 
 LAUNCH="sst --$sig='$action(interval=1s);$action2(interval=2s)' $CONFIG"
 echo $LAUNCH
 eval $LAUNCH > $OUTFILE 2>&1 
 
 # 2) wait for completion 
-wait
 retVal=$?
 echo $sig=$action $action2 Complete
 
@@ -102,7 +99,9 @@ if [ $retVal -ne 0 ]; then
 fi
 
 # Cleanup output directories
-rm $OUTFILE
+if [ $CLEANUP -eq 1 ]; then
+  rm $OUTFILE
+fi
 
 echo
 fi    # if $action != $action2

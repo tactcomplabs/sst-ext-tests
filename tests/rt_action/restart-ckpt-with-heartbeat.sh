@@ -3,14 +3,7 @@
 #EXT_TEST TEST_FILE_DESC "Tests restart for a checkpoint that had heartbeat to see if the heartbeat is carried over."
 #EXT_TEST TIMEOUT 120
 #
-# SST DEV (after v15.0) Heartbeat SHOULD carry over and SHOULD be overridable
-#
-# 0) set pass string and checkpoint directory
-# 1) launch the program to generate the checkpoint
-# 2) Check the result
-# 3) Launch the checkpoint restart
-# 4) check result
-
+# After v15.0, Heartbeat SHOULD carry over and SHOULD be overridable
 
 # Settings
 CONFIG="test_Checkpoint.py"
@@ -19,8 +12,12 @@ CKPT_DIR="ckpt_restart_heartbeat/ckpt_restart_heartbeat_1_1000000000000/ckpt_res
 CLEANUP=1
 
 
-#0 Get pass criterion 
+#0 Get pass criterion and remove stale checkpoint directory if needed
 PSTR2="Heartbeat"
+if [[ -d $PREFIX ]]; then
+  echo "Removing stale checkpoint directory: $PREFIX"
+  rm -r $PREFIX
+fi
 
 # 1) Launch the program to generate the checkpoint
 OUTFILE="test.ckpt.heartbeat.out"
@@ -40,7 +37,7 @@ fi
 grep "$PSTR2" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR ckpt.heartbeat grep"
+  echo "ERROR did not find pass string in $OUTFILE: $PSTR2"
   exit $retVal
 fi
 
@@ -48,8 +45,6 @@ fi
 if [ $CLEANUP -eq 1 ]; then
   rm $OUTFILE
 fi
-
-
 
 # 3) Launch the checkpoint restart
 OUTFILE="test.restart.ckpt.heartbeat.out"
@@ -69,7 +64,7 @@ fi
 grep "$PSTR2" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR restart.ckpt.heartbeat grep"
+  echo "ERROR did not find pass string in $OUTFILE: $PSTR2"
   exit $retVal
 fi
 
@@ -78,10 +73,7 @@ echo
 # Cleanup output directories
 if [ $CLEANUP -eq 1 ]; then
   rm $OUTFILE
-fi
-
-if [ $CLEANUP -eq 1 ]; then
-  rm -rf $PREFIX*
+  rm -rf $PREFIX
 fi
 
 echo "PASS"

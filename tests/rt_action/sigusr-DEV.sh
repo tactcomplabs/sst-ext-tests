@@ -1,6 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER 15.1
-#EXT_TEST TIMEOUT 90
+#EXT_TEST TEST_FILE_PARAM DEV
 #EXT_TEST TEST_FILE_DESC "Tests sigusr1/2 for single real time actions"
 # 
 # 0) set pass string 
@@ -10,34 +9,16 @@
 # 4) wait for completion
 # 5) check result
 
-# Set component options
-OPTS=""
-# Optional first argument for number of clocks
-if [ $# -eq 1 ]; then
-  OPTS+=" --clocks $1"
-fi
-
-# Sleep times for sst and bash
-OPTS+=" --sleep 3"
-BASH_SLEEP=2
 
 # Settings
 SIG="sigusr1 sigusr2"
 ACTION="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat sst.rt.checkpoint"
-CONFIG="rt_action.py" #"test_Checkpoint.py" #test_MessageMesh.py"
-
+CONFIG="test_Checkpoint.py" #test_MessageMesh.py"
+PREFIX="ckpt_sigusr"
 CLEANUP=1
 
 for sig in $SIG; do
   for action in $ACTION; do
-  
-# TODO directory creation fails when using a relative path
-PREFIX="ckpt_$sig"
-# Remove stale checkpoint dir if needed
-if [[ -d $PREFIX ]]; then
-  echo "Removing stale checkpoint directory: $PREFIX"
-  rm -r $PREFIX
-fi
 
 # 0) Get pass criterion
 if [[ $action == "sst.rt.exit.clean" ]]; then
@@ -64,7 +45,8 @@ fi
 #if [[ -f test.$sig.$action.out ]]; then
 #  rm test.$sig.$action.out
 #fi
-LAUNCH="sst --$sig=$action --checkpoint-prefix=${PREFIX} --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- $OPTS"
+
+LAUNCH="sst --$sig=$action --checkpoint-prefix=$PREFIX $CONFIG"
 echo $LAUNCH
 
 $LAUNCH > test.$sig.$action.out 2>&1 &
@@ -73,10 +55,9 @@ $LAUNCH > test.$sig.$action.out 2>&1 &
 JOBS=($(jobs -l))
 PID=${JOBS[1]}
 #echo $PID
-sleep $BASH_SLEEP
+sleep 2
 
 # 3) Send signal 
-echo ">>>>>>> kill -s $sig $PID" | tee test.$sig.$action.out
 kill -s $sig $PID
 
 # 4) wait for completion 
@@ -86,16 +67,14 @@ echo $sig=$action Complete
 
 # 5) Check result
 if [ $retVal -ne 0 ]; then
-  cat test.$sig.$action.out
-  echo "ERROR $sig=$action return code [$retVal]"
+  echo "ERROR $sig=$action return code"
   exit $retVal
 fi
 
 grep "$PSTR" ./test.$sig.$action.out > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  cat test.$sig.$action.out
-  echo "ERROR $sig=$action missing grep [$PSTR]"
+  echo "ERROR $sig=$action grep"
   exit $retVal
 fi
 echo
@@ -104,8 +83,7 @@ echo
 if [ $CLEANUP == 1 ]; then
   rm test.$sig.$action.out
   if [ $action == "sst.rt.checkpoint" ]; then
-    # If checkpoint directory did not get created then fail ( not fool proof )
-    rm -r $PREFIX* || exit 99
+    rm -r $PREFIX*
   fi
 fi
 
@@ -114,4 +92,9 @@ done  # for $sig
 
 echo "PASS"
 exit $retVal
+
+
+
+
+
 

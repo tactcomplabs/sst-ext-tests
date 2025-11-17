@@ -18,6 +18,11 @@ PREFIX="ckpt4restart_sigalrm"
 CKPTDIR="ckpt4restart_sigalrm/ckpt4restart_sigalrm_1_1000000000000/ckpt4restart_sigalrm_1_1000000000000.sstcpt"
 CLEANUP=1
 
+# Remove stale checkpoint dir if needed
+if [[ -d $PREFIX ]]; then
+  echo "Removing stale checkpoint directory: $PREFIX"
+  rm -r $PREFIX
+fi
 
 # 0) Launch the program to generate the checkpoints
 OUTFILE="test.ckpt4restart.sigalrm.out"
@@ -37,7 +42,7 @@ fi
 grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $PREFIX grep"
+  echo "ERROR did not find pass string in $OUTFILE: $PSTR"
   exit $retVal
 fi
 
@@ -93,7 +98,7 @@ fi
 grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR restart.$sig.$action grep"
+  echo "ERROR did not find pass string in $OUTFILE: $PSTR"
   exit $retVal
 fi
 echo
@@ -103,13 +108,11 @@ if [ $CLEANUP -eq 1 ]; then
   rm $OUTFILE
 fi
 
-
 done  # for $action
 done  # for $sig
 
 if [ $CLEANUP -eq 1 ]; then
   rm -r $PREFIX
-  rm -r ${PREFIX}_1
 fi
 
 echo "PASS"

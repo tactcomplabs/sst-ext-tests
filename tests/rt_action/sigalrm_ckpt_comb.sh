@@ -20,8 +20,14 @@ for sig in $SIG; do
   for action in $ACTION; do
     for action2 in $ACTION2; do
 
+OUTFILE=test.$sig.$action.$action2.out
 PREFIX="ckpt_$action2"
 echo $PREFIX
+# Remove stale checkpoint dir if needed
+if [[ -d $PREFIX ]]; then
+  echo "Removing stale checkpoint directory: $PREFIX"
+  rm -r $PREFIX
+fi
 
 #0 Get pass criterion
 PSTR="Simulation Checkpoint"
@@ -47,19 +53,14 @@ PSTR2="Simulation Checkpoint"
 fi
 
 # 1) Launch the program
-if [[ -f test.$sig.$action.$action2.out ]]; then
-  rm test.$sig.$action.$action2.out
-fi
 
 LAUNCH="sst --$sig='$action(interval=1s);$action2(interval=2s)' --checkpoint-prefix=$PREFIX $CONFIG"
 echo $LAUNCH
-eval $LAUNCH > test.$sig.$action.$action2.out 2>&1 
+eval $LAUNCH > $OUTFILE 2>&1 
 
-# 2) wait for completion 
-wait
+# 2) wait for completion
 retVal=$?
-
-echo $sig=$action $action2 Complete
+echo $sig=$action $action2 Complete retVal $retVal
 
 # 3) Check result
 if [ $retVal -ne 0 ]; then
@@ -67,18 +68,24 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-grep "$PSTR" ./test.$sig.$action.$action2.out > /dev/null
+grep "$PSTR" $OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $sig=$action grep"
+  echo "ERROR did not find pass string in $OUTFILE: $PSTR"
   exit $retVal
 fi
 
-grep "$PSTR2" ./test.$sig.$action.$action2.out > /dev/null
+grep "$PSTR2" $OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $sig=$action2 grep"
+  echo "ERROR did not find pass string in $OUTFILE: $PSTR2"
   exit $retVal
+fi
+
+# Check that checkpoint files exist
+if [[ ! -d "$PREFIX" ]]; then
+  echo "ERROR checkpoint directory '$PREFIX' not found"
+  exit 255
 fi
 
 echo

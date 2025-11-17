@@ -15,6 +15,11 @@ PREFIX="ckpt4restart_interactive"
 CKPTDIR="ckpt4restart_interactive/ckpt4restart_interactive_1_1000000000000/ckpt4restart_interactive_1_1000000000000.sstcpt"
 CLEANUP=1
 
+# Remove stale checkpoint dir if needed
+if [[ -d $PREFIX ]]; then
+  echo "Removing stale checkpoint directory: $PREFIX"
+  rm -r $PREFIX
+fi
 
 # 0) Launch the program to generate the checkpoints
 OUTFILE="test.ckpt4restart.interactive.out"
@@ -34,7 +39,7 @@ fi
 grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $PREFIX grep"
+  echo "ERROR did not find pass string in $OUTFILE: $PSTR"
   exit $retVal
 fi
 
@@ -44,7 +49,6 @@ if [ $CLEANUP -eq 1 ]; then
 fi
 
 # 1) Get pass criterion and outputfile
-#echo heartbeat
 PSTR="Interactive"
 OUTFILE="test.restart.interactive.out"
 
@@ -82,7 +86,7 @@ fi
 grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR restart.interactive grep"
+  echo "ERROR did not find pass string in $OUTFILE: $PSTR"
   rm $pipe
   exit $retVal
 fi

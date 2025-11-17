@@ -42,19 +42,22 @@ PREFIX="ckpt_${sig}_$action"
 OUTFILE="test.$sig.$action.out"
 
 # 1) Launch the program
+# Remove stale out file and checkpoint dir if needed
 if [[ -f $OUTFILE ]]; then
   rm $OUTFILE
+fi
+if [[ -d $PREFIX ]]; then
+  echo "Removing stale checkpoint directory: $PREFIX"
+  rm -r $PREFIX
 fi
 
 LAUNCH="sst --$sig='$action(interval=1s)' --checkpoint-prefix=$PREFIX $CONFIG"
 echo $LAUNCH
-
 eval $LAUNCH > $OUTFILE 2>&1 
 
 # 2) wait for completion 
-wait
 retVal=$?
-echo $sig=$action Complete
+echo $sig=$action Complete retVal $retVal
 
 # 3) Check result
 if [ $retVal -ne 0 ]; then
@@ -65,10 +68,18 @@ fi
 grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $sig=$action grep"
+  echo "ERROR did not find pass string in $OUTFILE: $PSTR"
   exit $retVal
 fi
 echo
+
+# Check that checkpoint directory exists
+if [[ $action == "sst.rt.checkpoint" ]]; then
+  if [[ ! -d "$PREFIX" ]]; then
+    echo "ERROR checkpoint directory '$PREFIX' not found"
+    exit 255
+  fi
+fi
 
 # Cleanup output directories
 if [ $CLEANUP -eq 1 ]; then
