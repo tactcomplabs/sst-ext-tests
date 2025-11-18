@@ -260,7 +260,7 @@ private:
   long double v_ldouble = 3.0L;
   // bitset and vector<bool>, sst-simulator/sst-core PR#1483
   std::bitset<42> v_bitset42; // default 0
-  std::vector<bool> v_vecbool = { true, true, true, true, true, true, true, true};
+  std::vector<bool> v_vecbool = { true, false, true, true, false, false, true, true};
 
 #if PROBE
 // -- Component probe state object
@@ -302,6 +302,9 @@ void handleEvent(SST::Event *ev);
 
 /// sends data to adjacent links
 void sendData();
+
+/// watchpoint faciliation
+void tickleBits();
 
 };  // class DbgSST15
 #if PROBE
