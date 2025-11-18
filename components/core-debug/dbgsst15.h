@@ -258,8 +258,9 @@ private:
   float v_float = 1.0;
   double v_double = 2.0;
   long double v_ldouble = 3.0L;
+  // bitset and vector<bool>, sst-simulator/sst-core PR#1483
   std::bitset<42> v_bitset42; // default 0
-
+  std::vector<bool> v_vecbool = { true, true, true, true, true, true, true, true};
 
 #if PROBE
 // -- Component probe state object

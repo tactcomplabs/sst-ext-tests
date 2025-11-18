@@ -1,6 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER NEW
-#EXT_TEST TEST_FILE_DESC "Exercise std::bitset"
+#EXT_TEST TEST_FILE_DESC "Exercise std::bitset and std::vector<bool>"
 #EXT_TEST TIMEOUT 30
 
 # Settings
@@ -25,12 +25,33 @@ p 3
 p 38
 p 39
 set 39 0
+run 1ns
 p 39
+cd ..
+# std::vector<bool> v_vecbool = { true, true, true, true, true, true, true, true};
+p v_vecbool
+cd v_vecbool
+ls
+# set bit 7 to 0
+set 7 0
+run 1ns
+ls
+# set bit 5 to 1
+set 5 1
+run 1ns
+ls
+# change bit 5 back to 0
+set 5 0
+run 1ns
+ls
+# invalid value - segfault #TODO test passes if interactive debugger segfaults!!!!
+set 2 7
 EOF
 
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-start=0s $CONFIG -- --verbose=0"
 echo $LAUNCH
+# TODO are we checking the tee return code instead of sst?
 $LAUNCH << EOF | tee $LOGFILE || exit 1
 replay $CMDFILE
 confirm false

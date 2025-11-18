@@ -131,6 +131,9 @@ void DbgSST15::init( unsigned int phase ){
   for (size_t i=0;i<v_bitset42.size(); i++) {
     v_bitset42[i] = (i & 3) == 3; // 1000 1000 1000 ... 1000 lsb
   }
+  // v_vecbool.resize(8);
+  // v_vecbool = { true, false, false, false, true, true, false, false };
+  std::cout << "# v_vecbool[0]=" << v_vecbool[0] << std::endl;
 }
 
 void DbgSST15::printStatus( SST::Output& out ){
@@ -170,6 +173,7 @@ void DbgSST15::serialize_order(SST::Core::Serialization::serializer& ser){
   SST_SER(v_double);
   SST_SER(v_ldouble);
   SST_SER(v_bitset42);
+  SST_SER(v_vecbool);
 
 #if TESTSER
   SST_SER(*test_uptr);
