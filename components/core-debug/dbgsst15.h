@@ -258,6 +258,7 @@ private:
   float v_float = 1.0;
   double v_double = 2.0;
   long double v_ldouble = 3.0L;
+  std::bitset<42> v_bitset42; // default 0
 
 
 #if PROBE

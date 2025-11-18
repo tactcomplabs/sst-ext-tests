@@ -128,6 +128,9 @@ void DbgSST15::finish(){
 }
 
 void DbgSST15::init( unsigned int phase ){
+  for (size_t i=0;i<v_bitset42.size(); i++) {
+    v_bitset42[i] = (i & 3) == 3; // 1000 1000 1000 ... 1000 lsb
+  }
 }
 
 void DbgSST15::printStatus( SST::Output& out ){
@@ -166,6 +169,7 @@ void DbgSST15::serialize_order(SST::Core::Serialization::serializer& ser){
   SST_SER(v_float);
   SST_SER(v_double);
   SST_SER(v_ldouble);
+  SST_SER(v_bitset42);
 
 #if TESTSER
   SST_SER(*test_uptr);

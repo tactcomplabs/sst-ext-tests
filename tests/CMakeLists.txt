@@ -8,7 +8,8 @@
 #
 
 # -- make test options visible to ccmake
-option(ENABLE_ALL_TESTS "Enable ALL testing" OFF)
+option(ENABLE_NEW_TESTS "Enable NEW tests for sst-core feature branches" OFF)
+option(ENABLE_ALL_TESTS "Enable ALL production tests" OFF)
 option(ENABLE_CLI_TESTS "Enable CLI testing" OFF)
 
 option(ENABLE_DEBUG_TESTS "Interactive debug mode tests")
@@ -17,6 +18,10 @@ option(ENABLE_CAPTCRUNCH_TESTS "Enable Captain Crunch testing" OFF)
 # -- purely optional tests
 option(ENABLE_CORE_CHKPT_TESTS "Purely optional: Enable sst-core checkpointing tests" OFF)
 option(ENABLE_MPI_TESTS "Purely optional: Enable multi-rank MPI testing" OFF)
+
+if (ENABLE_NEW_TESTS)
+  set(ENABLE_ALL_TESTS ON CACHE BOOL "Enable ALL production tests" FORCE)
+endif()
 
 if (ENABLE_ALL_TESTS)
   set(ENABLE_CLI_TESTS ON CACHE BOOL "Enable CLI testing" FORCE)
