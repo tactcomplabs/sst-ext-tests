@@ -279,6 +279,12 @@ void DbgSST15::sendData(){
   }
 }
 
+void DbgSST15::tickleBits()
+{
+  v_bitset42.flip();
+  v_vecbool.flip();
+}
+
 bool DbgSST15::clockTick( SST::Cycle_t currentCycle ){
 
   if (currentCycle==1 && sleep>0 ) {
@@ -292,6 +298,7 @@ bool DbgSST15::clockTick( SST::Cycle_t currentCycle ){
   if( curCycle >= clockDelay ){
     sendData();
     curCycle = 0;
+    tickleBits();
   }
 
   // check to see if we've reached the completion state
