@@ -20,40 +20,25 @@ CLEANUP=1
 
 #0 Get pass criterion and setup pipe for interactive 
 PSTR="Interactive"
-pipe="/tmp/test_restart_ckpt_pipe"
-if [[ ! -p $pipe ]]; then
-  echo "Creating pipe: $pipe"
-  mkfifo $pipe
-fi
 
 # 1) Launch the program to generate the checkpoint
 OUTFILE="test.ckpt.interactive.out"
-LAUNCH="sst --checkpoint-prefix=$PREFIX --checkpoint-sim-period=1s --interactive-console=sst.interactive.simpledebug --interactive-start=2s  $CONFIG"
+VERBOSE="--verbose=0"
+LAUNCH="sst --checkpoint-prefix=$PREFIX --checkpoint-sim-period=1s --interactive-console=sst.interactive.simpledebug --interactive-start=2s $VERBOSE $CONFIG"
 
 echo $LAUNCH
-$LAUNCH <$pipe > $OUTFILE 2>&1 &
-exec 3>$pipe
-
-sleep 2
-echo run > $pipe
-
+( $LAUNCH << EOF || exit 11 ) | grep -v talking | tee $OUTFILE
+run
+EOF
 wait
-retVal=$?
 
 echo ckpt.interactive Complete
 
 # 2) Check result
-if [ $retVal -ne 0 ]; then
-  echo "ERROR ckpt.interactive return code"
-  rm $pipe
-  exit $retVal
-fi
-
-grep "$PSTR" ./$OUTFILE > /dev/null
+grep -q "$PSTR" ./$OUTFILE
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR ckpt.interactive grep"
-  rm $pipe
+  echo "ERROR ckpt.interactive grep missing string: $PSTR"
   exit $retVal
 fi
 
@@ -62,37 +47,20 @@ if [ $CLEANUP -eq 1 ]; then
   rm $OUTFILE
 fi
 
-
 # 3) Launch the checkpoint restart
 OUTFILE="test.restart.ckpt.interactive.out"
-LAUNCH="sst --load-checkpoint $CKPT_DIR"
+LAUNCH="sst --load-checkpoint $VERBOSE $CKPT_DIR"
 echo $LAUNCH
-$LAUNCH  > $OUTFILE 2>&1
-
-#$LAUNCH <$pipe  > $OUTFILE 2>&1 &
-#exec 3>$pipe
-#sleep 2
-#echo run > $pipe
-
+( $LAUNCH || exit 12 ) | grep -v talking | tee $OUTFILE
 wait
-retVal=$?
-
 echo restart.ckpt.interactive Complete
-
 # 4) Check result
-if [ $retVal -ne 0 ]; then
-  echo "ERROR restart.ckpt.interactive return code"
-  rm $pipe
-  exit $retVal
-fi
-
 # In this example, interactive will not be triggered on restart
 # because it is set for 2s AFTER start and it only runs from 1-2s
-grep "$PSTR" ./$OUTFILE > /dev/null
+grep -q "$PSTR" ./$OUTFILE
 retVal=$?
 if [ $retVal -eq 0 ]; then
-  echo "ERROR restart.ckpt.interactive grep"
-  rm $pipe
+  echo "ERROR restart.ckpt.interactive grep unexpected string: $PSTR"
   exit $retVal
 fi
 
@@ -102,14 +70,7 @@ echo
 if [ $CLEANUP -eq 1 ]; then
   rm $OUTFILE
   rm -rf $PREFIX*
-  rm $pipe
 fi
 
 echo "PASS"
-exit $retVal
-
-
-
-
-
-
+exit 0

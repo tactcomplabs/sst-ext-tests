@@ -21,7 +21,7 @@ CHKFILE=$TNAME.chk
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s $CONFIG"
 echo $LAUNCH
-$LAUNCH << EOF | tee $LOGFILE || exit
+( $LAUNCH << EOF || exit 11 ) |  tee $LOGFILE
 logging $OUTFILE
 ls
 cd c7

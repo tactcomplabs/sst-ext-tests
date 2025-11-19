@@ -39,7 +39,7 @@ EOF
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --replay-file=$CMDFILE --interactive-console=sst.interactive.simpledebug --interactive-start=0s $CONFIG"
 echo $LAUNCH
-$LAUNCH << EOF | tee $LOGFILE || exit 1
+( $LAUNCH << EOF || exit 11 ) | tee $LOGFILE
 quit
 EOF
 

@@ -21,7 +21,7 @@ CHKFILE=$TNAME.chk
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
-$LAUNCH 2>&1 << EOF | tee $LOGFILE || exit 1
+( $LAUNCH << EOF || exit 11 ) | tee $LOGFILE 
 cd cp0
 run 2us
 trace size changed : 16 14 : size : interactive
