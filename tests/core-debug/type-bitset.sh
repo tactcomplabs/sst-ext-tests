@@ -81,7 +81,7 @@ ls
 EOF
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-start=0s $CONFIG -- --verbose=0"
+LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
 echo $LAUNCH
 revVal=0
 ( $LAUNCH << EOF || exit 99 ) | tee $LOGFILE
