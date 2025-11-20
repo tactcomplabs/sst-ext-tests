@@ -3,6 +3,13 @@
 #EXT_TEST TEST_FILE_DESC "Exercise std::bitset and std::vector<bool>"
 #EXT_TEST TIMEOUT 30
 
+# ensure non-zero exit code in pipe propagates and no unbound variables.
+set -uo pipefail
+
+# --add-lib-path required for Jenkins runs (does not run 'make install')
+# Set default ensure failure if not set and component not installed
+SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
+
 # Settings
 CLEANUP=1
 SCRIPT_NAME=$(basename "$0")
@@ -84,7 +91,7 @@ EOF
 LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
 echo $LAUNCH
 revVal=0
-( $LAUNCH << EOF || exit 11 ) | tee $LOGFILE
+$LAUNCH << EOF  | tee $LOGFILE
 replay $CMDFILE
 confirm false
 exit
