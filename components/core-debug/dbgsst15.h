@@ -258,9 +258,15 @@ private:
   float v_float = 1.0;
   double v_double = 2.0;
   long double v_ldouble = 3.0L;
-  // bitset and vector<bool>, sst-simulator/sst-core PR#1483
+
+  // bitset and vector<bool> (sst-simulator/sst-core PR#1483)
   std::bitset<42> v_bitset42; // default 0
   std::vector<bool> v_vecbool = { true, false, true, true, false, false, true, true};
+  // pair and tuple (sst-simulator/sst-core PR#1487)
+  std::pair<uint64_t, std::string> v_pair_u64_str = {42, "forty-two"};
+  std::tuple<uint32_t, double, std::string> v_tuple_u32_dbl_str = {8, 1.0/8.0, "eight"};
+
+  size_t tickle_counter = 0; // used for changing values it tickleBits()
 
 #if PROBE
 // -- Component probe state object
