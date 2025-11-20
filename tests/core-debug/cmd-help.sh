@@ -16,9 +16,9 @@ CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-start=0s $CONFIG"
+LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
-$LAUNCH << EOF | tee $LOGFILE || exit
+( $LAUNCH << EOF || exit 11 ) | tee $LOGFILE
 help
 ?
 help fubar

@@ -84,7 +84,7 @@ EOF
 LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
 echo $LAUNCH
 revVal=0
-( $LAUNCH << EOF || exit 99 ) | tee $LOGFILE
+( $LAUNCH << EOF || exit 11 ) | tee $LOGFILE
 replay $CMDFILE
 confirm false
 exit

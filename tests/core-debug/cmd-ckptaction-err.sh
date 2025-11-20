@@ -22,7 +22,7 @@ CKPTPREFIX=ckpt_$TNAME
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-start=0s --checkpoint-prefix=$CKPTPREFIX $CONFIG"
 echo $LAUNCH
-$LAUNCH << EOF | tee $LOGFILE || exit 1
+( $LAUNCH << EOF || exit 11 ) | tee $LOGFILE
 cd c0
 cd xorshift
 trace w changed : 32 4 : w x y z : checkpoint

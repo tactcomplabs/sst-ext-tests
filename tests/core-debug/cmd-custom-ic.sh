@@ -21,7 +21,7 @@ CHKFILE=$TNAME.chk
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-console=dbgsst15.ICDebugSST15 --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
-$LAUNCH << EOF | tee $LOGFILE || exit 1
+( $LAUNCH << EOF || exit 11 ) | tee $LOGFILE
 help
 quit
 EOF
