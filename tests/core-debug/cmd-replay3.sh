@@ -1,9 +1,18 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER 15.1
-#EXT_TEST TEST_FILE_DESC "Enter interactive mode and replay session from an external file that does not exit the console. This ensures we get back to command prompt after file is read"
+#EXT_TEST TEST_FILE_DESC "Debug replay from file and check we get a prompt"
 #EXT_TEST TIMEOUT 30
-#
-# SST DEV: 
+
+# This test will enter interactive mode and replay session from
+# an external file that does not exit the console. This ensures
+# we get back to command prompt after file is read
+
+# ensure non-zero exit code in pipe propagates and no unbound variables.
+set -uo pipefail
+
+# --add-lib-path required for Jenkins runs (does not run 'make install')
+# Set default ensure failure if not set and component not installed
+SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
 
 # Settings
 CLEANUP=1
@@ -27,7 +36,7 @@ EOF
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s $CONFIG"
 echo $LAUNCH
-( $LAUNCH << EOF || exit 11 ) | tee $LOGFILE
+$LAUNCH << EOF  | tee $LOGFILE
 replay $CMDFILE
 set test_string HelloMyNameIsC7AndICannotQuoteAString
 print test_string

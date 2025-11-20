@@ -1,9 +1,14 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER 15.1
-#EXT_TEST TEST_FILE_DESC "Basic check that a simple conditional watch trigger occurs when replayed from file"
+#EXT_TEST TEST_FILE_DESC "Conditional watch trigger replayed from file"
 #EXT_TEST TIMEOUT 30
-#
-# SST DEV: 
+
+# ensure non-zero exit code in pipe propagates and no unbound variables.
+set -uo pipefail
+
+# --add-lib-path required for Jenkins runs (does not run 'make install')
+# Set default ensure failure if not set and component not installed
+SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
 
 # Settings
 CLEANUP=1
@@ -32,7 +37,7 @@ EOF
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --replay-file=$CMDFILE --interactive-console=sst.interactive.simpledebug --interactive-start=0s $CONFIG"
 echo $LAUNCH
-( $LAUNCH || exit 11 ) | tee $LOGFILE
+$LAUNCH | tee $LOGFILE
 retVal=$?
 
 echo $TNAME Complete
