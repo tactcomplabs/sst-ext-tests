@@ -49,6 +49,53 @@ foreach(testSrc ${TEST_SRCS_TARGET_VER})
   endif()
 endforeach(testSrc)
 
+# adding CaptCrunchObjMap_7-DEV.sh
+foreach(ITER RANGE 0 20)
+
+  execute_process(COMMAND ${EXT_TEST_DEP_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/CaptCrunchObjMap_${ITER}-DEV.sh
+                OUTPUT_VARIABLE EXT_TEST_CHECK
+                RESULT_VARIABLE EXT_TEST_RTN
+                OUTPUT_STRIP_TRAILING_WHITESPACE
+		ERROR_QUIET
+  )
+
+  get_filename_component(testName CaptCrunchObjMap_${ITER} NAME_WLE)
+
+  # Add the tests for execution
+  if( "${EXT_TEST_CHECK}" STREQUAL "RUN" )
+    add_test(NAME ${testName}
+      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+      COMMAND ./CaptCrunchObjMap_${ITER}-DEV.sh)
+    set_property(TEST ${testName} PROPERTY LABELS "${SST_VERSION}")
+    set_property(TEST ${testName} PROPERTY PASS_REGULAR_EXPRESSION "${passRegex}")
+    if(NOT ${EXT_TEST_TIMEOUT} EQUAL 0)
+      set_property(TEST ${testName} PROPERTY TIMEOUT ${EXT_TEST_TIMEOUT})
+      message(STATUS "Runtime ${testName} = ${EXT_TEST_TIMEOUT}")
+    else()
+      set_property(TEST ${testName} PROPERTY TIMEOUT ${timeout})
+    endif()
+  endif()
+endforeach(ITER)
+
+execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/create_examine_objmap_tests.sh
+                WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                OUTPUT_VARIABLE EXAMINE_OUTPUT
+                OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+
+foreach(ITER RANGE 0 20)
+  string(FIND "${EXT_OBJMAP_TEST_CHECK}" "Exiting ObjectExplorer" EXAMINE_OBJMAP_VERIFY)
+  set(EXT_OBJMAP_TEST_CHECK "RUN")
+
+  if( "${EXT_OBJMAP_TEST_CHECK}" STREQUAL "RUN" )
+    add_test(NAME examine_objectmap_${ITER}
+      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+      COMMAND run_examine_objmap_tests.sh ${ITER})
+    set_property(TEST ${exName} PROPERTY LABELS "${SST_VERSION}")
+    set_property(TEST ${exName} PROPERTY PASS_REGULAR_EXPRESSION "${passRegex}")
+  endif()
+endforeach(ITER)
+
 #-- SST Enabled Test Versions
 foreach(testVer ${SST_VER_LIST})
   message(STATUS "building tests for SST VERSION ${testVer}")

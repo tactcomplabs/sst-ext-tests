@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM MIN14.1
+#EXT_TEST TEST_FILE_PARAM 14.1
 #EXT_TEST TEST_FILE_DESC "Tests restart for a checkpoint that had heartbeat to see if the heartbeat is carried over. Currently fails with error in restart"
 # 
 # 0) set pass string and checkpoint directory
@@ -38,7 +38,7 @@ grep "$PSTR2" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR ckpt.heartbeat grep"
-  exit $grepVal
+  exit $retVal
 fi
 
 # Cleanup output file
@@ -67,7 +67,7 @@ grep "$PSTR2" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR restart.ckpt.heartbeat grep"
-  exit $grepVal
+  exit $retVal
 fi
 
 echo

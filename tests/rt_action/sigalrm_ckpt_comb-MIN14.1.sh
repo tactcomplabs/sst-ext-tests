@@ -36,7 +36,7 @@ elif [[ $action2 == "sst.rt.status.core" ]]; then
 PSTR2="CurrentSimCycle"
 elif [[ $action2 == "sst.rt.status.all" ]]; then
 #echo status.all
-PSTR2="TimeVortex state"
+PSTR2="Components:"
 elif [[ $action2 == "sst.rt.heartbeat" ]]; then
 #echo heartbeat
 PSTR2="Heartbeat"
@@ -70,14 +70,14 @@ grep "$PSTR" ./test.$sig.$action.$action2.out > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action grep"
-  exit $grepVal
+  exit $retVal
 fi
 
 grep "$PSTR2" ./test.$sig.$action.$action2.out > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action2 grep"
-  exit $grepVal
+  exit $retVal
 fi
 
 echo

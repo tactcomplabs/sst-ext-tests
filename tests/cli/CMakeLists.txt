@@ -129,7 +129,7 @@ endforeach(testSrc)
 # Append test specific labels
 list(APPEND LONGTESTS
   sst_heartbeat_90s-DEV
-  sst_heartbeat_0:1:30-ALL)
+  sst_heartbeat_0.1.30-ALL)
 foreach(longtest ${LONGTESTS})
   if(TEST ${longtest})
     set_property(TEST ${longtest} APPEND PROPERTY LABELS LONG)

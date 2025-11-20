@@ -1,5 +1,5 @@
 #
-# sst-ext-tests/tests/cli CMake
+# sst-ext-tests/tests/core-chkpt CMake
 #
 # Copyright (C) 2017-2025 Tactical Computing Laboratories, LLC
 # All Rights Reserved

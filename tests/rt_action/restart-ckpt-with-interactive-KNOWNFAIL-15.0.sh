@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM MIN14.1
+#EXT_TEST TEST_FILE_PARAM 15.0
 #EXT_TEST TEST_FILE_DESC "Tests restart for a checkpoint that had interactive console to see if the interactive console is carried over. Currently Fails"
 
 # 0) set pass string 
@@ -37,7 +37,7 @@ grep "$PSTR2" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR ckpt.interactive grep"
-  exit $grepVal
+  exit $retVal
 fi
 
 # Cleanup output file
@@ -64,7 +64,7 @@ grep "$PSTR2" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR restart.ckpt.interactive grep"
-  exit $grepVal
+  exit $retVal
 fi
 
 echo

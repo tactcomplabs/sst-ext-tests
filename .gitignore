@@ -33,3 +33,12 @@
 
 # Build area
 build/
+
+# Backup files
+*~
+
+# Alternate test make flow
+*.shlog
+
+# vscode
+.vscode

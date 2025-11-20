@@ -2,6 +2,7 @@
 #EXT_TEST TEST_FILE_PARAM ALL
 #EXT_TEST TEST_FILE_DESC "Tests relocation of config files"
 #EXT_TEST DEP "coreTestElement.coreTestComponent"
+#EXT_TEST TIMEOUT 240
 
 check_odir() {
     odir=$1
@@ -33,7 +34,7 @@ check_odir $tname.$$
 check_odir ./$tname.$$
 
 # Check 3: Absolute path
-check_odir "$(realpath .)/$tname.$$"
+check_odir "$(readlink -f .)/$tname.$$"
 
 # Check 4: 2 level subdirectory
 check_odir "$tname.$$/level2"

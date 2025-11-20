@@ -9,5 +9,5 @@
 
 # -- add the component directory
 add_subdirectory(CaptCrunch)
-
+add_subdirectory(CaptCrunchObjMap)
 # EOF

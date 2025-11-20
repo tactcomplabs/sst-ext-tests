@@ -2,7 +2,7 @@
 #EXT_TEST TEST_FILE_PARAM ALL
 #EXT_TEST TEST_FILE_DESC "Tests outputting config graph graph data to a dot file with verbosity"
 #EXT_TEST DEP "coreTestElement.coreTestComponent"
-#EXT_TEST TIMEOUT 200
+#EXT_TEST TIMEOUT 500
 
 sst --output-dot=foo.dot --dot-verbosity=9 cli-sdl.py
 

@@ -75,6 +75,9 @@ execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/sst-minor-version.sh
                 OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
+#-- setup the component build directory
+set(ENV{SST_COMPONENT_BASE} "${CMAKE_BINARY_DIR}")
+
 string_contains_number("${SST_MAJOR_VERSION}" contains_num)
 if(NOT contains_num)
   set(SST_MAJOR_VERSION "DEV")
@@ -91,8 +94,16 @@ message(STATUS "SST MINOR VERSION=${SST_MINOR_VERSION}")
 string(CONCAT SST_VERSION  ${SST_MAJOR_VERSION} "." ${SST_MINOR_VERSION})
 message(STATUS "SST FULL VERSION=${SST_VERSION}")
 
+
+#-- MPI Options
+find_package(MPI)
+if(MPIEXEC_EXECUTABLE)
+  message(STATUS "MPI RUN COMMAND=${MPIEXEC_EXECUTABLE}")
+endif()
+
 set(SST_COMPONENT_BASE "${CMAKE_CURRENT_SOURCE_DIR}/tests/components")
 message(STATUS "SST-EXT-TESTS COMPONENT BASE DIRECTORY=${SST_COMPONENT_BASE}")
+
 
 #-- Compiler Options
 # Compiler Options
@@ -112,6 +123,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -Wall")
 
 set(EXT_TEST_DEP_COMMAND "${CMAKE_SOURCE_DIR}/scripts/test-dep.sh")
 set(EXT_TEST_TIMEOUT_COMMAND "${CMAKE_SOURCE_DIR}/scripts/test-timeout.sh")
+set(EXT_TEST_MPIARGS_COMMAND "${CMAKE_SOURCE_DIR}/scripts/test-mpiargs.sh")
 
 #-- Setup supported version arrays
 set(SST_TMP_VER_LIST "13.0" "14.0" "14.1" "15.0")
@@ -127,6 +139,10 @@ endif()
 
 #-- Add testing
 enable_testing()
+
+#-- Custom Commands
+add_custom_target(uninstall COMMAND
+  "${CMAKE_CURRENT_SOURCE_DIR}/scripts/uninstall.sh")
 
 #-- Subdirectories
 add_subdirectory(tests)

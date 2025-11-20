@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_PARAM MIN14.1
+#EXT_TEST TEST_FILE_PARAM 14.1
 #EXT_TEST TEST_FILE_DESC "Tests using interactive console with restart (i.e. load checkpoint)"
 # 
 # 0) launch sst to generate the checkpoint
@@ -35,7 +35,7 @@ grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR $PREFIX grep"
-  exit $grepVal
+  exit $retVal
 fi
 
 # Cleanup output file
@@ -84,7 +84,7 @@ retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR restart.interactive grep"
   rm $pipe
-  exit $grepVal
+  exit $retVal
 fi
 echo
 
