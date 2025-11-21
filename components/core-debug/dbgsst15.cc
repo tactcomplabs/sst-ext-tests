@@ -288,7 +288,7 @@ void DbgSST15::tickleBits()
   s << "S" << tickle_counter;
   if (tickle_counter % 5 == 0 ) {
     output.verbose(CALL_INFO, 0, 0,
-		   "%s.v_pair_u64_str.first <- %" PRIu64 "\n",
+		   "%s.v_pair_u64_str.first <- %zu\n",
 		   getName().c_str(), tickle_counter);
     v_pair_u64_str = { tickle_counter, s.str() };
   }
