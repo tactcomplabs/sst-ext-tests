@@ -131,9 +131,6 @@ void DbgSST15::init( unsigned int phase ){
   for (size_t i=0;i<v_bitset42.size(); i++) {
     v_bitset42[i] = (i & 3) == 3; // 1000 1000 1000 ... 1000 lsb
   }
-  // v_vecbool.resize(8);
-  // v_vecbool = { true, false, false, false, true, true, false, false };
-  std::cout << "# v_vecbool[0]=" << v_vecbool[0] << std::endl;
 }
 
 void DbgSST15::printStatus( SST::Output& out ){
@@ -172,8 +169,11 @@ void DbgSST15::serialize_order(SST::Core::Serialization::serializer& ser){
   SST_SER(v_float);
   SST_SER(v_double);
   SST_SER(v_ldouble);
+  // tickled variables
   SST_SER(v_bitset42);
   SST_SER(v_vecbool);
+  SST_SER(v_pair_u64_str);
+  SST_SER(v_tuple_u32_dbl_str);
 
 #if TESTSER
   SST_SER(*test_uptr);
@@ -281,8 +281,13 @@ void DbgSST15::sendData(){
 
 void DbgSST15::tickleBits()
 {
-  v_bitset42.flip();
-  v_vecbool.flip();
+  tickle_counter++;
+  if (tickle_counter % 2 == 0 ) v_bitset42.flip();
+  if (tickle_counter % 3 == 0 ) v_vecbool.flip();
+  std::stringstream s;
+  s << "S" << tickle_counter;
+  if (tickle_counter % 5 == 0 ) v_pair_u64_str = { tickle_counter, s.str() };
+  if (tickle_counter % 7 == 0 ) v_tuple_u32_dbl_str = { tickle_counter, 1.0/(double)tickle_counter, s.str() };
 }
 
 bool DbgSST15::clockTick( SST::Cycle_t currentCycle ){
