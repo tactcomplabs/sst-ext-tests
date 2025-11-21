@@ -286,7 +286,12 @@ void DbgSST15::tickleBits()
   if (tickle_counter % 3 == 0 ) v_vecbool.flip();
   std::stringstream s;
   s << "S" << tickle_counter;
-  if (tickle_counter % 5 == 0 ) v_pair_u64_str = { tickle_counter, s.str() };
+  if (tickle_counter % 5 == 0 ) {
+    output.verbose(CALL_INFO, 0, 0,
+		   "%s.v_pair_u64_str.first <- %" PRIu64 "\n",
+		   getName().c_str(), tickle_counter);
+    v_pair_u64_str = { tickle_counter, s.str() };
+  }
   if (tickle_counter % 7 == 0 ) v_tuple_u32_dbl_str = { tickle_counter, 1.0/(double)tickle_counter, s.str() };
 }
 

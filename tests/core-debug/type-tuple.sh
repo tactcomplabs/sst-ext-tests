@@ -31,7 +31,7 @@ ls
 p v_pair_u64_str
 cd v_pair_u64_str/
 ls
-# CHECK 0 p 0\n0 = 42 \(unsigned long long\)
+# CHECK 0 p 0\n0 = 42 \(unsigned long( long)?\)
 p 0
 # CHECK 1 p 1\n1 = forty-two \(std::string\)
 p 1
@@ -39,7 +39,7 @@ p 1
 set 0 11
 set 1 eleven
 run 1ns
-# CHECK 2 p 0\n0 = 11 \(unsigned long long\)
+# CHECK 2 p 0\n0 = 11 \(unsigned long( long)?\)
 p 0
 # CHECK 3 p 1\n1 = eleven \(std::string\)
 p 1
@@ -47,7 +47,7 @@ p 1
 watch 0 changed
 run
 ls
-# CHECK 4 p 0\n0 = 5 \(unsigned long long\)
+# CHECK 4 p 0\n0 = 5 \(unsigned long( long)?\)
 p 0
 # CHECK 5 p 1\n1 = S5 \(std::string\)
 p 1
