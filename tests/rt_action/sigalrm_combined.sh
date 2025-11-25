@@ -9,8 +9,13 @@
 # 2) wait for completion
 # 3) check result
 
+# ensure non-zero exit code in pipe propagates and no unbound variables.
+set -uo pipefail
 
 # Settings
+SCRIPT_NAME=$(basename "$0")
+TNAME="${SCRIPT_NAME%.*}"
+echo "TESTNAME=$TNAME"
 SIG="sigalrm"
 ACTION="sst.rt.status.core sst.rt.status.all sst.rt.heartbeat"
 ACTION2="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat"
@@ -39,9 +44,6 @@ PSTR="Components:"
 elif [[ $action == "sst.rt.heartbeat" ]]; then
 #echo heartbeat
 PSTR="Heartbeat"
-elif [[ $action == "sst.rt.checkpoint" ]]; then
-#echo checkpoint
-PSTR="Simulation Checkpoint"
 fi
 
 
@@ -61,18 +63,17 @@ PSTR2="Components:"
 elif [[ $action2 == "sst.rt.heartbeat" ]]; then
 #echo heartbeat
 PSTR2="Heartbeat"
-elif [[ $action2 == "sst.rt.checkpoint" ]]; then
-#echo checkpoint
-PSTR2="Simulation Checkpoint"
 fi
 
-OUTFILE="test.$sig.$action.$action2.out"
+OUTFILE="$TNAME.$action.$action2.out"
+if [[ -f $OUTFILE ]]; then
+  rm $OUTFILE
+fi
 
 # 1) Launch the program
-
-LAUNCH="sst --$sig='$action(interval=1s);$action2(interval=2s)' $CONFIG"
+LAUNCH="sst --$sig=$action(interval=1s);$action2(interval=2s) $CONFIG"
 echo $LAUNCH
-eval $LAUNCH > $OUTFILE 2>&1 
+$LAUNCH > $OUTFILE 2>&1 
 
 # 2) wait for completion 
 retVal=$?
@@ -81,20 +82,23 @@ echo $sig=$action $action2 Complete
 # 3) Check result
 if [ $retVal -ne 0 ]; then
   echo "ERROR $sig=$action $action2 return code"
+  cat $OUTFILE
   exit $retVal
 fi
 
 grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $sig=$action grep"
+  cat $OUTFILE
+  echo "ERROR $sig=$action did not find passing string in $OUTFILE: $PSTR"
   exit $retVal
 fi
 
 grep "$PSTR2" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $sig=$action2 grep"
+  cat $OUTFILE
+  echo "ERROR $sig=$action2 did not find passing string in $OUTFILE: $PSTR"
   exit $retVal
 fi
 
@@ -112,9 +116,3 @@ done  # for $sig
 
 echo "PASS"
 exit $retVal
-
-
-
-
-
-

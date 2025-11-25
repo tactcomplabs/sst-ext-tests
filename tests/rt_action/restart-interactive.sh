@@ -8,11 +8,16 @@
 # 3) restart sst with the checkpoint file and interactive console
 # 4) check result
 
+# ensure non-zero exit code in pipe propagates and no unbound variables.
+set -uo pipefail
 
 # Settings
+SCRIPT_NAME=$(basename "$0")
+TNAME="${SCRIPT_NAME%.*}"
+echo "TESTNAME=$TNAME"
 CONFIG=" test_Checkpoint.py" #test_MessageMesh.py"
-PREFIX="ckpt4restart_interactive"
-CKPTDIR="ckpt4restart_interactive/ckpt4restart_interactive_1_1000000000000/ckpt4restart_interactive_1_1000000000000.sstcpt"
+PREFIX="ckpt_$TNAME"
+CKPTDIR="$PREFIX/${PREFIX}_1_1000000000000/${PREFIX}_1_1000000000000.sstcpt"
 CLEANUP=1
 
 # Remove stale checkpoint dir if needed
@@ -22,23 +27,29 @@ if [[ -d $PREFIX ]]; then
 fi
 
 # 0) Launch the program to generate the checkpoints
-OUTFILE="test.ckpt4restart.interactive.out"
+OUTFILE="$TNAME.ckpt.out"
+if [[ -f $OUTFILE ]]; then
+  rm $OUTFILE
+fi
+
 LAUNCH="sst --checkpoint-prefix=$PREFIX --checkpoint-sim-period=1s $CONFIG"
 echo $LAUNCH
-eval $LAUNCH > $OUTFILE 2>&1
+$LAUNCH > $OUTFILE 2>&1
 retVal=$?
 echo $PREFIX Done
 
 # 1) Check result
-PSTR="Checkpoint"
 if [ $retVal -ne 0 ]; then
+  cat $OUTFILE
   echo "ERROR $PREFIX return code"
   exit $retVal
 fi
 
+PSTR="Checkpoint"
 grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
+  cat $OUTFILE
   echo "ERROR did not find pass string in $OUTFILE: $PSTR"
   exit $retVal
 fi
@@ -48,46 +59,35 @@ if [ $CLEANUP -eq 1 ]; then
   rm $OUTFILE
 fi
 
-# 1) Get pass criterion and outputfile
-PSTR="Interactive"
-OUTFILE="test.restart.interactive.out"
-
-# 2) Set up pipe for interactive
-pipe="/tmp/test_restart_pipe"
-if [[ ! -p $pipe ]]; then
-  echo "Creating pipe: $pipe"
-  mkfifo $pipe
-fi
-
-# 3) Then restart sst with the checkpoint and heartbeat
+# 1) Get outputfile
+OUTFILE="$TNAME.restart.out"
 if [[ -f $OUTFILE ]]; then
   rm $OUTFILE
 fi
 
-LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=1us --load-checkpoint $CKPTDIR"
+# 3) Then restart sst with the checkpoint and interactive
+LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=1s --load-checkpoint $CKPTDIR"
 echo $LAUNCH
-$LAUNCH < $pipe > $OUTFILE 2>&1 &
-exec 3>$pipe
+$LAUNCH << EOF > $OUTFILE 2>&1
+run
+EOF
 
-sleep 2
-echo run > $pipe
-
-wait
 retVal=$?
 echo restart.interactive Complete
 
 # 4) Check result
 if [ $retVal -ne 0 ]; then
+  cat $OUTFILE
   echo "ERROR restart.interactive return code"
-  rm $pipe
   exit $retVal
 fi
 
-grep "$PSTR" ./$OUTFILE > /dev/null
+PSTR="Interactive"
+grep -q "$PSTR" ./$OUTFILE
 retVal=$?
 if [ $retVal -ne 0 ]; then
+  cat $OUTFILE
   echo "ERROR did not find pass string in $OUTFILE: $PSTR"
-  rm $pipe
   exit $retVal
 fi
 echo
@@ -95,12 +95,11 @@ echo
 # Cleanup output directories
 if [ $CLEANUP -eq 1 ]; then
   rm $OUTFILE
-  rm -r $PREFIX
-  rm $pipe
+  rm -rf $PREFIX
 fi
 
 echo "PASS"
-exit $retVal
+exit 0
 
 
 
