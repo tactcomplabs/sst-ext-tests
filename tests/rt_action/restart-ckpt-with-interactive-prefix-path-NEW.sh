@@ -1,28 +1,45 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_MINVER NEW
 #EXT_TEST TEST_FILE_DESC "Tests expected fail for passing path to checkpoint-prefix."
 #EXT_TEST TIMEOUT 120
 #
 # DEV: Passing a path to checkpoint prefix should fail
 
+# ensure non-zero exit code in pipe propagates and no unbound variables.
+set -uo pipefail
+
 # Settings
+SCRIPT_NAME=$(basename "$0")
+TNAME="${SCRIPT_NAME%.*}"
+echo "TESTNAME=$TNAME"
 CONFIG="test_Checkpoint.py"
-PREFIX="$PWD/ckpt_restart_interactive_path"
+PREFIX="$PWD/ckpt_$TNAME"
 CLEANUP=1
 
+#Remove stale checkpoint directory if needed
+if [[ -d $PREFIX ]]; then
+  echo "Removing stale checkpoint directory: $PREFIX"
+  rm -r $PREFIX
+fi
+
 # 1) Launch the program to generate the checkpoint
-OUTFILE="test.ckpt.interactive.prefix.out"
+OUTFILE="$TNAME.out"
+if [[ -f $OUTFILE ]]; then
+  rm $OUTFILE
+fi
+
 LAUNCH="sst --checkpoint-prefix=$PREFIX --checkpoint-sim-period=1s --interactive-console=sst.interactive.simpledebug --interactive-start=2s  $CONFIG"
 
 echo $LAUNCH
-eval $LAUNCH > $OUTFILE 2>&1 
+$LAUNCH > $OUTFILE 2>&1 
 retVal=$?
 
-echo ckpt.interactive.prefix Complete
+echo ckpt Complete
 
 # 2) Check result - should fail with invalid checkpoint-prefix
 if [ $retVal -eq 0 ]; then
-  echo "ERROR ckpt.interactive.prefix return code"
+  cat $OUTFILE
+  echo "ERROR ckpt return code"
   exit $retVal
 fi
 

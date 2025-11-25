@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_MINVER NEW
 #EXT_TEST TEST_FILE_DESC "Tests using sigalrm with restart (i.e. load checkpoint)"
 # 
 # 0) launch sst to generate the checkpoint
@@ -8,13 +8,18 @@
 # 3) restart sst with the checkpoint file and signalrm
 # 4) check result
 
+# ensure non-zero exit code in pipe propagates and no unbound variables.
+set -uo pipefail
 
 # Settings
+SCRIPT_NAME=$(basename "$0")
+TNAME="${SCRIPT_NAME%.*}"
+echo "TESTNAME=$TNAME"
 SIG="sigalrm"
 ACTION="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat sst.rt.checkpoint"
 CONFIG=" test_Checkpoint.py" #test_MessageMesh.py"
-PREFIX="ckpt4restart_sigalrm"
-CKPTDIR="ckpt4restart_sigalrm/ckpt4restart_sigalrm_1_1000000000000/ckpt4restart_sigalrm_1_1000000000000.sstcpt"
+PREFIX="ckpt_$TNAME"
+CKPTDIR="$PREFIX/${PREFIX}_1_100000000000/${PREFIX}_1_100000000000.sstcpt"
 CLEANUP=1
 
 # Remove stale checkpoint dir if needed
@@ -24,16 +29,21 @@ if [[ -d $PREFIX ]]; then
 fi
 
 # 0) Launch the program to generate the checkpoints
-OUTFILE="test.ckpt4restart.sigalrm.out"
-LAUNCH="sst --checkpoint-prefix=$PREFIX --checkpoint-sim-period=1s $CONFIG"
+OUTFILE="$TNAME.ckpt.out"
+if [[ -f $OUTFILE ]]; then
+  rm $OUTFILE
+fi
+
+LAUNCH="sst --checkpoint-prefix=$PREFIX --checkpoint-sim-period=100ms $CONFIG"
 echo $LAUNCH
-eval $LAUNCH > $OUTFILE 2>&1
+$LAUNCH > $OUTFILE 2>&1
 retVal=$?
 echo $PREFIX Done
 
 # 1) Check result
 PSTR="Checkpoint"
 if [ $retVal -ne 0 ]; then
+  cat $OUTFILE
   echo "ERROR $PREFIX return code"
   exit $retVal
 fi
@@ -41,6 +51,7 @@ fi
 grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
+  cat $OUTFILE
   echo "ERROR did not find pass string in $OUTFILE: $PSTR"
   exit $retVal
 fi
@@ -75,21 +86,30 @@ elif [[ $action == "sst.rt.checkpoint" ]]; then
 PSTR="Simulation Checkpoint"
 fi
 
-OUTFILE="test.restart.$sig.$action.out"
+OUTFILE="$TNAME.restart.$action.out"
+RS_CKPT_PREFIX="restart_${action}_$TNAME"
 
-# 3) Then restart sst with the checkpoint and sigalrm
 if [[ -f $OUTFILE ]]; then
   rm $OUTFILE
 fi
+if [[ -d $RS_CKPT_PREFIX ]]; then
+        rm -rf $RS_CKPT_PREFIX
+fi
 
-LAUNCH="sst --$sig='$action(interval=1s)' --load-checkpoint $CKPTDIR"
+# 3) Then restart sst with the checkpoint and sigalrm
+if [[ $action == "sst.rt.checkpoint" ]]; then
+	LAUNCH="sst --$sig=$action(interval=1s) --load-checkpoint $CKPTDIR --checkpoint-prefix=$RS_CKPT_PREFIX"
+else
+        LAUNCH="sst --$sig=$action(interval=1s) --load-checkpoint $CKPTDIR"
+fi
 echo $LAUNCH
-eval $LAUNCH > $OUTFILE 2>&1 
+$LAUNCH > $OUTFILE 2>&1 
 retVal=$?
 echo restart.$sig.$action Complete
 
 # 4) Check result
 if [ $retVal -ne 0 ]; then
+  cat $OUTFILE
   echo "ERROR restart.$sig.$action return code"
   exit $retVal
 fi
@@ -97,6 +117,7 @@ fi
 grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
+  cat $OUTFILE
   echo "ERROR did not find pass string in $OUTFILE: $PSTR"
   exit $retVal
 fi
@@ -105,6 +126,10 @@ echo
 # Cleanup output directories
 if [ $CLEANUP -eq 1 ]; then
   rm $OUTFILE
+  if [[ $action == "sst.rt.checkpoint" ]]; then
+        rm -r $RS_CKPT_PREFIX
+  fi
+
 fi
 
 done  # for $action
@@ -116,9 +141,3 @@ fi
 
 echo "PASS"
 exit $retVal
-
-
-
-
-
-

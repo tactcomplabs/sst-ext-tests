@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER 15.1
+#EXT_TEST TEST_FILE_MINVER NEW
 #EXT_TEST TEST_FILE_DESC "Tests checkpoint with sigalrm to see if the sigalrm is carried over to restart (i.e. load-checkpoint)"
 #EXT_TEST TIMEOUT 240
 
@@ -56,7 +56,7 @@ echo ckpt.$sig.$action2 Complete
 
 # 2) Check result
 if [ $retVal -ne 0 ]; then
-  cat $OUTFILE
+  #cat $OUTFILE
   echo "ERROR ckpt.$sig.$action2 return code"
   exit $retVal
 fi
@@ -64,7 +64,7 @@ fi
 grep "$PSTR2" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  cat $OUTFILE
+  #cat $OUTFILE
   echo "ERROR did not find pass string in $OUTFILE: $PSTR2"
   exit $retVal
 fi
@@ -89,7 +89,7 @@ echo restart.$sig.$action2 Complete
 # 4) Check result (sigalrm actions should carry over to restart)
 if [ $retVal -ne 0 ]; then
   echo "ERROR restart.$sig.$action2 return code"
-  cat $OUTFILE
+  #cat $OUTFILE
   exit $retVal
 fi
 
@@ -97,7 +97,7 @@ grep "$PSTR2" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR did not find pass string in $OUTFILE: $PSTR2"
-  cat $OUTFILE
+  #cat $OUTFILE
   exit $retVal
 fi
 

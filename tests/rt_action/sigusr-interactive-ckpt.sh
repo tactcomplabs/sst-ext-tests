@@ -12,6 +12,9 @@
 # 6) compare to expected results (offline?)
 #set -m # enable job control
 
+# ensure non-zero exit code in pipe propagates and no unbound variables.
+set -uo pipefail
+
 # Settings
 CLEANUP=1
 SCRIPT_NAME=$(basename "$0")
@@ -30,6 +33,11 @@ PIPE="/tmp/${TNAME}-${PPID}.pipe"
 
 SIG="sigusr1 sigusr2"
 ACTION="sst.rt.interactive"
+
+# --add-lib-path required for Jenkins runs (does not run 'make install')
+# Set default ensure failure if not set and component not installed
+SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
+
 
 # Set component options
 OPTS=""
@@ -136,7 +144,6 @@ for sig in $SIG; do
   fi
   echo "Found pass string \"$PSTR\""
 
-
   echo
 
   # Cleanup output directories
@@ -144,8 +151,6 @@ for sig in $SIG; do
     rm -f $LOGFILE $OUTFILE $CMDFILE $CHKFILE
     rm -rf $CKPTPREFIX
   fi
-
-  #rm $PIPE
 
 done  # for $action
 done  # for $sigusr
