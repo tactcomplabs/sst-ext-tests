@@ -25,7 +25,7 @@ for sig in $SIG; do
   for action in $ACTION; do
     for action2 in $ACTION2; do
 
-OUTFILE=$TNAME.$sig.$action.$action2.out
+OUTFILE=$TNAME.$action.$action2.out
 if [[ -f $OUTFILE ]]; then
   rm $OUTFILE
 fi
