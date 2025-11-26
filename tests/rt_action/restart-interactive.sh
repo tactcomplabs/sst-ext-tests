@@ -76,6 +76,9 @@ retVal=$?
 echo restart.interactive Complete
 
 # 4) Check result
+PSTR="Interactive"
+grep -q "$PSTR" ./$OUTFILE
+retVal=$?
 if [ $retVal -ne 0 ]; then
   cat $OUTFILE
   echo "ERROR restart.interactive return code"
@@ -100,9 +103,4 @@ fi
 
 echo "PASS"
 exit 0
-
-
-
-
-
 

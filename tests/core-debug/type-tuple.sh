@@ -1,0 +1,146 @@
+#!/bin/bash
+#EXT_TEST TEST_FILE_MINVER NEW
+#EXT_TEST TEST_FILE_DESC "Exercise std::pair and std::tuple"
+#EXT_TEST TIMEOUT 30
+
+# ensure non-zero exit code in pipe propagates and no unbound variables.
+set -uo pipefail
+
+# --add-lib-path required for Jenkins runs (does not run 'make install')
+# Set default ensure failure if not set and component not installed
+SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
+
+# Settings
+CLEANUP=1
+SCRIPT_NAME=$(basename "$0")
+TNAME="${SCRIPT_NAME%.*}"
+echo "TESTNAME=$TNAME"
+CONFIG="dbgsst15.py"
+
+LOGFILE=$TNAME.log
+OUTFILE=$TNAME.console.out
+CMDFILE=$TNAME.cmd
+CHKFILE=$TNAME.chk
+
+cat << EOF > $CMDFILE
+confirm false
+cd cp0
+ls
+
+# The pair
+p v_pair_u64_str
+cd v_pair_u64_str/
+ls
+# CHECK 0 p 0\n0 = 42 \(unsigned long( long)?\)
+p 0
+# CHECK 1 p 1\n1 = forty-two \(std::string\)
+p 1
+# Change values
+set 0 11
+set 1 eleven
+run 1ns
+# CHECK 2 p 0\n0 = 11 \(unsigned long( long)?\)
+p 0
+# CHECK 3 p 1\n1 = eleven \(std::string\)
+p 1
+# Set watch on numeric type (cannot do string at the moment)
+watch 0 changed
+run
+ls
+# CHECK 4 p 0\n0 = 5 \(unsigned long( long)?\)
+p 0
+# CHECK 5 p 1\n1 = S5 \(std::string\)
+p 1
+unwatch
+
+# The tuple
+cd ..
+p v_tuple_u32_dbl_str
+cd v_tuple_u32_dbl_str/
+ls
+# CHECK 6 p 0\n0 = 8 \(unsigned int\)
+p 0
+# CHECK 7 p 1\n1 = 0.1250.+ \(double\)
+p 1
+# CHECK 8 p 2\n2 = eight \(std::string\)
+p 2
+# Change values
+s 0 1
+s 1 1.0
+s 2 one
+run 1ns
+ls
+# CHECK 9 p 0\n0 = 1 \(unsigned int\)
+p 0
+# CHECK 10 p 1\n1 = 1.0.+ \(double\)
+p 1
+# CHECK 11 p 2\n2 = one \(std::string\)
+p 2
+# watch it
+watch 0 changed
+run
+ls
+# CHECK 12 p 0\n0 = 7 \(unsigned int\)
+p 0
+# CHECK 13 p 1\n1 = 0.142.+ \(double\)
+p 1
+# CHECK 14 p 2\n2 = S7 \(std::string\)
+p 2
+shutdown
+EOF
+
+# Launch the program to start interactive mode at time 0
+LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
+echo $LAUNCH
+revVal=0
+( $LAUNCH << EOF || exit 11 ) | tee $LOGFILE
+replay $CMDFILE
+confirm false
+exit
+EOF
+
+retVal=$?
+
+echo $TNAME Complete
+
+# Check result
+if [ $retVal -ne 0 ]; then
+  echo "ERROR $TNAME returned $retVal"
+  exit $retVal
+fi
+
+# spot checks
+# initialize rc to the number of expected checks
+awk '
+  BEGIN {idx=0; rc=15; lines=""; check=-1 }
+  /# CHECK/ { idx=0; lines=""; check=$4; re=substr($0,index($0,$5))}
+  { if (check==-1) {next}; 
+    lines = sprintf("%s\n%s",lines,$0);
+    if (++idx==3) {
+      print check; 
+      printf("TEST[%d] %s\n",check,lines);
+      # printf("RE[%d] %s\n", check, re);
+      if (!match(lines,re)) {
+        printf("ERROR: Failed TEST[%d]\n",check);
+        exit 1;
+      }
+      rc--; check=-1; idx=0;
+    }
+  }
+  END { exit rc; }
+' $LOGFILE
+
+RC=$?
+if [ $RC -ne 0 ]; then
+  echo "ERROR: Test Failed with RC=$RC"
+  exit $RC
+fi
+
+# Cleanup output file on pass
+if [ $CLEANUP -eq 1 ]; then
+  rm -f $LOGFILE $OUTFILE $CMDFILE $CHKFILE
+fi
+
+wait
+echo "PASS"
+exit 0
