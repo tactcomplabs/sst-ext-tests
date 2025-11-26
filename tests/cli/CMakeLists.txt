@@ -14,7 +14,7 @@ set(timeout "60")
 
 #-- Test files supporting current sst version
 message(STATUS "Checking ${CMAKE_CURRENT_SOURCE_DIR} for tests supporting ${SST_VERSION}")
-execute_process(COMMAND ${EXT_TEST_LIST_COMMAND} ${SST_VERSION}
+execute_process(COMMAND ${EXT_TEST_LIST_COMMAND} ${SST_VERSION} ${ENABLE_NEW_TESTS}
                 OUTPUT_VARIABLE TEST_SRCS_TARGET_VER
                 RESULT_VARIABLE EXT_TEST_LIST_RTN
                 OUTPUT_STRIP_TRAILING_WHITESPACE

@@ -17,7 +17,7 @@ TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 CONFIG=" test_Checkpoint.py" #test_MessageMesh.py"
 PREFIX="ckpt_$TNAME"
-CKPTDIR="$PREFIX/${PREFIX}_1_1000000000000/${PREFIX}_1_1000000000000.sstcpt"
+CKPTDIR="$PREFIX/${PREFIX}_1_100000000000/${PREFIX}_1_100000000000.sstcpt"
 CLEANUP=1
 
 # Remove stale checkpoint dir if needed
@@ -32,7 +32,7 @@ if [[ -f $OUTFILE ]]; then
   rm $OUTFILE
 fi
 
-LAUNCH="sst --checkpoint-prefix=$PREFIX --checkpoint-sim-period=1s $CONFIG"
+LAUNCH="sst --checkpoint-prefix=$PREFIX --checkpoint-sim-period=100ms $CONFIG"
 echo $LAUNCH
 $LAUNCH > $OUTFILE 2>&1
 retVal=$?
@@ -76,6 +76,9 @@ retVal=$?
 echo restart.interactive Complete
 
 # 4) Check result
+PSTR="Interactive"
+grep -q "$PSTR" ./$OUTFILE
+retVal=$?
 if [ $retVal -ne 0 ]; then
   cat $OUTFILE
   echo "ERROR restart.interactive return code"
@@ -100,9 +103,4 @@ fi
 
 echo "PASS"
 exit 0
-
-
-
-
-
 

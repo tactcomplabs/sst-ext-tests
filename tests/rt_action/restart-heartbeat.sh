@@ -18,7 +18,7 @@ echo "TESTNAME=$TNAME"
 ACTION="heartbeat"
 CONFIG=" test_Checkpoint.py" #test_MessageMesh.py"
 PREFIX="ckpt_$TNAME"
-CKPTDIR="$PREFIX/${PREFIX}_1_1000000000000/${PREFIX}_1_1000000000000.sstcpt"
+CKPTDIR="$PREFIX/${PREFIX}_1_100000000000/${PREFIX}_1_100000000000.sstcpt"
 CLEANUP=1
 
 # Remove stale checkpoint directory if needed
@@ -33,7 +33,7 @@ if [[ -f $OUTFILE ]]; then
   rm $OUTFILE
 fi
 
-LAUNCH="sst --checkpoint-prefix=$PREFIX --checkpoint-sim-period=1s $CONFIG"
+LAUNCH="sst --checkpoint-prefix=$PREFIX --checkpoint-sim-period=100ms $CONFIG"
 echo $LAUNCH
 $LAUNCH > $OUTFILE 2>&1
 retVal=$?
@@ -70,7 +70,7 @@ fi
 
 
 # 3) Then restart sst with the checkpoint and heartbeat
-LAUNCH="sst --heartbeat-period=2s --load-checkpoint $CKPTDIR"
+LAUNCH="sst --heartbeat-period=1s --load-checkpoint $CKPTDIR"
 echo $LAUNCH
 $LAUNCH > $OUTFILE 2>&1 
 retVal=$?

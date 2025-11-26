@@ -23,7 +23,6 @@ if [[ -d $PREFIX ]]; then
   rm -r $PREFIX
 fi
 
-
 # 1) Launch the program to generate the checkpoint
 OUTFILE="$TNAME.ckpt.out"
 if [[ -f $OUTFILE ]]; then

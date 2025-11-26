@@ -23,8 +23,19 @@ make test
 
 Flags for test selection include:
 ```
-# Enables golden test suite
-ENABLE_ALL_TESTS [OFF] 
+# Enables golden (production) test suite
+ENABLE_ALL_TESTS [OFF]
+
+# Enables NEW tests (non-production) and ALL production tests
+# For these the test header is: #EXT_TEST TEST_FILE_MINVER NEW
+ENABLE_NEW_TESTS [OFF]
+
+#  Note: The NEW tests will be added only when SST_VERSION is DEV.
+#  This can be achieved two ways:
+#  1. sst executable points to a `devel` branch
+#     `cmake .. -DENABLE_NEW_TESTS=ON`
+#  2. Use the SST_VERSION override option
+#     `cmake .. -DENABLE_NEW_TESTS=ON` -DSST_OVERRIDE=DEV
 
 # Individual suites by ENABLE_ALL_TESTS=ON
 ENABLE_CLI_TESTS [OFF]
@@ -36,12 +47,6 @@ ENABLE_MPI_TESTS [OFF]
 ENABLE_CORE_CHKPT_TESTS [OFF]
 
 ```
-
-To run fast test suite use:
-```
-ctest -LE LONG
-```
-
 
 ## Test Format
 
@@ -69,6 +74,10 @@ These are outlined as follows:
 If either the minimum or maximum version number is omitted then that constraint is not used in test selection.
 For example, to select all versions of SST starting at 13.1, set the minimum version to 13.1 and 
 omit the maximum version. To select only version 13.1, select both min and max to 13.1.
+
+Special cases
+- `#EXT_TEST TEST_FILE_MINVER NEW: These tests will be included only when using -DENABLE_NEW_TESTS=ON`
+- Unrecognized strings for TEST_FILE_MINVER results in automatic inclusions for all SST versions.
 
 Optional metadata elements include:
 - `#EXT_TEST DEP "COMP1 COMP2"`     : where within the quotes is a list of components

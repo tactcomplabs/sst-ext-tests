@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_MINVER NEW
 #EXT_TEST TEST_FILE_DESC "Tests using sigalrm with restart (i.e. load checkpoint)"
 # 
 # 0) launch sst to generate the checkpoint

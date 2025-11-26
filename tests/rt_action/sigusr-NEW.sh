@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_MINVER NEW
 #EXT_TEST TIMEOUT 90
 #EXT_TEST TEST_FILE_DESC "Tests sigusr1/2 for single real time actions"
 # 

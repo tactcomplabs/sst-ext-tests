@@ -1,10 +1,7 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER 15.1
-#EXT_TEST TEST_FILE_DESC "Replay session using SST command line option"
+#EXT_TEST TEST_FILE_MINVER NEW
+#EXT_TEST TEST_FILE_DESC "Walk through help commands"
 #EXT_TEST TIMEOUT 30
-
-# This test will enter interactive mode and replay session
-# from an external file provided by SST command line option
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
 set -uo pipefail
@@ -18,28 +15,37 @@ CLEANUP=1
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG="../rt_action/test_Checkpoint.py"
-PSTR="c7 finished. teststring=HelloMyNameIsC7AndICannotQuoteAString"
+CONFIG="dbgsst15.py"
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
 CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
-cat << EOF > $CMDFILE
-ls
-cd c7
-ls
-set test_string HelloMyNameIsC7AndICannotQuoteAString
-print test_string
-quit
-EOF
-
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --replay-file=$CMDFILE --interactive-console=sst.interactive.simpledebug --interactive-start=0s $CONFIG"
+LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
 $LAUNCH << EOF  | tee $LOGFILE
-quit
+help
+?
+help fubar
+help addtracevar
+help editing
+help history
+help print
+help printtrace
+help printwatchpoint
+help resettrace 
+help run
+help set
+help sethandler
+help trace
+help unwatch
+help verbose
+help watch
+help watchlist
+help watchpoints
+shutdown
 EOF
 
 retVal=$?
@@ -52,13 +58,13 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
+# Spot check
+PSTR='history \[N\]: list previous N instructions'
+grep -q "$PSTR" $LOGFILE
+if [ $? -ne 0 ]; then
+    echo "Error: String not found: $PSTR"
+    exit 1
 fi
-echo "Found pass string \"$PSTR\""
 
 # Cleanup output file on pass
 if [ $CLEANUP -eq 1 ]; then
@@ -67,4 +73,4 @@ fi
 
 wait
 echo "PASS"
-exit $retVal
+exit 0

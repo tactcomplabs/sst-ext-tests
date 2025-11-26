@@ -14,7 +14,7 @@ TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 CONFIG="test_Checkpoint.py"
 PREFIX="ckpt_${TNAME}"
-CKPT_DIR="$PREFIX/${PREFIX}_1_1000000000000/${PREFIX}_1_1000000000000.sstcpt"
+CKPT_DIR="$PREFIX/${PREFIX}_1_100000000000/${PREFIX}_1_100000000000.sstcpt"
 CLEANUP=1
 
 
@@ -31,7 +31,7 @@ if [[ -f $OUTFILE ]]; then
   rm $OUTFILE
 fi
 
-LAUNCH="sst --checkpoint-prefix=$PREFIX --checkpoint-sim-period=1s --heartbeat-period=2s  $CONFIG"
+LAUNCH="sst --checkpoint-prefix=$PREFIX --checkpoint-sim-period=100ms --heartbeat-period=1s  $CONFIG"
 echo $LAUNCH
 $LAUNCH > $OUTFILE 2>&1
 retVal=$?
