@@ -65,7 +65,7 @@ p 6
 
 #TODO Invalid setting
 # set 5 0x10
-# CHECK_ 10 p 5\n5 = 1 \(bool\)
+# TODO check 10 p 5\n5 = 1 \(bool\)
 # p 5
 
 # Watch a vector bool bit
