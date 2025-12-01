@@ -79,7 +79,7 @@ fi
 
 # 1) Launch the program
 
-LAUNCH="sst --$sig=$action(interval=1s);$action2(interval=2s) --checkpoint-prefix=$PREFIX --add-lib-path=$SST_COMPONENT_BASE/tests/core-debug-components $CONFIG -- $OPTS"
+LAUNCH="sst --$sig=$action(interval=1s);$action2(interval=2s) --checkpoint-prefix=$PREFIX --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- $OPTS"
 echo $LAUNCH
 $LAUNCH > $OUTFILE 2>&1 
 
