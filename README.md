@@ -46,7 +46,50 @@ ENABLE_RTACTION_TESTS [OFF]
 ENABLE_MPI_TESTS [OFF]
 ENABLE_CORE_CHKPT_TESTS [OFF]
 
+# Enabling Valgrind testing (see additional details below)
+ENABLE_VALGRIND [OFF]
 ```
+
+## Valgrind Testing
+*SST-EXT-TESTS* provides an automated mechanism for executing tests using the 
+standard *Valgrind* memory checking tool.  Enabling valgrind testing requires 
+several additional packages and/or testing steps.  We outline these as follows:
+
+* *Valgrind* must be installed on the respective test system.  Use `dpkg install valgrind` 
+on RedHat/RedHat-clone systems, `apt-get install valgrind` on Ubuntu systems and 
+`brew install valgrind` on MacOS systems
+* The *SST-EXT-TESTS* scripts directory *MUST* be first in your default `PATH`. 
+The top-level `CMakeLists.txt` will automatically discover the SST executables 
+and construct wrapper scripts for your respective environment to run each 
+executable using *Valgrind*.  You can set the correct environment path using: 
+```
+cd scripts
+export PATH=`pwd`:$PATH
+```
+* *Valgrind* has a large number of potential runtime options.  These options can 
+be specified on the command line or via a standard `rc` file.  We highly 
+recommend that users/developers utilize a standard `rc` file methodology 
+in order to ensure that all testing is performed in a homogeneous manner.  
+TCL currently utilizes the `rc` listed below for all *SST-EXT-TESTS* Valgrind 
+efforts.  This file is placed in your home directory at `~/.valgrindrc`.
+
+Sample `.valgrindrc` file:
+```
+--trace-children=yes
+--leak-check=full
+--show-leak-kinds=all
+--track-origins=yes
+--partial-loads-ok=no
+--redzone-size=2048
+--malloc-fill=88
+--free-fill=cc
+--freelist-vol=10000000000
+--expensive-definedness-checks=yes
+--log-file=valgrind-out.txt
+```
+* Finally, be aware that enabling the *Valgrind* testing will *significantly* 
+increase the time required to run the tests.  The default timeout values for 
+each test are increased by `10X`.
 
 ## Test Format
 

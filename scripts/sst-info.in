@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# Wrapper to execute SST-INFO using Valgrind
+#
+#
+
+SSTINFO_BIN="@SSTINFO@"
+EXE="valgrind $SSTINFO_BIN"
+
+if ! command -v valgrind &> /dev/null; then
+  echo "Error: valgrind executable not found" >&2
+  echo "Please install valgrind to continue" >&2
+  exit 1
+fi
+
+$EXE $@
+exit $?

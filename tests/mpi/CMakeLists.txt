@@ -42,6 +42,10 @@ foreach(testSrc ${TEST_SRCS_TARGET_VER})
 
   message(STATUS "Dep Check ${testSrc} = ${EXT_TEST_CHECK}")
 
+  if (SST_VALGRIND)
+    message(STATUS "Disabling Valgrind for MPI test=${testSrc}")
+  endif()
+
   # Add the tests for execution
   if( "${EXT_TEST_CHECK}" STREQUAL "RUN" )
     add_test(NAME ${testName}
