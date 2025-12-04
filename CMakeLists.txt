@@ -139,11 +139,11 @@ else()
   # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wmissing-format-attribute -Wsuggest-final-methods -Wsuggest-final-types -Wvolatile")
   # -Wvolatile not recognized on sst-core-rocky88-gcc85-openmpi4.6
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wmissing-format-attribute -Wsuggest-final-methods -Wsuggest-final-types")
-  
 endif()
 
 option(ENABLE_VALGRIND "Enable testing with Valgrind" OFF)
 if (ENABLE_VALGRIND)
+  message(STATUS "Valgrind test execution enabled.  Increasing test timeout by 10X")
   set(SST_VALGRIND ON)
   find_package(Valgrind)
   if (VALGRIND_FOUND)
@@ -169,6 +169,9 @@ configure_file( "${CMAKE_SOURCE_DIR}/scripts/sst-config.in"
                 @ONLY)
 configure_file( "${CMAKE_SOURCE_DIR}/scripts/sst-info.in"
                 "${CMAKE_SOURCE_DIR}/scripts/sst-info"
+                @ONLY)
+configure_file( "${CMAKE_SOURCE_DIR}/scripts/valgrind_ctest.in"
+                "${CMAKE_SOURCE_DIR}/scripts/valgrind_ctest"
                 @ONLY)
 
 set(LDFLAGS "${SST_LDFLAGS}")

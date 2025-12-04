@@ -58,13 +58,11 @@ several additional packages and/or testing steps.  We outline these as follows:
 * *Valgrind* must be installed on the respective test system.  Use `dpkg install valgrind` 
 on RedHat/RedHat-clone systems, `apt-get install valgrind` on Ubuntu systems and 
 `brew install valgrind` on MacOS systems
-* The *SST-EXT-TESTS* scripts directory *MUST* be first in your default `PATH`. 
-The top-level `CMakeLists.txt` will automatically discover the SST executables 
-and construct wrapper scripts for your respective environment to run each 
-executable using *Valgrind*.  You can set the correct environment path using: 
+* Executing the tests must be performed using the generated `valgrind_ctest` 
+script in the `~/scripts` folder.  From the build directory, this will 
+be analogous to:
 ```
-cd scripts
-export PATH=`pwd`:$PATH
+../scripts/valgrind_ctest
 ```
 * *Valgrind* has a large number of potential runtime options.  These options can 
 be specified on the command line or via a standard `rc` file.  We highly 
@@ -76,8 +74,6 @@ efforts.  This file is placed in your home directory at `~/.valgrindrc`.
 Sample `.valgrindrc` file:
 ```
 --trace-children=yes
---leak-check=full
---show-leak-kinds=all
 --track-origins=yes
 --partial-loads-ok=no
 --redzone-size=2048
