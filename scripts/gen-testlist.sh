@@ -11,22 +11,23 @@
 #
 
 # Check for arguments
-if [ $# -eq 0 ]; then
+if [ $# -ne 2 ]; then
     echo "Error: No arguments provided"
-    echo "Usage: $0 <sst-version-number>"
+    echo "Usage: $0 <sst-version-number> <enable-new-tests[OFF|ON]>"
     exit 1
 fi
 
 testlist=""
 for f in *.sh; do
-  awk -v sstver=$1 -v dbg=0 '
+  awk -v sstver=$1 -v ennew=$2 -v dbg=0 '
     BEGIN { min=0.0; max=9999.0}
     /EXT_TEST TEST_FILE_MINVER/ {min=$3}
     /EXT_TEST TEST_FILE_MAXVER/ {max=$3}
     END { \
       rangeOK = sstver>=min && sstver<=max; \
       devOK = sstver=="DEV" && max>=999.0; \
-      rc = rangeOK || devOK ? 0 : 1; \
+      excluded = ennew=="OFF" && min=="NEW";  \
+      rc = ((rangeOK || devOK) && (!excluded)) ? 0 : 1; \
       if (dbg==1) {printf("sstver=%2.1f\tmin=%2.1f\tmax=%2.1f\trc=%d\n", sstver, min, max, rc)}; \
       exit(rc)}' $f
   if [ $? -eq 0 ]; then

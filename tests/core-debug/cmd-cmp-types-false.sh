@@ -2,8 +2,13 @@
 #EXT_TEST TEST_FILE_MINVER 15.1
 #EXT_TEST TEST_FILE_DESC "Test comparisons for different types: all false"
 #EXT_TEST TIMEOUT 30
-#
-# SST DEV: 
+
+# ensure non-zero exit code in pipe propagates and no unbound variables
+set -uo pipefail
+
+# --add-lib-path required for Jenkins runs (does not run 'make install')
+# Set default ensure failure if not set and component not installed
+SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
 
 # Settings
 CLEANUP=1
@@ -21,7 +26,7 @@ CHKFILE=$TNAME.chk
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
-$LAUNCH << EOF | tee $LOGFILE || exit 1
+$LAUNCH << EOF  | tee $LOGFILE
 cd cp0
 # bool
 watch v_bool != 1
@@ -250,16 +255,18 @@ if [ $retVal -ne 0 ]; then
 fi
 
 # Check that none of the tests evaluated to true and triggered
-for (( i=0; i<69; i++ )); do
-	PSTR="WP$i:"
-	grep "$PSTR" $LOGFILE > /dev/null
-	retVal=$?
-	if [ $retVal -eq 0 ]; then
-	  echo "ERROR found fail string in $LOGFILE \"$PSTR\""
-	  exit $retVal
-	else
-		echo "$PSTR ok"
-	fi
+for i in {0..68}; do
+    PSTR="WP$i:"
+    echo $PSTR
+    grep -q "$PSTR" $LOGFILE
+    retVal=$?
+    echo $retVal
+    if [ $retVal -eq 0 ]; then
+	echo "ERROR found fail string in $LOGFILE: \"$PSTR\""
+	exit 99
+    else
+	echo "$PSTR ok"
+    fi
 done
 
 # Cleanup output file on pass
@@ -269,4 +276,5 @@ fi
 
 wait
 echo "PASS"
-exit $retVal
+exit 0
+

@@ -8,8 +8,13 @@
 # 2) wait for completion
 # 3) check result
 
+# ensure non-zero exit code in pipe propagates and no unbound variables.
+set -uo pipefail
 
 # Settings
+SCRIPT_NAME=$(basename "$0")
+TNAME="${SCRIPT_NAME%.*}"
+echo "TESTNAME=$TNAME"
 SIG="sigalrm"
 ACTION="sst.rt.checkpoint"
 ACTION2="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat"
@@ -20,8 +25,18 @@ for sig in $SIG; do
   for action in $ACTION; do
     for action2 in $ACTION2; do
 
+OUTFILE=$TNAME.$action.$action2.out
+if [[ -f $OUTFILE ]]; then
+  rm $OUTFILE
+fi
+
 PREFIX="ckpt_$action2"
 echo $PREFIX
+# Remove stale checkpoint dir if needed
+if [[ -d $PREFIX ]]; then
+  echo "Removing stale checkpoint directory: $PREFIX"
+  rm -r $PREFIX
+fi
 
 #0 Get pass criterion
 PSTR="Simulation Checkpoint"
@@ -47,45 +62,50 @@ PSTR2="Simulation Checkpoint"
 fi
 
 # 1) Launch the program
-if [[ -f test.$sig.$action.$action2.out ]]; then
-  rm test.$sig.$action.$action2.out
-fi
 
-LAUNCH="sst --$sig='$action(interval=1s);$action2(interval=2s)' --checkpoint-prefix=$PREFIX $CONFIG"
+LAUNCH="sst --$sig=$action(interval=1s);$action2(interval=2s) --checkpoint-prefix=$PREFIX $CONFIG"
 echo $LAUNCH
-eval $LAUNCH > test.$sig.$action.$action2.out 2>&1 
+$LAUNCH > $OUTFILE 2>&1 
 
-# 2) wait for completion 
-wait
+# 2) wait for completion
 retVal=$?
-
-echo $sig=$action $action2 Complete
+echo $sig=$action $action2 Complete retVal $retVal
 
 # 3) Check result
 if [ $retVal -ne 0 ]; then
+  cat $OUTFILE
   echo "ERROR $sig=$action $action2 return code"
   exit $retVal
 fi
 
-grep "$PSTR" ./test.$sig.$action.$action2.out > /dev/null
+grep "$PSTR" $OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $sig=$action grep"
+  cat $OUTFILE
+  echo "ERROR did not find pass string in $OUTFILE: $PSTR"
   exit $retVal
 fi
 
-grep "$PSTR2" ./test.$sig.$action.$action2.out > /dev/null
+grep "$PSTR2" $OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $sig=$action2 grep"
+  cat $OUTFILE
+  echo "ERROR did not find pass string in $OUTFILE: $PSTR2"
   exit $retVal
+fi
+
+# Check that checkpoint files exist
+if [[ ! -d "$PREFIX" ]]; then
+  cat $OUTFILE
+  echo "ERROR checkpoint directory '$PREFIX' not found"
+  exit 255
 fi
 
 echo
 
 # Cleanup output files and directories
 if [ $CLEANUP -eq 1 ]; then
-  rm test.$sig.$action.$action2.out
+  rm $OUTFILE
   rm -r $PREFIX
 fi
 
@@ -95,9 +115,4 @@ done  # for $sig
 
 echo "PASS"
 exit $retVal
-
-
-
-
-
 
