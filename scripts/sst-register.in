@@ -5,7 +5,7 @@
 #
 
 SSTREGISTER_BIN="@SSTREGISTER@"
-EXE="valgrind $SSTREGISTER_BIN"
+EXE="valgrind --error-exitcode=99 $SSTREGISTER_BIN"
 
 if ! command -v valgrind &> /dev/null; then
   echo "Error: valgrind executable not found" >&2

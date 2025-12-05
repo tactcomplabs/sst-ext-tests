@@ -64,6 +64,14 @@ be analogous to:
 ```
 ../scripts/valgrind_ctest
 ```
+* The valgrind script explicitly sets the valgrind error exit code to 99
+(`valgrind --error-exitcode=99`).  This allows us to detect the difference 
+between a failed test or valgrind finding an issue.  If a test passes and 
+valgrind does not find an issue, the exit code will be 0.  If a test passes 
+but valgrind finds an issue, the return code will be `99`.  If the test fails 
+and valgrind finds an issue, the return code will be `99`.  If the test fails 
+and sends a non-zero return code, but valgrind does not find any errors, the return 
+code will be the non-zero code from the test.
 * *Valgrind* has a large number of potential runtime options.  These options can 
 be specified on the command line or via a standard `rc` file.  We highly 
 recommend that users/developers utilize a standard `rc` file methodology 

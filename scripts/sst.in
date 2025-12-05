@@ -5,7 +5,7 @@
 #
 
 SST_BIN="@SST@"
-EXE="valgrind $SST_BIN"
+EXE="valgrind --error-exitcode=99 $SST_BIN"
 
 if ! command -v valgrind &> /dev/null; then
   echo "Error: valgrind executable not found" >&2
