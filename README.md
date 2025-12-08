@@ -46,7 +46,54 @@ ENABLE_RTACTION_TESTS [OFF]
 ENABLE_MPI_TESTS [OFF]
 ENABLE_CORE_CHKPT_TESTS [OFF]
 
+# Enabling Valgrind testing (see additional details below)
+ENABLE_VALGRIND [OFF]
 ```
+
+## Valgrind Testing
+*SST-EXT-TESTS* provides an automated mechanism for executing tests using the 
+standard *Valgrind* memory checking tool.  Enabling valgrind testing requires 
+several additional packages and/or testing steps.  We outline these as follows:
+
+* *Valgrind* must be installed on the respective test system.  Use `dpkg install valgrind` 
+on RedHat/RedHat-clone systems, `apt-get install valgrind` on Ubuntu systems and 
+`brew install valgrind` on MacOS systems
+* Executing the tests must be performed using the generated `valgrind_ctest` 
+script in the `~/scripts` folder.  From the build directory, this will 
+be analogous to:
+```
+../scripts/valgrind_ctest
+```
+* The valgrind script explicitly sets the valgrind error exit code to 99
+(`valgrind --error-exitcode=99`).  This allows us to detect the difference 
+between a failed test or valgrind finding an issue.  If a test passes and 
+valgrind does not find an issue, the exit code will be 0.  If a test passes 
+but valgrind finds an issue, the return code will be `99`.  If the test fails 
+and valgrind finds an issue, the return code will be `99`.  If the test fails 
+and sends a non-zero return code, but valgrind does not find any errors, the return 
+code will be the non-zero code from the test.
+* *Valgrind* has a large number of potential runtime options.  These options can 
+be specified on the command line or via a standard `rc` file.  We highly 
+recommend that users/developers utilize a standard `rc` file methodology 
+in order to ensure that all testing is performed in a homogeneous manner.  
+TCL currently utilizes the `rc` listed below for all *SST-EXT-TESTS* Valgrind 
+efforts.  This file is placed in your home directory at `~/.valgrindrc`.
+
+Sample `.valgrindrc` file:
+```
+--trace-children=yes
+--track-origins=yes
+--partial-loads-ok=no
+--redzone-size=2048
+--malloc-fill=88
+--free-fill=cc
+--freelist-vol=10000000000
+--expensive-definedness-checks=yes
+--log-file=valgrind-out.txt
+```
+* Finally, be aware that enabling the *Valgrind* testing will *significantly* 
+increase the time required to run the tests.  The default timeout values for 
+each test are increased by `10X`.
 
 ## Test Format
 

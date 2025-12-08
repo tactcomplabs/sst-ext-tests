@@ -10,7 +10,12 @@
 
 set(TEST_FILE_EXT "sh")
 set(passRegex "PASS")
-set(timeout "60")
+
+if (SST_VALGRIND)
+  set(timeout "600")
+else()
+  set(timeout "60")
+endif()
 
 #-- Test files supporting current sst version
 execute_process(COMMAND ${EXT_TEST_LIST_COMMAND} ${SST_VERSION} ${ENABLE_NEW_TESTS}
@@ -43,7 +48,15 @@ foreach(testSrc ${TEST_SRCS_TARGET_VER})
                 OUTPUT_STRIP_TRAILING_WHITESPACE
                 ERROR_QUIET
   )
- 
+
+  if (SST_VALGRIND)
+    if(${EXT_TEST_TIMEOUT} EQUAL 0)
+      set(EXT_TEST_TIMEOUT ${timeout})
+    else()
+      math(EXPR EXT_TEST_TIMEOUT "${EXT_TEST_TIMEOUT} * 10")
+    endif()
+  endif()
+
   # Add the tests for execution
   if( "${EXT_TEST_CHECK}" STREQUAL "RUN" )
     add_test(NAME ${testName}
