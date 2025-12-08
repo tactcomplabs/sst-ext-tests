@@ -138,7 +138,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # Simulation Complete
-PSTR="Simulation is complete"
+PSTR="Simulation is complete, simulated time: 0 s"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then

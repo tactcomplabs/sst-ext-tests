@@ -267,6 +267,16 @@ for (( i=0; i<69; i++ )); do
 	fi
 done
 
+PSTR="Simulation is complete, simulated time: 0 s"
+grep -q "$PSTR" $LOGFILE
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+
 # Cleanup output file on pass
 if [ $CLEANUP -eq 1 ]; then
   rm -f $LOGFILE $OUTFILE $CMDFILE

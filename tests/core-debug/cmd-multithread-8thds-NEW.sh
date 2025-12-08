@@ -17,7 +17,7 @@ CLEANUP=1
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG="dbgsst15.py"
+CONFIG="test_Checkpoint_4ms.py"
 PSTR=""
 
 LOGFILE=$TNAME.log
@@ -26,19 +26,29 @@ CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst -n 2 --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
+LAUNCH="sst -n 8 --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
 $LAUNCH 2>&1 << EOF | tee $LOGFILE || exit 1
-info current
 info all
+info current
 thread 1
 info current
-thread 0
-cd cp0
-watch size changed
+thread 2
+info current
+thread 3
+info current
+thread 4
+info current
+thread 5
+info current
+thread 6
+info current
+thread 7
+info current
+cd c7
+watch output_frequency == 1
 run
-unwatch 0
-run
+shutdown
 EOF
 
 retVal=$?
@@ -60,7 +70,6 @@ fi
 #fi
 #echo "Log file matches check file"
 
-# Need one for each action
 # Interactive
 PSTR="Entering interactive mode at time 0"
 grep "$PSTR" $LOGFILE > /dev/null
@@ -71,7 +80,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-PSTR="Rank 0/1, Thread 0/2 (Process"
+# info all
+PSTR="Rank:0 Thread:7 -- Component Summary"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -80,8 +90,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# printTrace
-PSTR="cp0"
+# thread curent for threads 0-7
+PSTR="Rank 0/1, Thread 0/8"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -90,8 +100,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# printStatus
-PSTR="Rank 0/1, Thread 1/2 (Process"
+PSTR="Rank 0/1, Thread 1/8"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -100,8 +109,62 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-#set
-PSTR="cp1"
+PSTR="Rank 0/1, Thread 2/8"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+PSTR="Rank 0/1, Thread 3/8"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+PSTR="Rank 0/1, Thread 4/8"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+PSTR="Rank 0/1, Thread 5/8"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+PSTR="Rank 0/1, Thread 6/8"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+PSTR="Rank 0/1, Thread 7/8"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# watch
+PSTR="Added watchpoint #0"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -111,7 +174,16 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # shutdown
-PSTR="Entering interactive mode at time 1000000"
+PSTR="Rank 0/1, Thread 7/8"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+PSTR="Rank:0/1 Thread:0/8 (Not Triggered)"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -121,7 +193,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # Simulation Complete
-PSTR="Simulation is complete, simulated time: 10 us"
+PSTR="Simulation is complete, simulated time: 0 s"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
