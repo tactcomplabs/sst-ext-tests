@@ -6,10 +6,13 @@ cd $WORKSPACE || exit 2
 
 echo "---> $0 Started in $PWD"
 
+#-- unique to target
+export SST_INSTALL=/Users/builduser/jenkins/install/sst-$BRANCH-macos26.1-clang17.0-EXP
+
+#-- common
 export TERM=linux
 export CC=clang
 export CXX=clang++
-export SST_INSTALL=/Users/builduser/jenkins/install/sst-$BRANCH-macos26.1-clang17.0
 export PATH=/opt/homebrew/bin:/opt/homebrew/opt/libtool/libexec/gnubin:$PATH
 
 echo "REPO=$REPO"
