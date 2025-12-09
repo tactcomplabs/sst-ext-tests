@@ -29,6 +29,7 @@ endif()
 
 # Minimum required version of CMake and project information
 cmake_minimum_required(VERSION 3.19)
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/")
 project(sst-ext-tests CXX)
 
 # SST Configuration Sanity Check
@@ -138,8 +139,40 @@ else()
   # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wmissing-format-attribute -Wsuggest-final-methods -Wsuggest-final-types -Wvolatile")
   # -Wvolatile not recognized on sst-core-rocky88-gcc85-openmpi4.6
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wmissing-format-attribute -Wsuggest-final-methods -Wsuggest-final-types")
-  
 endif()
+
+option(ENABLE_VALGRIND "Enable testing with Valgrind" OFF)
+if (ENABLE_VALGRIND)
+  message(STATUS "Valgrind test execution enabled.  Increasing test timeout by 10X")
+  set(SST_VALGRIND ON)
+  find_package(Valgrind)
+  if (VALGRIND_FOUND)
+    message(STATUS "Enabling Valgrind tests using: ${Valgrind_EXECUTABLE}")
+  else()
+    message(STATUS "Valgrind not found.") 
+  endif()
+endif()
+
+# -- setup override files
+find_program(SST NAMES "sst")
+find_program(SSTREGISTER NAMES "sst-register")
+find_program(SSTCONFIG NAMES "sst-config")
+find_program(SSTINFO NAMES "sst-info")
+configure_file( "${CMAKE_SOURCE_DIR}/scripts/sst.in"
+                "${CMAKE_SOURCE_DIR}/scripts/sst"
+                @ONLY)
+configure_file( "${CMAKE_SOURCE_DIR}/scripts/sst-register.in"
+                "${CMAKE_SOURCE_DIR}/scripts/sst-register"
+                @ONLY)
+configure_file( "${CMAKE_SOURCE_DIR}/scripts/sst-config.in"
+                "${CMAKE_SOURCE_DIR}/scripts/sst-config"
+                @ONLY)
+configure_file( "${CMAKE_SOURCE_DIR}/scripts/sst-info.in"
+                "${CMAKE_SOURCE_DIR}/scripts/sst-info"
+                @ONLY)
+configure_file( "${CMAKE_SOURCE_DIR}/scripts/valgrind_ctest.in"
+                "${CMAKE_SOURCE_DIR}/scripts/valgrind_ctest"
+                @ONLY)
 
 set(LDFLAGS "${SST_LDFLAGS}")
 

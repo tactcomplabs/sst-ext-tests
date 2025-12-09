@@ -12,7 +12,12 @@
 
 set(TEST_FILE_EXT "py")
 set(passRegex "Simulation is complete")
-set(timeout "60")
+
+if (SST_VALGRIND)
+  set(timeout "600")
+else()
+  set(timeout "60")
+endif()
 
 #-- SST Enabled Minimum Test Versions
 file(GLOB TEST_SRCS_TARGET_VER RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *-MIN${SST_VERSION}.${TEST_FILE_EXT})
@@ -26,6 +31,9 @@ foreach(testSrc ${TEST_SRCS_TARGET_VER})
                 OUTPUT_STRIP_TRAILING_WHITESPACE
 		ERROR_QUIET
   )
+  message(STATUS "Dep Check ${testSrc} = ${EXT_TEST_CHECK}")
+
+  # Get timeout setting
   execute_process(COMMAND ${EXT_TEST_TIMEOUT_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/${testSrc}
                 OUTPUT_VARIABLE EXT_TEST_TIMEOUT
                 RESULT_VARIABLE EXT_TEST_RTN
@@ -33,7 +41,13 @@ foreach(testSrc ${TEST_SRCS_TARGET_VER})
                 ERROR_QUIET
   )
 
-  message(STATUS "Dep Check ${testSrc} = ${EXT_TEST_CHECK}")
+  if (SST_VALGRIND)
+    if(${EXT_TEST_TIMEOUT} EQUAL 0)
+      set(EXT_TEST_TIMEOUT ${timeout})
+    else()
+      math(EXPR EXT_TEST_TIMEOUT "${EXT_TEST_TIMEOUT} * 10")
+    endif()
+  endif()
 
   # Add the tests for execution
   if( "${EXT_TEST_CHECK}" STREQUAL "RUN" )

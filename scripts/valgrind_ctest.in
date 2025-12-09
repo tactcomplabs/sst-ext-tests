@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+# Wrapper to execute CTEST using Valgrind
+#
+#
+
+export PATH="@CMAKE_SOURCE_DIR@/scripts:$PATH"
+ctest --output-on-failure
+
+exit $?
