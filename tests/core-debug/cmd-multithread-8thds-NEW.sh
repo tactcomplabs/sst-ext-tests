@@ -26,7 +26,7 @@ CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst -n 8 --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
+LAUNCH="sst -n 8 --interactive-start=0s $CONFIG"
 echo $LAUNCH
 $LAUNCH 2>&1 << EOF | tee $LOGFILE || exit 1
 info all
@@ -81,7 +81,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # info all
-PSTR="Rank:0 Thread:7 -- Component Summary"
+PSTR="Rank:0 Thread:7 (Process"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
