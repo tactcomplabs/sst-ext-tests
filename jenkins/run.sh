@@ -17,7 +17,6 @@ echo "BUILDNAME=$BUILDNAME"
 echo "WORKSPACE=$WORKSPACE"
 cd $WORKSPACE || exit 2
 
-#-- common
 export TERM=linux
 
 #-- environment feedback
@@ -27,7 +26,6 @@ echo "CC=$CC"
 echo "CXX=$CXX"
 $CXX --version
 echo "LDFLAGS=$LDFLAGS"
-echo "CLANG_FORMAT_EXE=$CLANG_FORMAT_EXE"
 
 echo "REPO=$REPO"
 echo "BRANCH=$BRANCH"
@@ -37,6 +35,7 @@ echo "HEADERCHECK=$HEADERCHECK"
 echo "EXTTEST=$EXTTEST"
 echo "DEBUG=$DEBUG"
 echo "CLANGFORMAT=$CLANGFORMAT"
+echo "CLANG_FORMAT_EXE=$CLANG_FORMAT_EXE"
 echo "SST_TEST_CORE=$SST_TEST_CORE"
 if [ $SANITIZER = true ] && [ $VALGRIND = true ]; then
 	echo "SANITIZER and VALGRIND are mutually exclusive. Using SANITIZER only"
@@ -48,7 +47,7 @@ echo "VALGRIND=$VALGRIND"
 #-- SST
 rm -Rf $SST_INSTALL/*
 if [ "$CLANGFORMAT" = true ]; then
-	./scripts/clang-format-test.sh --format-exe /opt/homebrew/opt/llvm@20/bin/clang-format
+	./scripts/clang-format-test.sh --format-exe "${CLANG_FORMAT_EXE}"
 fi
 ./autogen.sh
 if [ "$DEBUG" = true ]; then
