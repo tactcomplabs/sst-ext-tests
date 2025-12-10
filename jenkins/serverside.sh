@@ -10,6 +10,8 @@
 #-- Customize these environment variables for each target
 export SST_INSTALL=/Users/builduser/jenkins/install/sst-$BRANCH-macos26.1-clang17.0-EXP
 export PATH=/opt/homebrew/bin:/opt/homebrew/opt/libtool/libexec/gnubin:$PATH
+export CC=clang
+export CXX=clang++
 
 ###
 ### DO NOT EDIT BELOW THIS LINE
