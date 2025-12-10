@@ -17,9 +17,6 @@ echo "BUILDNAME=$BUILDNAME"
 echo "WORKSPACE=$WORKSPACE"
 cd $WORKSPACE || exit 2
 
-echo "clang --version"
-clang --version
-
 #-- common
 export TERM=linux
 
@@ -28,6 +25,8 @@ echo "SST_INSTALL=$SST_INSTALL"
 echo "PATH=$PATH"
 echo "CC=$CC"
 echo "CXX=$CXX"
+$CXX --version
+
 echo "REPO=$REPO"
 echo "BRANCH=$BRANCH"
 echo "EXTTESTBRANCH=$EXTTESTBRANCH"
