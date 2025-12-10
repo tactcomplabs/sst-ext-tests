@@ -21,7 +21,7 @@
 #pragma GCC diagnostic ignored "-Wdouble-promotion"
 #pragma GCC diagnostic ignored "-Wsign-conversion"
 
-#if defined( __GNUC__ ) && !defined( __clang__ )
+#if defined(__GNUC__) && !defined(__clang__)
 #pragma GCC diagnostic ignored "-Wconversion"
 #pragma GCC diagnostic ignored "-Wsuggest-final-methods"
 #pragma GCC diagnostic ignored "-Wsuggest-final-types"
