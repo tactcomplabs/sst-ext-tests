@@ -26,6 +26,8 @@ echo "PATH=$PATH"
 echo "CC=$CC"
 echo "CXX=$CXX"
 $CXX --version
+echo "LDFLAGS=$LDFLAGS"
+echo "CLANG_FORMAT_EXE=$CLANG_FORMAT_EXE"
 
 echo "REPO=$REPO"
 echo "BRANCH=$BRANCH"

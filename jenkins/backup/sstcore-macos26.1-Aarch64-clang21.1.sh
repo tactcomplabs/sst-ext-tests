@@ -1,8 +1,9 @@
 #-- use the built-in script to run
 export TERM=linux
-export CC=/opt/homebrew/opt/llvm@20/bin/clang
-export CXX=/opt/homebrew/opt/llvm@20/bin/clang++
-export SST_INSTALL=/Users/builduser/jenkins/install/sst-$BRANCH-macos15.3.1-clang20.0
+export CC=/opt/homebrew/Cellar/llvm/21.1.6/bin/clang
+export CXX=/opt/homebrew/Cellar/llvm/21.1.6/bin/clang++
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib/c++ -L/opt/homebrew/opt/llvm/lib/unwind -lunwind"
+export SST_INSTALL=/Users/builduser/jenkins/install/sst-$BRANCH-macos26.1-clang21.1
 export PATH=/opt/homebrew/bin:/opt/homebrew/opt/libtool/libexec/gnubin:$PATH
 rm -Rf $SST_INSTALL/*
 if [ "$CLANGFORMAT" = true ]; then

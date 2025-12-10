@@ -12,6 +12,7 @@ export SST_INSTALL=/Users/builduser/jenkins/install/sst-$BRANCH-macos26.1-clang1
 export PATH=/opt/homebrew/bin:/opt/homebrew/opt/libtool/libexec/gnubin:$PATH
 export CC=clang
 export CXX=clang++
+export CLANG_FORMAT_EXE=/opt/homebrew/opt/llvm@20/bin/clang-format
 
 ###
 ### DO NOT EDIT BELOW THIS LINE
