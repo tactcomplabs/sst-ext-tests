@@ -47,6 +47,7 @@ echo "VALGRIND=$VALGRIND"
 #-- SST
 rm -Rf $SST_INSTALL/*
 if [ "$CLANGFORMAT" = true ]; then
+	ls
 	./scripts/clang-format-test.sh --format-exe "${CLANG_FORMAT_EXE}"
 fi
 ./autogen.sh
