@@ -11,6 +11,7 @@
 #include "dbgsst15.h"
 
 #include <chrono>
+#include <sstream>
 #include <thread>
 
 namespace SSTDEBUG::DbgSST15 {

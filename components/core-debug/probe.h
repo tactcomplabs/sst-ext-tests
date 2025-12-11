@@ -14,8 +14,11 @@
 
 // -- Standard Headers
 #include <assert.h>
+#include <cstddef>
+#include <cstdint>
 #include <iostream>
 #include <map>
+#include <memory>
 #include <netinet/in.h>
 #include <sstream>
 #include <stdexcept>

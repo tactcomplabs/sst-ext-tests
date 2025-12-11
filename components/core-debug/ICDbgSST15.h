@@ -12,12 +12,14 @@
 #ifndef INTERACTIVE_CONSOLE_DEBUG_SST15_H
 #define INTERACTIVE_CONSOLE_DEBUG_SST15_H
 
+#include <string>
+#include <vector>
+
+// clang-format off
 #include "SST.h"
-// #include "sst/core/eli/elementinfo.h"
-// #include <sst/core/watchPoint.h>
-// #include <sst/core/interactiveConsole.h>
-// #include "sst/core/serialization/objectMapDeferred.h"
 #include "probe.h"
+// clang-format on
+
 using namespace SSTDEBUG::Probe;
 
 namespace SST::ICDbgSST15 {

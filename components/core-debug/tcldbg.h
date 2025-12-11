@@ -9,6 +9,7 @@
 #define _TCLDBG_H
 
 #include <iostream>
+#include <ostream>
 #include <unistd.h>
 
 namespace tcldbg {

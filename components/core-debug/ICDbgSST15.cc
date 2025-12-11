@@ -11,6 +11,9 @@
 
 #include "ICDbgSST15.h"
 
+#include <cstdio>
+#include <iostream>
+
 namespace SST::ICDbgSST15 {
 
 ICDebugSST15::ICDebugSST15(Params& UNUSED(params)) :
