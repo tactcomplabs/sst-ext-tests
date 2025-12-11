@@ -12,10 +12,13 @@
 # 2. Run it
 #    run.sh
 
+# ensure non-zero exit code in pipe will propagate
+set -o pipefail
+
 echo "---> $0 Started in $PWD"
-echo "BUILDNAME=$BUILDNAME"
+echo "JOB_BASE_NAME=$JOB_BASE_NAME"
 echo "WORKSPACE=$WORKSPACE"
-cd $WORKSPACE || exit 2
+cd $WORKSPACE || exit 1
 
 export TERM=linux
 
@@ -24,9 +27,9 @@ echo "SST_INSTALL=$SST_INSTALL"
 echo "PATH=$PATH"
 echo "CC=$CC"
 echo "CXX=$CXX"
-$CXX --version
-echo "LDFLAGS=$LDFLAGS"
+$CXX --version || exit 2
 
+echo "LDFLAGS=$LDFLAGS"
 echo "REPO=$REPO"
 echo "BRANCH=$BRANCH"
 echo "EXTTESTBRANCH=$EXTTESTBRANCH"
@@ -56,9 +59,9 @@ fi
 rm -Rf $SST_INSTALL/*
 if [ "$CLANGFORMAT" = true ]; then
 	# TODO since sst-ext-bench is in this directory it needs to be clang format clean or ignored.
-	./scripts/clang-format-test.sh --format-exe "${CLANG_FORMAT_EXE}"
+	./scripts/clang-format-test.sh --format-exe "${CLANG_FORMAT_EXE}" || exit 10
 fi
-./autogen.sh
+./autogen.sh || exit 3
 if [ "$DEBUG" = true ]; then
     export DBGFLAGS="--enable-debug"
     export CXXFLAGS="-O0 -g"
@@ -69,36 +72,36 @@ if [ "$SANITIZER" = true ]; then
     export CXXFLAGS="${CXX_FLAGS} -g -fsanitize=address -fno-omit-frame-pointer"
     export EXTTESTASAN="-DSST_ASAN=ON"
 fi
-./configure --prefix=$SST_INSTALL $DBGFLAGS ${DISABLE_MPI}
+./configure --prefix=$SST_INSTALL $DBGFLAGS ${DISABLE_MPI} || exit 11
 if [ "$HEADERCHECK" = true ] ; then
-	./scripts/test-includes.pl
+	./scripts/test-includes.pl || exit 20
 fi
-make -j4
-make install
+make -j4 || exit 30
+make install || exit 31
 export PATH=$PATH:$SST_INSTALL/bin
 
 #-- Run SST tests
 if [ "$SST_TEST_CORE" = true ]; then
-	which sst-test-core
-	sst-test-core
+	which sst-test-core || exit 40
+	sst-test-core || exit 41
 fi
 
 #-- Run EXT tests
 if [ "$EXTTEST" = true ] ; then
-	cd sst-ext-tests || exit 2
-	mkdir build || exit 3
-	cd build || exit 4
+	cd sst-ext-tests || exit 50
+	mkdir build || exit 51
+	cd build || exit 52
 	if [ "$VALGRIND" = false ]; then
-	    cmake -DENABLE_ALL_TESTS=ON $EXTTESTASAN $EXTTESTARGS ../
+	    cmake -DENABLE_ALL_TESTS=ON $EXTTESTASAN $EXTTESTARGS ../ || exit 53
 	else
-    	cmake -DENABLE_ALL_TESTS=ON -DENABLE_VALGRIND=ON $EXTTESTARGS ../
+    	cmake -DENABLE_ALL_TESTS=ON -DENABLE_VALGRIND=ON $EXTTESTARGS ../ || exit 54
 	fi
 	export SST_COMPONENT_BASE=`pwd`
-	make
+	make || exit 55
 	if [ "$VALGRIND" = false ]; then
-	    make test || ctest --rerun-failed --output-on-failure
+	    make test || ctest --rerun-failed --output-on-failure || exit 56
 	else
-    	../scripts/valgrind_ctest
+    	../scripts/valgrind_ctest || exit 60
 	fi
 fi
 
