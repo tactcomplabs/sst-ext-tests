@@ -44,6 +44,14 @@ fi
 echo "SANITIZER=$SANITIZER"
 echo "VALGRIND=$VALGRIND"
 
+if [[ "$(uname)" != "Darwin" ]]; then
+	# detect_leaks is not supported on Mac
+	export ASAN_OPTIONS=detect_leaks=0
+else
+	# currently not running MPI on Mac
+	export DISABLE_MPI="--disable-mpi"
+fi
+
 #-- SST
 rm -Rf $SST_INSTALL/*
 if [ "$CLANGFORMAT" = true ]; then
@@ -60,12 +68,8 @@ fi
 if [ "$SANITIZER" = true ]; then
     export CXXFLAGS="${CXX_FLAGS} -g -fsanitize=address -fno-omit-frame-pointer"
     export EXTTESTASAN="-DSST_ASAN=ON"
-	if [[ "$(uname)" != "Darwin" ]]; then
-		# detect_leaks is not supported on Mac
-		export ASAN_OPTIONS=detect_leaks=0
-	fi
 fi
-./configure --prefix=$SST_INSTALL $DBGFLAGS --disable-mpi
+./configure --prefix=$SST_INSTALL $DBGFLAGS ${DISABLE_MPI}
 if [ "$HEADERCHECK" = true ] ; then
 	./scripts/test-includes.pl
 fi
