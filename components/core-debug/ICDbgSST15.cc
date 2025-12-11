@@ -13,129 +13,128 @@
 
 namespace SST::ICDbgSST15 {
 
-ICDebugSST15::ICDebugSST15(Params &UNUSED(params)) : InteractiveConsole() {
-  // registerAsPrimaryComponent();
+ICDebugSST15::ICDebugSST15(Params& UNUSED(params)) :
+    InteractiveConsole()
+{
+    // registerAsPrimaryComponent();
 }
 
-void ICDebugSST15::execute(const std::string &msg) {
-  printf("Test Interactive Console. Does nothing but provide help and quit\n");
-  printf("Entering interactive mode at time %" PRI_SIMTIME " \n",
-         getCurrentSimCycle());
-  printf("%s\n", msg.c_str());
-  if (nullptr == obj_) {
-    obj_ = getComponentObjectMap();
-  }
-  done = false;
+void
+ICDebugSST15::execute(const std::string& msg)
+{
+    printf("Test Interactive Console. Does nothing but provide help and quit\n");
+    printf("Entering interactive mode at time %" PRI_SIMTIME " \n", getCurrentSimCycle());
+    printf("%s\n", msg.c_str());
+    if ( nullptr == obj_ ) {
+        obj_ = getComponentObjectMap();
+    }
+    done = false;
 
-  std::string line;
-  while (!done) {
-    printf("> ");
-    std::getline(std::cin, line);
-    dispatch_cmd(line);
-  }
+    std::string line;
+    while ( !done ) {
+        printf("> ");
+        std::getline(std::cin, line);
+        dispatch_cmd(line);
+    }
 }
 
 // Functions for the Explorer
 
 std::vector<std::string>
-ICDebugSST15::tokenize(std::vector<std::string> &tokens,
-                       const std::string &input) {
-  std::istringstream iss(input);
-  std::string token;
+ICDebugSST15::tokenize(std::vector<std::string>& tokens, const std::string& input)
+{
+    std::istringstream iss(input);
+    std::string        token;
 
-  while (iss >> token) {
-    tokens.push_back(token);
-  }
+    while ( iss >> token ) {
+        tokens.push_back(token);
+    }
 
-  return tokens;
+    return tokens;
 }
 
-void ICDebugSST15::cmd_help(std::vector<std::string> &UNUSED(tokens)) {
-  std::string help = "Interactive Console Debugger Commands\n";
-  help.append("  Navigation: Navigate the current object map\n");
-  help.append(
-      "   - pwd: print the current working directory in the object map\n");
-  help.append("   - cd: change directory level in the object map\n");
-  help.append(
-      "   - ls: list the objects in the current level of the object map\n");
+void
+ICDebugSST15::cmd_help(std::vector<std::string>& UNUSED(tokens))
+{
+    std::string help = "Interactive Console Debugger Commands\n";
+    help.append("  Navigation: Navigate the current object map\n");
+    help.append("   - pwd: print the current working directory in the object map\n");
+    help.append("   - cd: change directory level in the object map\n");
+    help.append("   - ls: list the objects in the current level of the object map\n");
 
-  help.append("  Current State: Print information about the current simulation "
-              "state\n");
-  help.append("   - time: print current simulation time in cycles\n");
-  help.append("   - print [-rN][<obj>]: print objects in the current level of "
-              "the object map;\n");
-  help.append("                         if -rN is provided print recursive N "
-              "levels (default N=4)\n");
+    help.append("  Current State: Print information about the current simulation "
+                "state\n");
+    help.append("   - time: print current simulation time in cycles\n");
+    help.append("   - print [-rN][<obj>]: print objects in the current level of "
+                "the object map;\n");
+    help.append("                         if -rN is provided print recursive N "
+                "levels (default N=4)\n");
 
-  help.append("  Modify State: Modify simulation variables\n");
-  help.append("   - set <obj> <value>: sets an object in the current scope to "
-              "the provided value;\n");
-  help.append("                        object must be a \"fundamental type\" "
-              "e.g. int \n");
-  help.append("\n");
-  help.append("  Watchpoints: Manage watchpoints (with or without tracing)\n");
-  help.append("                A <trigger> can be a <comparison> or a sequence "
-              "of comparisons combined with a <logicOp>\n");
-  help.append("                E.g. <trigger> = <comparison> or <comparison1> "
-              "<logicOp> <comparison2> ...\n");
-  help.append("                A <comparision> can be \"<var> changed\" which "
-              "checks whether the value has changed\n");
-  help.append("                or \"<var> <comp> <val>\" which compares the "
-              "variable to a given value\n");
-  help.append("                A <comp> can be <, <=, >, >=, ==, or !=\n");
-  help.append("                A <logicOp> can be && or ||\n");
-  help.append("                \"watch\" creates a default watchpoint that "
-              "breaks into an interactive console when triggered\n");
-  help.append("                \"trace\" creates a watchpoint with a trace "
-              "buffer to trace a set of variables and trigger an <action>\n");
-  help.append("                Available actions include: interactive, "
-              "printTrace, checkpoint, set, or printStatus\n");
-  help.append("   - watch <trigger>: adds watchpoint to the watchlist; breaks "
-              "into interactive console when triggered\n");
-  help.append("                Example: watch size > 90 && count < 100 || "
-              "status changed\n");
-  help.append("   - trace <trigger> : <bufferSize> <postDelay> : <var1> ... "
-              "<varN> : <action> \n");
-  help.append(
-      "                Adds watchpoint to the watchlist with a trace buffer of "
-      "<bufferSize> and a post trigger delay of <postDelay>\n");
-  help.append(
-      "                Traces all of the variables specified in the var list "
-      "and invokes the <action> after postDelay when triggered\n");
-  help.append("                Example: trace size > 90 || count == 100 : 32 4 "
-              ": size count state : printTrace\n");
-  help.append("   - watchlist: prints the current list of watchpoints and "
-              "their associated indices\n");
-  help.append("                Note: a watchpoint's index may change as "
-              "watchpoints are deleted\n");
-  help.append(
-      "   - addTraceVar <watchpointIndex> <var1> ... <varN> : adds the "
-      "specified variables to the specified watchpoint's trace buffer\n");
-  help.append("   - printWatchpoint <watchpointIndex>: prints the watchpoint "
-              "based on the index specified by watchlist\n");
-  help.append("   - printTrace <watchpointIndex>: prints the trace buffer for "
-              "the specified watchpoint\n");
-  help.append("   - resetTrace <watchpointIndex>: resets the trace buffer for "
-              "the specified watchpoint\n");
-  help.append("   - unwatch <watchpointIndex>: removes the specified "
-              "watchpoint from the watch list. If no index is provided, all "
-              "watchpoints are removed.\n");
-  help.append("\n");
-  help.append("  Execute: Execute the simulation for a specified duration\n");
-  help.append("   - run [TIME]: runs the simulation from the current point for "
-              "TIME and then returns to\n");
-  help.append("                 interactive mode; if no time is given, the "
-              "simulation runs to completion;\n");
-  help.append(
-      "                 TIME is of the format <Number><unit> e.g. 4us\n");
-  help.append("\n");
-  help.append("  Exit: Exit the interactive console\n");
-  help.append("   - exit or quit: exits the interactive console and resumes "
-              "simulation execution\n");
-  help.append("   - shutdown: exits the interactive console and does a clean "
-              "shutdown of the simulation\n");
-  help.append("\n");
-  printf("%s", help.c_str());
+    help.append("  Modify State: Modify simulation variables\n");
+    help.append("   - set <obj> <value>: sets an object in the current scope to "
+                "the provided value;\n");
+    help.append("                        object must be a \"fundamental type\" "
+                "e.g. int \n");
+    help.append("\n");
+    help.append("  Watchpoints: Manage watchpoints (with or without tracing)\n");
+    help.append("                A <trigger> can be a <comparison> or a sequence "
+                "of comparisons combined with a <logicOp>\n");
+    help.append("                E.g. <trigger> = <comparison> or <comparison1> "
+                "<logicOp> <comparison2> ...\n");
+    help.append("                A <comparision> can be \"<var> changed\" which "
+                "checks whether the value has changed\n");
+    help.append("                or \"<var> <comp> <val>\" which compares the "
+                "variable to a given value\n");
+    help.append("                A <comp> can be <, <=, >, >=, ==, or !=\n");
+    help.append("                A <logicOp> can be && or ||\n");
+    help.append("                \"watch\" creates a default watchpoint that "
+                "breaks into an interactive console when triggered\n");
+    help.append("                \"trace\" creates a watchpoint with a trace "
+                "buffer to trace a set of variables and trigger an <action>\n");
+    help.append("                Available actions include: interactive, "
+                "printTrace, checkpoint, set, or printStatus\n");
+    help.append("   - watch <trigger>: adds watchpoint to the watchlist; breaks "
+                "into interactive console when triggered\n");
+    help.append("                Example: watch size > 90 && count < 100 || "
+                "status changed\n");
+    help.append("   - trace <trigger> : <bufferSize> <postDelay> : <var1> ... "
+                "<varN> : <action> \n");
+    help.append("                Adds watchpoint to the watchlist with a trace buffer of "
+                "<bufferSize> and a post trigger delay of <postDelay>\n");
+    help.append("                Traces all of the variables specified in the var list "
+                "and invokes the <action> after postDelay when triggered\n");
+    help.append("                Example: trace size > 90 || count == 100 : 32 4 "
+                ": size count state : printTrace\n");
+    help.append("   - watchlist: prints the current list of watchpoints and "
+                "their associated indices\n");
+    help.append("                Note: a watchpoint's index may change as "
+                "watchpoints are deleted\n");
+    help.append("   - addTraceVar <watchpointIndex> <var1> ... <varN> : adds the "
+                "specified variables to the specified watchpoint's trace buffer\n");
+    help.append("   - printWatchpoint <watchpointIndex>: prints the watchpoint "
+                "based on the index specified by watchlist\n");
+    help.append("   - printTrace <watchpointIndex>: prints the trace buffer for "
+                "the specified watchpoint\n");
+    help.append("   - resetTrace <watchpointIndex>: resets the trace buffer for "
+                "the specified watchpoint\n");
+    help.append("   - unwatch <watchpointIndex>: removes the specified "
+                "watchpoint from the watch list. If no index is provided, all "
+                "watchpoints are removed.\n");
+    help.append("\n");
+    help.append("  Execute: Execute the simulation for a specified duration\n");
+    help.append("   - run [TIME]: runs the simulation from the current point for "
+                "TIME and then returns to\n");
+    help.append("                 interactive mode; if no time is given, the "
+                "simulation runs to completion;\n");
+    help.append("                 TIME is of the format <Number><unit> e.g. 4us\n");
+    help.append("\n");
+    help.append("  Exit: Exit the interactive console\n");
+    help.append("   - exit or quit: exits the interactive console and resumes "
+                "simulation execution\n");
+    help.append("   - shutdown: exits the interactive console and does a clean "
+                "shutdown of the simulation\n");
+    help.append("\n");
+    printf("%s", help.c_str());
 }
 
 #if 0
@@ -1090,73 +1089,93 @@ ICDebugSST15::cmd_shutdown(std::vector<std::string>& tokens)
 }
 
 #endif
-void ICDebugSST15::dispatch_cmd(std::string cmd) {
-  std::vector<std::string> tokens;
-  tokenize(tokens, cmd);
+void
+ICDebugSST15::dispatch_cmd(std::string cmd)
+{
+    std::vector<std::string> tokens;
+    tokenize(tokens, cmd);
 
-  if (cmd.size() == 0)
-    return;
+    if ( cmd.size() == 0 ) return;
 
-  if (tokens[0] == "exit" || tokens[0] == "quit") {
-    printf("Exiting ObjectExplorer\n");
-    done = true;
-  } else if (tokens[0] == "pwd") {
-    // cmd_pwd(tokens)i;
-    printf("%s\n", tokens[0].c_str());
-  } else if (tokens[0] == "ls") {
-    // cmd_ls(tokens);
-    printf("%s\n", tokens[0].c_str());
-  } else if (tokens[0] == "cd") {
-    // cmd_cd(tokens);
-    printf("%s\n", tokens[0].c_str());
-  } else if (tokens[0] == "print") {
-    // cmd_print(tokens);
-    printf("%s\n", tokens[0].c_str());
-  } else if (tokens[0] == "set") {
-    // cmd_set(tokens);
-    printf("%s\n", tokens[0].c_str());
-  } else if (tokens[0] == "time") {
-    // cmd_time(tokens);
-    printf("%s\n", tokens[0].c_str());
-  } else if (tokens[0] == "run") {
-    // cmd_run(tokens);
-    printf("%s\n", tokens[0].c_str());
-  } else if (tokens[0] == "watchlist") {
-    // cmd_watchlist(tokens);
-    printf("%s\n", tokens[0].c_str());
-  } else if (tokens[0] == "watch") {
-    // cmd_watch(tokens);
-    printf("%s\n", tokens[0].c_str());
-  } else if (tokens[0] == "unwatch") {
-    // cmd_unwatch(tokens);
-    printf("%s\n", tokens[0].c_str());
-  } else if (tokens[0] == "shutdown") {
-    // cmd_shutdown(tokens);
-    printf("%s\n", tokens[0].c_str());
-  } else if (tokens[0] == "help") {
-    cmd_help(tokens);
-    // printf("%s\n", tokens[0].c_str());
-  } else if (tokens[0] == "trace") {
-    // cmd_trace(tokens);
-    printf("%s\n", tokens[0].c_str());
-  } else if (tokens[0] == "setHandler") {
-    // cmd_setHandler(tokens);
-    printf("%s\n", tokens[0].c_str());
-  } else if (tokens[0] == "addTraceVar") {
-    // cmd_addTraceVar(tokens);
-    printf("%s\n", tokens[0].c_str());
-  } else if (tokens[0] == "resetTraceBuffer") {
-    // cmd_resetTraceBuffer(tokens);
-    printf("%s\n", tokens[0].c_str());
-  } else if (tokens[0] == "printTrace") {
-    // cmd_printTrace(tokens);
-    printf("%s\n", tokens[0].c_str());
-  } else if (tokens[0] == "printWatchpoint") {
-    // cmd_printWatchpoint(tokens);
-    printf("%s\n", tokens[0].c_str());
-  } else {
-    printf("Unknown command: %s\n", tokens[0].c_str());
-  }
+    if ( tokens[0] == "exit" || tokens[0] == "quit" ) {
+        printf("Exiting ObjectExplorer\n");
+        done = true;
+    }
+    else if ( tokens[0] == "pwd" ) {
+        // cmd_pwd(tokens)i;
+        printf("%s\n", tokens[0].c_str());
+    }
+    else if ( tokens[0] == "ls" ) {
+        // cmd_ls(tokens);
+        printf("%s\n", tokens[0].c_str());
+    }
+    else if ( tokens[0] == "cd" ) {
+        // cmd_cd(tokens);
+        printf("%s\n", tokens[0].c_str());
+    }
+    else if ( tokens[0] == "print" ) {
+        // cmd_print(tokens);
+        printf("%s\n", tokens[0].c_str());
+    }
+    else if ( tokens[0] == "set" ) {
+        // cmd_set(tokens);
+        printf("%s\n", tokens[0].c_str());
+    }
+    else if ( tokens[0] == "time" ) {
+        // cmd_time(tokens);
+        printf("%s\n", tokens[0].c_str());
+    }
+    else if ( tokens[0] == "run" ) {
+        // cmd_run(tokens);
+        printf("%s\n", tokens[0].c_str());
+    }
+    else if ( tokens[0] == "watchlist" ) {
+        // cmd_watchlist(tokens);
+        printf("%s\n", tokens[0].c_str());
+    }
+    else if ( tokens[0] == "watch" ) {
+        // cmd_watch(tokens);
+        printf("%s\n", tokens[0].c_str());
+    }
+    else if ( tokens[0] == "unwatch" ) {
+        // cmd_unwatch(tokens);
+        printf("%s\n", tokens[0].c_str());
+    }
+    else if ( tokens[0] == "shutdown" ) {
+        // cmd_shutdown(tokens);
+        printf("%s\n", tokens[0].c_str());
+    }
+    else if ( tokens[0] == "help" ) {
+        cmd_help(tokens);
+        // printf("%s\n", tokens[0].c_str());
+    }
+    else if ( tokens[0] == "trace" ) {
+        // cmd_trace(tokens);
+        printf("%s\n", tokens[0].c_str());
+    }
+    else if ( tokens[0] == "setHandler" ) {
+        // cmd_setHandler(tokens);
+        printf("%s\n", tokens[0].c_str());
+    }
+    else if ( tokens[0] == "addTraceVar" ) {
+        // cmd_addTraceVar(tokens);
+        printf("%s\n", tokens[0].c_str());
+    }
+    else if ( tokens[0] == "resetTraceBuffer" ) {
+        // cmd_resetTraceBuffer(tokens);
+        printf("%s\n", tokens[0].c_str());
+    }
+    else if ( tokens[0] == "printTrace" ) {
+        // cmd_printTrace(tokens);
+        printf("%s\n", tokens[0].c_str());
+    }
+    else if ( tokens[0] == "printWatchpoint" ) {
+        // cmd_printWatchpoint(tokens);
+        printf("%s\n", tokens[0].c_str());
+    }
+    else {
+        printf("Unknown command: %s\n", tokens[0].c_str());
+    }
 }
 
 } // namespace SST::ICDbgSST15
