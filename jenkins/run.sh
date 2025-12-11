@@ -47,7 +47,7 @@ echo "VALGRIND=$VALGRIND"
 #-- SST
 rm -Rf $SST_INSTALL/*
 if [ "$CLANGFORMAT" = true ]; then
-	ls
+	# TODO since sst-ext-bench is in this directory it needs to be clang format clean or ignored.
 	./scripts/clang-format-test.sh --format-exe "${CLANG_FORMAT_EXE}"
 fi
 ./autogen.sh
