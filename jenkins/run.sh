@@ -85,9 +85,9 @@ fi
 
 #-- Run EXT tests
 if [ "$EXTTEST" = true ] ; then
-	cd sst-text-tests
-	mkdir build
-	cd build
+	cd sst-ext-tests || exit 2
+	mkdir build || exit 3
+	cd build || exit 4
 	if [ "$VALGRIND" = false ]; then
 	    cmake -DENABLE_ALL_TESTS=ON $EXTTESTASAN $EXTTESTARGS ../
 	else
