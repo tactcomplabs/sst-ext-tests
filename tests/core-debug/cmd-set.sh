@@ -72,8 +72,8 @@ if [ $retVal -ne 0 ]; then
 fi
 
 # v_bool
-PSTR="v_bool = 0"
-grep "$PSTR" $LOGFILE > /dev/null
+PSTR="v_bool = false"
+egrep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""

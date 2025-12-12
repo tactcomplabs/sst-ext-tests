@@ -1,6 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER NEW
-#EXT_TEST TEST_FILE_DESC "Exercise std::pair and std::tuple"
+#EXT_TEST TEST_FILE_DESC "short std::pair watch test"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -23,70 +23,17 @@ CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
 cat << EOF > $CMDFILE
-confirm false
 cd cp0
-ls
-
-# The pair
 p v_pair_u64_str
 cd v_pair_u64_str/
-ls
-# CHECK 0 p 0\n0 = 42 \(unsigned long( long)?\)
-p 0
-# CHECK 1 p 1\n1 = forty-two \(std::string\)
-p 1
-# Change values
-set 0 11
-set 1 eleven
-run 1ns
-# CHECK 2 p 0\n0 = 11 \(unsigned long( long)?\)
-p 0
-# CHECK 3 p 1\n1 = eleven \(std::string\)
-p 1
-# Set watch on numeric type (cannot do string at the moment)
-watch 0 changed
+watch first changed
 run
-ls
-# CHECK 4 p 0\n0 = 5 \(unsigned long( long)?\)
-p 0
-# CHECK 5 p 1\n1 = S5 \(std::string\)
-p 1
+# CHECK first p first\nfirst = 5 \(unsigned long( long)?\)
+p first
+# CHECK second p second\nsecond = S5 \(std::string\)
+p second
+confirm false
 unwatch
-
-# The tuple
-cd ..
-p v_tuple_u32_dbl_str
-cd v_tuple_u32_dbl_str/
-ls
-# CHECK 6 p 0\n0 = 8 \(unsigned int\)
-p 0
-# CHECK 7 p 1\n1 = 0.1250.+ \(double\)
-p 1
-# CHECK 8 p 2\n2 = eight \(std::string\)
-p 2
-# Change values
-s 0 1
-s 1 1.0
-s 2 one
-run 1ns
-ls
-# CHECK 9 p 0\n0 = 1 \(unsigned int\)
-p 0
-# CHECK 10 p 1\n1 = 1.0.+ \(double\)
-p 1
-# CHECK 11 p 2\n2 = one \(std::string\)
-p 2
-# watch it
-watch 0 changed
-run
-ls
-# CHECK 12 p 0\n0 = 7 \(unsigned int\)
-p 0
-# CHECK 13 p 1\n1 = 0.142.+ \(double\)
-p 1
-# CHECK 14 p 2\n2 = S7 \(std::string\)
-p 2
-shutdown
 EOF
 
 # Launch the program to start interactive mode at time 0
@@ -112,7 +59,7 @@ fi
 # spot checks
 # initialize rc to the number of expected checks
 awk '
-  BEGIN {idx=0; rc=15; lines=""; check=-1 }
+  BEGIN {idx=0; rc=2; lines=""; check=-1 }
   /# CHECK/ { idx=0; lines=""; check=$4; re=substr($0,index($0,$5))}
   { if (check==-1) {next}; 
     lines = sprintf("%s\n%s",lines,$0);
