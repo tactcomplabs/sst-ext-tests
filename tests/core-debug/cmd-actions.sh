@@ -78,7 +78,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-PSTR="> TriggerRecord:@cycle1000: samples lost = 0: cp0/maxData=100"
+PSTR="LastTriggerRecord:@cycle1000: SamplesLost=0: cp0/maxData=100"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -88,7 +88,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # printTrace
-PSTR="TriggerRecord:@cycle68000: samples lost = 0: cp0/maxData=100"
+PSTR="LastTriggerRecord:@cycle68000: SamplesLost=0: cp0/maxData=100"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then

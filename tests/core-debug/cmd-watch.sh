@@ -54,7 +54,7 @@ if [ $retVal -ne 0 ]; then
 fi
 
 # watch size > 0, printWatchpoint 0
-PSTR="WP0: ALL : cp0/size > 0  : interactive"
+PSTR="WP0: TriggerCount 0 : ALL : cp0/size > 0  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -74,7 +74,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # watch size changed, printWatchpoint
-PSTR=" WP1: ALL : cp0/size CHANGED  : interactive"
+PSTR="WP1: TriggerCount 0 : ALL : cp0/size CHANGED  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -94,7 +94,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # watch size > minData, printWatchpoint 0
-PSTR=" WP2: ALL : cp0/size > cp0/minData  : interactive"
+PSTR="WP2: TriggerCount 0 : ALL : cp0/size > cp0/minData  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -114,7 +114,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # watch size > minData && size < maxData || rCheck changed, printWatchpoint
-PSTR="WP3: ALL : cp0/size > cp0/minData cp0/size < cp0/maxData cp0/rCheck CHANGED  : interactive"
+PSTR="WP3: TriggerCount 0 : ALL : cp0/size > cp0/minData cp0/size < cp0/maxData cp0/rCheck CHANGED  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
