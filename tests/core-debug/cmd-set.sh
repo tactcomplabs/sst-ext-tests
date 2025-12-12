@@ -72,7 +72,7 @@ if [ $retVal -ne 0 ]; then
 fi
 
 # v_bool
-PSTR="v_bool = false"
+PSTR="v_bool = (0|false)"
 egrep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
