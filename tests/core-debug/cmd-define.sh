@@ -92,7 +92,7 @@ end
 define pair_0
 cd cp0
 cd v_pair_u64_str/
-p 0
+p first
 cd ..
 cd ..
 end
@@ -108,7 +108,7 @@ help
 # CHECK 9 tuple_0\n0 = 8 \(
 tuple_0
 
-# CHECK 10 pair_0\n0 = 42 \(
+# CHECK 10 pair_0\nfirst = 42 \(
 pair_0
 
 # combine into another macro
@@ -117,7 +117,7 @@ tuple_0
 pair_0
 end
 
-# CHECK 11 duo\n0 = 8 \(.+\n0 = 42 \(
+# CHECK 11 duo\n0 = 8 \(.+\nfirst = 42 \(
 duo
 
 # multiple levels of nesting
@@ -127,7 +127,7 @@ pair_0
 tuple_0
 end
 
-# CHECK 12 trio\n0 = 8 \(.+\n0 = 42 \(.+\n0 = 42 \(.+\n0 = 8 \(
+# CHECK 12 trio\n0 = 8 \(.+\nfirst = 42 \(.+\nfirst = 42 \(.+\n0 = 8 \(
 trio
 
 EOF
