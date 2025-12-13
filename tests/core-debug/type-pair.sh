@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER NEW
+#EXT_TEST TEST_FILE_MINVER DEV
 #EXT_TEST TEST_FILE_DESC "short std::pair watch test"
 #EXT_TEST TIMEOUT 30
 
@@ -26,12 +26,12 @@ cat << EOF > $CMDFILE
 cd cp0
 p v_pair_u64_str
 cd v_pair_u64_str/
-watch 0 changed
+watch first changed
 run
-# CHECK 0 p 0\n0 = 5 \(unsigned long( long)?\)
-p 0
-# CHECK 1 p 1\n1 = S5 \(std::string\)
-p 1
+# CHECK first p first\nfirst = 5 \(unsigned long( long)?\)
+p first
+# CHECK second p second\nsecond = S5 \(std::string\)
+p second
 confirm false
 unwatch
 EOF

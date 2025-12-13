@@ -1,6 +1,6 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER NEW
-#EXT_TEST TEST_FILE_DESC "Exercise std::pair and std::tuple"
+#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_DESC "Exercise std::bitset and std::vector<bool>"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -26,74 +26,72 @@ cat << EOF > $CMDFILE
 confirm false
 cd cp0
 ls
-
-# The pair
-p v_pair_u64_str
-cd v_pair_u64_str/
+cd v_bitset42/
 ls
-# CHECK 0 p 0\n0 = 42 \(unsigned long( long)?\)
+# CHECK 0 p 0\n0 = false \(bool\)
 p 0
-# CHECK 1 p 1\n1 = forty-two \(std::string\)
-p 1
-# Change values
-set 0 11
-set 1 eleven
+# CHECK 1 p 3\n3 = true \(bool\)
+p 3
+# CHECK 2 p 38\n38 = false \(bool\)
+p 38
+# CHECK 3 p 39\n39 = true \(bool\)
+p 39
+# Flip bits 38 and 39
+set 38 1
+set 39 0
 run 1ns
-# CHECK 2 p 0\n0 = 11 \(unsigned long( long)?\)
-p 0
-# CHECK 3 p 1\n1 = eleven \(std::string\)
-p 1
-# Set watch on numeric type (cannot do string at the moment)
-watch 0 changed
+# CHECK 4 p 38\n38 = true \(bool\)
+p 38
+# CHECK 5 p 39\n39 = false \(bool\)
+p 39
+cd ..
+# std::vector<bool> v_vecbool  =  { true, false, true, true, false, false, true, true};
+p v_vecbool
+cd v_vecbool
+ls
+# CHECK 6 p 5\n5 = false \(bool\)
+p 5
+# CHECK 7 p 6\n6 = true \(bool\)
+p 6
+# flip 5 and 6
+set 5 1
+set 6 0
+run 1ns
+ls
+# CHECK 8 p 5\n5 = true \(bool\)
+p 5
+# CHECK 9 p 6\n6 = false \(bool\)
+p 6
+
+# Invalid setting
+set 5 0x10
+# CHECK 10 p 5\n5 = true \(bool\)
+p 5
+
+# Watch a vector bool bit
+watch 7 changed
+# CHECK 11 run\nEntering interactive mode
 run
 ls
-# CHECK 4 p 0\n0 = 5 \(unsigned long( long)?\)
-p 0
-# CHECK 5 p 1\n1 = S5 \(std::string\)
-p 1
+
+# clear all watches
 unwatch
 
-# The tuple
+# back up to bitset and do the same
 cd ..
-p v_tuple_u32_dbl_str
-cd v_tuple_u32_dbl_str/
-ls
-# CHECK 6 p 0\n0 = 8 \(unsigned int\)
-p 0
-# CHECK 7 p 1\n1 = 0.1250.+ \(double\)
-p 1
-# CHECK 8 p 2\n2 = eight \(std::string\)
-p 2
-# Change values
-s 0 1
-s 1 1.0
-s 2 one
-run 1ns
-ls
-# CHECK 9 p 0\n0 = 1 \(unsigned int\)
-p 0
-# CHECK 10 p 1\n1 = 1.0.+ \(double\)
-p 1
-# CHECK 11 p 2\n2 = one \(std::string\)
-p 2
-# watch it
-watch 0 changed
+cd v_bitset42/
+watch 41 changed
+# CHECK 12 run\nEntering interactive mode
 run
 ls
-# CHECK 12 p 0\n0 = 7 \(unsigned int\)
-p 0
-# CHECK 13 p 1\n1 = 0.142.+ \(double\)
-p 1
-# CHECK 14 p 2\n2 = S7 \(std::string\)
-p 2
-shutdown
+
 EOF
 
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
 echo $LAUNCH
 revVal=0
-( $LAUNCH << EOF || exit 11 ) | tee $LOGFILE
+$LAUNCH << EOF  | tee $LOGFILE
 replay $CMDFILE
 confirm false
 exit
@@ -112,7 +110,7 @@ fi
 # spot checks
 # initialize rc to the number of expected checks
 awk '
-  BEGIN {idx=0; rc=15; lines=""; check=-1 }
+  BEGIN {idx=0; rc=13; lines=""; check=-1 }
   /# CHECK/ { idx=0; lines=""; check=$4; re=substr($0,index($0,$5))}
   { if (check==-1) {next}; 
     lines = sprintf("%s\n%s",lines,$0);
