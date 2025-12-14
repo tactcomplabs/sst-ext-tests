@@ -7,7 +7,7 @@ cd $WORKSPACE || exit 2
 echo "---> $0 Started in $PWD"
 
 #-- unique to target
-export SST_INSTALL=/jenkins/sstcore-sles15-gcc15-mpich4.1.2
+export SST_INSTALL=/jenkins/sstcore-sles15-clang20-mpich4.1.2
 export PATH=/usr/lib64/mpi/gcc/mpich/bin:$PATH
 export LD_LIBRARY_PATH=/usr/lib64/mpi/gcc/mpich/lib64
 export MPICH_CC=/pkgs/Linux/Rocky93/LLVM/LLVM-20.1.0-Linux-X64/bin/clang
