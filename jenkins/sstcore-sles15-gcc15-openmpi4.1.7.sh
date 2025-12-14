@@ -48,7 +48,7 @@ if [ "$SANITIZER" = true ]; then
     # detect_leaks is not supported on Mac
     # export ASAN_OPTIONS=detect_leaks=0
 fi
-./configure --prefix=$SST_INSTALL $DBGFLAGS --disable-mpi
+./configure --prefix=$SST_INSTALL $DBGFLAGS
 if [ "$HEADERCHECK" = true ] ; then
 	./scripts/test-includes.pl
 fi
