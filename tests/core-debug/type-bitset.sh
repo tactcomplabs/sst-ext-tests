@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_MINVER NEW
 #EXT_TEST TEST_FILE_DESC "Exercise std::bitset and std::vector<bool>"
 #EXT_TEST TIMEOUT 30
 
