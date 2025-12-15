@@ -12,6 +12,7 @@ SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
 
 # Settings
 CLEANUP=1
+SCRIPT_PATH="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
@@ -21,6 +22,11 @@ LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
 CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
+SPOTCHECKS=$(realpath "${SCRIPT_PATH}/../../scripts/spotchecks.awk")
+if [ ! -e "${SPOTCHECKS}" ]; then
+  echo "Checker script not found. [${SPOTCHECKS}]"
+  exit 1
+fi
 
 cat << EOF > $CMDFILE
 confirm false
@@ -70,7 +76,7 @@ p 5
 
 # Watch a vector bool bit
 watch 7 changed
-# CHECK 11 run\nEntering interactive mode
+# CHECK 11 run\n\n---- Rank0:Thread0: Entering interactive mode
 run
 ls
 
@@ -81,17 +87,20 @@ unwatch
 cd ..
 cd v_bitset42/
 watch 41 changed
-# CHECK 12 run\nEntering interactive mode
+# CHECK 12 run\n\n---- Rank0:Thread0: Entering interactive mode
 run
 ls
 
 EOF
 
+# Update this whenever adding checks in the command comments above
+NUMCHECKS=13
+
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
 echo $LAUNCH
 revVal=0
-$LAUNCH << EOF  | tee $LOGFILE
+( $LAUNCH << EOF || exit 11 ) | tee $LOGFILE
 replay $CMDFILE
 confirm false
 exit
@@ -108,25 +117,8 @@ if [ $retVal -ne 0 ]; then
 fi
 
 # spot checks
-# initialize rc to the number of expected checks
-awk '
-  BEGIN {idx=0; rc=13; lines=""; check=-1 }
-  /# CHECK/ { idx=0; lines=""; check=$4; re=substr($0,index($0,$5))}
-  { if (check==-1) {next}; 
-    lines = sprintf("%s\n%s",lines,$0);
-    if (++idx==3) {
-      print check; 
-      printf("TEST[%d] %s\n",check,lines);
-      # printf("RE[%d] %s\n", check, re);
-      if (!match(lines,re)) {
-        printf("ERROR: Failed TEST[%d]\n",check);
-        exit 1;
-      }
-      rc--; check=-1; idx=0;
-    }
-  }
-  END { exit rc; }
-' $LOGFILE
+# First argument is the number of expected checks
+${SPOTCHECKS} $NUMCHECKS $LOGFILE
 
 RC=$?
 if [ $RC -ne 0 ]; then

@@ -1,7 +1,9 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER 15.1
-#EXT_TEST TEST_FILE_DESC "Check interactive console unwatch command"
+#EXT_TEST TEST_FILE_MINVER NEW
+#EXT_TEST TEST_FILE_DESC "Test trace actions in thread1"
 #EXT_TEST TIMEOUT 30
+#
+# SST DEV: 
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
 set -uo pipefail
@@ -9,6 +11,7 @@ set -uo pipefail
 # --add-lib-path required for Jenkins runs (does not run 'make install')
 # Set default ensure failure if not set and component not installed
 SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
+
 
 # Settings
 CLEANUP=1
@@ -24,22 +27,10 @@ CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
+LAUNCH="sst -n 2 --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
-$LAUNCH << EOF  | tee $LOGFILE
-cd cp0
-watch maxData > 10
-watch maxData > 100
-unwatch 
-yes
-watchlist
-watch maxData > 111
-watch maxData > 222
-watch maxData > 333
-unwatch 1
-unwatch 
-no
-watchlist
+$LAUNCH 2>&1 << EOF | tee $LOGFILE || exit 1
+thread 1
 shutdown
 EOF
 
@@ -52,9 +43,7 @@ if [ $retVal -ne 0 ]; then
   echo "ERROR $NAME returned $retVal"
   exit $retVal
 fi
-
-# Check for correct watchlist result
-PSTR="0: TriggerCount 0 : ALL : cp0/maxData > 111  : interactive"
+PSTR="Entering interactive mode at time 0"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -62,7 +51,20 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 echo "Found pass string \"$PSTR\""
-PSTR="2: TriggerCount 0 : ALL : cp0/maxData > 333  : interactive"
+
+# thread 1
+PSTR="Rank0:Thread1:"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+
+#shutdown
+PSTR="Exiting ObjectExplorer and shutting down simulation"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -72,7 +74,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # Simulation Complete
-PSTR="Simulation is complete"
+PSTR="Simulation is complete, simulated time: 0 s"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -83,7 +85,7 @@ echo "Found pass string \"$PSTR\""
 
 # Cleanup output file on pass
 if [ $CLEANUP -eq 1 ]; then
-  rm -f $LOGFILE $OUTFILE $CMDFILE $CHKFILE
+  rm -f $LOGFILE $OUTFILE $CMDFILE
 fi
 
 wait

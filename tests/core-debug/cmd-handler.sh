@@ -63,7 +63,7 @@ if [ $retVal -ne 0 ]; then
 fi
 
 # all
-PSTR="> WP0: ALL : cp0/size CHANGED  : bufsize = 16 postDelay = 14 : cp0/size  : interactive"
+PSTR="WP0: TriggerCount 0 : ALL : cp0/size CHANGED  : bufsize = 16 postDelay = 14 : cp0/size  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -73,7 +73,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # ac ae
-PSTR="> WP0: AC AE : cp0/size CHANGED  : bufsize = 16 postDelay = 14 : cp0/size  : interactive"
+PSTR="WP0: TriggerCount 2 : AC AE : cp0/size CHANGED  : bufsize = 16 postDelay = 14 : cp0/size  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -83,7 +83,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # bc be
-PSTR="> WP0: BC BE : cp0/size CHANGED  : bufsize = 16 postDelay = 14 : cp0/size  : interactive"
+PSTR="WP0: TriggerCount 1 : BC BE : cp0/size CHANGED  : bufsize = 16 postDelay = 14 : cp0/size  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -93,7 +93,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # ae
-PSTR="> WP0: AE : cp0/size CHANGED  : bufsize = 16 postDelay = 14 : cp0/size  : interactive"
+PSTR="WP0: TriggerCount 2 : AE : cp0/size CHANGED  : bufsize = 16 postDelay = 14 : cp0/size  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then

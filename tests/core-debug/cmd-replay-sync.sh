@@ -16,7 +16,7 @@ SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 CONFIG="test_Checkpoint_4ms.py"
-PSTR="^Entering interactive mode at time 140000000"
+PSTR="Entering interactive mode at time 140000000"
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out

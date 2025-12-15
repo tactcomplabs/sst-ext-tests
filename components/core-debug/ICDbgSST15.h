@@ -38,7 +38,8 @@ public:
     ICDebugSST15(Params& params);
     ~ICDebugSST15() {}
 
-    void execute(const std::string& msg) override;
+    void summary() override{}
+    int execute(const std::string& msg) override;
 
 private:
     // This is the stack of where we are in the class hierarchy.  This

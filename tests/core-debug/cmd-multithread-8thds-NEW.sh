@@ -1,7 +1,9 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER 15.1
-#EXT_TEST TEST_FILE_DESC "Check for trace commands: trace, printWatchpoint, addTraceVar, printTrace, resetTrace, unwatch, quit"
+#EXT_TEST TEST_FILE_MINVER NEW
+#EXT_TEST TEST_FILE_DESC "Test basic thread commands: thread, info"
 #EXT_TEST TIMEOUT 30
+#
+# SST DEV: 
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
 set -uo pipefail
@@ -15,8 +17,8 @@ CLEANUP=1
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG="dbgsst15.py"
-PSTR="^Entering interactive mode at time 140000000"
+CONFIG="test_Checkpoint_4ms.py"
+PSTR=""
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -24,39 +26,29 @@ CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
+LAUNCH="sst -n 8 --interactive-start=0s $CONFIG"
 echo $LAUNCH
-$LAUNCH << EOF  | tee $LOGFILE
-cd cp0
-trace size > 50 : 32 4 : size : interactive
-printWatchpoint 0
-addTraceVar 0 rCheck
-printWatchpoint 0
+$LAUNCH 2>&1 << EOF | tee $LOGFILE || exit 1
+info all
+info current
+thread 1
+info current
+thread 2
+info current
+thread 3
+info current
+thread 4
+info current
+thread 5
+info current
+thread 6
+info current
+thread 7
+info current
+cd c7
+watch output_frequency == 1
 run
-printTrace 0
-resetTrace 0
-printTrace 0
-unwatch 0
-trace size changed : 10 2 : size rCheck : interactive
-printWatchpoint 1
-run
-prt 1
-rst 1
-prt 1
-uw 1
-trace minData < size : 8 0 : size : interactive
-printWatchpoint 2
-add 2 maxData
-printWatchpoint 2
-run 
-printTrace 2
-unwatch 2
-trace size changed && maxData > 90 || minData < maxData || rCheck changed : 4 2 : rCheck size minData maxData : interactive
-printWatchpoint 3
-run
-printTrace 3
-quit
-yes
+shutdown
 EOF
 
 retVal=$?
@@ -69,8 +61,17 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-#trace size > 50, printWatchpoint
-PSTR="WP0: TriggerCount 0 : ALL : cp0/size > 50  : bufsize = 32 postDelay = 4 : cp0/size  : interactive"
+# Avoid diff due to differences btwn mac and linux
+#diff $LOGFILE $CHKFILE > /dev/null
+#retVal=$?
+#if [ $retVal -ne 0 ]; then
+#  echo "ERROR in diff $LOGFILE $CHKFILE"
+#  exit $retVal
+#fi
+#echo "Log file matches check file"
+
+# Interactive
+PSTR="Entering interactive mode at time 0"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -79,8 +80,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# addTraceVar, printWatchpoint
-PSTR="WP0: TriggerCount 0 : ALL : cp0/size > 50  : bufsize = 32 postDelay = 4 : cp0/size cp0/rCheck  : interactive"
+# info all
+PSTR="Rank:0 Thread:7 (Process"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -89,8 +90,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# run, printTrace
-PSTR="LastTriggerRecord:@cycle202000: SamplesLost=0: cp0/size=100 cp0/rCheck=1"
+# thread curent for threads 0-7
+PSTR="Rank 0/1, Thread 0/8"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -99,8 +100,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# resetTrace, printTrace 
-PSTR="No trace samples in current buffer"
+PSTR="Rank 0/1, Thread 1/8"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -109,9 +109,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-
-# trace size changed, printWatchpoint 
-PSTR="WP1: TriggerCount 0 : ALL : cp0/size CHANGED  : bufsize = 10 postDelay = 2 : cp0/size cp0/rCheck  : interactive"
+PSTR="Rank 0/1, Thread 2/8"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -120,8 +118,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# run, printTrace
-PSTR="LastTriggerRecord:@cycle300000: SamplesLost=0: cp0/size=53 cp0/rCheck=-46"
+PSTR="Rank 0/1, Thread 3/8"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -130,9 +127,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-
-# trace minData < size, printWP
-PSTR="WP2: TriggerCount 0 : ALL : cp0/minData < cp0/size  : bufsize = 8 postDelay = 0 : cp0/size  : interactive"
+PSTR="Rank 0/1, Thread 4/8"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -141,8 +136,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# add, printWatchpoint
-PSTR="WP2: TriggerCount 0 : ALL : cp0/minData < cp0/size  : bufsize = 8 postDelay = 0 : cp0/size cp0/maxData  : interactive"
+PSTR="Rank 0/1, Thread 5/8"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -151,8 +145,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# run, printTrace 0
-PSTR="LastTriggerRecord:@cycle302000: SamplesLost=0: cp0/size=53 cp0/maxData=100"
+PSTR="Rank 0/1, Thread 6/8"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -161,8 +154,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# trace size changed && maxData > 90, printWatchpoint
-PSTR="WP3: TriggerCount 0 : ALL : cp0/size CHANGED cp0/maxData > 90 cp0/minData < cp0/maxData cp0/rCheck CHANGED  : bufsize = 4 postDelay = 2 : cp0/rCheck cp0/size cp0/minData cp0/maxData  : interactive"
+PSTR="Rank 0/1, Thread 7/8"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -171,8 +163,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# run, printTrace 0
-PSTR="LastTriggerRecord:@cycle304000: SamplesLost=0: cp0/rCheck=-46 cp0/size=53 cp0/minData=1 cp0/maxData=100"
+# watch
+PSTR="Added watchpoint #0"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -181,8 +173,17 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# quit
-PSTR="Removing all watchpoints and exiting ObjectExplorer"
+# shutdown
+PSTR="Rank 0/1, Thread 7/8"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+PSTR="Rank:0/1 Thread:0/8 (Not Triggered)"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -192,7 +193,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # Simulation Complete
-PSTR="Simulation is complete"
+PSTR="Simulation is complete, simulated time: 0 s"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -200,7 +201,6 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 echo "Found pass string \"$PSTR\""
-
 
 # Cleanup output file on pass
 if [ $CLEANUP -eq 1 ]; then

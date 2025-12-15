@@ -1,14 +1,7 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER 15.1
-#EXT_TEST TEST_FILE_DESC "Check interactive console unwatch command"
+#EXT_TEST TEST_FILE_MINVER NEW
+#EXT_TEST TEST_FILE_DESC "Check for seg fault with recursive print"
 #EXT_TEST TIMEOUT 30
-
-# ensure non-zero exit code in pipe propagates and no unbound variables.
-set -uo pipefail
-
-# --add-lib-path required for Jenkins runs (does not run 'make install')
-# Set default ensure failure if not set and component not installed
-SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
 
 # Settings
 CLEANUP=1
@@ -26,20 +19,15 @@ CHKFILE=$TNAME.chk
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
-$LAUNCH << EOF  | tee $LOGFILE
-cd cp0
-watch maxData > 10
-watch maxData > 100
-unwatch 
-yes
-watchlist
-watch maxData > 111
-watch maxData > 222
-watch maxData > 333
-unwatch 1
-unwatch 
-no
-watchlist
+$LAUNCH << EOF | tee $LOGFILE || exit 1
+# recursive prints and run with space in time used to cause a seg fault
+print 
+print -r
+print -r cp0
+print -r3 cp0
+print cp0
+run 1000ps
+run 1000 ps
 shutdown
 EOF
 
@@ -53,16 +41,8 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-# Check for correct watchlist result
-PSTR="0: TriggerCount 0 : ALL : cp0/maxData > 111  : interactive"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-PSTR="2: TriggerCount 0 : ALL : cp0/maxData > 333  : interactive"
+# print
+PSTR="Invalid format for print command"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -71,8 +51,38 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# Simulation Complete
-PSTR="Simulation is complete"
+# print cp0
+PSTR="cp0"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# run 1000ps 
+PSTR="Entering interactive mode at time 1000"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# run 1000 ps
+PSTR="Entering interactive mode at time 2000"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# shutdown
+PSTR="Simulation is complete, simulated time: 0 s"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -83,7 +93,7 @@ echo "Found pass string \"$PSTR\""
 
 # Cleanup output file on pass
 if [ $CLEANUP -eq 1 ]; then
-  rm -f $LOGFILE $OUTFILE $CMDFILE $CHKFILE
+  rm -f $LOGFILE $OUTFILE $CMDFILE
 fi
 
 wait

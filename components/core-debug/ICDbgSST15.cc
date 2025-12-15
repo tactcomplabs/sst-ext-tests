@@ -22,7 +22,7 @@ ICDebugSST15::ICDebugSST15(Params& UNUSED(params)) :
     // registerAsPrimaryComponent();
 }
 
-void
+int
 ICDebugSST15::execute(const std::string& msg)
 {
     printf("Test Interactive Console. Does nothing but provide help and quit\n");
@@ -39,6 +39,9 @@ ICDebugSST15::execute(const std::string& msg)
         std::getline(std::cin, line);
         dispatch_cmd(line);
     }
+
+  return -1;
+
 }
 
 // Functions for the Explorer
