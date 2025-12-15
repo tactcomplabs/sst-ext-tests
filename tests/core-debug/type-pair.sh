@@ -12,6 +12,7 @@ SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
 
 # Settings
 CLEANUP=1
+SCRIPT_PATH="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
@@ -21,6 +22,11 @@ LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
 CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
+SPOTCHECKS=$(realpath "${SCRIPT_PATH}/../../scripts/spotchecks.awk")
+if [ ! -e "${SPOTCHECKS}" ]; then
+  echo "Checker script not found. [${SPOTCHECKS}]"
+  exit 1
+fi
 
 cat << EOF > $CMDFILE
 cd cp0
@@ -28,14 +34,16 @@ p v_pair_u64_str
 cd v_pair_u64_str/
 watch first changed
 run
-# CHECK first p first\nfirst = 5 \(unsigned long( long)?\)
+# CHECK 0 p first\nfirst = 5 \(unsigned long( long)?\)
 p first
-# CHECK second p second\nsecond = S5 \(std::string\)
+# CHECK 1 p second\nsecond = S5 \(std::string\)
 p second
 confirm false
 unwatch
 EOF
 
+# Update this whenever adding checks in the command comments above
+NUMCHECKS=2
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
 echo $LAUNCH
@@ -57,25 +65,8 @@ if [ $retVal -ne 0 ]; then
 fi
 
 # spot checks
-# initialize rc to the number of expected checks
-awk '
-  BEGIN {idx=0; rc=2; lines=""; check=-1 }
-  /# CHECK/ { idx=0; lines=""; check=$4; re=substr($0,index($0,$5))}
-  { if (check==-1) {next}; 
-    lines = sprintf("%s\n%s",lines,$0);
-    if (++idx==3) {
-      print check; 
-      printf("TEST[%d] %s\n",check,lines);
-      # printf("RE[%d] %s\n", check, re);
-      if (!match(lines,re)) {
-        printf("ERROR: Failed TEST[%d]\n",check);
-        exit 1;
-      }
-      rc--; check=-1; idx=0;
-    }
-  }
-  END { exit rc; }
-' $LOGFILE
+# First argument is the number of expected checks
+${SPOTCHECKS} $NUMCHECKS $LOGFILE
 
 RC=$?
 if [ $RC -ne 0 ]; then
