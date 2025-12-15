@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER 15.1
+#EXT_TEST TEST_FILE_MINVER NEW
 #EXT_TEST TEST_FILE_DESC "Test comparisons for different types: all true"
 #EXT_TEST TIMEOUT 30
 
