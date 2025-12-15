@@ -7,13 +7,16 @@ cd $WORKSPACE || exit 2
 echo "---> $0 Started in $PWD"
 
 #-- unique to target
-export SST_INSTALL=/Users/builduser/jenkins/install/sst-$BRANCH-macos26.1-clang17.0-EXP
-export PATH=/opt/homebrew/bin:/opt/homebrew/opt/libtool/libexec/gnubin:$PATH
+export SST_INSTALL=/jenkins/sstcore-sles15-gcc15-openmpi4.1.7
+export PATH=/usr/lib64/mpi/gcc/openmpi4/bin:$PATH
+export LD_LIBRARY_PATH=/usr/lib64/mpi/gcc/openmpi4/lib64
+export OMPI_CC=/pkgs/Linux/Rocky93/LLVM/LLVM-20.1.0-Linux-X64/bin/clang
+export OMPI_CXX=/pkgs/Linux/Rocky93/LLVM/LLVM-20.1.0-Linux-X64/bin/clang++
 
 #-- common
 export TERM=linux
-export CC=clang
-export CXX=clang++
+export CC=/pkgs/Linux/Rocky93/LLVM/LLVM-20.1.0-Linux-X64/bin/clang
+export CXX=/pkgs/Linux/Rocky93/LLVM/LLVM-20.1.0-Linux-X64/bin/clang++
 
 echo "REPO=$REPO"
 echo "BRANCH=$BRANCH"
@@ -30,7 +33,7 @@ echo $PATH
 
 rm -Rf $SST_INSTALL/*
 if [ "$CLANGFORMAT" = true ]; then
-	./scripts/clang-format-test.sh --format-exe /opt/homebrew/opt/llvm@20/bin/clang-format
+	./scripts/clang-format-test.sh --format-exe /pkgs/Linux/Rocky93/LLVM/LLVM-20.1.0-Linux-X64/bin/clang-format
 fi
 ./autogen.sh
 if [ "$DEBUG" = true ]; then
@@ -45,14 +48,11 @@ if [ "$SANITIZER" = true ]; then
     # detect_leaks is not supported on Mac
     # export ASAN_OPTIONS=detect_leaks=0
 fi
-####
-# Remove `--disable-mpi` on Linux systems!!!
-####
-./configure --prefix=$SST_INSTALL $DBGFLAGS --disable-mpi
+./configure --prefix=$SST_INSTALL $DBGFLAGS
 if [ "$HEADERCHECK" = true ] ; then
 	./scripts/test-includes.pl
 fi
-make -j4
+make -j
 make install
 export PATH=$PATH:$SST_INSTALL/bin
 which sst-test-core
@@ -68,7 +68,7 @@ if [ "$EXTTEST" = true ] ; then
     	    cmake -DENABLE_ALL_TESTS=ON -DENABLE_VALGRIND=ON $EXTTESTARGS ../
 	fi
 	export SST_COMPONENT_BASE=`pwd`
-	make
+	make -j
 	if [ "$VALGRIND" = false ]; then
 	    make test || ctest --rerun-failed --output-on-failure
 	else

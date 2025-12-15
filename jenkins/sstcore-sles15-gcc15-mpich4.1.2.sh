@@ -7,13 +7,16 @@ cd $WORKSPACE || exit 2
 echo "---> $0 Started in $PWD"
 
 #-- unique to target
-export SST_INSTALL=/Users/builduser/jenkins/install/sst-$BRANCH-macos26.1-clang17.0-EXP
-export PATH=/opt/homebrew/bin:/opt/homebrew/opt/libtool/libexec/gnubin:$PATH
+export SST_INSTALL=/jenkins/sstcore-sles15-gcc15-mpich4.1.2
+export PATH=/usr/lib64/mpi/gcc/mpich/bin:$PATH
+export LD_LIBRARY_PATH=/usr/lib64/mpi/gcc/mpich/lib64
+export MPICH_CC=gcc-15
+export MPICH_CXX=g++-15
 
 #-- common
 export TERM=linux
-export CC=clang
-export CXX=clang++
+export CC=gcc-15
+export CXX=g++-15
 
 echo "REPO=$REPO"
 echo "BRANCH=$BRANCH"
@@ -30,7 +33,7 @@ echo $PATH
 
 rm -Rf $SST_INSTALL/*
 if [ "$CLANGFORMAT" = true ]; then
-	./scripts/clang-format-test.sh --format-exe /opt/homebrew/opt/llvm@20/bin/clang-format
+	./scripts/clang-format-test.sh --format-exe /pkgs/Linux/Rocky93/LLVM/LLVM-20.1.0-Linux-X64/bin/clang-format
 fi
 ./autogen.sh
 if [ "$DEBUG" = true ]; then
@@ -45,14 +48,11 @@ if [ "$SANITIZER" = true ]; then
     # detect_leaks is not supported on Mac
     # export ASAN_OPTIONS=detect_leaks=0
 fi
-####
-# Remove `--disable-mpi` on Linux systems!!!
-####
-./configure --prefix=$SST_INSTALL $DBGFLAGS --disable-mpi
+./configure --prefix=$SST_INSTALL $DBGFLAGS
 if [ "$HEADERCHECK" = true ] ; then
 	./scripts/test-includes.pl
 fi
-make -j4
+make -j
 make install
 export PATH=$PATH:$SST_INSTALL/bin
 which sst-test-core
@@ -68,7 +68,7 @@ if [ "$EXTTEST" = true ] ; then
     	    cmake -DENABLE_ALL_TESTS=ON -DENABLE_VALGRIND=ON $EXTTESTARGS ../
 	fi
 	export SST_COMPONENT_BASE=`pwd`
-	make
+	make -j
 	if [ "$VALGRIND" = false ]; then
 	    make test || ctest --rerun-failed --output-on-failure
 	else
