@@ -13,23 +13,26 @@
 
 // -- Standard Headers
 #include <array>
+#include <cinttypes>
 #include <cstddef>
 #include <cstdint>
+#include <cstdio>
+#include <cstdlib>
+#include <ctime>
 #include <deque>
 #include <forward_list>
-#include <inttypes.h>
 #include <list>
 #include <map>
+#include <optional>
 #include <queue>
 #include <set>
 #include <stack>
-#include <stdio.h>
-#include <stdlib.h>
 #include <string>
-#include <time.h>
 #include <tuple>
 #include <unordered_map>
 #include <unordered_set>
+#include <utility>
+#include <variant>
 #include <vector>
 
 // -- SST Headers
@@ -303,6 +306,11 @@ private:
     std::list<std::map<unsigned, unsigned>> unsignedMapList;
 
     std::vector<std::vector<std::vector<unsigned>>> unsignedVectVectVect;
+
+    std::optional<int> optionalInt;
+    std::optional<std::vector<int>> optionalVectorInt;
+
+    std::variant<int, std::vector<int>, std::tuple<bool, int>> variant;
 
     // ---------------------------------------
     // END SERIALIZED DATA STRUCTURES

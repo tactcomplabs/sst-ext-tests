@@ -184,7 +184,12 @@ CaptCrunch::serialize_order(SST::Core::Serialization::serializer& ser)
     SST_SER(unsignedMapList);
 
     SST_SER(unsignedVectVectVect);
-}
+
+    SST_SER(optionalInt);
+    SST_SER(optionalVectorInt);
+
+    SST_SER(variant);
+  }
 
 void
 CaptCrunch::initData()
@@ -402,6 +407,11 @@ CaptCrunch::initData()
 
     unsignedVectVectVect.push_back(unsignedVectVect);
     unsignedVectVectVect.push_back(unsignedVectVect);
+
+    optionalInt = 123;
+    optionalVectorInt = {5, 6, 7, 8};
+
+    variant.emplace<2>(std::make_tuple(true, 123));
 }
 
 bool
