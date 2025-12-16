@@ -1,34 +1,30 @@
-Mon Dec 15 17:32:13 CST 2025
+Mon Dec 15 17:58:35 CST 2025
 gizmo.dev.tactcomplabs.com
 Linux gizmo.dev.tactcomplabs.com 4.18.0-477.10.1.el8_8.x86_64 #1 SMP Tue May 16 11:38:37 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
 On branch 15.1.fix
 Your branch is up to date with 'origin/15.1.fix'.
 
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   ../../components/CMakeLists.txt
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	deleted:    13.0.0.ctest
+	deleted:    13.1.0.ctest
+	deleted:    14.0.0.ctest
+	deleted:    14.1.0.ctest
+	deleted:    15.0.0.ctest
+	deleted:    15.1.0.ctest
+	modified:   info.audit
+	deleted:    log
+	deleted:    testlist.audit
+	deleted:    tests.info
+
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
-	./
+	../251215.old/
 	../log
-	../../scripts/sst
-	../../scripts/sst-config
-	../../scripts/sst-info
-	../../scripts/sst-register
-	../../scripts/valgrind_ctest
-	../../tests/core-debug/TEST.INFO
-	../../tests/core-debug/ckpt_cmd-ckptaction/
-	../../tests/core-debug/cmd-actions.log
-	../../tests/core-debug/cmd-basic.log
-	../../tests/core-debug/cmd-ckptaction.log
-	../../tests/core-debug/cmd-cmp-types-false.log
-	../../tests/core-debug/cmd-cmp-types-true.log
-	../../tests/core-debug/cmd-custom-ic.log
-	../../tests/core-debug/cmd-default-ic.log
-	../../tests/core-debug/cmd-handler.log
-	../../tests/core-debug/cmd-set.log
-	../../tests/core-debug/cmd-trace.log
-	../../tests/core-debug/cmd-unwatch.log
-	../../tests/core-debug/cmd-watch.log
-	../../tests/rt_action/ckpt4restart_sigalrm_1/
-	../../tests/rt_action/sigusr-interactive-ckpt.sigusr1.sst.rt.interactive.log
 
-nothing added to commit but untracked files present (use "git add" to track)
-004e9e1 removed test component and test for custom ic as deprecated. Changed tests versions to NEW for some tests depending on recent iconsole changes
+4a28484 gizmo legacy audit results
