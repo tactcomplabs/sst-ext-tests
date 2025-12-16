@@ -1,0 +1,10 @@
+# Do not commit log files for this test directory
+*.log
+# Convention: Files generated on the fly
+*.cmd
+*.chk
+*.out
+# test generated files and directories
+ckpt_restart-ckpt-with-sigalrm-NEW_sst.rt.status.core*/
+ckpt_restart-ckpt-with-sigalrm_sst.rt.status.core*/
+ckpt_restart-sigalrm-NEW*/
