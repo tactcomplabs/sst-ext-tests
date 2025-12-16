@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER 15.1
+#EXT_TEST TEST_FILE_MINVER NEW
 #EXT_TEST TEST_FILE_DESC "Check for interactive, printTrace, printStatus, and set actions"
 #EXT_TEST TIMEOUT 30
 

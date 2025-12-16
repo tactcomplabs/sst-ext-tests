@@ -13,7 +13,7 @@ include_directories(
 )
 
 # -- add the component directories.
-if ( (${SST_VERSION} STREQUAL "DEV") OR (${SST_VERSION} VERSION_GREATER_EQUAL "15.0") )
+if ( (${SST_VERSION} STREQUAL "DEV") OR (${SST_VERSION} VERSION_GREATER_EQUAL "15.1") )
     message(STATUS "Adding CaptCrunch SST Component")
     add_subdirectory(CaptCrunch)
 else()
