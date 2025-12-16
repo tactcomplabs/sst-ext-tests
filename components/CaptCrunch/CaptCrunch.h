@@ -23,6 +23,7 @@
 #include <forward_list>
 #include <list>
 #include <map>
+#include <memory>
 #include <optional>
 #include <queue>
 #include <set>
@@ -306,6 +307,11 @@ private:
     std::list<std::map<unsigned, unsigned>> unsignedMapList;
 
     std::vector<std::vector<std::vector<unsigned>>> unsignedVectVectVect;
+
+    std::unique_ptr<int> uniquePtrInt;
+    std::unique_ptr<size_t[]> uniquePtrIntArray;
+    size_t uniquePtrIntArraySize;
+    std::unique_ptr<size_t[20]> uniquePtrIntFixedArray;
 
     std::optional<int> optionalInt;
     std::optional<std::vector<int>> optionalVectorInt;
