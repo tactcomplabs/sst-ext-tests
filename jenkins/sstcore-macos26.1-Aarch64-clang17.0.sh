@@ -52,7 +52,7 @@ fi
 if [ "$HEADERCHECK" = true ] ; then
 	./scripts/test-includes.pl
 fi
-make -j4
+make -j10
 make install
 export PATH=$PATH:$SST_INSTALL/bin
 which sst-test-core
@@ -68,7 +68,7 @@ if [ "$EXTTEST" = true ] ; then
     	    cmake -DENABLE_ALL_TESTS=ON -DENABLE_VALGRIND=ON $EXTTESTARGS ../
 	fi
 	export SST_COMPONENT_BASE=`pwd`
-	make -j4
+	make -j10
 	if [ "$VALGRIND" = false ]; then
 	    make test || ctest --rerun-failed --output-on-failure
 	else
