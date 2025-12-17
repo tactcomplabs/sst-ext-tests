@@ -74,39 +74,33 @@ cd ..
 ### Set watchpoints and run
 
 cd v_ag_class
-# CHECK 6 watch 0 changed\nAdded watchpoint #0
 watch 0 changed
-# CHECK 7 setHandler 0 ac\nWP 0 - cp0/v_ag_class/0
+# CHECK 6 setHandler 0 ac\nWP 0 - cp0/v_ag_class/0
 setHandler 0 ac
-# CHECK 8 run\nEntering interactive mode
 run
-# CHECK 9 ls\n0 = 101 \(.+\n1 = 19 \(
-ls
-# CHECK 10 run\nEntering interactive mode
-run
-# CHECK 11 ls\n0 = 102 \(.+\n1 = 38 \(
+# CHECK 7 ls\n0 = 101 \(.+\n1 = 19 \(
 ls
 run
-# CHECK 12 ls\n0 = 103 \(.+\n1 = 57 \(
+# CHECK 8 ls\n0 = 102 \(.+\n1 = 38 \(
+ls
+run
+# CHECK 9 ls\n0 = 103 \(.+\n1 = 57 \(
 ls
 unwatch
 
 cd ..
 cd v_ag_struct
-# CHECK 13 watch 0 changed\nAdded watchpoint #0
 watch 0 changed
-# CHECK 14 setHandler 0 ac\nWP 0 - cp0/v_ag_struct/0
+# CHECK 10 setHandler 0 ac\nWP 0 - cp0/v_ag_struct/0
 setHandler 0 ac
-# CHECK 15 run\nEntering interactive mode
 run
-# CHECK 16 ls\n0 = 203 \(.+\n1 = 69 \(
-ls
-# CHECK 17 run\nEntering interactive mode
-run
-# CHECK 18 ls\n0 = 204 \(.+\n1 = 92 \(
+# CHECK 11 ls\n0 = 203 \(.+\n1 = 69 \(
 ls
 run
-# CHECK 19 ls\n0 = 205 \(.+\n1 = 115 \(
+# CHECK 12 ls\n0 = 204 \(.+\n1 = 92 \(
+ls
+run
+# CHECK 13 ls\n0 = 205 \(.+\n1 = 115 \(
 ls
 unwatch
 
@@ -121,7 +115,7 @@ shutdown
 EOF
 
 # Update this whenever adding checks in the command comments above
-NUMCHECKS=20
+NUMCHECKS=14
 
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"

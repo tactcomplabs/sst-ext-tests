@@ -372,7 +372,7 @@ DbgSST15::tickleBits()
     }
 
     if (tickle_counter % 47 == 0 ) {
-        v_ag_union_struct.f.b30_27 += 1;
+        v_ag_union_struct.f.b30_27 += uint32_t{1};
     }
 }
 
