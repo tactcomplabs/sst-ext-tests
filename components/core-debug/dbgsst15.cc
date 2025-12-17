@@ -323,14 +323,13 @@ DbgSST15::tickleBits()
         unsigned front = v_queue_unsigned.front() + 1;
         v_queue_unsigned.pop();
         v_queue_unsigned.push(front);
-        // TOOD watchpoint on size change
+        std::cout << getCurrentSimCycle() << ": v_queue_unsigned.front()=" << v_queue_unsigned.front() << std::endl;
     }
     if (tickle_counter % 17 == 0 ) {
         // replace the front element
         unsigned front = v_prioirity_queue_unsigned.top() + 1;
         v_prioirity_queue_unsigned.pop();
         v_prioirity_queue_unsigned.push(front);
-        // TOOD watchpoint on size change
     }
 }
 
