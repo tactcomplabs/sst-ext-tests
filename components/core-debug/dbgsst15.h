@@ -20,6 +20,7 @@
 #include <ostream>
 #include <queue>
 #include <random>
+#include <stack>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -285,6 +286,11 @@ private:
     std::pair<uint64_t, std::string>          v_pair_u64_str = { 42, "forty-two" };
     std::tuple<uint32_t, double, std::string> v_tuple_u32_dbl_str = { 8, 1.0 / 8.0, "eight" };
 
+    // std::stack, std::queue, std::priority_queue (sst-simulator/sst-core PR#1488)
+    std::stack<unsigned> v_stack_unsigned;
+    std::queue<unsigned> v_queue_unsigned;
+    std::priority_queue<unsigned> v_prioirity_queue_unsigned;
+
     size_t tickle_counter = 0; // used for changing values it tickleBits()
 
 #if PROBE
@@ -327,7 +333,7 @@ private:
     /// sends data to adjacent links
     void sendData();
 
-    /// watchpoint faciliation
+    /// watchpoint facilitation
     void tickleBits();
 
 }; // class DbgSST15

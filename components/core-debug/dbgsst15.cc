@@ -138,6 +138,13 @@ DbgSST15::init(unsigned int phase)
     for ( size_t i = 0; i < v_bitset42.size(); i++ ) {
         v_bitset42[i] = (i & 3) == 3; // 1000 1000 1000 ... 1000 lsb
     }
+
+    for ( unsigned i =0; i<3; i++) {
+        v_stack_unsigned.push((i+1)*10);
+        v_queue_unsigned.push((i+1)*100);
+        v_prioirity_queue_unsigned.push((3-i));
+    }
+
 }
 
 void
@@ -184,6 +191,9 @@ DbgSST15::serialize_order(SST::Core::Serialization::serializer& ser)
     SST_SER(v_vecbool);
     SST_SER(v_pair_u64_str);
     SST_SER(v_tuple_u32_dbl_str);
+    SST_SER(v_stack_unsigned);
+    SST_SER(v_queue_unsigned);
+    SST_SER(v_prioirity_queue_unsigned);
 
 #if TESTSER
     SST_SER(*test_uptr);
@@ -297,10 +307,30 @@ DbgSST15::tickleBits()
     std::stringstream s;
     s << "S" << tickle_counter;
     if ( tickle_counter % 5 == 0 ) {
-        output.verbose(CALL_INFO, 0, 0, "%s.v_pair_u64_str.first <- %zu\n", getName().c_str(), tickle_counter);
+        // output.verbose(CALL_INFO, 0, 0, "%s.v_pair_u64_str.first <- %zu\n", getName().c_str(), tickle_counter);
         v_pair_u64_str = { tickle_counter, s.str() };
     }
     if ( tickle_counter % 7 == 0 ) v_tuple_u32_dbl_str = { tickle_counter, 1.0 / (double)tickle_counter, s.str() };
+    if ( tickle_counter % 11 == 0 ) {
+        // replace the top element
+        unsigned top = v_stack_unsigned.top() + 1;
+        v_stack_unsigned.pop();
+        v_stack_unsigned.push(top);
+        //TODO watch point on size change
+    }
+    if (tickle_counter % 13 == 0 ) {
+        // replace the front element
+        unsigned front = v_queue_unsigned.front() + 1;
+        v_queue_unsigned.pop();
+        v_queue_unsigned.push(front);
+        std::cout << getCurrentSimCycle() << ": v_queue_unsigned.front()=" << v_queue_unsigned.front() << std::endl;
+    }
+    if (tickle_counter % 17 == 0 ) {
+        // replace the front element
+        unsigned front = v_prioirity_queue_unsigned.top() + 1;
+        v_prioirity_queue_unsigned.pop();
+        v_prioirity_queue_unsigned.push(front);
+    }
 }
 
 bool

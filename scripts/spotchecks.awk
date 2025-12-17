@@ -24,7 +24,7 @@ BEGIN {
         # printf("RE[%d] %s\n", check, re);
         if (!match(lines,re)) {
             printf("ERROR: Failed TEST[%d]\n",check);
-            rc = 99
+            rc = 42
             exit rc;
         }
         rc--; check=-1;
