@@ -289,7 +289,7 @@ private:
     // std::stack, std::queue, std::priority_queue (sst-simulator/sst-core PR#1488)
     std::stack<unsigned> v_stack_unsigned;
     std::queue<unsigned> v_queue_unsigned;
-    std::priority_queue<unsigned> v_prioirity_queue_unsigned;
+    std::priority_queue<unsigned> v_priority_queue_unsigned;
 
     size_t tickle_counter = 0; // used for changing values it tickleBits()
 

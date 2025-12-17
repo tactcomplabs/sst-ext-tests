@@ -42,10 +42,10 @@ cd ..
 cd cp0
 set clocks 1000000
 
-# CHECK 0 p v_prioirity_queue_unsigned\nv_prioirity_queue_unsigned \(
-p v_prioirity_queue_unsigned
+# CHECK 0 p v_priority_queue_unsigned\nv_priority_queue_unsigned \(
+p v_priority_queue_unsigned
 
-cd v_prioirity_queue_unsigned
+cd v_priority_queue_unsigned
 # CHECK 1 ls\ncontainer/ \(
 ls
 
@@ -90,7 +90,7 @@ run 10400ns
 # 9100000: v_queue_unsigned.front()=202
 # 9100000: v_queue_unsigned.front()=202
 
-# CHECK 8 pwd\ncp0/v_prioirity_queue_unsigned/container \(
+# CHECK 8 pwd\ncp0/v_priority_queue_unsigned/container \(
 pwd
 
 # The values read do not match what is printed.
