@@ -142,7 +142,7 @@ DbgSST15::init(unsigned int phase)
     for ( unsigned i =0; i<3; i++) {
         v_stack_unsigned.push((i+1)*10);
         v_queue_unsigned.push((i+1)*100);
-        v_prioirity_queue_unsigned.push((3-i));
+        v_priority_queue_unsigned.push((3-i));
     }
 
 }
@@ -193,7 +193,7 @@ DbgSST15::serialize_order(SST::Core::Serialization::serializer& ser)
     SST_SER(v_tuple_u32_dbl_str);
     SST_SER(v_stack_unsigned);
     SST_SER(v_queue_unsigned);
-    SST_SER(v_prioirity_queue_unsigned);
+    SST_SER(v_priority_queue_unsigned);
 
 #if TESTSER
     SST_SER(*test_uptr);
@@ -327,9 +327,9 @@ DbgSST15::tickleBits()
     }
     if (tickle_counter % 17 == 0 ) {
         // replace the front element
-        unsigned front = v_prioirity_queue_unsigned.top() + 1;
-        v_prioirity_queue_unsigned.pop();
-        v_prioirity_queue_unsigned.push(front);
+        unsigned front = v_priority_queue_unsigned.top() + 1;
+        v_priority_queue_unsigned.pop();
+        v_priority_queue_unsigned.push(front);
     }
 }
 
