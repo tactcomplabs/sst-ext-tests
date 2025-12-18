@@ -328,11 +328,15 @@ DbgSST15::tickleBits()
         //TODO watch point on size change
     }
     if (tickle_counter % 13 == 0 ) {
-        // replace the front element
+        // perturb one element but keep the size the same
         unsigned front = v_queue_unsigned.front() + 1;
         v_queue_unsigned.pop();
         v_queue_unsigned.push(front);
-        // std::cout << getCurrentSimCycle() << ": v_queue_unsigned.front()=" << v_queue_unsigned.front() << std::endl;
+        #if 1
+        if (this->getName()=="cp0") {
+            output.verbose(CALL_INFO, 0, 0, "v_queue_unsigned.front()=%d\n", v_queue_unsigned.front());
+        }
+        #endif
     }
     if (tickle_counter % 17 == 0 ) {
         // replace the front element

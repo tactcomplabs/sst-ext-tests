@@ -74,22 +74,14 @@ ls
 # advance simulator sufficiently to observe change in front data
 run 10400ns
 
-# What we see is very strange. The value of the front is changing
-# in a seemingly erratic way
-# 1300000: v_queue_unsigned.front()=1200
-# 1300000: v_queue_unsigned.front()=200
-# 2600000: v_queue_unsigned.front()=1300
-# 2600000: v_queue_unsigned.front()=300
-# 3900000: v_queue_unsigned.front()=1101
-# 3900000: v_queue_unsigned.front()=101
-# 5200000: v_queue_unsigned.front()=1201
-# 5200000: v_queue_unsigned.front()=201
-# 6500000: v_queue_unsigned.front()=1301
-# 6500000: v_queue_unsigned.front()=301
-# 7800000: v_queue_unsigned.front()=1102
-# 7800000: v_queue_unsigned.front()=102
-# 9100000: v_queue_unsigned.front()=1202
-# 9100000: v_queue_unsigned.front()=202
+# confirm cp0 front value is changing
+# DbgSST15[cp0:tickleBits:1300000]: v_queue_unsigned.front()=1200
+# DbgSST15[cp0:tickleBits:2600000]: v_queue_unsigned.front()=1300
+# DbgSST15[cp0:tickleBits:3900000]: v_queue_unsigned.front()=1101
+# DbgSST15[cp0:tickleBits:5200000]: v_queue_unsigned.front()=1201
+# DbgSST15[cp0:tickleBits:6500000]: v_queue_unsigned.front()=1301
+# DbgSST15[cp0:tickleBits:7800000]: v_queue_unsigned.front()=1102
+# DbgSST15[cp0:tickleBits:9100000]: v_queue_unsigned.front()=1202
 
 # CHECK 8 pwd\ncp0/v_queue_unsigned/container \(
 pwd
