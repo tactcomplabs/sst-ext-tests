@@ -94,6 +94,11 @@ CaptCrunch::serialize_order(SST::Core::Serialization::serializer& ser)
     SST_SER(sLongValue);
     SST_SER(sLongLongValue);
 
+    SST_SER(floatComplex);
+    SST_SER(doubleComplex);
+    SST_SER(CfloatComplex);
+    SST_SER(CdoubleComplex);
+
     SST_SER(fTypeStructValue);
 
     SST_SER(strValue);
@@ -191,6 +196,38 @@ CaptCrunch::serialize_order(SST::Core::Serialization::serializer& ser)
     SST_SER(variant);
   }
 
+  template <typename T>
+  struct complex_type
+  {};
+  template <>
+  struct complex_type<float>
+  {
+      using type = float _Complex;
+  };
+  template <>
+  struct complex_type<double>
+  {
+      using type = double _Complex;
+  };
+  template <>
+  struct complex_type<long double>
+  {
+      using type = long double _Complex;
+  };
+
+  template <typename T>
+  auto
+  make_complex(T real, T imag)
+  {
+      struct
+      {
+          T real, imag;
+      } in = { real, imag };
+      typename complex_type<T>::type ret;
+      memcpy(&ret, &in, sizeof(ret));
+      return ret;
+  }
+
 void
 CaptCrunch::initData()
 {
@@ -208,6 +245,11 @@ CaptCrunch::initData()
     signedValue    = -1234;
     uLongValue     = 1234ul;
     uLongLongValue = 1234ull;
+
+    floatComplex = std::complex<float>(123, 456);
+    doubleComplex = std::complex<double>(789, 345);
+    CfloatComplex = make_complex(1234.0f, 4567.0f);
+    CdoubleComplex = make_complex(10240.0, 81920.0);
 
 // Presumably intentional  unsigned to signed type conversions
 #pragma GCC diagnostic push
