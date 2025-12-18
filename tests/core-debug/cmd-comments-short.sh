@@ -24,7 +24,8 @@ PSTR="c7 finished. teststring=HelloMyNameIsC7AndICannotQuoteAString"
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
-CMDFILE=comments.cmd
+# CMDFILE will be committed in repo. Not generated on the fly
+CMDFILE=comments.in
 CHKFILE=$TNAME.chk
 
 # Launch the program to start interactive mode at time 0

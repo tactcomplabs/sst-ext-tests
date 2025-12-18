@@ -1,0 +1,6 @@
+# These are generated during cmake as wrapper scripts for running valgrind
+sst
+sst-config
+sst-info
+sst-register
+valgrind_ctest
