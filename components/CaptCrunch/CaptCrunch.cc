@@ -185,6 +185,10 @@ CaptCrunch::serialize_order(SST::Core::Serialization::serializer& ser)
 
     SST_SER(unsignedVectVectVect);
 
+    SST_SER(uniquePtrInt);
+    SST_SER_NAME(SST::Core::Serialization::unique_ptr(uniquePtrIntArray, uniquePtrIntArraySize), "uniquePtrIntArray");
+    SST_SER(uniquePtrIntFixedArray);
+
     SST_SER(optionalInt);
     SST_SER(optionalVectorInt);
 
@@ -407,6 +411,15 @@ CaptCrunch::initData()
 
     unsignedVectVectVect.push_back(unsignedVectVect);
     unsignedVectVectVect.push_back(unsignedVectVect);
+
+    uniquePtrInt = std::make_unique<int>(123);
+    uniquePtrIntArraySize = 10;
+    uniquePtrIntArray = std::make_unique<size_t[]>(uniquePtrIntArraySize);
+    for (size_t i = 0; i < uniquePtrIntArraySize; ++i)
+        uniquePtrIntArray[i] = uniquePtrIntArraySize - i;
+    uniquePtrIntFixedArray = std::unique_ptr<size_t[20]>(reinterpret_cast<size_t(*)[20]>(new size_t[20]));
+    for (size_t i = 0; i < 20; ++i)
+        (*uniquePtrIntFixedArray)[i] = i;
 
     optionalInt = 123;
     optionalVectorInt = {5, 6, 7, 8};
