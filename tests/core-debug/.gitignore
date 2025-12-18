@@ -1,10 +1,10 @@
 # Do not commit log files for this test directory
 *.log
-# Convention: Files generated on the fly
-*.cmd
-*.chk
-*.out
+# Convention: Files generated on the fly should be cleaned up by the tests on success
+# *.cmd
+# *.chk
+# *.out
 # test generated files and directories
 TEST.INFO
-ckpt_cmd-ckptaction*/
+
 
