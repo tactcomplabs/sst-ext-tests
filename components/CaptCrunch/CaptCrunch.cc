@@ -190,6 +190,11 @@ CaptCrunch::serialize_order(SST::Core::Serialization::serializer& ser)
 
     SST_SER(unsignedVectVectVect);
 
+
+    SST_SER(sharedPtrInt);
+    SST_SER_NAME(SST::Core::Serialization::shared_ptr(sharedPtrIntArray, sharedPtrIntArraySize), "sharedPtrIntArray");
+    SST_SER(sharedPtrIntFixedArray);
+
     SST_SER(uniquePtrInt);
     SST_SER_NAME(SST::Core::Serialization::unique_ptr(uniquePtrIntArray, uniquePtrIntArraySize), "uniquePtrIntArray");
     SST_SER(uniquePtrIntFixedArray);
@@ -453,6 +458,15 @@ CaptCrunch::initData()
 
     unsignedVectVectVect.push_back(unsignedVectVect);
     unsignedVectVectVect.push_back(unsignedVectVect);
+
+    sharedPtrInt = std::make_shared<int>(123);
+    sharedPtrIntArraySize = 10;
+    sharedPtrIntArray = std::shared_ptr<size_t[]>(new size_t[sharedPtrIntArraySize]);
+    for (size_t i = 0; i < sharedPtrIntArraySize; ++i)
+        sharedPtrIntArray[ptrdiff_t(i)] = sharedPtrIntArraySize - i;
+    sharedPtrIntFixedArray = std::shared_ptr<size_t[20]>(new size_t[20]);
+    for (size_t i = 0; i < 20; ++i)
+        sharedPtrIntFixedArray[ptrdiff_t(i)] = i;
 
     uniquePtrInt = std::make_unique<int>(123);
     uniquePtrIntArraySize = 10;

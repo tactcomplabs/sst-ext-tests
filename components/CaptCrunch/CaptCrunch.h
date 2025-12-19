@@ -314,6 +314,11 @@ private:
 
     std::vector<std::vector<std::vector<unsigned>>> unsignedVectVectVect;
 
+    std::shared_ptr<int> sharedPtrInt;
+    std::shared_ptr<size_t[]> sharedPtrIntArray;
+    size_t sharedPtrIntArraySize;
+    std::shared_ptr<size_t[20]> sharedPtrIntFixedArray;
+
     std::unique_ptr<int> uniquePtrInt;
     std::unique_ptr<size_t[]> uniquePtrIntArray;
     size_t uniquePtrIntArraySize;
