@@ -14,6 +14,7 @@
 // -- Standard Headers
 #include <array>
 #include <cinttypes>
+#include <complex>
 #include <cstddef>
 #include <cstdint>
 #include <cstdio>
@@ -144,6 +145,11 @@ private:
     unsigned long long uLongLongValue;
     signed long        sLongValue;
     signed long long   sLongLongValue;
+
+    std::complex<float> floatComplex;
+    std::complex<double> doubleComplex;
+    float _Complex CfloatComplex;
+    double _Complex CdoubleComplex;
 
     struct __fundamentalTypeStruct
     {
