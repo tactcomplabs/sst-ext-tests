@@ -332,7 +332,7 @@ DbgSST15::tickleBits()
         unsigned front = v_queue_unsigned.front() + 1;
         v_queue_unsigned.pop();
         v_queue_unsigned.push(front);
-        #if 1
+        #if 0
         if (this->getName()=="cp0") {
             output.verbose(CALL_INFO, 0, 0, "v_queue_unsigned.front()=%d\n", v_queue_unsigned.front());
         }
