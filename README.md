@@ -83,6 +83,7 @@ Sample `.valgrindrc` file:
 ```
 --trace-children=yes
 --track-origins=yes
+--leak-check=no
 --partial-loads-ok=no
 --redzone-size=2048
 --malloc-fill=88
