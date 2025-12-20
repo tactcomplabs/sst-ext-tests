@@ -65,7 +65,7 @@ public:
   virtual ~OMSubComponentAPI() {}
   virtual void update(payload_t& p) {
     // if ( subcompapi_counter_ % 13 ) {
-        // perturb one element but keep the size the same
+        // change the queue state
         unsigned front = v_queue_unsigned_.front() + 1;
         v_queue_unsigned_.pop();
         v_queue_unsigned_.push(front);

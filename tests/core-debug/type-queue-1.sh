@@ -35,7 +35,7 @@ confirm false
 # regexp and have multiple \n characters but not a trailing \n
 
 cd c0
-cd component
+cd function0/
 cd v_queue_unsigned_/
 cd container/
 ls
