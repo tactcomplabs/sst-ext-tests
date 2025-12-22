@@ -26,7 +26,7 @@ CHKFILE=$TNAME.chk
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s $CONFIG"
 echo $LAUNCH
-$LAUNCH << EOF  | tee $LOGFILE
+$LAUNCH << EOF  | grep -v talking | tee $LOGFILE
 ls
 cd c7
 watch duty_cycle_count == 1
@@ -43,7 +43,7 @@ echo $TNAME Complete
 
 # Check result
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $NAME returned $retVal"
+  echo "ERROR $TNAME returned $retVal"
   exit $retVal
 fi
 

@@ -35,7 +35,7 @@ EOF
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s $CONFIG"
 echo $LAUNCH
-$LAUNCH << EOF  | tee $LOGFILE
+$LAUNCH << EOF  | egrep -v "talking[a-zA-Z]" | tee $LOGFILE
 replay $CMDFILE
 EOF
 

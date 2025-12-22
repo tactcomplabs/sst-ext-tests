@@ -38,7 +38,8 @@ r 1us
 continue 1us
 tm
 c 4us
-continue
+confirm false
+shutd
 EOF
 
 retVal=$?
@@ -47,7 +48,7 @@ echo $TNAME Complete
 
 # Check result
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $NAME returned $retVal"
+  echo "ERROR $TNAME returned $retVal"
   exit $retVal
 fi
 
@@ -142,7 +143,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # continue
-PSTR="Simulation is complete, simulated time: 1 ms"
+PSTR="Simulation is complete, simulated time: 7 us"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
