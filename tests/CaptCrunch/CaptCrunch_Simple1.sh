@@ -18,6 +18,8 @@ c0.addParams({
 })
 EOL
 
+wait
+
 # -- run the first pass through the sim
 echo "SST_COMPONENT_BASE=${SST_COMPONENT_BASE}"
 sst --checkpoint-period=10ns --checkpoint-prefix=$TEST_NAME-PRE --add-lib-path=$SST_COMPONENT_BASE/CaptCrunch/ $TEST_NAME.py

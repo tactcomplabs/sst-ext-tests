@@ -58,7 +58,9 @@ p v_ull
 p v_float
 p v_double
 p v_ldouble
-run
+run 5us
+confirm false
+shutd
 EOF
 
 retVal=$?
@@ -67,7 +69,7 @@ echo $TNAME Complete
 
 # Check result
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $NAME returned $retVal"
+  echo "ERROR $TNAME returned $retVal"
   exit $retVal
 fi
 
