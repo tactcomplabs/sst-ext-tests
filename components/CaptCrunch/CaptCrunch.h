@@ -146,10 +146,12 @@ private:
     signed long        sLongValue;
     signed long long   sLongLongValue;
 
+#ifdef SST_VER_GT_15_1
     std::complex<float> floatComplex;
     std::complex<double> doubleComplex;
     float _Complex CfloatComplex;
     double _Complex CdoubleComplex;
+#endif
 
     struct __fundamentalTypeStruct
     {
@@ -314,6 +316,7 @@ private:
 
     std::vector<std::vector<std::vector<unsigned>>> unsignedVectVectVect;
 
+#ifdef SST_VER_GT_15_1
     std::shared_ptr<int> sharedPtrInt;
     std::shared_ptr<size_t[]> sharedPtrIntArray;
     size_t sharedPtrIntArraySize;
@@ -328,6 +331,7 @@ private:
     std::optional<std::vector<int>> optionalVectorInt;
 
     std::variant<int, std::vector<int>, std::tuple<bool, int>> variant;
+#endif
 
     // ---------------------------------------
     // END SERIALIZED DATA STRUCTURES
