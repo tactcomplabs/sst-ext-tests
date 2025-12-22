@@ -153,6 +153,11 @@ if (ENABLE_VALGRIND)
   endif()
 endif()
 
+# -- Prefer modular components over using version specific compile options
+if ( (${SST_VERSION} STREQUAL "DEV") OR (${SST_VERSION} VERSION_GREATER "15.1") )
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DSST_VER_GT_15_1")
+endif()
+
 # -- setup override files
 find_program(SST NAMES "sst")
 find_program(SSTREGISTER NAMES "sst-register")

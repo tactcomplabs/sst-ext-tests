@@ -94,11 +94,12 @@ CaptCrunch::serialize_order(SST::Core::Serialization::serializer& ser)
     SST_SER(sLongValue);
     SST_SER(sLongLongValue);
 
+#ifdef SST_VER_GT_15_1
     SST_SER(floatComplex);
     SST_SER(doubleComplex);
     SST_SER(CfloatComplex);
     SST_SER(CdoubleComplex);
-
+#endif
     SST_SER(fTypeStructValue);
 
     SST_SER(strValue);
@@ -190,7 +191,7 @@ CaptCrunch::serialize_order(SST::Core::Serialization::serializer& ser)
 
     SST_SER(unsignedVectVectVect);
 
-
+#ifdef SST_VER_GT_15_1
     SST_SER(sharedPtrInt);
     SST_SER_NAME(SST::Core::Serialization::shared_ptr(sharedPtrIntArray, sharedPtrIntArraySize), "sharedPtrIntArray");
     SST_SER(sharedPtrIntFixedArray);
@@ -203,6 +204,7 @@ CaptCrunch::serialize_order(SST::Core::Serialization::serializer& ser)
     SST_SER(optionalVectorInt);
 
     SST_SER(variant);
+#endif
   }
 
   template <typename T>
@@ -255,10 +257,12 @@ CaptCrunch::initData()
     uLongValue     = 1234ul;
     uLongLongValue = 1234ull;
 
+#ifdef SST_VER_GT_15_1
     floatComplex = std::complex<float>(123, 456);
     doubleComplex = std::complex<double>(789, 345);
     CfloatComplex = make_complex(1234.0f, 4567.0f);
     CdoubleComplex = make_complex(10240.0, 81920.0);
+#endif
 
 // Presumably intentional  unsigned to signed type conversions
 #pragma GCC diagnostic push
@@ -458,7 +462,7 @@ CaptCrunch::initData()
 
     unsignedVectVectVect.push_back(unsignedVectVect);
     unsignedVectVectVect.push_back(unsignedVectVect);
-
+#ifdef SST_VER_GT_15_1
     sharedPtrInt = std::make_shared<int>(123);
     sharedPtrIntArraySize = 10;
     sharedPtrIntArray = std::shared_ptr<size_t[]>(new size_t[sharedPtrIntArraySize]);
@@ -481,6 +485,7 @@ CaptCrunch::initData()
     optionalVectorInt = {5, 6, 7, 8};
 
     variant.emplace<2>(std::make_tuple(true, 123));
+#endif
 }
 
 bool
