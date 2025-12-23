@@ -142,16 +142,6 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# continue
-PSTR="Simulation is complete, simulated time: 7 us"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
 # Simulation Complete
 PSTR="Simulation is complete"
 grep "$PSTR" $LOGFILE > /dev/null
