@@ -380,7 +380,7 @@ DbgSST15::tickleBits()
         // conversion from 'uint32_t' {aka 'unsigned int'} to
 	// 'unsigned char:4' may change value [-Werror=conversion]
         #pragma GCC diagnostic push
-        #pragma GCC diagnostic ignored "-Wsign-conversion"
+        #pragma GCC diagnostic ignored "-Wconversion"
         v_ag_union_struct.f.b30_27 += uint32_t{1};
 	#pragma GCC diagnostic pop
     }
