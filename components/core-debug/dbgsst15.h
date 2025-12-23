@@ -158,6 +158,8 @@ struct ag_struct_t {
 };
 static_assert(std::is_aggregate_v<ag_struct_t>);
 
+// These unions are trivially serializable and will not be automatically mapped.
+// https://github.com/sstsimulator/sst-core/pull/1515
 union ag_union_t {
     std::int32_t n;     // occupies 4 bytes
     std::uint16_t s[2]; // occupies 4 bytes

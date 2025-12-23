@@ -21,6 +21,7 @@
 // -- Standard Headers
 #include "SST.h"
 #include <map>
+#include "tcldbg.h"
 // clang-format on
 
 namespace SST::ExtTest {
@@ -58,46 +59,34 @@ public:
 class OMSubComponentAPI : public SST::SubComponent {
 public:
   SST_ELI_REGISTER_SUBCOMPONENT_API(SST::ExtTest::OMSubComponentAPI);
-  // SST_ELI_DOCUMENT_PARAMS(
-  //   {"verbose",         "Sets the verbosity level of output",   "0" }
-  // )
-  OMSubComponentAPI(ComponentId_t id, Params& params);
+  SST_ELI_DOCUMENT_PARAMS(
+    {"verbose", "Sets the verbosity level of output",   "0" }
+  )
+  OMSubComponentAPI(ComponentId_t id, Params& params) : SubComponent(id) {};
   virtual ~OMSubComponentAPI() {}
+  
   virtual void update(payload_t& p) {
-    // if ( subcompapi_counter_ % 13 ) {
-        // change the queue state
-        unsigned front = v_queue_unsigned_.front() + 1;
-        v_queue_unsigned_.pop();
-        v_queue_unsigned_.push(front);
-        // sstout_.verbose(CALL_INFO, 0, 0, "v_queue_unsigned_.front()=%d\n", v_queue_unsigned_.front());
-        std::cout << this->getCurrentSimCycle() << ": v_queue_unsigned_.front()=" << v_queue_unsigned_.front() << std::endl;
-    // }
-
-    //TODO event payload customization
     for (size_t i=0; i<8; i++) 
       array_[i] = subcompapi_counter_ + i;
     subcompapi_counter_++;
   };
 protected:
-  SST::Output sstout_;
   uint64_t subcompapi_counter_ = 0; // ObjectMapFundamental
   uint64_t array_[8] = {0};         // ObjectMapArray
-
-  // Testing std::queue
-  std::queue<uint32_t> v_queue_unsigned_;
 
 public:
   // minimum serialization for testing object map
   OMSubComponentAPI() : SubComponent() {}
   void serialize_order(SST::Core::Serialization::serializer& ser) override {
     SubComponent::serialize_order(ser);
-    SST_SER(v_queue_unsigned_);
+    SST_SER(subcompapi_counter_);
+    SST_SER(array_);
   }
   ImplementVirtualSerializable(SST::ExtTest::OMSubComponentAPI)
 }; //class OMSubComponentAPI
 
 // -------------------------------------------------------
-// OMSimpleSubComponent
+// OMSimpleSubComponent (not registered)
 // -------------------------------------------------------
 class OMSimpleSubComponent : public OMSubComponentAPI {
 public:
@@ -107,23 +96,38 @@ public:
         "OMSimpleSubComponent",          // Subcomponent name
         SST_ELI_ELEMENT_VERSION(1,0,0),  // A version number
         "Simple subcomponent for object map evaluation", 
-        SST::ExtTest::OMSimpleSubComponent) // Fully qualified API name
-  // SST_ELI_DOCUMENT_PARAMS(
-  //   {"param",    "desc", "default" }
-  // )
-  OMSimpleSubComponent(ComponentId_t id, Params& params) : OMSubComponentAPI(id,params) {}
-  virtual ~OMSimpleSubComponent() {}
+        SST::ExtTest::OMSubComponentAPI) // Fully qualified API name
+ 
+  OMSimpleSubComponent(ComponentId_t id, Params& params) : OMSubComponentAPI(id,params) {
+    sstout_.init(getName() + ":@p:@t]: ", 0, 0, SST::Output::STDOUT );
+    v_queue_unsigned_.push(100);
+    v_queue_unsigned_.push(200);
+    v_queue_unsigned_.push(300);
+  }
+  ~OMSimpleSubComponent() {}
   virtual void update(payload_t& p) final {
+    tcldbg::spinner("SPINNER");
     OMSubComponentAPI::update(p);
     p.data += 1;
+
+    assert(v_queue_unsigned_.size()==3);
+    unsigned front = v_queue_unsigned_.front() + 1;
+    v_queue_unsigned_.pop();
+    v_queue_unsigned_.push(front);
+    sstout_.verbose(CALL_INFO, 0, 0, "v_queue_unsigned_.front()=%d\n", v_queue_unsigned_.front());
+    // std::cout << getCurrentSimTime() << ": v_queue_unsigned_.front()=" << v_queue_unsigned_.front() << std::endl;
   }
 public:
     // serialization support
-    OMSimpleSubComponent() : OMSubComponentAPI() {}
+    OMSimpleSubComponent() : OMSubComponentAPI() {}; // required for serialization
     void serialize_order(SST::Core::Serialization::serializer& ser) override {
       OMSubComponentAPI::serialize_order(ser);
+      SST_SER(v_queue_unsigned_);
     }
     ImplementSerializable(SST::ExtTest::OMSimpleSubComponent)
+private:
+    std::queue<uint32_t> v_queue_unsigned_;
+    SST::Output sstout_;
 }; //class OMSimpleSubComponent
 
 // ---------------------------------------------

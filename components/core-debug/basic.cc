@@ -96,13 +96,6 @@ bool OMSimpleComponent::clockTick(SST::Cycle_t currentCycle)
     #endif
 }
 
-OMSubComponentAPI::OMSubComponentAPI(ComponentId_t id, Params &params) : SubComponent(id)
-{
-    v_queue_unsigned_.push(100);
-    v_queue_unsigned_.push(200);
-    v_queue_unsigned_.push(300);
-}
-
 } // namespace SST::ExtTest
 
 // EOF
