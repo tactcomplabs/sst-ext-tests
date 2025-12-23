@@ -376,7 +376,13 @@ DbgSST15::tickleBits()
     }
 
     if (tickle_counter % 47 == 0 ) {
+        // TODO code to avoid
+        // conversion from 'uint32_t' {aka 'unsigned int'} to
+	// 'unsigned char:4' may change value [-Werror=conversion]
+        #pragma GCC diagnostic push
+        #pragma GCC diagnostic ignored "-Wconversion"
         v_ag_union_struct.f.b30_27 += uint32_t{1};
+	#pragma GCC diagnostic pop
     }
 }
 
