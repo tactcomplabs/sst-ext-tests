@@ -23,6 +23,7 @@
 #include <stack>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
 #include <time.h>
 #include <tuple>
 #include <utility>

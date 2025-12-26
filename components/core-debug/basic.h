@@ -20,7 +20,11 @@
 // clang-format off
 // -- Standard Headers
 #include "SST.h"
+#include <cassert>
+#include <cstddef>
+#include <cstdint>
 #include <map>
+#include <queue>
 #include "tcldbg.h"
 // clang-format on
 
