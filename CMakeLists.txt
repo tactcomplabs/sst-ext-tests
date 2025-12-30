@@ -59,7 +59,7 @@ execute_process(COMMAND sst --version
 message(STATUS "${SST_VERSION_STRING}")
 
 # Allow override using -DSST_VERSION=n
-if (DEFINED SST_VERSION)  
+if (DEFINED SST_VERSION)
   message(STATUS "SST_VERSION test selection override: ${SST_VERSION}")
 endif()
 
@@ -209,6 +209,9 @@ enable_testing()
 #-- Custom Commands
 add_custom_target(uninstall COMMAND
   "${CMAKE_CURRENT_SOURCE_DIR}/scripts/uninstall.sh")
+
+#-- SST Utilities
+add_subdirectory(utils)
 
 #-- SST Component Libraries
 add_subdirectory(components)
