@@ -7,7 +7,7 @@
 # See LICENSE in the top level directory for licensing details
 #
 
-# -- make test options visible to ccmake
+# -- make test options visible to cmake
 option(ENABLE_NEW_TESTS "Enable NEW tests for sst-core feature branches" OFF)
 option(ENABLE_ALL_TESTS "Enable ALL production tests" OFF)
 option(ENABLE_CLI_TESTS "Enable CLI testing" OFF)
@@ -15,9 +15,11 @@ option(ENABLE_CLI_TESTS "Enable CLI testing" OFF)
 option(ENABLE_DEBUG_TESTS "Interactive debug mode tests")
 option(ENABLE_RTACTION_TESTS "Enable Realtime Action testing" OFF)
 option(ENABLE_CAPTCRUNCH_TESTS "Enable Captain Crunch testing" OFF)
+
 # -- purely optional tests
 option(ENABLE_CORE_CHKPT_TESTS "Purely optional: Enable sst-core checkpointing tests" OFF)
 option(ENABLE_MPI_TESTS "Purely optional: Enable multi-rank MPI testing" OFF)
+option(ENABLE_CORE_RESTART_TESTS "Purely optional: Enable restart test from incorrect OS/Arch" OFF)
 
 if (ENABLE_NEW_TESTS)
   set(ENABLE_ALL_TESTS ON CACHE BOOL "Enable ALL production tests" FORCE)
@@ -47,7 +49,7 @@ if (ENABLE_DEBUG_TESTS)
   add_subdirectory(core-debug)
 endif()
 
-# -- strictly optional tests 
+# -- strictly optional tests
 # TODO these have not been updated
 if(ENABLE_CORE_CHKPT_TESTS)
   add_subdirectory(core-chkpt)
@@ -59,6 +61,10 @@ if(ENABLE_MPI_TESTS)
   else()
     message(FATAL_ERROR "Could not discover `mpirun` or `mpiexec`. Cannot enable MPI tests")
   endif()
+endif()
+
+if(ENABLE_CORE_RESTART_TESTS)
+  add_subdirectory(core-restart-platform)
 endif()
 
 # EOF

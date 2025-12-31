@@ -163,6 +163,7 @@ find_program(SST NAMES "sst")
 find_program(SSTREGISTER NAMES "sst-register")
 find_program(SSTCONFIG NAMES "sst-config")
 find_program(SSTINFO NAMES "sst-info")
+set(SST_PLATFORM "${CMAKE_BINARY_DIR}/utils/sst-platform/sst-platform")
 configure_file( "${CMAKE_SOURCE_DIR}/scripts/sst.in"
                 "${CMAKE_SOURCE_DIR}/scripts/sst"
                 @ONLY)
@@ -177,6 +178,9 @@ configure_file( "${CMAKE_SOURCE_DIR}/scripts/sst-info.in"
                 @ONLY)
 configure_file( "${CMAKE_SOURCE_DIR}/scripts/valgrind_ctest.in"
                 "${CMAKE_SOURCE_DIR}/scripts/valgrind_ctest"
+                @ONLY)
+configure_file( "${CMAKE_SOURCE_DIR}/scripts/sst-platform.in"
+                "${CMAKE_SOURCE_DIR}/scripts/sst-platform"
                 @ONLY)
 
 set(LDFLAGS "${SST_LDFLAGS}")
