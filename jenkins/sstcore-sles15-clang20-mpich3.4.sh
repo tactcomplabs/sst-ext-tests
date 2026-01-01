@@ -59,7 +59,7 @@ which sst-test-core
 sst-test-core
 
 if [ "$EXTTEST" = true ] ; then
-	cd sst-text-tests
+	cd sst-ext-tests
 	mkdir build
 	cd build
 	if [ "$VALGRIND" = false ]; then
