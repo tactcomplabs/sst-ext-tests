@@ -59,6 +59,7 @@ which sst-test-core
 sst-test-core
 
 if [ "$EXTTEST" = true ] ; then
+	pwd
 	cd sst-ext-tests
 	mkdir build
 	cd build
