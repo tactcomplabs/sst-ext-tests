@@ -1,5 +1,5 @@
 #
-# sst-ext-tests/tests/components CMake
+# sst-ext-tests/components CMake
 #
 # Copyright (C) 2017-2025 Tactical Computing Laboratories, LLC
 # All Rights Reserved
@@ -17,7 +17,7 @@ if ( (${SST_VERSION} STREQUAL "DEV") OR (${SST_VERSION} VERSION_GREATER_EQUAL "1
     message(STATUS "Adding CaptCrunch SST Component")
     add_subdirectory(CaptCrunch)
 else()
-    message(STATUS "CaptCrunch is supported only for sst 15.0 or newer")
+    message(STATUS "CaptCrunch is supported only for sst 15.1 or newer")
 endif()
 
 if ( (${SST_VERSION} STREQUAL "DEV") OR (${SST_VERSION} VERSION_GREATER_EQUAL "15.1") )
