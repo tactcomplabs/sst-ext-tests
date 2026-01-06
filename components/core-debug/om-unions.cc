@@ -19,10 +19,10 @@ OMUnions::OMUnions(ComponentId_t id, Params& params) : OMSubComponentAPI(id,para
   #ifdef UNION_METHOD_2
   v_union_struct_method_2.v = 0x33333333;
   #endif
-  v_union_int_float_trivial.f  = 0x11111111;
-  v_union_struct_method_1.v = 0x22222222;
+  v_union_int_float_trivial.f  = 0.0;
+  v_union_struct_method_1.v = 0.0;
   #ifdef UNION_METHOD_2
-  v_union_struct_method_2.v = 0x33333333;
+  v_union_struct_method_2.v = 0.0;
   #endif
 }
 
@@ -31,6 +31,8 @@ OMUnions::~OMUnions() {}
 void OMUnions::update(payload_t& p) {
   OMSubComponentAPI::update(p);
 
+  #pragma GCC diagnostic push
+  #pragma GCC diagnostic ignored "-Wconversion"
   v_union_struct_trivial.f.b5_0   += 1;   
   v_union_struct_trivial.f.b7_6   += 1;
   v_union_struct_trivial.f.b10_8  += 1;
@@ -44,6 +46,7 @@ void OMUnions::update(payload_t& p) {
   v_union_struct_method_1.f.b26_11 += 2;
   v_union_struct_method_1.f.b30_27 += 2;
   v_union_struct_method_1.f.b31    += 2;
+  #pragma GCC diagnostic pop
 
   #ifdef UNION_METHOD_2
   v_union_struct_method_2.f.b5_0   += 3;   
@@ -54,10 +57,10 @@ void OMUnions::update(payload_t& p) {
   v_union_struct_method_2.f.b31    += 3;
   #endif
 
-  v_union_int_float_trivial.f += 1;
-  v_union_int_float_method_1.f += 2;
+  v_union_int_float_trivial.f += 1.0f;
+  v_union_int_float_method_1.f += 2.0f;
   #ifdef UNION_METHOD_2
-  v_union_int_float_method_2.f += 3;
+  v_union_int_float_method_2.f += 3.0f;
   #endif
 }
 
