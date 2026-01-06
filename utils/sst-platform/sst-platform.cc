@@ -40,14 +40,6 @@ const std::string getArchStr(){
 #elif defined(__ARM_ARCH_7__) || defined(__ARM_ARCH_7A__) || defined(__ARM_ARCH_7R__) || defined(__ARM_ARCH_7M__) || \
     defined(__ARM_ARCH_7S__)
   ArchStr = "ARM7";
-#elif defined(__ARM_ARCH_7A__) || defined(__ARM_ARCH_7R__) || defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7S__)
-  ArchStr = "ARM7A";
-#elif defined(__ARM_ARCH_7R__) || defined(__ARM_ARCH_7M__) || defined(__ARM_ARCH_7S__)
-  ArchStr = "ARM7R";
-#elif defined(__ARM_ARCH_7M__)
-  ArchStr = "ARM7M";
-#elif defined(__ARM_ARCH_7S__)
-  ArchStr = "ARM7S";
 #elif defined(__aarch64__) || defined(_M_ARM64)
   ArchStr = "ARM64";
 #elif defined(mips) || defined(__mips__) || defined(__mips)
