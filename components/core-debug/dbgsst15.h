@@ -26,6 +26,7 @@
 #include <string>
 #include <time.h>
 #include <tuple>
+#include <type_traits>
 #include <utility>
 #include <vector>
 

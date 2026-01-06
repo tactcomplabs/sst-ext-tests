@@ -5,14 +5,15 @@
 #
 # See LICENSE in the top level directory for licensing details
 #
-# basic.py
-#
+# omni.py
+# Object Map Network Implementor
 
 import argparse
 import sst
 
-parser = argparse.ArgumentParser(description="basic")
+parser = argparse.ArgumentParser(description="Object Map Network Implementor")
 parser.add_argument("--verbose",              type=int,   help="verbosity", default=2)
+parser.add_argument("--function0",            type=str,   help="function0 subcomponent (e.g. dbgsst15.OMQueue)", required=True)
 
 args = parser.parse_args()
 
@@ -25,22 +26,22 @@ class Simple():
       "verbose" : args.verbose,
       "primary" : 1
       })
-    self.c0f0 = self.c0.setSubComponent( "function0", "dbgsst15.OMSimpleSubComponent")
+    self.c0f0 = self.c0.setSubComponent( "function0", args.function0 )
 
 # 2 components sharing a link
 class Simple2():
   def __init__(self):
 
-    self.c0 =  sst.Component(f"c0",  "omap.OMSimpleComponent")
+    self.c0 =  sst.Component(f"c0",  "dbgsst15.OMSimpleComponent")
     self.c0.addParams({
       "verbose" : args.verbose,
       "primary" : 1
       })
-    self.c0f0 = self.c0.setSubComponent( "function0", "omap.OMSimpleSubComponent")
+    self.c0f0 = self.c0.setSubComponent( "function0", "args.function0")
 
-    self.c1 =  sst.Component(f"c1",  "omap.OMSimpleComponent")
+    self.c1 =  sst.Component(f"c1",  "dbgsst15.OMSimpleComponent")
     self.c1.addParams({"verbose" : args.verbose})
-    self.c1f0 = self.c1.setSubComponent( "function0", "omap.OMSimpleSubComponent")
+    self.c1f0 = self.c1.setSubComponent( "function0", "args.function0")
 
     self.link0 = sst.Link("f0")
     self.link0.connect( (self.c0, "port0", "10ns"), (self.c1, "port0", "10ns") ) 

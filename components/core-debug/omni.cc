@@ -1,5 +1,5 @@
 //
-// basic.cc
+// omni.cc
 //
 // Copyright (C) 2017-2025 Tactical Computing Laboratories, LLC
 // All Rights Reserved
@@ -8,7 +8,7 @@
 // See LICENSE in the top level directory for licensing details
 //
 
-#include "basic.h"
+#include "omni.h"
 
 namespace SST::ExtTest{
 
