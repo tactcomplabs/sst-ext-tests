@@ -69,14 +69,14 @@ cd ..
 cd v_union_struct_method_1/ 
 
 #TODO Values are different between Mac and Ubuntu. Don't check values for now.
-# CHECK 4 ls\nv = [0-9]+ \(
+# CHECK 4 ls\nv = 3621246928 \(
 ls
 
 unwatch
 watch v changed
 run 1us
 
-# CHECK 5 ls\nv = [0-9]+ \(
+# CHECK 5 ls\nv = 3654932946 \(
 ls
 
 shutdown
