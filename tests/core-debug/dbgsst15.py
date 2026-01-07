@@ -51,7 +51,7 @@ cp0.addParams({
   "minData" : MIN_DATA,
   "maxData" : MAX_DATA,
   "clockDelay" : 100,
-  "clocks" : 10000,
+  "clocks" : 1000000,
   "rngSeed" : 1223,
   "clockFreq" : "1Ghz",
   # common probe controls

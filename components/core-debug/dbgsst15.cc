@@ -13,6 +13,7 @@
 #include <chrono>
 #include <sstream>
 #include <thread>
+#include <type_traits>
 
 namespace SSTDEBUG::DbgSST15 {
 
@@ -138,6 +139,17 @@ DbgSST15::init(unsigned int phase)
     for ( size_t i = 0; i < v_bitset42.size(); i++ ) {
         v_bitset42[i] = (i & 3) == 3; // 1000 1000 1000 ... 1000 lsb
     }
+
+    for ( unsigned i =0; i<3; i++) {
+        v_stack_unsigned.push((i+1)*10);
+        v_queue_unsigned.push((i+1)*100);
+        v_priority_queue_unsigned.push((3-i));
+    }
+
+    v_ag_class = { 42, "ag_class_t" };
+    v_ag_struct = { 42, "ag_struct_t" };
+    v_ag_union = { 42 };
+    v_ag_union_struct = { 0xa5a5a5a5 };
 }
 
 void
@@ -184,6 +196,13 @@ DbgSST15::serialize_order(SST::Core::Serialization::serializer& ser)
     SST_SER(v_vecbool);
     SST_SER(v_pair_u64_str);
     SST_SER(v_tuple_u32_dbl_str);
+    SST_SER(v_stack_unsigned);
+    SST_SER(v_queue_unsigned);
+    SST_SER(v_priority_queue_unsigned);
+    SST_SER(v_ag_class);
+    SST_SER(v_ag_struct);
+    SST_SER(v_ag_union);
+    SST_SER(v_ag_union_struct);
 
 #if TESTSER
     SST_SER(*test_uptr);
@@ -297,10 +316,74 @@ DbgSST15::tickleBits()
     std::stringstream s;
     s << "S" << tickle_counter;
     if ( tickle_counter % 5 == 0 ) {
-        output.verbose(CALL_INFO, 0, 0, "%s.v_pair_u64_str.first <- %zu\n", getName().c_str(), tickle_counter);
+        // output.verbose(CALL_INFO, 0, 0, "%s.v_pair_u64_str.first <- %zu\n", getName().c_str(), tickle_counter);
         v_pair_u64_str = { tickle_counter, s.str() };
     }
     if ( tickle_counter % 7 == 0 ) v_tuple_u32_dbl_str = { tickle_counter, 1.0 / (double)tickle_counter, s.str() };
+    if ( tickle_counter % 11 == 0 ) {
+        // replace the top element
+        unsigned top = v_stack_unsigned.top() + 1;
+        v_stack_unsigned.pop();
+        v_stack_unsigned.push(top);
+        //TODO watch point on size change
+    }
+    if (tickle_counter % 13 == 0 ) {
+        // perturb one element but keep the size the same
+        unsigned front = v_queue_unsigned.front() + 1;
+        v_queue_unsigned.pop();
+        v_queue_unsigned.push(front);
+        #if 0
+        if (this->getName()=="cp0") {
+            output.verbose(CALL_INFO, 0, 0, "v_queue_unsigned.front()=%d\n", v_queue_unsigned.front());
+        }
+        #endif
+    }
+    if (tickle_counter % 17 == 0 ) {
+        // replace the front element
+        unsigned front = v_priority_queue_unsigned.top() + 1;
+        v_priority_queue_unsigned.pop();
+        v_priority_queue_unsigned.push(front);
+    }
+
+    if (tickle_counter % 19 == 0 ) {
+        v_ag_class.v_int += 1;
+        v_ag_class.v_string = std::to_string(tickle_counter);
+    }
+
+    if (tickle_counter % 23 == 0 ) {
+        v_ag_struct.v_int += 1;
+        v_ag_struct.v_string = std::to_string(tickle_counter);
+    }
+
+    if (tickle_counter % 29 == 0 ) {
+        v_ag_union.n += 0x01010100;
+    }
+
+    if (tickle_counter % 31 == 0 ) {
+        v_ag_union.s[0]++;
+    }
+
+    if (tickle_counter % 37 == 0 ) {
+        v_ag_union.s[1]++;
+    }
+
+    if (tickle_counter % 41 == 0 ) {
+        v_ag_union.c++;
+    }
+
+    if (tickle_counter % 43 == 0 ) {
+        v_ag_union_struct.v += 0x100;
+    }
+
+    if (tickle_counter % 47 == 0 ) {
+        // TODO code to avoid
+        // conversion from 'uint32_t' {aka 'unsigned int'} to
+	// 'unsigned char:4' may change value [-Werror=conversion]
+        #pragma GCC diagnostic push
+        #pragma GCC diagnostic ignored "-Wconversion"
+        v_ag_union_struct.f.b30_27 += uint32_t{1};
+	#pragma GCC diagnostic pop
+    }
 }
 
 bool

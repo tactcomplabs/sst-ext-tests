@@ -5,6 +5,6 @@
 #
 
 export PATH="@CMAKE_SOURCE_DIR@/scripts:$PATH"
-ctest --output-on-failure
+ctest --output-on-failure --stop-on-failure
 
 exit $?

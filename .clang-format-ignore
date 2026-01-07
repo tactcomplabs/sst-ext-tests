@@ -1,0 +1,2 @@
+# Ignore the entire 'components' directory and all its contents
+components/**/*

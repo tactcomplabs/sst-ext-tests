@@ -20,8 +20,10 @@
 #include <ostream>
 #include <queue>
 #include <random>
+#include <stack>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string>
 #include <time.h>
 #include <tuple>
 #include <utility>
@@ -135,6 +137,49 @@ private:
     ImplementSerializable(SSTDEBUG::DbgSST15::DbgSST15Event);
 
 }; // class DbgSST15Event
+
+// Aggregate types
+// class, struct, or union
+// No user-declared or inherited constructors.
+// No private or protected non-static data members.
+// No virtual functions (e.g., no polymorphism).
+// No private, protected, or virtual base classes.
+// Arrays are always considered aggregates, even if they contain non-aggregate elements
+
+class ag_class_t {
+public:
+    int v_int;
+    std::string v_string;
+};
+static_assert(std::is_aggregate_v<ag_class_t>);
+
+struct ag_struct_t {
+    int v_int;
+    std::string v_string;
+};
+static_assert(std::is_aggregate_v<ag_struct_t>);
+
+// These unions are trivially serializable and will not be automatically mapped.
+// https://github.com/sstsimulator/sst-core/pull/1515
+union ag_union_t {
+    std::int32_t n;     // occupies 4 bytes
+    std::uint16_t s[2]; // occupies 4 bytes
+    std::uint8_t c;     // occupies 1 byte
+}; 
+static_assert(std::is_aggregate_v<ag_union_t>);
+
+union ag_union_struct_t {
+    uint32_t v = 0;
+    struct {
+        uint32_t b5_0   : 6;   // [5:0]                                                                                                                                            
+        uint32_t b7_6   : 2;   // [7:6]                                                                                                                                            
+        uint32_t b10_8  : 3;   // [10:8]                                                                                                                                           
+        uint32_t b26_11 : 16;  // [26:11]                                                                                                                                          
+        uint32_t b30_27 : 4;   // [30:27]                                                                                                                                          
+        uint32_t b31    : 1;   // [31]  
+    } f;
+};
+static_assert(std::is_aggregate_v<ag_union_struct_t>);
 
 // -------------------------------------------------------
 // DbgSST15
@@ -285,6 +330,16 @@ private:
     std::pair<uint64_t, std::string>          v_pair_u64_str = { 42, "forty-two" };
     std::tuple<uint32_t, double, std::string> v_tuple_u32_dbl_str = { 8, 1.0 / 8.0, "eight" };
 
+    // std::stack, std::queue, std::priority_queue (sst-simulator/sst-core PR#1488)
+    std::stack<unsigned> v_stack_unsigned;
+    std::queue<unsigned> v_queue_unsigned;
+    std::priority_queue<unsigned> v_priority_queue_unsigned;
+
+    // aggregate types
+    ag_class_t v_ag_class;
+    ag_struct_t v_ag_struct;
+    ag_union_t v_ag_union;
+    ag_union_struct_t v_ag_union_struct;
     size_t tickle_counter = 0; // used for changing values it tickleBits()
 
 #if PROBE
@@ -327,7 +382,7 @@ private:
     /// sends data to adjacent links
     void sendData();
 
-    /// watchpoint faciliation
+    /// watchpoint facilitation
     void tickleBits();
 
 }; // class DbgSST15

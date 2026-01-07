@@ -30,7 +30,9 @@ cd c7
 ls
 set test_string HelloMyNameIsC7AndICannotQuoteAString
 print test_string
-quit
+continue 1us
+confirm false
+shutdown
 EOF
 
 # Launch the program to start interactive mode at time 0

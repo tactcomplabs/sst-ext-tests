@@ -18,6 +18,8 @@ c0.addParams({
 })
 EOL
 
+wait
+
 # -- for starters just enter 1 component and do not segfault
 # -- TODO print and check. Each data member through the heirarchy
 # -- run the first pass through the sim

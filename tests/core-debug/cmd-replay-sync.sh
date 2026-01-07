@@ -37,14 +37,14 @@ EOF
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --replay-file=$CMDFILE --interactive-console=sst.interactive.simpledebug --interactive-start=0s $CONFIG"
 echo $LAUNCH
-$LAUNCH | tee $LOGFILE
+$LAUNCH | grep -v 'talking' | tee $LOGFILE
 retVal=$?
 
 echo $TNAME Complete
 
 # Check result
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $NAME returned $retVal"
+  echo "ERROR $TNAME returned $retVal"
   exit $retVal
 fi
 

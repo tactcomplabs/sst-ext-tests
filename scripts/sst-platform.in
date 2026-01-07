@@ -1,0 +1,10 @@
+#!/bin/bash
+#
+# Wrapper to execute SST-PLATFORM
+#
+#
+
+SST_PLATFORM_BIN="@SST_PLATFORM@"
+
+$SST_PLATFORM_BIN $@
+exit $?

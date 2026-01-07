@@ -28,7 +28,9 @@ LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug
 echo $LAUNCH
 $LAUNCH << EOF  | tee $LOGFILE
 help
-quit
+run 1us
+shutd
+yes
 EOF
 
 retVal=$?
@@ -37,7 +39,7 @@ echo $TNAME Complete
 
 # Check result
 if [ $retVal -ne 0 ]; then
-  echo "ERROR $NAME returned $retVal"
+  echo "ERROR $TNAME returned $retVal"
   exit $retVal
 fi
 

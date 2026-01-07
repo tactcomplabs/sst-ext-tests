@@ -33,9 +33,9 @@ echo $PATH
 
 rm -Rf $SST_INSTALL/*
 if [ "$CLANGFORMAT" = true ]; then
-	./scripts/clang-format-test.sh --format-exe /pkgs/Linux/Rocky93/LLVM/LLVM-20.1.0-Linux-X64/bin/clang-format
+  ./scripts/clang-format-test.sh --format-exe /pkgs/Linux/Rocky93/LLVM/LLVM-20.1.0-Linux-X64/bin/clang-format || exit 10
 fi
-./autogen.sh
+./autogen.sh || exit 3
 if [ "$DEBUG" = true ]; then
     export DBGFLAGS="--enable-debug"
     export CXXFLAGS="-O0 -g"
@@ -48,31 +48,36 @@ if [ "$SANITIZER" = true ]; then
     # detect_leaks is not supported on Mac
     # export ASAN_OPTIONS=detect_leaks=0
 fi
-./configure --prefix=$SST_INSTALL $DBGFLAGS
+./configure --prefix=$SST_INSTALL $DBGFLAGS || exit 11
 if [ "$HEADERCHECK" = true ] ; then
-	./scripts/test-includes.pl
+	./scripts/test-includes.pl || exit 20
 fi
-make -j
-make install
+make -j || exit 30
+make install || exit 31
 export PATH=$PATH:$SST_INSTALL/bin
-which sst-test-core
-sst-test-core
+
+#-- Run SST tests
+if [ "$SST_TEST_CORE" = true ]; then
+        which sst-test-core || exit 40
+        sst-test-core || exit 41
+fi
 
 if [ "$EXTTEST" = true ] ; then
-	cd sst-text-tests
-	mkdir build
-	cd build
+	pwd
+	cd sst-ext-tests || exit 50
+	mkdir build || exit 51
+	cd build || exit 52
 	if [ "$VALGRIND" = false ]; then
-	    cmake -DENABLE_ALL_TESTS=ON $EXTTESTASAN $EXTTESTARGS ../
+	    cmake -DENABLE_ALL_TESTS=ON $EXTTESTASAN $EXTTESTARGS ../ || exit 53
 	else
-    	    cmake -DENABLE_ALL_TESTS=ON -DENABLE_VALGRIND=ON $EXTTESTARGS ../
+    	    cmake -DENABLE_ALL_TESTS=ON -DENABLE_VALGRIND=ON $EXTTESTARGS ../ || exit 54
 	fi
 	export SST_COMPONENT_BASE=`pwd`
-	make -j
+	make -j || exit 55
 	if [ "$VALGRIND" = false ]; then
-	    make test || ctest --rerun-failed --output-on-failure
+	    make test || ctest --rerun-failed --output-on-failure || exit 56
 	else
-    	    ../scripts/valgrind_ctest
+    	    ../scripts/valgrind_ctest || exit 60
 	fi
 fi
 

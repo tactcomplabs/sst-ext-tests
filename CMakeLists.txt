@@ -59,7 +59,7 @@ execute_process(COMMAND sst --version
 message(STATUS "${SST_VERSION_STRING}")
 
 # Allow override using -DSST_VERSION=n
-if (DEFINED SST_VERSION)  
+if (DEFINED SST_VERSION)
   message(STATUS "SST_VERSION test selection override: ${SST_VERSION}")
 endif()
 
@@ -153,11 +153,17 @@ if (ENABLE_VALGRIND)
   endif()
 endif()
 
+# -- Prefer modular components over using version specific compile options
+if ( (${SST_VERSION} STREQUAL "DEV") OR (${SST_VERSION} VERSION_GREATER "15.1") )
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DSST_VER_GT_15_1")
+endif()
+
 # -- setup override files
 find_program(SST NAMES "sst")
 find_program(SSTREGISTER NAMES "sst-register")
 find_program(SSTCONFIG NAMES "sst-config")
 find_program(SSTINFO NAMES "sst-info")
+set(SST_PLATFORM "${CMAKE_BINARY_DIR}/utils/sst-platform/sst-platform")
 configure_file( "${CMAKE_SOURCE_DIR}/scripts/sst.in"
                 "${CMAKE_SOURCE_DIR}/scripts/sst"
                 @ONLY)
@@ -172,6 +178,9 @@ configure_file( "${CMAKE_SOURCE_DIR}/scripts/sst-info.in"
                 @ONLY)
 configure_file( "${CMAKE_SOURCE_DIR}/scripts/valgrind_ctest.in"
                 "${CMAKE_SOURCE_DIR}/scripts/valgrind_ctest"
+                @ONLY)
+configure_file( "${CMAKE_SOURCE_DIR}/scripts/sst-platform.in"
+                "${CMAKE_SOURCE_DIR}/scripts/sst-platform"
                 @ONLY)
 
 set(LDFLAGS "${SST_LDFLAGS}")
@@ -204,6 +213,9 @@ enable_testing()
 #-- Custom Commands
 add_custom_target(uninstall COMMAND
   "${CMAKE_CURRENT_SOURCE_DIR}/scripts/uninstall.sh")
+
+#-- SST Utilities
+add_subdirectory(utils)
 
 #-- SST Component Libraries
 add_subdirectory(components)

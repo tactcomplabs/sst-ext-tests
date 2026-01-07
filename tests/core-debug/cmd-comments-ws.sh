@@ -42,14 +42,14 @@ ls
 		
 set test_string HelloMyNameIsC7AndICannotQuoteAString
 print test_string
-        quit
+        
 EOF
 
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --replay-file=$CMDFILE --interactive-console=sst.interactive.simpledebug --interactive-start=0s $CONFIG"
 echo $LAUNCH
 $LAUNCH << EOF  | tee $LOGFILE
-quit
+      shutd
 EOF
 
 retVal=$?

@@ -13,23 +13,28 @@
 
 // -- Standard Headers
 #include <array>
+#include <cinttypes>
+#include <complex>
 #include <cstddef>
 #include <cstdint>
+#include <cstdio>
+#include <cstdlib>
+#include <ctime>
 #include <deque>
 #include <forward_list>
-#include <inttypes.h>
 #include <list>
 #include <map>
+#include <memory>
+#include <optional>
 #include <queue>
 #include <set>
 #include <stack>
-#include <stdio.h>
-#include <stdlib.h>
 #include <string>
-#include <time.h>
 #include <tuple>
 #include <unordered_map>
 #include <unordered_set>
+#include <utility>
+#include <variant>
 #include <vector>
 
 // -- SST Headers
@@ -140,6 +145,13 @@ private:
     unsigned long long uLongLongValue;
     signed long        sLongValue;
     signed long long   sLongLongValue;
+
+#ifdef SST_VER_GT_15_1
+    std::complex<float> floatComplex;
+    std::complex<double> doubleComplex;
+    float _Complex CfloatComplex;
+    double _Complex CdoubleComplex;
+#endif
 
     struct __fundamentalTypeStruct
     {
@@ -303,6 +315,23 @@ private:
     std::list<std::map<unsigned, unsigned>> unsignedMapList;
 
     std::vector<std::vector<std::vector<unsigned>>> unsignedVectVectVect;
+
+#ifdef SST_VER_GT_15_1
+    std::shared_ptr<int> sharedPtrInt;
+    std::shared_ptr<size_t[]> sharedPtrIntArray;
+    size_t sharedPtrIntArraySize;
+    std::shared_ptr<size_t[20]> sharedPtrIntFixedArray;
+
+    std::unique_ptr<int> uniquePtrInt;
+    std::unique_ptr<size_t[]> uniquePtrIntArray;
+    size_t uniquePtrIntArraySize;
+    std::unique_ptr<size_t[20]> uniquePtrIntFixedArray;
+
+    std::optional<int> optionalInt;
+    std::optional<std::vector<int>> optionalVectorInt;
+
+    std::variant<int, std::vector<int>, std::tuple<bool, int>> variant;
+#endif
 
     // ---------------------------------------
     // END SERIALIZED DATA STRUCTURES

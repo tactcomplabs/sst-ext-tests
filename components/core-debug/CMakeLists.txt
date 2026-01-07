@@ -8,6 +8,8 @@
 #
 
 set(DbgSST15Srcs
+  basic.cc
+  basic.h
   dbgsst15.cc
   dbgsst15.h
   probe.cc
