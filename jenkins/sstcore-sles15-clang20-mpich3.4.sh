@@ -31,6 +31,8 @@ echo "VALGRIND=$VALGRIND"
 echo $SST_INSTALL
 echo $PATH
 
+export PYFLAGS="--with-python=/usr/bin/python3.11-config"
+
 rm -Rf $SST_INSTALL/*
 if [ "$CLANGFORMAT" = true ]; then
   ./scripts/clang-format-test.sh --format-exe /pkgs/Linux/Rocky93/LLVM/LLVM-20.1.0-Linux-X64/bin/clang-format || exit 10
@@ -48,7 +50,7 @@ if [ "$SANITIZER" = true ]; then
     # detect_leaks is not supported on Mac
     # export ASAN_OPTIONS=detect_leaks=0
 fi
-./configure --prefix=$SST_INSTALL $DBGFLAGS || exit 11
+./configure --prefix=$SST_INSTALL $DBGFLAGS $PYFLAGS || exit 11
 if [ "$HEADERCHECK" = true ] ; then
   ./scripts/test-includes.pl || exit 20
 fi
