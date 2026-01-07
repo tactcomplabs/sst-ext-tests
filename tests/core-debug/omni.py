@@ -6,12 +6,12 @@
 # See LICENSE in the top level directory for licensing details
 #
 # omni.py
-# Object Map Network Implementor
+# Object Map Noir Inspector
 
 import argparse
 import sst
 
-parser = argparse.ArgumentParser(description="Object Map Network Implementor")
+parser = argparse.ArgumentParser(description="Object Map Noir Inspector")
 parser.add_argument("--verbose",              type=int,   help="verbosity", default=2)
 parser.add_argument("--function0",            type=str,   help="function0 subcomponent (e.g. dbgsst15.OMQueue)", required=True)
 
