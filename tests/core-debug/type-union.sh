@@ -1,6 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER DEV
-#EXT_TEST TEST_FILE_DESC "Exercise std::queue<unsigned> with one component"
+#EXT_TEST TEST_FILE_DESC "Exercise unions with one component"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -10,14 +10,24 @@ set -uo pipefail
 # Set default ensure failure if not set and component not installed
 SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
 
-# Settings
+# Convenience environment variables
+set +u
+if [[ -z "${CLEANUP}" ]]; then
 CLEANUP=1
+fi
+if [[ -z "${VERBOSE}" ]]; then
+  VERBOSE=0
+fi
+
+set -u
+
+# Common settings
 SCRIPT_PATH="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 CONFIG="omni.py"
-CONFIG_OPTS="--function0=dbgsst15.OMQueue --verbose=0"
+CONFIG_OPTS="--function0=dbgsst15.OMUnions"
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -37,51 +47,47 @@ confirm false
 
 cd c0
 cd function0/
-cd v_queue_unsigned_/
-cd container/
-# CHECK 0 pwd\nc0/function0/v_queue_unsigned_/container \(
+cd v_union_int_float_method_1/
+# CHECK 0 pwd\nc0/function0/v_union_int_float_method_1 \(
 pwd
 
-# CHECK 1 ls\n0 = 100 \(.+\n1 = 200 \(.+\n2 = 300 \(
+# CHECK 1 ls\nf = 0\.000000.+
 ls
-# 0 = 100 (unsigned int)
-# 1 = 200 (unsigned int)
-# 2 = 300 (unsigned int)
-run 10ns
-# 1000: v_queue_unsigned_.front()=200
-# 2000: v_queue_unsigned_.front()=300
-# 3000: v_queue_unsigned_.front()=101
-# 4000: v_queue_unsigned_.front()=201
-# 5000: v_queue_unsigned_.front()=301
-# 6000: v_queue_unsigned_.front()=102
-# 7000: v_queue_unsigned_.front()=202
-# 8000: v_queue_unsigned_.front()=302
-# 9000: v_queue_unsigned_.front()=103
-# Entering interactive mode at time 10000 
-# Ran clock for 10000 sim cycles
 
-# CHECK 2 ls\n0 = 103 \(.+\n1 = 203 \(.+\n2 = 303 \(
+run 1us
+
+# CHECK 2 ls\nf = 1998\.000000.+
 ls
-# 0 = 103 (unsigned int)
-# 1 = 203 (unsigned int)
-# 2 = 303 (unsigned int)
 
-# TODO sst-core #1517 requires rebuilding the object map on entry into interactive sessions.
-#      In order for this watchpoint to work we need to do the same every sample!
-#      We may have to restrict what can and cannot be watched and the user will have to add code.
-# watch 0 changed
-# run
-# ls
+watch f changed
+run 1us
+
+# CHECK 3 ls\nf = 2000\.000000.+
+ls
+
+cd ..
+cd v_union_struct_method_1/ 
+
+#TODO Values are different between Mac and Ubuntu. Don't check values for now.
+# CHECK 4 ls\nv = 3621246928 \(
+ls
+
+unwatch
+watch v changed
+run 1us
+
+# CHECK 5 ls\nv = 3654932946 \(
+ls
 
 shutdown
 
 EOF
 
-# Update this whenever adding checks in the command comments above
-NUMCHECKS=3
+# IMPORTANT: Update this whenever adding checks in the command comments above
+NUMCHECKS=6
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- $CONFIG_OPTS"
+LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug --verbose=$VERBOSE $CONFIG -- $CONFIG_OPTS"
 echo $LAUNCH
 revVal=0
 $LAUNCH << EOF  | tee $LOGFILE

@@ -1,5 +1,6 @@
 //
-// basic.h
+// omni.h
+// Object Map Noir Inspector
 //
 // Copyright (C) 2017-2025 Tactical Computing Laboratories, LLC
 // All Rights Reserved
@@ -14,21 +15,17 @@
 // complex behaviors by simply providing the subcomponent
 // at runtime.
 
-#ifndef _SST_EXT_TESTS_BASIC_
-#define _SST_EXT_TESTS_BASIC_
+#ifndef _SST_EXT_TESTS_OMNI_
+#define _SST_EXT_TESTS_OMNI_
 
 // clang-format off
 // -- Standard Headers
 #include "SST.h"
-#include <cassert>
-#include <cstddef>
-#include <cstdint>
-#include <map>
-#include <queue>
-#include "tcldbg.h"
 // clang-format on
 
 namespace SST::ExtTest {
+
+//TODO utilize events. placeholder for now
 
 // ---------------------------------------------
 // payload_t
@@ -70,13 +67,11 @@ public:
   virtual ~OMSubComponentAPI() {}
   
   virtual void update(payload_t& p) {
-    for (size_t i=0; i<8; i++) 
-      array_[i] = subcompapi_counter_ + i;
     subcompapi_counter_++;
+    p.data += 1;
   };
-protected:
-  uint64_t subcompapi_counter_ = 0; // ObjectMapFundamental
-  uint64_t array_[8] = {0};         // ObjectMapArray
+private:
+  uint64_t subcompapi_counter_ = 0;
 
 public:
   // minimum serialization for testing object map
@@ -84,55 +79,9 @@ public:
   void serialize_order(SST::Core::Serialization::serializer& ser) override {
     SubComponent::serialize_order(ser);
     SST_SER(subcompapi_counter_);
-    SST_SER(array_);
   }
   ImplementVirtualSerializable(SST::ExtTest::OMSubComponentAPI)
 }; //class OMSubComponentAPI
-
-// -------------------------------------------------------
-// OMSimpleSubComponent (not registered)
-// -------------------------------------------------------
-class OMSimpleSubComponent : public OMSubComponentAPI {
-public:
-  SST_ELI_REGISTER_SUBCOMPONENT(
-        OMSimpleSubComponent,            // Class name
-        "dbgsst15",                         // Library name
-        "OMSimpleSubComponent",          // Subcomponent name
-        SST_ELI_ELEMENT_VERSION(1,0,0),  // A version number
-        "Simple subcomponent for object map evaluation", 
-        SST::ExtTest::OMSubComponentAPI) // Fully qualified API name
- 
-  OMSimpleSubComponent(ComponentId_t id, Params& params) : OMSubComponentAPI(id,params) {
-    sstout_.init(getName() + ":@p:@t]: ", 0, 0, SST::Output::STDOUT );
-    v_queue_unsigned_.push(100);
-    v_queue_unsigned_.push(200);
-    v_queue_unsigned_.push(300);
-  }
-  ~OMSimpleSubComponent() {}
-  virtual void update(payload_t& p) final {
-    tcldbg::spinner("SPINNER");
-    OMSubComponentAPI::update(p);
-    p.data += 1;
-
-    assert(v_queue_unsigned_.size()==3);
-    unsigned front = v_queue_unsigned_.front() + 1;
-    v_queue_unsigned_.pop();
-    v_queue_unsigned_.push(front);
-    sstout_.verbose(CALL_INFO, 0, 0, "v_queue_unsigned_.front()=%d\n", v_queue_unsigned_.front());
-    // std::cout << getCurrentSimTime() << ": v_queue_unsigned_.front()=" << v_queue_unsigned_.front() << std::endl;
-  }
-public:
-    // serialization support
-    OMSimpleSubComponent() : OMSubComponentAPI() {}; // required for serialization
-    void serialize_order(SST::Core::Serialization::serializer& ser) override {
-      OMSubComponentAPI::serialize_order(ser);
-      SST_SER(v_queue_unsigned_);
-    }
-    ImplementSerializable(SST::ExtTest::OMSimpleSubComponent)
-private:
-    std::queue<uint32_t> v_queue_unsigned_;
-    SST::Output sstout_;
-}; //class OMSimpleSubComponent
 
 // ---------------------------------------------
 // OMSimpleComponent
@@ -141,7 +90,7 @@ class OMSimpleComponent : public SST::Component{
 
 public:
   SST_ELI_REGISTER_COMPONENT( OMSimpleComponent,   // component class
-                            "dbgsst15",       // component library
+             "dbgsst15",       // component library
                             "OMSimpleComponent",   // component name
                             SST_ELI_ELEMENT_VERSION( 1, 0, 0 ),
                             "Simple Object Map Evalulation Component",
@@ -205,8 +154,52 @@ public:
 
 }; //class OMSimpleComponent
 
+// -------------------------------------------------------
+// OmSubComponentAPI Specialization Example
+// OMQueue (not registered)
+// Testing: std::queue
+// -------------------------------------------------------
+class OMQueue : public OMSubComponentAPI {
+public:
+  SST_ELI_REGISTER_SUBCOMPONENT(
+        OMQueue,            // Class name
+        "dbgsst15",         // Library name
+        "OMQueue",          // Subcomponent name
+        SST_ELI_ELEMENT_VERSION(1,0,0),  // A version number
+        "Simple subcomponent for object map evaluation", 
+        SST::ExtTest::OMSubComponentAPI) // Fully qualified API name
+ 
+  OMQueue(ComponentId_t id, Params& params) : OMSubComponentAPI(id,params) {
+    sstout_.init(getName() + ":@p:@t]: ", 0, 0, SST::Output::STDOUT );
+    v_queue_unsigned_.push(100);
+    v_queue_unsigned_.push(200);
+    v_queue_unsigned_.push(300);
+  }
+  ~OMQueue() {}
+  virtual void update(payload_t& p) final {
+    OMSubComponentAPI::update(p);
+    assert(v_queue_unsigned_.size()==3);
+    unsigned front = v_queue_unsigned_.front() + 1;
+    v_queue_unsigned_.pop();
+    v_queue_unsigned_.push(front);
+    sstout_.verbose(CALL_INFO, 0, 0, "v_queue_unsigned_.front()=%d\n", v_queue_unsigned_.front());
+  }
+public:
+  // serialization support
+  OMQueue() : OMSubComponentAPI() {}; // required for serialization
+  void serialize_order(SST::Core::Serialization::serializer& ser) override {
+    OMSubComponentAPI::serialize_order(ser);
+    SST_SER(v_queue_unsigned_);
+  }
+  ImplementSerializable(SST::ExtTest::OMQueue)
+private:
+  SST::Output sstout_;
+  std::queue<uint32_t> v_queue_unsigned_;
+}; //class OMQueue
+
+
 } //namespace SST::ExtTest
 
-#endif  // _SST_EXT_TESTS_BASIC_
+#endif  // _SST_EXT_TESTS_OMNI_
 
 // EOF

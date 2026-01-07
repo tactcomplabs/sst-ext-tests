@@ -8,8 +8,10 @@
 #
 
 set(DbgSST15Srcs
-  basic.cc
-  basic.h
+  omni.cc
+  omni.h
+  om-unions.cc
+  om-unions.h
   dbgsst15.cc
   dbgsst15.h
   probe.cc
