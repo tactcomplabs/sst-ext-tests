@@ -13,7 +13,7 @@
 namespace SST::ExtTest {
 
 OMUnions::OMUnions(ComponentId_t id, Params& params) : OMSubComponentAPI(id,params) {
-  sstout_.init(getName() + ":@p:@t]: ", 0, 0, SST::Output::STDOUT );
+  sstout_.init("[" + getName() + ":@p:@t]: ", 0, 0, SST::Output::STDOUT );
   v_union_struct_trivial.v  = 0x11111111;
   v_union_struct_method_1.v = 0x22222222;
   #ifdef UNION_METHOD_2

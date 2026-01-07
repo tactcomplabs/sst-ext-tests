@@ -27,7 +27,7 @@ SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 CONFIG="omni.py"
-CONFIG_OPTS="--function0=dbgsst15.OMUnions --verbose=0"
+CONFIG_OPTS="--function0=dbgsst15.OMUnions"
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out

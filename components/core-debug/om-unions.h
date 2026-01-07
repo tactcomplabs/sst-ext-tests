@@ -8,6 +8,20 @@
 // See LICENSE in the top level directory for licensing details
 //
 
+// Intent:  Demonstrate support of object mapping for common
+//          cases of unions.  Unions are fraught with peril
+//          and should generally be discouraged. However,
+//          when memory footprint is critical, they are quite
+//          efficient.  Two cases are included here:
+//          1) uint32_t and bitfields: This can be used to 
+//             model hardware registers as an alternative to
+//             std::bitset (which supports object mapping).
+//          2) int and float: Handy for floating point hardware 
+// 
+//          A secondary goal is to provide an example for the 
+//          SST online documentation for a `serialize_impl`
+//          specialization.
+// 
 #ifndef _SST_EXT_TESTS_OM_UNIONS
 #define _SST_EXT_TESTS_OM_UNIONS
 
