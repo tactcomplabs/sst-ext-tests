@@ -125,6 +125,7 @@ for sig in $SIG; do
 done  # for $sig
 echo "Finished $(date +%D:%H:%M:%S)"
 echo "PASS"
+wait
 exit 0
 
 

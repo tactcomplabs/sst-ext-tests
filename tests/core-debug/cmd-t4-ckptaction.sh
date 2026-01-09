@@ -10,8 +10,18 @@ set -uo pipefail
 # Set default ensure failure if not set and component not installed
 SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
 
-# Settings
-CLEANUP=0
+# Convenience environment variables
+set +u
+if [[ -z "${CLEANUP}" ]]; then
+CLEANUP=1
+fi
+if [[ -z "${VERBOSE}" ]]; then
+  VERBOSE=0
+fi
+
+set -u
+
+# Common settings
 SCRIPT_PATH="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
@@ -58,7 +68,7 @@ fi
 
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst -n $THREADS --interactive-start=0s --checkpoint-enable --checkpoint-prefix=$CKPTPREFIX $CONFIG"
+LAUNCH="sst --verbose=$VERBOSE -n $THREADS --interactive-start=0s --checkpoint-enable --checkpoint-prefix=$CKPTPREFIX $CONFIG"
 echo $LAUNCH
 ( $LAUNCH << EOF || exit 11 ) | tee $LOGFILE
 replay $CMDFILE
