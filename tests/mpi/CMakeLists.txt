@@ -32,6 +32,11 @@ foreach(testSrc ${TEST_SRCS_TARGET_VER})
                 OUTPUT_STRIP_TRAILING_WHITESPACE
                 ERROR_QUIET
   )
+
+  if(NOT EXT_TEST_RTN EQUAL "0")
+      message(FATAL_ERROR "${EXT_TEST_TIMEOUT_COMMAND} failed")
+  endif()
+
   execute_process(COMMAND ${EXT_TEST_MPIARGS_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/${testSrc}
                 OUTPUT_VARIABLE EXT_TEST_MPIARGS
                 RESULT_VARIABLE EXT_TEST_RTN
