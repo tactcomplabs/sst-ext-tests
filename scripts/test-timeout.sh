@@ -28,10 +28,10 @@ SEARCH=`grep "#EXT_TEST TIMEOUT" "$1"`
 if [ -n "$SEARCH" ]; then
   TIMEOUT=`grep "#EXT_TEST TIMEOUT" "$1" | sed -n 's/.*TIMEOUT \([0-9]*\).*/\1/p'`
   echo $TIMEOUT
-  exit 0
+else
+  echo "0"
 fi
 
-echo "0"
-exit 0
+wait
 
 # EOF
