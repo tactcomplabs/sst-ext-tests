@@ -59,16 +59,17 @@ export PATH=$PATH:$SST_INSTALL/bin
 #-- Run SST tests
 if [ "$SST_TEST_CORE" = true ]; then
         which sst-test-core || exit 40
-        # sst-test-core || exit 41
-		sst-test-core -e test_RealTime_SIGALRM_multiaction || exit 41
-		sst-test-core -e test_RealTime_SIGALRM_multiaction || exit 42
-		sst-test-core -e test_RealTime_SIGALRM_multiaction || exit 43
-		sst-test-core -e test_RealTime_SIGALRM_multiaction || exit 44
-		sst-test-core -e test_RealTime_SIGALRM_multiaction || exit 45
-		sst-test-core -e test_RealTime_SIGALRM_multiaction || exit 46
-		sst-test-core -e test_RealTime_SIGALRM_multiaction || exit 47
-		sst-test-core -e test_RealTime_SIGALRM_multiaction || exit 48
-		sst-test-core -e test_RealTime_SIGALRM_multiaction || exit 49
+		mkdir -p kgtest
+		rm -rf kgtest/*
+		sst-test-core -f -w "*_R*" -o kgtest || exit 41
+		sst-test-core -f -w "*_R*" -o kgtest || exit 42
+		sst-test-core -f -w "*_R*" -o kgtest || exit 43
+		sst-test-core -f -w "*_R*" -o kgtest || exit 44
+		sst-test-core -f -w "*_R*" -o kgtest || exit 45
+		sst-test-core -f -w "*_R*" -o kgtest || exit 46
+		sst-test-core -f -w "*_R*" -o kgtest || exit 47
+		sst-test-core -f -w "*_R*" -o kgtest || exit 48
+		sst-test-core -f -w "*_R*" -o kgtest || exit 49
 fi
 
 if [ "$EXTTEST" = true ] ; then
