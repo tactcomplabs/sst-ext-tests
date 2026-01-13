@@ -1,7 +1,4 @@
 # Do not commit log files for this test directory
 *.log
-# Convention: Files generated on the fly
-*.cmd
-*.chk
-*.out
+
 

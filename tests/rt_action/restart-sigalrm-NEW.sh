@@ -1,6 +1,8 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER NEW
 #EXT_TEST TEST_FILE_DESC "Tests using sigalrm with restart (i.e. load checkpoint)"
+#EXT_TEST TIMEOUT 240
+
 # 
 # 0) launch sst to generate the checkpoint
 # 1) check result
@@ -65,42 +67,42 @@ fi
 for sig in $SIG; do
   for action in $ACTION; do
 
-# 2) Get pass criterion and outputfile
-if [[ $action == "sst.rt.exit.clean" ]]; then
-#echo clean
-PSTR="EXIT-AFTER TIME"
-elif [[ $action == "sst.rt.exit.emergency" ]]; then
-#echo emergency
-PSTR="EMERGENCY"
-elif [[ $action == "sst.rt.status.core" ]]; then
-#echo status.core
-PSTR="CurrentSimCycle"
-elif [[ $action == "sst.rt.status.all" ]]; then
-#echo status.all
-PSTR="Components:"
-elif [[ $action == "sst.rt.heartbeat" ]]; then
-#echo heartbeat
-PSTR="Heartbeat"
-elif [[ $action == "sst.rt.checkpoint" ]]; then
-#echo checkpoint
-PSTR="Simulation Checkpoint"
-fi
+    # 2) Get pass criterion and outputfile
+    if [[ $action == "sst.rt.exit.clean" ]]; then
+      #echo clean
+      PSTR="EXIT-AFTER TIME"
+    elif [[ $action == "sst.rt.exit.emergency" ]]; then
+      #echo emergency
+      PSTR="EMERGENCY"
+    elif [[ $action == "sst.rt.status.core" ]]; then
+      #echo status.core
+      PSTR="CurrentSimCycle"
+    elif [[ $action == "sst.rt.status.all" ]]; then
+      #echo status.all
+      PSTR="Components:"
+    elif [[ $action == "sst.rt.heartbeat" ]]; then
+      #echo heartbeat
+      PSTR="Heartbeat"
+    elif [[ $action == "sst.rt.checkpoint" ]]; then
+      #echo checkpoint
+      PSTR="Simulation Checkpoint"
+    fi
 
-OUTFILE="$TNAME.restart.$action.out"
-RS_CKPT_PREFIX="restart_${action}_$TNAME"
+    OUTFILE="$TNAME.restart.$action.out"
+    RS_CKPT_PREFIX="restart_${action}_$TNAME"
 
-if [[ -f $OUTFILE ]]; then
-  rm $OUTFILE
-fi
-if [[ -d $RS_CKPT_PREFIX ]]; then
-        rm -rf $RS_CKPT_PREFIX
-fi
+    if [[ -f $OUTFILE ]]; then
+      rm $OUTFILE
+    fi
+    if [[ -d $RS_CKPT_PREFIX ]]; then
+            rm -rf $RS_CKPT_PREFIX
+    fi
 
 # 3) Then restart sst with the checkpoint and sigalrm
 if [[ $action == "sst.rt.checkpoint" ]]; then
 	LAUNCH="sst --$sig=$action(interval=1s) --load-checkpoint $CKPTDIR --checkpoint-prefix=$RS_CKPT_PREFIX"
 else
-        LAUNCH="sst --$sig=$action(interval=1s) --load-checkpoint $CKPTDIR"
+  LAUNCH="sst --$sig=$action(interval=1s) --load-checkpoint $CKPTDIR"
 fi
 echo $LAUNCH
 $LAUNCH > $OUTFILE 2>&1 
