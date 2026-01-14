@@ -86,20 +86,18 @@ run 10400ns
 # CHECK 8 pwd\ncp0/v_queue_unsigned/container \(
 pwd
 
-# The values read have not change from their original
+# CHECK 9 ls\n0 = 1202 \(.+\n1 = 1302 \(.+\n2 = 1103 \(
 ls
-# 0 = 1100 (unsigned int)
-# 1 = 1200 (unsigned int)
-# 2 = 1300 (unsigned int)
-
-#TODO Depending on how we handle the above add trace testing.
+# 0 = 1202 (unsigned int)
+# 1 = 1302 (unsigned int)
+# 2 = 1103 (unsigned int)
 
 shutdown
 
 EOF
 
 # Update this whenever adding checks in the command comments above
-NUMCHECKS=9
+NUMCHECKS=10
 
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"

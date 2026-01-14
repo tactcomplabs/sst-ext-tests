@@ -52,6 +52,10 @@ foreach(testSrc ${TEST_SRCS_TARGET_VER})
                 ERROR_QUIET
   )
 
+  if(NOT EXT_TEST_RTN EQUAL "0")
+      message(FATAL_ERROR "${EXT_TEST_TIMEOUT_COMMAND} failed")
+  endif()
+
   if (SST_VALGRIND)
     if(${EXT_TEST_TIMEOUT} EQUAL 0)
       set(EXT_TEST_TIMEOUT ${timeout})

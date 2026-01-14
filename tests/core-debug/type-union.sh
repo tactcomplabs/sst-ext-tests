@@ -1,6 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER DEV
-#EXT_TEST TEST_FILE_DESC "Exercise aggregate types"
+#EXT_TEST TEST_FILE_DESC "Exercise unions with one component"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -10,13 +10,24 @@ set -uo pipefail
 # Set default ensure failure if not set and component not installed
 SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
 
-# Settings
+# Convenience environment variables
+set +u
+if [[ -z "${CLEANUP}" ]]; then
 CLEANUP=1
+fi
+if [[ -z "${VERBOSE}" ]]; then
+  VERBOSE=0
+fi
+
+set -u
+
+# Common settings
 SCRIPT_PATH="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG="dbgsst15.py"
+CONFIG="omni.py"
+CONFIG_OPTS="--function0=dbgsst15.OMUnions"
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -34,71 +45,49 @@ confirm false
 # The checking convention is: CHECK <id> <regexp>
 # regexp and have multiple \n characters but not a trailing \n
 
-# Extend the test time
-cd cp1
-set clocks 2000000
-cd ..
-cd cp0
-set clocks 2000000
-
-ls
-
-#-- Print intial values
-
-# CHECK 0 p v_ag_class\nv_ag_class \(SSTDEBUG::DbgSST15::ag_class_t\)\n 0 = 42 \(.+\n 1 = ag_class_t \(
-p v_ag_class
-
-# CHECK 1 p v_ag_struct\nv_ag_struct \(SSTDEBUG::DbgSST15::ag_struct_t\)\n 0 = 42 \(.+\n 1 = ag_struct_t \(
-p v_ag_struct
-
-#TODO v_ag_union
-#TODO p v_ag_union_struct
-
-#-- Navigate into objects, print, set and check values
-
-cd v_ag_class
-# CHECK 2 ls\n0 = 42 \(.+\n1 = ag_class_t \(
-ls
-set 0 100
-set 1 howdy_class
-# CHECK 3 ls\n0 = 100 \(.+\n1 = howdy_class \(
-ls
-
-cd ..
-cd v_ag_struct
-# CHECK 4 ls\n0 = 42 \(.+\n1 = ag_struct_t \(
-ls
-set 0 101
-set 1 howdy_struct
-# CHECK 5 ls\n0 = 101 \(.+\n1 = howdy_struct \(
-ls
-
-cd ..
-#TODO v_ag_union
-#TODO p v_ag_union_struct
-
-#-- Run for sufficient time to tickle all the values then check
-run 1 ns
-
+cd c0
+cd function0/
+cd v_union_int_float_method_1/
+# CHECK 0 pwd\nc0/function0/v_union_int_float_method_1 \(
 pwd
+
+# CHECK 1 ls\nf = 0\.000000.+
 ls
 
-p v_ag_class
-p v_ag_struct
+run 1us
 
+# CHECK 2 ls\nf = 1998\.000000.+
+ls
 
-#TODO v_ag_union
-#TODO p v_ag_union_struct
+watch f changed
+run 1us
+
+# CHECK 3 ls\nf = 2000\.000000.+
+ls
+
+cd ..
+cd v_union_struct_method_1/ 
+
+#TODO Values are different between Mac and Ubuntu. Don't check values for now.
+# CHECK 4 ls\nv = 3621246928 \(
+ls
+
+unwatch
+watch v changed
+run 1us
+
+# CHECK 5 ls\nv = 3654932946 \(
+ls
 
 shutdown
 
 EOF
 
-# Update this whenever adding checks in the command comments above
+# IMPORTANT: Update this whenever adding checks in the command comments above
 NUMCHECKS=6
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
+LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug --verbose=$VERBOSE $CONFIG -- $CONFIG_OPTS"
 echo $LAUNCH
 revVal=0
 $LAUNCH << EOF  | tee $LOGFILE

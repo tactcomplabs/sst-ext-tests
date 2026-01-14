@@ -1,6 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER NEW
 #EXT_TEST TEST_FILE_DESC "Tests sigalrm for single real time actions"
+#EXT_TEST TIMEOUT 240
 # 
 # 0) set pass string 
 # 1) launch the program in the background

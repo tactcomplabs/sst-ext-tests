@@ -15,13 +15,26 @@
 # ensure non-zero exit code in pipe propagates and no unbound variables.
 set -uo pipefail
 
-# Settings
+# Convenience environment variables
+set +u
+if [[ -z "${CLEANUP}" ]]; then
+CLEANUP=1
+fi
+if [[ -z "${VERBOSE}" ]]; then
+  VERBOSE=0
+fi
+
+set -u
+
+# Common settings
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 SIG="sigusr1 sigusr2"
 ACTION="sst.rt.interactive"
-CLEANUP=0
+CLEANUP=1
+
+echo "Start $(date +%D:%H:%M:%S)"
 
 # Set component options
 OPTS=""
@@ -55,7 +68,7 @@ if [[ -f $outfile ]]; then
   rm $outfile
 fi
 
-LAUNCH="sst --$sig=$action --add-lib-path=$SST_COMPONENT_BASE/core-debug rt_action.py -- $OPTS"
+LAUNCH="sst --verbose=$VERBOSE --$sig=$action --add-lib-path=$SST_COMPONENT_BASE/core-debug rt_action.py -- $OPTS"
 echo $LAUNCH
 $LAUNCH < $pipe > $outfile &
 exec 3>$pipe    # Opens pipe for writing

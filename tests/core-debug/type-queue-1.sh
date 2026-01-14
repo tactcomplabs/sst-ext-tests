@@ -16,7 +16,8 @@ SCRIPT_PATH="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG="basic.py"
+CONFIG="omni.py"
+CONFIG_OPTS="--function0=dbgsst15.OMQueue --verbose=0"
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -38,6 +39,10 @@ cd c0
 cd function0/
 cd v_queue_unsigned_/
 cd container/
+# CHECK 0 pwd\nc0/function0/v_queue_unsigned_/container \(
+pwd
+
+# CHECK 1 ls\n0 = 100 \(.+\n1 = 200 \(.+\n2 = 300 \(
 ls
 # 0 = 100 (unsigned int)
 # 1 = 200 (unsigned int)
@@ -55,20 +60,28 @@ run 10ns
 # Entering interactive mode at time 10000 
 # Ran clock for 10000 sim cycles
 
+# CHECK 2 ls\n0 = 103 \(.+\n1 = 203 \(.+\n2 = 303 \(
 ls
-# 0 = 100 (unsigned int)
-# 1 = 200 (unsigned int)
-# 2 = 300 (unsigned int)
+# 0 = 103 (unsigned int)
+# 1 = 203 (unsigned int)
+# 2 = 303 (unsigned int)
+
+# TODO sst-core #1517 requires rebuilding the object map on entry into interactive sessions.
+#      In order for this watchpoint to work we need to do the same every sample!
+#      We may have to restrict what can and cannot be watched and the user will have to add code.
+# watch 0 changed
+# run
+# ls
 
 shutdown
 
 EOF
 
 # Update this whenever adding checks in the command comments above
-NUMCHECKS=0
+NUMCHECKS=3
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
+LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- $CONFIG_OPTS"
 echo $LAUNCH
 revVal=0
 $LAUNCH << EOF  | tee $LOGFILE
