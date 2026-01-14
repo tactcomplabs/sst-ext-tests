@@ -27,6 +27,10 @@
 
 #include "omni.h"
 
+#include <cassert>
+#include <cstdint>
+#include <queue>
+
 //TODO Verify method2 works. Currently does not compile
 // #define UNION_METHOD_2
 

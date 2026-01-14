@@ -1,6 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER NEW
-#EXT_TEST TEST_FILE_DESC "Check that trace checkpoint action triggers checkpoints"
+#EXT_TEST TEST_FILE_DESC "Check that trace checkpoint action triggers checkpoints with 4 threads"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -131,6 +131,22 @@ else
 		echo "ERROR missing $CKPTFILE"
 		exit $retVal
 	fi
+        # Should be a bin file for each thread
+        CKPTFILE="${CKPTPREFIX}/${CKPTPREFIX}_1_30000000/${CKPTPREFIX}_1_30000000_0_1.bin"
+        if [ ! "$CKPTFILE" ]; then
+                echo "ERROR missing $CKPTFILE"
+                exit $retVal
+        fi
+        CKPTFILE="${CKPTPREFIX}/${CKPTPREFIX}_1_30000000/${CKPTPREFIX}_1_30000000_0_2.bin"
+        if [ ! "$CKPTFILE" ]; then
+                echo "ERROR missing $CKPTFILE"
+                exit $retVal
+        fi
+        CKPTFILE="${CKPTPREFIX}/${CKPTPREFIX}_1_30000000/${CKPTPREFIX}_1_30000000_0_3.bin"
+        if [ ! "$CKPTFILE" ]; then
+                echo "ERROR missing $CKPTFILE"
+                exit $retVal
+        fi
 	CKPTFILE="${CKPTPREFIX}/${CKPTPREFIX}_1_30000000/${CKPTPREFIX}_1_30000000_globals.bin"
 	if [ ! "$CKPTFILE" ]; then
 		echo "ERROR missing $CKPTFILE"
