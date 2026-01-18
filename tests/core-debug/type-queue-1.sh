@@ -66,11 +66,21 @@ ls
 # 1 = 203 (unsigned int)
 # 2 = 303 (unsigned int)
 
-# TODO sst-core #1517 requires rebuilding the object map on entry into interactive sessions.
-#      In order for this watchpoint to work we need to do the same every sample!
-#      We may have to restrict what can and cannot be watched and the user will have to add code.
+# sst-core #1517 refreshes object map on break into interactive mode.
+# Solution for watchpoints is....?
+
 # watch 0 changed
 # run
+# # check- 3 ls\n0 = 104 \(.+\n1 = 204 \(.+\n2 = 304 \(
+# ls
+
+# run
+# # check- 4 ls\n0 = 105 \(.+\n1 = 205 \(.+\n2 = 305 \(
+# ls
+
+# unwatch 0
+# watch 0 > 200
+# # check- 5 ls\n0 = 201 \(.+\n1 = 301 \(.+\n2 = 401 \(
 # ls
 
 shutdown
