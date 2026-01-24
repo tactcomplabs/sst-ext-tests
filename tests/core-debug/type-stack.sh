@@ -59,76 +59,76 @@ p 1
 # CHECK 6 p 2\n2 = 30
 p 2
 
-# watch 0 changed
-# watch 1 changed
-# watch 2 changed
-# run
+watch 0 changed
+watch 1 changed
+watch 2 changed
+run
 
-# # -check- 7 pwd\ncp0/v_stack_unsigned/container
-# pwd
+# CHECK 7 pwd\ncp0/v_stack_unsigned/container
+pwd
 
-# # -check- 8 ls\n0 = 10 .+\n1 = 20 .+\n2 = 31 .+
-# ls
+# CHECK 8 ls\n0 = 10 .+\n1 = 20 .+\n2 = 31 .+
+ls
 
-# run
-# # -check- 9 ls\n0 = 10 .+\n1 = 20 .+\n2 = 32 .+
-# ls
+run
+# CHECK 9 ls\n0 = 10 .+\n1 = 20 .+\n2 = 32 .+
+ls
 
-# run
-# # -check- 10 ls\n0 = 10 .+\n1 = 20 .+\n2 = 33 .+
-# ls
+run
+# CHECK 10 ls\n0 = 10 .+\n1 = 20 .+\n2 = 33 .+
+ls
 
-# run
-# # -check- 11 ls\n0 = 10 .+\n1 = 20 .+\n2 = 34 .+
-# ls
+run
+# CHECK 11 ls\n0 = 10 .+\n1 = 20 .+\n2 = 34 .+
+ls
 
-# set 2 200
-# # -check- 12 ls\n0 = 10 .+\n1 = 20 .+\n2 = 200 .+
-# ls
+set 2 200
+# CHECK 12 ls\n0 = 10 .+\n1 = 20 .+\n2 = 200 .+
+ls
 
-# # The watchpoint appears trigger on `set` above.
-# run
-# run
-# # -check- 13 ls\n0 = 10 .+\n1 = 20 .+\n2 = 201 .+
-# ls
+# The watchpoint appears trigger on `set` above.
+run
+run
+# CHECK 13 ls\n0 = 10 .+\n1 = 20 .+\n2 = 201 .+
+ls
 
 # stack does not have an emplace member function but we can still write values in the debugger
 set 0 100
 set 1 150
-# CHECK 14 ls\n0 = 100 .+\n1 = 150 .+\n2 = 30 .+
+# CHECK 14 ls\n0 = 100 .+\n1 = 150 .+\n2 = 201 .+
 ls
 
 run
 run
-# CHECK 15 ls\n0 = 100 .+\n1 = 150 .+\n2 = 31 .+
+# CHECK 15 ls\n0 = 100 .+\n1 = 150 .+\n2 = 202 .+
 ls
 
-# # now do a trace
-# unwatch
+# now do a trace
+unwatch
 
-# # -check- 16 trace 2 changed  : 4 2 : 0 1 2 : interactive\nAdded watchpoint #0
-# trace 2 changed  : 4 2 : 0 1 2 : interactive
+# CHECK 16 trace 2 changed  : 4 2 : 0 1 2 : interactive\nAdded watchpoint #0
+trace 2 changed  : 4 2 : 0 1 2 : interactive
 
-# sethandler 0 ac
-# run
+sethandler 0 ac
+run
 
-# TODO  add check when iconsole branch merged.
-# # The trace should be:
-# # TriggerCount=1
-# # LastTriggerRecord:@cycle7700000: SamplesLost=0: cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 
-# # buf[2] AC @7699000 (-) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=202 
-# # buf[3] AC @7700000 (!) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 
-# # buf[0] AC @7701000 (+) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 
+# CHECK 17 printTrace 0\nTriggerRecord:@cycle7700000: samples lost = 0:.+\nbuf\[2] AC .+ \(-) cp0.+/2=202[ ]*\nbuf\[3] AC .+ \(\!) cp0.+/2=203[ ]*\nbuf\[0] AC .+ \(\+) cp0.+/2=203[ ]*\nbuf\[1] AC .+ \(\+) cp0.+/2=203
+printTrace 0
 
-# # _check_ 17 printTrace 0\nTriggerCount=1\n.+TriggerRecord:@cycle.+: SamplesLost=0: cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 \nbuf\[2\] AC @.+ \(-\) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=202 \nbuf\[3\] AC @7700000 \(!\) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 \nbuf\[0\] AC @.+ \(\+\) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203
-# printTrace 0
+# Expected
+# TriggerRecord:@cycle7700000: samples lost = 0: cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 
+# buf[2] AC @7699000 (-) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=202 
+# buf[3] AC @7700000 (!) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 
+# buf[0] AC @7701000 (+) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 
+# buf[1] AC @7702000 (+) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 
+
 
 shutdown
 
 EOF
 
 # Update this whenever adding checks in the command comments above
-NUMCHECKS=8
+NUMCHECKS=18
 
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
