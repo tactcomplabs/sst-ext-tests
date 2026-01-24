@@ -12,6 +12,9 @@
 // Informational list of type traits useful for test audits
 // ref: https://en.cppreference.com/w/cpp/header/type_traits.html
 
+#ifndef _SST_EXT_TESTS_LIST_TRAITS_H_
+#define _SST_EXT_TESTS_LIST_TRAITS_H_
+
 #include <cxxabi.h>
 #include <iomanip>
 #include <iostream>
@@ -20,7 +23,7 @@
 #include <type_traits>
 
 #define PRINT_TRAIT(o, trait, type) \
-    o << std::setw(35) << #trait << ": " \
+    o << std::setw(40) << #trait << ": " \
               << (trait<type>::value ? "true" : "false") << '\n';
 
 template <typename T>
@@ -38,7 +41,7 @@ std::string demangled_type_string(const T& obj) {
 template <typename T>
 std::string list_type_traits(const T& obj) {
     std::stringstream s;
-    s << "type traits for:" << demangled_type_string(obj) << std::endl;
+    s << "type traits for: " << demangled_type_string(obj) << std::endl;
     s << "----------------------------------------\n";
 
     // Primary type categories
@@ -132,4 +135,6 @@ std::string list_type_traits(const T& obj) {
 
     s << "----------------------------------------\n";
     return s.str();
-}        
+}
+
+#endif //_SST_EXT_TESTS_LIST_TRAITS_H_

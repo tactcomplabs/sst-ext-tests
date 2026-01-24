@@ -20,6 +20,7 @@
 
 // -- Standard Headers
 #include "SST.h"
+#include "list-traits.h"
 
 namespace SST::ExtTest {
 
