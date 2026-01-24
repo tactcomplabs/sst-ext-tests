@@ -35,7 +35,7 @@ public:
   ~OMQueue() {}
 
   void init(unsigned int phase) final {
-    sstout_.verbose(CALL_INFO, 0, 0, "%s", list_type_traits<std::queue<uint32_t>>().c_str());
+    sstout_.verbose(CALL_INFO, 0, 0, "%s", list_type_traits(v_queue_unsigned_).c_str());
   };
 
   // OMSubComponentAPI

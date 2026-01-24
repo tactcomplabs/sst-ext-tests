@@ -25,7 +25,7 @@ void OMQueue::update(payload_t& p) {
   unsigned front = v_queue_unsigned_.front() + 1;
   v_queue_unsigned_.pop();
   v_queue_unsigned_.push(front);
-  sstout_.verbose(CALL_INFO, 0, 0, "v_queue_unsigned_.front()=%d\n", v_queue_unsigned_.front());
+  sstout_.verbose(CALL_INFO, 1, 0, "v_queue_unsigned_.front()=%d\n", v_queue_unsigned_.front());
 }
 
 } //namespace SST::ExtTest

@@ -20,13 +20,13 @@
 #include <type_traits>
 
 #define PRINT_TRAIT(o, trait, type) \
-    o << std::setw(32) << #trait << ": " \
+    o << std::setw(35) << #trait << ": " \
               << (trait<type>::value ? "true" : "false") << '\n';
 
 template <typename T>
-std::string demangled_type_string() {
+std::string demangled_type_string(const T& obj) {
   int status;
-  char* s = abi::__cxa_demangle(typeid(T).name(), nullptr, nullptr, &status);
+  char* s = abi::__cxa_demangle(typeid(obj).name(), nullptr, nullptr, &status);
   if (status == 0 ) {
     std::string ret(s);
     std::free(s);
@@ -36,9 +36,9 @@ std::string demangled_type_string() {
 };
 // Template function to list traits for a given type
 template <typename T>
-std::string list_type_traits() {
+std::string list_type_traits(const T& obj) {
     std::stringstream s;
-    s << "type traits for:" << demangled_type_string<T>() << std::endl;
+    s << "type traits for:" << demangled_type_string(obj) << std::endl;
     s << "----------------------------------------\n";
 
     // Primary type categories
