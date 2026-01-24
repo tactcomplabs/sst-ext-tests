@@ -12,21 +12,33 @@
 // Informational list of type traits useful for test audits
 // ref: https://en.cppreference.com/w/cpp/header/type_traits.html
 
+#include <cxxabi.h>
+#include <iomanip>
 #include <iostream>
-#include <type_traits>
 #include <string>
 #include <sstream>
-#include <iomanip>
+#include <type_traits>
 
 #define PRINT_TRAIT(o, trait, type) \
     o << std::setw(32) << #trait << ": " \
               << (trait<type>::value ? "true" : "false") << '\n';
 
+template <typename T>
+std::string demangled_type_string() {
+  int status;
+  char* s = abi::__cxa_demangle(typeid(T).name(), nullptr, nullptr, &status);
+  if (status == 0 ) {
+    std::string ret(s);
+    std::free(s);
+    return ret;
+  }
+  return "";
+};
 // Template function to list traits for a given type
 template <typename T>
 std::string list_type_traits() {
     std::stringstream s;
-    s << "Type traits for: " << typeid(T).name() << "\n";
+    s << "type traits for:" << demangled_type_string<T>() << std::endl;
     s << "----------------------------------------\n";
 
     // Primary type categories
