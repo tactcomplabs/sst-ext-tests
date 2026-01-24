@@ -136,7 +136,7 @@ public:
         "dbgsst15",          // Library name
         "OMUnions",          // Subcomponent name
         SST_ELI_ELEMENT_VERSION(1,0,0),  // A version number
-        "Simple subcomponent for object map evaluation", 
+        "Simple union test sub-component", 
         SST::ExtTest::OMSubComponentAPI) // Fully qualified API name
  
   OMUnions(ComponentId_t id, Params& params);

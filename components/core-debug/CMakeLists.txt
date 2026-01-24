@@ -10,6 +10,8 @@
 set(DbgSST15Srcs
   omni.cc
   omni.h
+  om-arrays.cc
+  om-arrays.h
   om-unions.cc
   om-unions.h
   dbgsst15.cc
