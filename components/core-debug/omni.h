@@ -18,10 +18,8 @@
 #ifndef _SST_EXT_TESTS_OMNI_
 #define _SST_EXT_TESTS_OMNI_
 
-// clang-format off
 // -- Standard Headers
 #include "SST.h"
-// clang-format on
 
 namespace SST::ExtTest {
 
@@ -166,7 +164,7 @@ public:
         "dbgsst15",         // Library name
         "OMQueue",          // Subcomponent name
         SST_ELI_ELEMENT_VERSION(1,0,0),  // A version number
-        "Simple subcomponent for object map evaluation", 
+        "std::queue test sub-component", 
         SST::ExtTest::OMSubComponentAPI) // Fully qualified API name
  
   OMQueue(ComponentId_t id, Params& params) : OMSubComponentAPI(id,params) {
