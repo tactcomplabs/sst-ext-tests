@@ -12,7 +12,6 @@
 
 namespace SST::ExtTest {
 
-
 OMQueue::OMQueue(ComponentId_t id, Params& params) : OMSubComponentAPI(id,params) {
   sstout_.init(getName() + ":@p:@t]: ", 0, 0, SST::Output::STDOUT );
   v_queue_unsigned_.push(100);

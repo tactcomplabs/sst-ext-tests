@@ -96,6 +96,12 @@ bool OMSimpleComponent::clockTick(SST::Cycle_t currentCycle)
     #endif
 }
 
+void OMSimpleComponent::init(unsigned int phase)
+{
+    if (p_omsimplecomp_function0_)
+        p_omsimplecomp_function0_->init(phase);
+}
+
 } // namespace SST::ExtTest
 
 // EOF

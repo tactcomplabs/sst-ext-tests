@@ -12,6 +12,7 @@
 #define _SST_EXT_TESTS_OM_QUEUE_H_
 
 #include "omni.h"
+#include "list-traits.h"
 
 namespace SST::ExtTest {
 
@@ -32,6 +33,12 @@ public:
  
   OMQueue(ComponentId_t id, Params& params);
   ~OMQueue() {}
+
+  void init(unsigned int phase) final {
+    sstout_.verbose(CALL_INFO, 0, 0, "%s", list_type_traits<std::queue<uint32_t>>().c_str());
+  };
+
+  // OMSubComponentAPI
   virtual void update(payload_t& p) final;
 public:
   // serialization support

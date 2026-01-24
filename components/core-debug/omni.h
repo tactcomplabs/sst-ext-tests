@@ -110,7 +110,7 @@ public:
   ~OMSimpleComponent() {}
 
   // Component Lifecycle
-  void init( unsigned int phase ) override {};     // post-construction, polled events
+  void init( unsigned int phase ) override;        // post-construction, polled events
   void setup() override {};                        // pre-simulation, called once per component
   void complete( unsigned int phase ) override {}; // post-simulation, polled events
   void finish() override {};                       // pre-destruction, called once per component
