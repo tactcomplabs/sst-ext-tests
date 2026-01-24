@@ -10,8 +10,8 @@
 
 // Intent:  Verify debug console operations on simple arrays.
 // 
-#ifndef _SST_EXT_TESTS_OM_ARRAYS
-#define _SST_EXT_TESTS_OM_ARRAYS
+#ifndef _SST_EXT_TESTS_OM_ARRAYS_H_
+#define _SST_EXT_TESTS_OM_ARRAYS_H_
 
 #include "omni.h"
 
@@ -56,6 +56,6 @@ private:
 
 }//namespace SST::ExtTest
 
-#endif  // _SST_EXT_TESTS_OM_ARRAYS
+#endif  // _SST_EXT_TESTS_OM_ARRAYS_H_
 
 // EOF

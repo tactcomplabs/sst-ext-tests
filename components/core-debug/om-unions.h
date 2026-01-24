@@ -22,8 +22,8 @@
 //          SST online documentation for a `serialize_impl`
 //          specialization.
 // 
-#ifndef _SST_EXT_TESTS_OM_UNIONS
-#define _SST_EXT_TESTS_OM_UNIONS
+#ifndef _SST_EXT_TESTS_OM_UNIONS_
+#define _SST_EXT_TESTS_OM_UNIONS_
 
 #include "omni.h"
 
@@ -221,6 +221,6 @@ class serialize_impl<SST::ExtTest::v_union_int_float_method_1_t>
 };// class serialize_impl<SST::ExtTest::v_union_int_float_method_1_t>
 } //namespace SST::Core::Serialization
 
-#endif  // _SST_EXT_TESTS_OM_UNIONS
+#endif  // _SST_EXT_TESTS_OM_UNIONS_
 
 // EOF

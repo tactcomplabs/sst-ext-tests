@@ -5,8 +5,8 @@
 // See LICENSE in the top level directory for licensing details
 //
 
-#ifndef _TCLDBG_H
-#define _TCLDBG_H
+#ifndef _SST_EXT_TESTS_TCLDBG_H_
+#define _SST_EXT_TESTS_TCLDBG_H_
 
 #include <iostream>
 #include <ostream>
@@ -38,4 +38,4 @@ spinner(const char* id, bool cond = true)
 
 } // namespace tcldbg
 
-#endif //_TCLDBG_H
+#endif //_SST_EXT_TESTS_TCLDBG_H_

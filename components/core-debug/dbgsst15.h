@@ -8,8 +8,8 @@
 // See LICENSE in the top level directory for licensing details
 //
 
-#ifndef _SSTDEBUG_DBGSST15_H_
-#define _SSTDEBUG_DBGSST15_H_
+#ifndef _SST_EXT_TESTS_DBGSST15_H_
+#define _SST_EXT_TESTS_DBGSST15_H_
 
 // -- Standard Headers
 #include <bitset>
@@ -447,6 +447,6 @@ public:
 #endif // PROBE
 } // namespace SSTDEBUG::DbgSST15
 
-#endif // _SSTDEBUG_DBGSST15_H_
+#endif // _SST_EXT_TESTS_DBGSST15_H_
 
 // EOF
