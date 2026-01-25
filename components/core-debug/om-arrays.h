@@ -41,7 +41,9 @@ public:
   void init(unsigned int phase) final {
     sstout_.verbose(CALL_INFO, 0, 0, "%s", list_type_traits(v_ping_t).c_str());
   };
+  
   virtual void update(payload_t& p) final;
+  virtual void check() final;
 
 public:
   static const size_t BUFFER_SIZE = 1000;

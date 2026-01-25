@@ -40,6 +40,8 @@ public:
 
   // OMSubComponentAPI
   virtual void update(payload_t& p) final;
+  virtual void check() final;
+
 public:
   // serialization support
   OMQueue() : OMSubComponentAPI() {}; // required for serialization

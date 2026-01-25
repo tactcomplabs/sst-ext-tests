@@ -65,11 +65,11 @@ public:
   OMSubComponentAPI(ComponentId_t id, Params& params) : SubComponent(id) {};
   virtual ~OMSubComponentAPI() {}
   
-  virtual void update(payload_t& p) {
-    subcompapi_counter_++;
-    p.data += 1;
-  };
-private:
+  // API
+  virtual void update(payload_t& p) = 0;
+  virtual void check() = 0;
+
+protected:
   uint64_t subcompapi_counter_ = 0;
 
 public:
@@ -111,9 +111,16 @@ public:
   ~OMSimpleComponent() {}
 
   // Component Lifecycle
-  void init( unsigned int phase ) override;        // post-construction, polled events
+  void init( unsigned int phase ) override         // post-construction, polled events
+  { 
+    p_omsimplecomp_function0_->init(phase);
+  }
   void setup() override {};                        // pre-simulation, called once per component
-  void complete( unsigned int phase ) override {}; // post-simulation, polled events
+  void complete( unsigned int phase ) override     // post-simulation, polled events
+  {
+    p_omsimplecomp_function0_->check();
+  }
+
   void finish() override {};                       // pre-destruction, called once per component
   void emergencyShutdown() override {};            // SIGINT, SIGTERM
   void printStatus(Output& out) override {};       // SIGUSR2
