@@ -10,14 +10,15 @@
 
 // Intent:  Verify debug console operations on simple arrays.
 // 
-#ifndef _SST_EXT_TESTS_OM_ARRAYS
-#define _SST_EXT_TESTS_OM_ARRAYS
+#ifndef _SST_EXT_TESTS_OM_ARRAYS_H_
+#define _SST_EXT_TESTS_OM_ARRAYS_H_
+
+#include <queue>
 
 #include "omni.h"
 
-#include <cassert>
-#include <cstdint>
-#include <queue>
+
+
 
 namespace SST::ExtTest {
 
@@ -36,7 +37,13 @@ public:
  
   OMArrays(ComponentId_t id, Params& params);
   ~OMArrays();
+
+  void init(unsigned int phase) final {
+    sstout_.verbose(CALL_INFO, 0, 0, "%s", list_type_traits(v_ping_t).c_str());
+  };
+  
   virtual void update(payload_t& p) final;
+  virtual void check() final;
 
 public:
   static const size_t BUFFER_SIZE = 1000;
@@ -56,6 +63,6 @@ private:
 
 }//namespace SST::ExtTest
 
-#endif  // _SST_EXT_TESTS_OM_ARRAYS
+#endif  // _SST_EXT_TESTS_OM_ARRAYS_H_
 
 // EOF

@@ -15,11 +15,12 @@
 // complex behaviors by simply providing the subcomponent
 // at runtime.
 
-#ifndef _SST_EXT_TESTS_OMNI_
-#define _SST_EXT_TESTS_OMNI_
+#ifndef _SST_EXT_TESTS_OMNI_H_
+#define _SST_EXT_TESTS_OMNI_H_
 
 // -- Standard Headers
 #include "SST.h"
+#include "list-traits.h"
 
 namespace SST::ExtTest {
 
@@ -64,11 +65,11 @@ public:
   OMSubComponentAPI(ComponentId_t id, Params& params) : SubComponent(id) {};
   virtual ~OMSubComponentAPI() {}
   
-  virtual void update(payload_t& p) {
-    subcompapi_counter_++;
-    p.data += 1;
-  };
-private:
+  // API
+  virtual void update(payload_t& p) = 0;
+  virtual void check() = 0;
+
+protected:
   uint64_t subcompapi_counter_ = 0;
 
 public:
@@ -88,11 +89,11 @@ class OMSimpleComponent : public SST::Component{
 
 public:
   SST_ELI_REGISTER_COMPONENT( OMSimpleComponent,   // component class
-             "dbgsst15",       // component library
-                            "OMSimpleComponent",   // component name
-                            SST_ELI_ELEMENT_VERSION( 1, 0, 0 ),
-                            "Simple Object Map Evalulation Component",
-                            COMPONENT_CATEGORY_UNCATEGORIZED )
+    "dbgsst15",       // component library
+    "OMSimpleComponent",   // component name
+    SST_ELI_ELEMENT_VERSION( 1, 0, 0 ),
+    "Simple Object Map Evalulation Component",
+    COMPONENT_CATEGORY_UNCATEGORIZED )
   SST_ELI_DOCUMENT_PARAMS(
     {"verbose", "Sets the verbosity level of output",   "1" },
     {"primary", "Sets component as primary controller", "0" },
@@ -110,9 +111,16 @@ public:
   ~OMSimpleComponent() {}
 
   // Component Lifecycle
-  void init( unsigned int phase ) override {};     // post-construction, polled events
+  void init( unsigned int phase ) override         // post-construction, polled events
+  { 
+    p_omsimplecomp_function0_->init(phase);
+  }
   void setup() override {};                        // pre-simulation, called once per component
-  void complete( unsigned int phase ) override {}; // post-simulation, polled events
+  void complete( unsigned int phase ) override     // post-simulation, polled events
+  {
+    p_omsimplecomp_function0_->check();
+  }
+
   void finish() override {};                       // pre-destruction, called once per component
   void emergencyShutdown() override {};            // SIGINT, SIGTERM
   void printStatus(Output& out) override {};       // SIGUSR2
@@ -152,52 +160,8 @@ public:
 
 }; //class OMSimpleComponent
 
-// -------------------------------------------------------
-// OmSubComponentAPI Specialization Example
-// OMQueue (not registered)
-// Testing: std::queue
-// -------------------------------------------------------
-class OMQueue : public OMSubComponentAPI {
-public:
-  SST_ELI_REGISTER_SUBCOMPONENT(
-        OMQueue,            // Class name
-        "dbgsst15",         // Library name
-        "OMQueue",          // Subcomponent name
-        SST_ELI_ELEMENT_VERSION(1,0,0),  // A version number
-        "std::queue test sub-component", 
-        SST::ExtTest::OMSubComponentAPI) // Fully qualified API name
- 
-  OMQueue(ComponentId_t id, Params& params) : OMSubComponentAPI(id,params) {
-    sstout_.init(getName() + ":@p:@t]: ", 0, 0, SST::Output::STDOUT );
-    v_queue_unsigned_.push(100);
-    v_queue_unsigned_.push(200);
-    v_queue_unsigned_.push(300);
-  }
-  ~OMQueue() {}
-  virtual void update(payload_t& p) final {
-    OMSubComponentAPI::update(p);
-    assert(v_queue_unsigned_.size()==3);
-    unsigned front = v_queue_unsigned_.front() + 1;
-    v_queue_unsigned_.pop();
-    v_queue_unsigned_.push(front);
-    sstout_.verbose(CALL_INFO, 0, 0, "v_queue_unsigned_.front()=%d\n", v_queue_unsigned_.front());
-  }
-public:
-  // serialization support
-  OMQueue() : OMSubComponentAPI() {}; // required for serialization
-  void serialize_order(SST::Core::Serialization::serializer& ser) override {
-    OMSubComponentAPI::serialize_order(ser);
-    SST_SER(v_queue_unsigned_);
-  }
-  ImplementSerializable(SST::ExtTest::OMQueue)
-private:
-  SST::Output sstout_;
-  std::queue<uint32_t> v_queue_unsigned_;
-}; //class OMQueue
-
-
 } //namespace SST::ExtTest
 
-#endif  // _SST_EXT_TESTS_OMNI_
+#endif  // _SST_EXT_TESTS_OMNI_H_
 
 // EOF
