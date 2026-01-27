@@ -59,6 +59,12 @@ void OMSimpleComponent::serialize_order(SST::Core::Serialization::serializer &se
     SST_SER(p_omsimplecomp_function0_);
     SST_SER(function0);
     SST_SER(function1);
+    SST_SER(sstout_);
+    SST_SER(timeConverter_);
+    SST_SER(clockHandler_);
+    SST_SER(port0link_);
+    SST_SER(primary);
+    SST_SER(payload_port0);
     #endif
 
 }

@@ -49,6 +49,7 @@ public:
   OMArrays() : OMSubComponentAPI() {}; // required for serialization
   void serialize_order(SST::Core::Serialization::serializer& ser) override {
     OMSubComponentAPI::serialize_order(ser);
+    SST_SER(sstout_);
     SST_SER(v_ping_t);
     SST_SER(v_pong_t);
     SST_SER(v_xyz);

@@ -48,7 +48,7 @@ public:
   OMEvent() : Event() {}
   void serialize_order(SST::Core::Serialization::serializer& ser) override {
     SST::Event::serialize_order(ser);
-    // SST_SER(payload_); //TODO can I see in-flight events in debugger?
+    SST_SER(payload_); //TODO can I see in-flight events in debugger?
   }
   ImplementSerializable(SST::ExtTest::OMEvent);
 }; // class OMEvent
