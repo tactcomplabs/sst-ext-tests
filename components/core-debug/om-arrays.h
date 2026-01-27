@@ -42,18 +42,24 @@ public:
 
 public:
   static const size_t BUFFER_SIZE = 1000;
+  static const size_t X_SIZE = 3;
+  static const size_t Y_SIZE = 5;
+  static const size_t Z_SIZE = 7;
   // serialization support
   OMArrays() : OMSubComponentAPI() {}; // required for serialization
   void serialize_order(SST::Core::Serialization::serializer& ser) override {
     OMSubComponentAPI::serialize_order(ser);
     SST_SER(v_ping_t);
     SST_SER(v_pong_t);
+    SST_SER(v_xyz);
   }
   ImplementSerializable(SST::ExtTest::OMArrays)
 private:
   SST::Output sstout_;
-  uint16_t v_ping_t[BUFFER_SIZE];
-  uint16_t v_pong_t[BUFFER_SIZE];
+  uint16_t v_ping_t[BUFFER_SIZE] = { };
+  uint16_t v_pong_t[BUFFER_SIZE] = { };
+  double v_xyz[X_SIZE][Y_SIZE][Z_SIZE] = { };
+
 }; //class OMArrays
 
 }//namespace SST::ExtTest
