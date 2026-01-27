@@ -88,17 +88,49 @@ pwd
 # CHECK 9 p 42\n42 = 54 \(
 p 42
 
-# TODO operator== appears to not be working. ( test all of them )
+# TODO operator== not working for integers (overloaded with indices)
+# https://github.com/tactcomplabs/sst-core/issues/38
 # unwatch
 # watch 42 == 60
 # run 20ns
+
+# But we can use array of floats
+cd ..
+cd ..
+cd function0
+cd v_xyz
+cd 2
+cd 4
+
+# CHECK 10 p 6\n6 = 117.000.+ \(
+p 6
+
+unwatch
+watch 6 > 120.0 && 6 < 122.0
+run 20ns
+# CHECK 11 p 6\n6 = 121.000.+ \(
+p 6
+
+# TODO Post BUG: this is not less than 122.0
+run 20ns
+# CHECK 12 p 6\n6 = 122.000.+ \(
+p 6
+
+# TODO see above. Why breaking here?
+run 20ns
+# CHECK 13 p 6\n6 = 122.000.+ \(
+p 6
+
+run 20ns
+# CHECK 14 p 6\n6 = 137.000.+ \(
+p 6
 
 shutdown
 
 EOF
 
 # IMPORTANT: Update this whenever adding checks in the command comments above
-NUMCHECKS=10
+NUMCHECKS=15
 
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug --verbose=$VERBOSE $CONFIG -- $CONFIG_OPTS"
