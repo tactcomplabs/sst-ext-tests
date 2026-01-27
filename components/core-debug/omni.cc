@@ -22,9 +22,11 @@ OMSimpleComponent::OMSimpleComponent(ComponentId_t id, const SST::Params& params
     clockHandler_  = new SST::Clock::Handler2<OMSimpleComponent,&OMSimpleComponent::clockTick>(this);
     timeConverter_ = registerClock("1GHz", clockHandler_);
 
-    // SubComponents
+    // Required subcomponents
     p_omsimplecomp_function0_ = loadUserSubComponent<OMSubComponentAPI>("function0");
     assert(p_omsimplecomp_function0_);
+    // Optional Subcomponents
+    function1 = loadUserSubComponent<OMSubComponentAPI>("function1");
 
     // Links
     port0link_ = configureLink("port0",
@@ -56,6 +58,7 @@ void OMSimpleComponent::serialize_order(SST::Core::Serialization::serializer &se
     #if 1
     SST_SER(p_omsimplecomp_function0_);
     SST_SER(function0);
+    SST_SER(function1);
     #endif
 
 }
@@ -77,6 +80,7 @@ bool OMSimpleComponent::clockTick(SST::Cycle_t currentCycle)
 
     // slot function provides differentiated behaviors for testing
     p_omsimplecomp_function0_->update( payload_port0 );
+    // if (function1) function1->update( payload_port1); // TODO
 
     #ifdef EVENT_SLEEP
     sstout_.verbose(CALL_INFO, 0, 0, 

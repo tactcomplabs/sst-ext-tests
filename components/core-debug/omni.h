@@ -103,7 +103,10 @@ public:
   )
   SST_ELI_DOCUMENT_SUBCOMPONENT_SLOTS(
     { "function0", 
-      "generic function 0",
+      "generic function 0 (required)",
+      "SST::ExtTest::OMSubComponentAPI" },
+    { "function1", 
+      "generic function 1 (optional)",
       "SST::ExtTest::OMSubComponentAPI" },
   )
 
@@ -114,11 +117,13 @@ public:
   void init( unsigned int phase ) override         // post-construction, polled events
   { 
     p_omsimplecomp_function0_->init(phase);
+    // if (function1) function1->init(phase); //TODO
   }
   void setup() override {};                        // pre-simulation, called once per component
   void complete( unsigned int phase ) override     // post-simulation, polled events
   {
     p_omsimplecomp_function0_->check();
+    // if (function1) function1->init(phase); //TODO
   }
 
   void finish() override {};                       // pre-destruction, called once per component
@@ -131,7 +136,10 @@ public:
 private:
   // Subcomponent pointers
   OMSubComponentAPI* p_omsimplecomp_function0_ = nullptr;
-  std::vector<uint8_t> function0 = { 10,20,30,40,50,60,70,80 };   // demonstrate name collision with slot name "function0"
+
+  // demonstrate name collision with slot name "function0"
+  std::vector<uint8_t> function0 = { 10,20,30,40,50,60,70,80 }; // different type
+  OMSubComponentAPI* function1 = nullptr;                       // same type sans pointer
 
   // SST Handlers
   SST::Output sstout_;

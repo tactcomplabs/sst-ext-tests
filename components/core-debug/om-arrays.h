@@ -13,12 +13,7 @@
 #ifndef _SST_EXT_TESTS_OM_ARRAYS_H_
 #define _SST_EXT_TESTS_OM_ARRAYS_H_
 
-#include <queue>
-
 #include "omni.h"
-
-
-
 
 namespace SST::ExtTest {
 
