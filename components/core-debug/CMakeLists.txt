@@ -14,6 +14,8 @@ set(DbgSST15Srcs
   om-arrays.h
   om-queue.cc
   om-queue.h
+  om-nested-containers.h
+  om-nested-containers.cc
   om-unions.cc
   om-unions.h
   dbgsst15.cc
