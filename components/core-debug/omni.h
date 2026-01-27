@@ -131,6 +131,7 @@ public:
 private:
   // Subcomponent pointers
   OMSubComponentAPI* p_omsimplecomp_function0_ = nullptr;
+  std::vector<uint8_t> function0 = { 10,20,30,40,50,60,70,80 };   // demonstrate name collision with slot name "function0"
 
   // SST Handlers
   SST::Output sstout_;

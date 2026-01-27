@@ -55,6 +55,7 @@ void OMSimpleComponent::serialize_order(SST::Core::Serialization::serializer &se
     // Does this actually work with checkpointing?
     #if 1
     SST_SER(p_omsimplecomp_function0_);
+    SST_SER(function0);
     #endif
 
 }
