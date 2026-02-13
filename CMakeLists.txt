@@ -1,7 +1,7 @@
 #
 # sst-ext-tests top-level CMake
 #
-# Copyright (C) 2017-2025 Tactical Computing Laboratories, LLC
+# Copyright (C) 2017-2026 Tactical Computing Laboratories, LLC
 # All Rights Reserved
 # contact@tactcomplabs.com
 # See LICENSE in the top level directory for licensing details
@@ -58,11 +58,7 @@ execute_process(COMMAND sst --version
 )
 message(STATUS "${SST_VERSION_STRING}")
 
-# Allow override using -DSST_VERSION=n
-if (DEFINED SST_VERSION)
-  message(STATUS "SST_VERSION test selection override: ${SST_VERSION}")
-endif()
-
+# SST Flags
 execute_process(COMMAND sst-config --CXX
                 OUTPUT_VARIABLE CXX
                 OUTPUT_STRIP_TRAILING_WHITESPACE
@@ -79,19 +75,22 @@ execute_process(COMMAND sst-config SST_ELEMENT_LIBRARY SST_ELEMENT_LIBRARY_LIBDI
                 OUTPUT_VARIABLE SST_ELEMENT_LIBRARY_LIBDIR
                 OUTPUT_STRIP_TRAILING_WHITESPACE
 )
+
+# Underscore prefix convention indicates private scope.
+# Use the resolved SST_VERSION in other other cmake files
 execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/sst-major-version.sh ${SST_VERSION}
-                OUTPUT_VARIABLE SST_MAJOR_VERSION
+                OUTPUT_VARIABLE _SST_MAJOR_VERSION
                 OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/sst-minor-version.sh ${SST_VERSION}
-                OUTPUT_VARIABLE SST_MINOR_VERSION
+                OUTPUT_VARIABLE _SST_MINOR_VERSION
                 OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 
-string_contains_number("${SST_MAJOR_VERSION}" contains_num)
+string_contains_number("${_SST_MAJOR_VERSION}" contains_num)
 if(NOT contains_num)
-  set(SST_MAJOR_VERSION "DEV")
-  set(SST_MINOR_VERSION "DEV")
+  set(_SST_MAJOR_VERSION "DEV")
+  set(_SST_MINOR_VERSION "DEV")
   execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/scripts/sst-git-hash.sh
                   OUTPUT_VARIABLE SST_GIT_HASH
                   OUTPUT_STRIP_TRAILING_WHITESPACE
@@ -100,14 +99,19 @@ if(NOT contains_num)
 endif()
 
 #-- Create version variables (will rewrite command line provided SST_VERSION)
-message(STATUS "SST MAJOR VERSION=${SST_MAJOR_VERSION}")
-message(STATUS "SST MINOR VERSION=${SST_MINOR_VERSION}")
-if ("${SST_MAJOR_VERSION}" STREQUAL "DEV")
+message(STATUS "SST MAJOR VERSION=${_SST_MAJOR_VERSION}")
+message(STATUS "SST MINOR VERSION=${_SST_MINOR_VERSION}")
+
+# Allow override using -DSST_VERSION=n
+# Important: subdirectories should only use this resolved version
+if (DEFINED SST_VERSION)
+  message(STATUS "SST_VERSION test selection override: ${SST_VERSION}")
+elseif ("${_SST_MAJOR_VERSION}" STREQUAL "DEV")
   set(SST_VERSION "DEV")
 else()
- string(CONCAT SST_VERSION  ${SST_MAJOR_VERSION} "." ${SST_MINOR_VERSION})
+ string(CONCAT SST_VERSION  ${_SST_MAJOR_VERSION} "." ${_SST_MINOR_VERSION})
 endif()
-message(STATUS "SST FULL VERSION=${SST_VERSION}")
+message(STATUS "RESOLVED SST VERSION=${SST_VERSION}")
 
 
 #-- MPI Options
@@ -199,7 +203,7 @@ set(EXT_TEST_MPIARGS_COMMAND "${CMAKE_SOURCE_DIR}/scripts/test-mpiargs.sh")
 set(SST_TMP_VER_LIST "13.0" "13.1" "14.0" "14.1" "15.0" "15.1")
 set(SST_VER_LIST "DEV")
 
-if(NOT "${SST_MAJOR_VERSION}" STREQUAL "DEV")
+if(NOT "${_SST_MAJOR_VERSION}" STREQUAL "DEV")
   foreach(VERSION ${SST_TMP_VER_LIST})
     if(NOT ${VERSION} VERSION_LESS ${SST_VERSION})
       list(APPEND SST_VER_LIST ${VERSION})

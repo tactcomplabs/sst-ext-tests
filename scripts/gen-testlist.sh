@@ -4,7 +4,7 @@
 # Used by local CMakeLists.txt to generate a test list given
 # a specific sst version number. Currently non-recursive.
 #
-# Copyright (C) 2017-2025 Tactical Computing Laboratories, LLC
+# Copyright (C) 2017-2026 Tactical Computing Laboratories, LLC
 # All Rights Reserved
 # contact@tactcomplabs.com
 # See LICENSE in the top level directory for licensing details
