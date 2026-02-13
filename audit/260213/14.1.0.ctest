@@ -1,0 +1,84 @@
+Test project /scratch/kgriesser/work/sst-ext-tests/build
+      Start  1: sst_base
+      Start  2: sstconfig_help
+      Start  3: sstconfig_list_CXXFLAGS
+      Start  4: sstconfig_list
+      Start  5: sst_heartbeat_0.1.30
+      Start  6: sst_heartbeat_1s
+      Start  7: sst_help-14.1
+      Start  8: sst_help-MIN14.0
+      Start  9: sst_help
+      Start 10: sstinfo_help
+      Start 11: sstinfo_list_elem
+      Start 12: sstinfo_list_env
+      Start 13: sstinfo_list_nodisplay
+      Start 14: sstinfo_list_quiet
+      Start 15: sstinfo_list
+      Start 16: sstinfo_list_xml_file
+      Start 17: sstinfo_list_xml
+      Start 18: sstinfo_sst
+      Start 19: sst_numthreads
+      Start 20: sst_output_config
+ 1/38 Test  #2: sstconfig_help ...................   Passed    0.24 sec
+      Start 21: sst_output_dot
+ 2/38 Test  #4: sstconfig_list ...................   Passed    0.25 sec
+      Start 22: sst_output_dot_verbosity
+ 3/38 Test  #3: sstconfig_list_CXXFLAGS ..........   Passed    0.26 sec
+      Start 23: sst_output_json
+ 4/38 Test #10: sstinfo_help .....................   Passed    0.34 sec
+      Start 24: sst_output_prefix
+ 5/38 Test #18: sstinfo_sst ......................   Passed    0.35 sec
+      Start 25: sst_print_timing_info
+ 6/38 Test #13: sstinfo_list_nodisplay ...........   Passed    0.53 sec
+      Start 26: sstregister_a
+ 7/38 Test #14: sstinfo_list_quiet ...............   Passed    0.53 sec
+      Start 27: sst_register_list
+ 8/38 Test #15: sstinfo_list .....................   Passed    0.57 sec
+      Start 28: sst_sdlfile
+ 9/38 Test #12: sstinfo_list_env .................   Passed    0.60 sec
+      Start 29: sst_version
+10/38 Test #17: sstinfo_list_xml .................   Passed    0.61 sec
+      Start 30: testinfo
+11/38 Test #16: sstinfo_list_xml_file ............   Passed    0.62 sec
+      Start 31: restart-heartbeat-14.1
+12/38 Test #27: sst_register_list ................   Passed    0.12 sec
+      Start 32: restart-interactive-14.1
+13/38 Test #30: testinfo .........................   Passed    0.31 sec
+      Start 33: restart-sigalrm-14.1
+14/38 Test #26: sstregister_a ....................   Passed    0.42 sec
+      Start 34: sigalrm_ckpt_comb
+15/38 Test #29: sst_version ......................   Passed    1.24 sec
+      Start 35: sigalrm
+16/38 Test  #8: sst_help-MIN14.0 .................   Passed    2.67 sec
+      Start 36: testinfo
+17/38 Test  #9: sst_help .........................   Passed    2.69 sec
+      Start 37: testinfo
+18/38 Test  #7: sst_help-14.1 ....................   Passed    2.89 sec
+      Start 38: testinfo
+19/38 Test #36: testinfo .........................   Passed    0.26 sec
+20/38 Test #37: testinfo .........................   Passed    0.24 sec
+21/38 Test #38: testinfo .........................   Passed    0.26 sec
+22/38 Test #11: sstinfo_list_elem ................   Passed    3.73 sec
+23/38 Test #20: sst_output_config ................   Passed    5.86 sec
+24/38 Test #23: sst_output_json ..................   Passed    5.82 sec
+25/38 Test #21: sst_output_dot ...................   Passed    5.87 sec
+26/38 Test  #1: sst_base .........................   Passed    6.14 sec
+27/38 Test #24: sst_output_prefix ................   Passed    5.79 sec
+28/38 Test #28: sst_sdlfile ......................   Passed    5.58 sec
+29/38 Test #25: sst_print_timing_info ............   Passed    5.79 sec
+30/38 Test  #5: sst_heartbeat_0.1.30 .............   Passed    6.17 sec
+31/38 Test #19: sst_numthreads ...................   Passed    7.28 sec
+32/38 Test #31: restart-heartbeat-14.1 ...........   Passed    6.87 sec
+33/38 Test #32: restart-interactive-14.1 .........   Passed    7.58 sec
+34/38 Test  #6: sst_heartbeat_1s .................   Passed   14.17 sec
+35/38 Test #33: restart-sigalrm-14.1 .............   Passed   18.26 sec
+36/38 Test #34: sigalrm_ckpt_comb ................   Passed   19.17 sec
+37/38 Test #35: sigalrm ..........................   Passed   19.78 sec
+38/38 Test #22: sst_output_dot_verbosity .........   Passed   47.96 sec
+
+100% tests passed, 0 tests failed out of 38
+
+Label Time Summary:
+14.1    = 207.83 sec*proc (38 tests)
+
+Total Test time (real) =  48.24 sec
