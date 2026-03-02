@@ -1,0 +1,125 @@
+{
+  "program_options": {
+    "verbose": "0",
+    "stop-at": "0ns",
+    "print-timing-info": "5",
+    "timing-info-json": "",
+    "heartbeat-sim-period": "",
+    "heartbeat-wall-period": "0",
+    "timebase": "1ps",
+    "partitioner": "sst.single",
+    "timeVortex": "sst.timevortex.priority_queue",
+    "interthread-links": "false",
+    "output-prefix-core": "@x SST Core: ",
+    "checkpoint-sim-period": "",
+    "checkpoint-wall-period": "0"
+  },
+  "statistics_options": {
+    "statisticOutput": "sst.statOutputConsole"
+  },
+  "components": [
+    {
+      "name": "c1",
+      "type": "coreTestElement.coreTestLinks",
+      "params": {
+        "id": "0",
+        "link_time_base": "1 ns"
+      }
+    },
+    {
+      "name": "c0_1",
+      "type": "coreTestElement.coreTestLinks",
+      "params": {
+        "id": "1",
+        "link_time_base": "2 ns",
+        "added_send_latency": "10 ns"
+      }
+    },
+    {
+      "name": "c1_0",
+      "type": "coreTestElement.coreTestLinks",
+      "params": {
+        "id": "2",
+        "link_time_base": "3 ns",
+        "added_recv_latency": "15 ns"
+      }
+    },
+    {
+      "name": "c1_1",
+      "type": "coreTestElement.coreTestLinks",
+      "params": {
+        "id": "3",
+        "link_time_base": "4 ns",
+        "added_send_latency": "20 ns",
+        "added_recv_latency": "25 ns"
+      }
+    }
+  ],
+  "links": [
+    {
+      "name": "link_0",
+      "left": {
+        "component": "c1",
+        "port": "Wlink",
+        "latency": "2 ns"
+      },
+      "right": {
+        "component": "c1",
+        "port": "Wlink",
+        "latency": "2 ns"
+      }
+    },
+    {
+      "name": "link_0_1",
+      "left": {
+        "component": "c1",
+        "port": "Elink",
+        "latency": "4 ns"
+      },
+      "right": {
+        "component": "c0_1",
+        "port": "Wlink",
+        "latency": "4 ns"
+      }
+    },
+    {
+      "name": "link_1_1",
+      "left": {
+        "component": "c0_1",
+        "port": "Elink",
+        "latency": "8 ns"
+      },
+      "right": {
+        "component": "c1_0",
+        "port": "Wlink",
+        "latency": "8 ns"
+      }
+    },
+    {
+      "name": "link_2_3",
+      "left": {
+        "component": "c1_0",
+        "port": "Elink",
+        "latency": "12 ns"
+      },
+      "right": {
+        "component": "c1_1",
+        "port": "Wlink",
+        "latency": "12 ns"
+      }
+    },
+    {
+      "name": "link_3",
+      "left": {
+        "component": "c1_1",
+        "port": "Elink",
+        "latency": "16 ns"
+      },
+      "right": {
+        "component": "c1_1",
+        "port": "Elink",
+        "latency": "16 ns"
+      }
+    }
+  ]
+}
