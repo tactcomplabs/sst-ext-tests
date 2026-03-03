@@ -1,0 +1,886 @@
+{
+"program_options":{
+  "verbose": "0",
+  "stop-at": "0ns",
+  "print-timing-info": "0",
+  "timing-info-json": "",
+  "heartbeat-sim-period": "",
+  "heartbeat-wall-period": "0",
+  "timebase": "1ps",
+  "partitioner": "sst.single",
+  "timeVortex": "sst.timevortex.priority_queue",
+  "interthread-links": "false",
+  "output-prefix-core": "@x SST Core: ",
+  "checkpoint-sim-period": "",
+  "checkpoint-wall-period": "0"
+},
+"statistics_options":{
+  "statisticLoadLevel": 2,
+  "statisticOutput": "sst.statOutputConsole"
+},
+"components": [
+{
+  "name": "StatGlobal0",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1440",
+    "seed_z": "1046",
+    "register_dynamic": "20"
+  }
+},
+{
+  "name": "StatGlobal1",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1441",
+    "seed_z": "1047"
+  }
+},
+{
+  "name": "StatBasic0",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1447",
+    "seed_z": "1053",
+    "register_dynamic": "30"
+  },
+  "statistics": [
+    {
+      "name": "stat1_U32",
+      "params": {
+        "rate": "5 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_U64",
+      "params": {
+        "rate": "10 ns",
+        "resetOnOutput": "True",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat3_I32",
+      "params": {
+        "rate": "7 ns",
+        "startat": "25 ns",
+        "stopat": "60 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat4_I64",
+      "params": {
+        "rate": "12 ns",
+        "resetOnOutput": "True",
+        "startat": "35 ns",
+        "stopat": "70 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat5_dyn",
+      "params": {
+        "rate": "16 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatBasic1",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1448",
+    "seed_z": "1054"
+  },
+  "statistics": [
+    {
+      "name": "stat1_U32",
+      "params": {
+        "rate": "6 event",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_U64",
+      "params": {
+        "rate": "11 events",
+        "resetOnOutput": "True",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat3_I32",
+      "params": {
+        "rate": "8 events",
+        "startat": "25 ns",
+        "stopat": "60 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat4_I64",
+      "params": {
+        "rate": "14 events",
+        "resetOnOutput": "True",
+        "startat": "35 ns",
+        "stopat": "70 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatBasic2",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1449",
+    "seed_z": "1055"
+  },
+  "statistics": [
+    {
+      "name": "stat1_U32",
+      "params": {
+        "rate": "20 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_U64",
+      "params": {
+        "rate": "16 ns",
+        "resetOnOutput": "True",
+        "startat": "25 ns",
+        "stopat": "60 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat3_I32",
+      "params": {
+        "rate": "20 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat4_I64",
+      "params": {
+        "rate": "16 ns",
+        "resetOnOutput": "True",
+        "startat": "25 ns",
+        "stopat": "60 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatBasic3",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1450",
+    "seed_z": "1056"
+  },
+  "statistics": [
+    {
+      "name": "stat1_U32",
+      "params": {
+        "rate": "9 events",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_U64",
+      "params": {
+        "rate": "13 events",
+        "resetOnOutput": "True",
+        "startat": "25 ns",
+        "stopat": "60 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat3_I32",
+      "params": {
+        "rate": "9 events",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat4_I64",
+      "params": {
+        "rate": "13 events",
+        "resetOnOutput": "True",
+        "startat": "25 ns",
+        "stopat": "60 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatBasic4",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1451",
+    "seed_z": "1057"
+  },
+  "statistics": [
+    {
+      "name": "stat1_U32",
+      "params": {
+        "rate": "5 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_U64",
+      "params": {
+        "rate": "10 ns",
+        "resetOnOutput": "True",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat3_I32",
+      "params": {
+        "rate": "7 ns",
+        "startat": "25 ns",
+        "stopat": "60 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat4_I64",
+      "params": {
+        "rate": "12 ns",
+        "resetOnOutput": "True",
+        "startat": "35 ns",
+        "stopat": "70 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatBasic5",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1452",
+    "seed_z": "1058"
+  },
+  "statistics": [
+    {
+      "name": "stat1_U32",
+      "params": {
+        "rate": "6 event",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_U64",
+      "params": {
+        "rate": "11 events",
+        "resetOnOutput": "True",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat3_I32",
+      "params": {
+        "rate": "8 events",
+        "startat": "25 ns",
+        "stopat": "60 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat4_I64",
+      "params": {
+        "rate": "14 events",
+        "resetOnOutput": "True",
+        "startat": "35 ns",
+        "stopat": "70 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatBasic6",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1453",
+    "seed_z": "1059"
+  },
+  "statistics": [
+    {
+      "name": "stat1_U32",
+      "params": {
+        "rate": "20 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_U64",
+      "params": {
+        "rate": "16 ns",
+        "resetOnOutput": "True",
+        "startat": "25 ns",
+        "stopat": "60 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat3_I32",
+      "params": {
+        "rate": "20 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat4_I64",
+      "params": {
+        "rate": "16 ns",
+        "resetOnOutput": "True",
+        "startat": "25 ns",
+        "stopat": "60 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatBasic7",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1454",
+    "seed_z": "1060"
+  },
+  "statistics": [
+    {
+      "name": "stat1_U32",
+      "params": {
+        "rate": "9 events",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_U64",
+      "params": {
+        "rate": "13 events",
+        "resetOnOutput": "True",
+        "startat": "25 ns",
+        "stopat": "60 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat3_I32",
+      "params": {
+        "rate": "9 events",
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat4_I64",
+      "params": {
+        "rate": "13 events",
+        "resetOnOutput": "True",
+        "startat": "25 ns",
+        "stopat": "60 ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatBasic8",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1455",
+    "seed_z": "1061"
+  }
+},
+{
+  "name": "StatBasic9",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1456",
+    "seed_z": "1062"
+  }
+},
+{
+  "name": "StatBasic10",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1457",
+    "seed_z": "1063"
+  }
+},
+{
+  "name": "StatType0",
+  "type": "coreTestElement.StatisticsComponent.float",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1457",
+    "seed_z": "1063"
+  }
+},
+{
+  "name": "StatType1",
+  "type": "coreTestElement.StatisticsComponent.float",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1457",
+    "seed_z": "1063"
+  }
+},
+{
+  "name": "StatType2",
+  "type": "coreTestElement.StatisticsComponent.float",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1457",
+    "seed_z": "1063"
+  }
+},
+{
+  "name": "StatObjComp0",
+  "type": "coreTestElement.StatisticsComponent.float",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1458",
+    "seed_z": "1064"
+  },
+  "statistics": [
+    {
+      "name": "statObj0_statobj0",
+      "params": {
+        "rate": "17ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatObjComp1",
+  "type": "coreTestElement.StatisticsComponent.float",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1459",
+    "seed_z": "1065"
+  },
+  "statistics": [
+    {
+      "name": "statObj1_statobj1",
+      "params": {
+        "rate": "17ns",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatGroupObj0",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1460",
+    "seed_z": "1066"
+  },
+  "statistics": [
+    {
+      "name": "stat1_U32",
+      "params": {
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_U64",
+      "params": {
+        "resetOnOutput": "True",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatGroupObj1",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1461",
+    "seed_z": "1067"
+  },
+  "statistics": [
+    {
+      "name": "stat1_U32",
+      "params": {
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_U64",
+      "params": {
+        "resetOnOutput": "True",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatGroupObj2",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1462",
+    "seed_z": "1068"
+  },
+  "statistics": [
+    {
+      "name": "stat1_U32",
+      "params": {
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_U64",
+      "params": {
+        "resetOnOutput": "True",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatGroupObj3",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1463",
+    "seed_z": "1069"
+  },
+  "statistics": [
+    {
+      "name": "stat1_U32",
+      "params": {
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_U64",
+      "params": {
+        "resetOnOutput": "True",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatGroupObj4",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1464",
+    "seed_z": "1070"
+  },
+  "statistics": [
+    {
+      "name": "stat1_U32",
+      "params": {
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_U64",
+      "params": {
+        "resetOnOutput": "True",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatGroupObj5",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1466",
+    "seed_z": "1071"
+  },
+  "statistics": [
+    {
+      "name": "stat1_U32",
+      "params": {
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_U64",
+      "params": {
+        "resetOnOutput": "True",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatGroupObj6",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1466",
+    "seed_z": "1072"
+  },
+  "statistics": [
+    {
+      "name": "stat1_U32",
+      "params": {
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_U64",
+      "params": {
+        "resetOnOutput": "True",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatGroupObj7",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1467",
+    "seed_z": "1073"
+  },
+  "statistics": [
+    {
+      "name": "stat1_U32",
+      "params": {
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_U64",
+      "params": {
+        "resetOnOutput": "True",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatGroupObj8",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1468",
+    "seed_z": "1074"
+  },
+  "statistics": [
+    {
+      "name": "stat1_U32",
+      "params": {
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_U64",
+      "params": {
+        "resetOnOutput": "True",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatGroupObj9",
+  "type": "coreTestElement.StatisticsComponent.float",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1469",
+    "seed_z": "1075"
+  },
+  "statistics": [
+    {
+      "name": "stat1_F32",
+      "params": {
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_F64",
+      "params": {
+        "resetOnOutput": "True",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatGroupObj10",
+  "type": "coreTestElement.StatisticsComponent.float",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1470",
+    "seed_z": "1076"
+  },
+  "statistics": [
+    {
+      "name": "stat1_F32",
+      "params": {
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_F64",
+      "params": {
+        "resetOnOutput": "True",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+},
+{
+  "name": "StatGroupObj11",
+  "type": "coreTestElement.StatisticsComponent.float",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1471",
+    "seed_z": "1077"
+  },
+  "statistics": [
+    {
+      "name": "stat1_F32",
+      "params": {
+        "type": "sst.AccumulatorStatistic"
+      }
+    },
+    {
+      "name": "stat2_F64",
+      "params": {
+        "resetOnOutput": "True",
+        "type": "sst.AccumulatorStatistic"
+      }
+    }
+  ]
+}
+],
+"statistics_group": [
+{
+  "name": "StatGroup0",
+  "frequency": "19 ns",
+  "output": {
+    "type": "sst.statOutputConsole",
+    "params": {
+      "outputrank": "False",
+      "outputsimtime": "True"
+    }
+  },
+  "components": [
+    "StatGroupObj0",
+    "StatGroupObj1",
+    "StatGroupObj2"
+  ]
+},
+{
+  "name": "StatGroup1",
+  "frequency": "23 ns",
+  "output": {
+    "type": "sst.statOutputCSV",
+    "params": {
+      "outputrank": "0",
+      "filepath": "test_StatisticsComponent_basic_group_stats.csv",
+      "separator": ", "
+    }
+  },
+  "components": [
+    "StatGroupObj3",
+    "StatGroupObj4",
+    "StatGroupObj5"
+  ]
+},
+{
+  "name": "StatGroup2",
+  "frequency": "27 ns",
+  "output": {
+    "type": "sst.statOutputTXT",
+    "params": {
+      "outputrank": "0",
+      "filepath": "test_StatisticsComponent_basic_group_stats.txt"
+    }
+  },
+  "components": [
+    "StatGroupObj6",
+    "StatGroupObj7",
+    "StatGroupObj8"
+  ]
+},
+{
+  "name": "StatGroup3",
+  "frequency": "29 ns",
+  "output": {
+    "type": "sst.statOutputTXT",
+    "params": {
+      "outputrank": "0",
+      "filepath": "test_StatisticsComponent_basic_group_stats.txt"
+    }
+  },
+  "components": [
+    "StatGroupObj9",
+    "StatGroupObj10",
+    "StatGroupObj11"
+  ]
+}
+],
+"links": null
+}
