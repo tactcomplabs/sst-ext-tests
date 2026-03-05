@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER 15.0
+#EXT_TEST TEST_FILE_MINVER 15.1
 #EXT_TEST TEST_FILE_DESC "Sub-subcomponent json loader test"
 #EXT_TEST DEP "coreTestElement.message_mesh.enclosing_component"
 
