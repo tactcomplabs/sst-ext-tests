@@ -1,5 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER 15.1
+#EXT_TEST TEST_FILE_MAXVER 15.1
 #EXT_TEST TEST_FILE_DESC "Stats json loader test"
 #EXT_TEST DEP "coreTestElement.StatisticsComponent.int"
 
