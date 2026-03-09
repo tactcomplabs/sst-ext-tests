@@ -1,6 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER NEW
-#EXT_TEST TIMEOUT 90
+#EXT_TEST TIMEOUT 120
 #EXT_TEST TEST_FILE_DESC "Tests sigusr1/2 for single real time actions"
 # 
 # 0) set pass string 

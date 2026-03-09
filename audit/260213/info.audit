@@ -1,0 +1,25 @@
+Fri Feb 13 11:30:48 CST 2026
+gizmo.dev.tactcomplabs.com
+Linux gizmo.dev.tactcomplabs.com 4.18.0-477.10.1.el8_8.x86_64 #1 SMP Tue May 16 11:38:37 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
+On branch maintain
+Your branch is up to date with 'origin/maintain'.
+
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   ../251222/13.0.0.ctest
+	modified:   ../251222/13.1.0.ctest
+	modified:   ../251222/14.0.0.ctest
+	modified:   ../251222/14.1.0.ctest
+	modified:   ../251222/15.0.0.ctest
+	modified:   ../251222/15.1.0.ctest
+	modified:   ../251222/info.audit
+	deleted:    ../251222/log
+	modified:   ../251222/tests.info
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	./
+
+no changes added to commit (use "git add" and/or "git commit -a")
+1d2c773 fixed SST_VERSION override bug

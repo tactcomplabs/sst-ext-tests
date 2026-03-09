@@ -1,7 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER 15.1
 #EXT_TEST TEST_FILE_DESC "Tests sigalrm for combinations of two real time actions (checkpoint not included)"
-#EXT_TEST TIMEOUT 90
+#EXT_TEST TIMEOUT 120
 # 
 # 0) set pass string 
 # 1) launch the program

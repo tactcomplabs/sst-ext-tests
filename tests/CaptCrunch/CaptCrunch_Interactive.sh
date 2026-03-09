@@ -26,9 +26,11 @@ wait
 
 sst --interactive-start=0 --add-lib-path=$SST_COMPONENT_BASE/CaptCrunch/ $TEST_NAME.py <<EOF
 ls
+c
 confirm false
 cd c0
 ls
+c
 quit
 EOF
 

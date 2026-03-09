@@ -4,7 +4,7 @@
 # Given a fully qualified path to a test file (.sh or .py), examines
 # the file header for EXT_TEST TIMEOUT VALUE
 #
-# Copyright (C) 2017-2025 Tactical Computing Laboratories, LLC
+# Copyright (C) 2017-2026 Tactical Computing Laboratories, LLC
 # All Rights Reserved
 # contact@tactcomplabs.com
 # See LICENSE in the top level directory for licensing details

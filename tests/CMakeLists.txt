@@ -1,7 +1,7 @@
 #
 # sst-ext-tests/tests CMake
 #
-# Copyright (C) 2017-2025 Tactical Computing Laboratories, LLC
+# Copyright (C) 2017-2026 Tactical Computing Laboratories, LLC
 # All Rights Reserved
 # contact@tactcomplabs.com
 # See LICENSE in the top level directory for licensing details
@@ -11,6 +11,7 @@
 option(ENABLE_NEW_TESTS "Enable NEW tests for sst-core feature branches" OFF)
 option(ENABLE_ALL_TESTS "Enable ALL production tests" OFF)
 option(ENABLE_CLI_TESTS "Enable CLI testing" OFF)
+option(ENABLE_JSON_TESTS "Enable sequential JSON testing" OFF)
 
 option(ENABLE_DEBUG_TESTS "Interactive debug mode tests")
 option(ENABLE_RTACTION_TESTS "Enable Realtime Action testing" OFF)
@@ -30,11 +31,16 @@ if (ENABLE_ALL_TESTS)
   set(ENABLE_DEBUG_TESTS ON CACHE BOOL "Interactive debug mode tests" FORCE)
   set(ENABLE_RTACTION_TESTS ON CACHE BOOL "Enable Realtime Action testing" FORCE)
   set(ENABLE_CAPTCRUNCH_TESTS ON CACHE BOOL "Enable Captain Crunch testing" FORCE)
+  set(ENABLE_JSON_TESTS ON CACHE BOOL "Enable sequential JSON testing" FORCE)
 endif()
 
 # -- walk each subdirectory and individually enable them
 if(ENABLE_CLI_TESTS)
   add_subdirectory(cli)
+endif()
+
+if(ENABLE_JSON_TESTS)
+  add_subdirectory(json_seq)
 endif()
 
 if(ENABLE_RTACTION_TESTS)
@@ -58,6 +64,8 @@ endif()
 if(ENABLE_MPI_TESTS)
   if(MPIEXEC_EXECUTABLE)
     add_subdirectory(mpi)
+    # -- Enable the parallel json tests as they require MPI
+    add_subdirectory(json_parallel)
   else()
     message(FATAL_ERROR "Could not discover `mpirun` or `mpiexec`. Cannot enable MPI tests")
   endif()

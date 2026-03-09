@@ -1,0 +1,95 @@
+{
+  "program_options": {
+    "verbose": "0",
+    "stop-at": "10us",
+    "print-timing-info": "0",
+    "timing-info-json": "",
+    "heartbeat-sim-period": "",
+    "heartbeat-wall-period": "0",
+    "timebase": "1ps",
+    "partitioner": "sst.single",
+    "timeVortex": "sst.timevortex.priority_queue",
+    "interthread-links": "false",
+    "output-prefix-core": "@x SST Core: ",
+    "checkpoint-sim-period": "",
+    "checkpoint-wall-period": "0"
+  },
+  "statistics_options": {
+    "statisticLoadLevel": 1,
+    "statisticOutput": "sst.statOutputConsole"
+  },
+  "components": [
+    {
+      "name": "Loader0",
+      "type": "coreTestElement.SubComponentLoader",
+      "params": {
+        "clock": "1.5GHz"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "mySubComp",
+          "slot_number": 0,
+          "type": "coreTestElement.SubCompSender",
+          "params": {
+            "sendCount": "15"
+          }
+        },
+        {
+          "slot_name": "mySubComp",
+          "slot_number": 1,
+          "type": "coreTestElement.SubCompReceiver"
+        }
+      ]
+    },
+    {
+      "name": "Loader1",
+      "type": "coreTestElement.SubComponentLoader",
+      "params": {
+        "clock": "1.0GHz"
+      },
+      "subcomponents": [
+        {
+          "slot_name": "mySubComp",
+          "slot_number": 0,
+          "type": "coreTestElement.SubCompReceiver"
+        },
+        {
+          "slot_name": "mySubComp",
+          "slot_number": 1,
+          "type": "coreTestElement.SubCompSender",
+          "params": {
+            "sendCount": "15"
+          }
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "name": "myLink1",
+      "left": {
+        "component": "Loader0:mySubComp[0]",
+        "port": "sendPort",
+        "latency": "5ns"
+      },
+      "right": {
+        "component": "Loader1:mySubComp[0]",
+        "port": "recvPort",
+        "latency": "5ns"
+      }
+    },
+    {
+      "name": "myLink2",
+      "left": {
+        "component": "Loader1:mySubComp[1]",
+        "port": "sendPort",
+        "latency": "5ns"
+      },
+      "right": {
+        "component": "Loader0:mySubComp[1]",
+        "port": "recvPort",
+        "latency": "5ns"
+      }
+    }
+  ]
+}

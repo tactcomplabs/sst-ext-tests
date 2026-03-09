@@ -1,7 +1,7 @@
 //
 // om-unions.h
 //
-// Copyright (C) 2017-2025 Tactical Computing Laboratories, LLC
+// Copyright (C) 2017-2026 Tactical Computing Laboratories, LLC
 // All Rights Reserved
 // contact@tactcomplabs.com
 //
@@ -22,8 +22,9 @@
 //          SST online documentation for a `serialize_impl`
 //          specialization.
 // 
-#ifndef _SST_EXT_TESTS_OM_UNIONS
-#define _SST_EXT_TESTS_OM_UNIONS
+#ifndef _SST_EXT_TESTS_OM_UNIONS_
+#define _SST_EXT_TESTS_OM_UNIONS_
+
 
 #include "omni.h"
 
@@ -132,12 +133,21 @@ public:
         "dbgsst15",          // Library name
         "OMUnions",          // Subcomponent name
         SST_ELI_ELEMENT_VERSION(1,0,0),  // A version number
-        "Simple subcomponent for object map evaluation", 
+        "Simple union test sub-component", 
         SST::ExtTest::OMSubComponentAPI) // Fully qualified API name
  
   OMUnions(ComponentId_t id, Params& params);
   ~OMUnions();
+
+  void init(unsigned int phase) final {
+    sstout_.verbose(CALL_INFO, 0, 0, "%s", list_type_traits(v_union_struct_trivial).c_str());
+    sstout_.verbose(CALL_INFO, 0, 0, "%s", list_type_traits(v_union_struct_method_1).c_str());
+    sstout_.verbose(CALL_INFO, 0, 0, "%s", list_type_traits(v_union_int_float_trivial).c_str());
+    sstout_.verbose(CALL_INFO, 0, 0, "%s", list_type_traits(v_union_int_float_method_1).c_str());
+  };
+  
   virtual void update(payload_t& p) final;
+  virtual void check() final;
 
 public:
   // serialization support
@@ -217,6 +227,6 @@ class serialize_impl<SST::ExtTest::v_union_int_float_method_1_t>
 };// class serialize_impl<SST::ExtTest::v_union_int_float_method_1_t>
 } //namespace SST::Core::Serialization
 
-#endif  // _SST_EXT_TESTS_OM_UNIONS
+#endif  // _SST_EXT_TESTS_OM_UNIONS_
 
 // EOF

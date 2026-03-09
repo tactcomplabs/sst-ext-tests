@@ -1,7 +1,7 @@
 #
 # sst-ext-tests/tests/core-debug CMake
 #
-# Copyright (C) 2017-2025 Tactical Computing Laboratories, LLC
+# Copyright (C) 2017-2026 Tactical Computing Laboratories, LLC
 # All Rights Reserved
 # contact@tactcomplabs.com
 #
@@ -10,6 +10,7 @@
 
 set(TEST_FILE_EXT "sh")
 set(passRegex "PASS")
+set(failRegex "ERROR")
 
 if (SST_VALGRIND)
   set(timeout "600")
@@ -67,6 +68,7 @@ foreach(testSrc ${TEST_SRCS_TARGET_VER})
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
       COMMAND ./${testSrc})
     set_property(TEST ${testName} PROPERTY LABELS "${SST_VERSION}")
+    set_property(TEST ${testName} PROPERTY FAIL_REGULAR_EXPRESSION "${failRegex}")
     set_property(TEST ${testName} PROPERTY PASS_REGULAR_EXPRESSION "${passRegex}")
     set_property(TEST ${testName} PROPERTY ENVIRONMENT "SST_COMPONENT_BASE=$ENV{SST_COMPONENT_BASE}")
     if(NOT ${EXT_TEST_TIMEOUT} EQUAL 0)

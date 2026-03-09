@@ -1,7 +1,7 @@
 #
 # sst-ext-tests/tests/components/core-debug CMake
 #
-# Copyright (C) 2017-2025 Tactical Computing Laboratories, LLC
+# Copyright (C) 2017-2026 Tactical Computing Laboratories, LLC
 # All Rights Reserved
 # contact@tactcomplabs.com
 # See LICENSE in the top level directory for licensing details
@@ -10,6 +10,12 @@
 set(DbgSST15Srcs
   omni.cc
   omni.h
+  om-arrays.cc
+  om-arrays.h
+  om-queue.cc
+  om-queue.h
+  om-nested-containers.h
+  om-nested-containers.cc
   om-unions.cc
   om-unions.h
   dbgsst15.cc

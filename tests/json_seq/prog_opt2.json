@@ -1,0 +1,46 @@
+{
+"program_options":{
+  "checkpoint-sim-period": "",
+  "checkpoint-wall-period": "0",
+  "heartbeat-sim-period": "",
+  "heartbeat-wall-period": "0",
+  "interthread-links": "false",
+  "output-prefix-core": "@x SST Core: ",
+  "partitioner": "sst.single",
+  "print-timing-info": "0",
+  "stop-at": "10us",
+  "timeVortex": "sst.timevortex.priority_queue",
+  "timebase": "1ps",
+  "timing-info-json": "",
+  "verbose": "0"
+},
+"statistics_options":{
+  "statisticOutput": "sst.statOutputConsole"
+},
+"components": [
+{
+  "name": "StatGlobal0",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1440",
+    "seed_z": "1046",
+    "register_dynamic": "20"
+  }
+},
+{
+  "name": "StatGlobal1",
+  "type": "coreTestElement.StatisticsComponent.int",
+  "params": {
+    "rng": "marsaglia",
+    "count": "101",
+    "seed_w": "1440",
+    "seed_z": "1046",
+    "register_dynamic": "20"
+  }
+}
+],
+"statistics_group": null,
+"links": null
+}

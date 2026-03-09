@@ -7,7 +7,7 @@ cd $WORKSPACE || exit 2
 echo "---> $0 Started in $PWD"
 
 #-- unique to target
-export SST_INSTAL=/jenkins/sstcore-sles15-gcc15-openmpi4.1.7
+export SST_INSTALL=/jenkins/sstcore-sles15-gcc15-openmpi4.1.7
 export PATH=/usr/lib64/mpi/gcc/openmpi4/bin:$PATH
 export LD_LIBRARY_PATH=/usr/lib64/mpi/gcc/openmpi4/lib64
 export OMPI_CC=gcc-15

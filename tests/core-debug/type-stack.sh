@@ -86,7 +86,6 @@ set 2 200
 # CHECK 12 ls\n0 = 10 .+\n1 = 20 .+\n2 = 200 .+
 ls
 
-# The watchpoint appears trigger on `set` above.
 run
 run
 # CHECK 13 ls\n0 = 10 .+\n1 = 20 .+\n2 = 201 .+
@@ -112,16 +111,18 @@ trace 2 changed  : 4 2 : 0 1 2 : interactive
 sethandler 0 ac
 run
 
-# TODO  add check when iconsole branch merged.
-# # The trace should be:
-# # TriggerCount=1
-# # LastTriggerRecord:@cycle7700000: SamplesLost=0: cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 
-# # buf[2] AC @7699000 (-) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=202 
-# # buf[3] AC @7700000 (!) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 
-# # buf[0] AC @7701000 (+) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 
+# TODO add this check when iconsole is merged. The current checker can't handle optional lines.
+# --check-- 17 printTrace 0\nTriggerRecord:@cycle7700000: samples lost = 0:.+\nbuf\[2] AC .+ \(-) cp0.+/2=202[ ]*\nbuf\[3] AC .+ \(\!) cp0.+/2=203[ ]*\nbuf\[0] AC .+ \(\+) cp0.+/2=203[ ]*\nbuf\[1] AC .+ \(\+) cp0.+/2=203
+printTrace 0
 
-# # _check_ 17 printTrace 0\nTriggerCount=1\n.+TriggerRecord:@cycle.+: SamplesLost=0: cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 \nbuf\[2\] AC @.+ \(-\) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=202 \nbuf\[3\] AC @7700000 \(!\) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 \nbuf\[0\] AC @.+ \(\+\) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203
-# printTrace 0
+# Expected when iconsole branch merged
+# TriggerCount=1 <-- HERE this is being added
+# TriggerRecord:@cycle7700000: samples lost = 0: cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 
+# buf[2] AC @7699000 (-) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=202 
+# buf[3] AC @7700000 (!) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 
+# buf[0] AC @7701000 (+) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 
+# buf[1] AC @7702000 (+) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 
+
 
 shutdown
 

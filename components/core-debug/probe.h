@@ -9,8 +9,8 @@
 // information, see the LICENSE file in the top level directory of the
 // distribution.
 
-#ifndef SST_DEBUG_PROBE_H
-#define SST_DEBUG_PROBE_H
+#ifndef SST_EXT_TESTS_DEBUG_PROBE_H_
+#define SST_EXT_TESTS_DEBUG_PROBE_H_
 
 // -- Standard Headers
 #include <assert.h>
@@ -426,4 +426,4 @@ private:
 }; // class ProbeSocket
 
 } // namespace SSTDEBUG::Probe
-#endif /* SST_DEBUG_PROBE_H */
+#endif /* SST_EXT_TESTS_DEBUG_PROBE_H_ */
