@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER 15.1
+#EXT_TEST TEST_FILE_PARAM DEV
 #EXT_TEST TEST_FILE_DESC "sst-test-core sequential tests"
 #EXT_TEST TIMEOUT 120
 #EXT_TEST DEP "coreTestElement.SubComponentLoader coreTestElement.message_mesh.enclosing_component"
