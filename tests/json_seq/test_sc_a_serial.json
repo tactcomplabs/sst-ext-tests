@@ -1,0 +1,65 @@
+{
+"program_options":{
+  "verbose": "0",
+  "stop-at": "0ns",
+  "print-timing-info": "0",
+  "timing-info-json": "",
+  "heartbeat-sim-period": "",
+  "heartbeat-wall-period": "0",
+  "timebase": "1ps",
+  "partitioner": "sst.single",
+  "timeVortex": "sst.timevortex.priority_queue",
+  "interthread-links": "false",
+  "output-prefix-core": "@x SST Core: ",
+  "checkpoint-sim-period": "",
+  "checkpoint-wall-period": "0"
+},
+"statistics_options":{
+  "statisticLoadLevel": 1,
+  "statisticOutput": "sst.statOutputConsole"
+},
+"components": [
+{
+  "name": "Loader0",
+  "type": "coreTestElement.SubComponentLoader",
+  "statistics_options": {
+    "enable_all_statistics": true
+  },
+  "params": {
+    "clock": "0.1GHz",
+    "unnamed_subcomponent": "coreTestElement.SubCompSender",
+    "sendCount": "15",
+    "verbose": "1"
+  }
+},
+{
+  "name": "Loader1",
+  "type": "coreTestElement.SubComponentLoader",
+  "statistics_options": {
+    "enable_all_statistics": true
+  },
+  "params": {
+    "unnamed_subcomponent": "coreTestElement.SubCompReceiver",
+    "verbose": "1"
+  }
+}
+],
+"statistics_group": null,
+"links": [
+{
+  "name": "myLink",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "Loader0",
+    "port": "port0",
+    "latency": "1 us"
+  },
+  "right": {
+    "component": "Loader1",
+    "port": "port0",
+    "latency": "1 us"
+  }
+}
+]
+}

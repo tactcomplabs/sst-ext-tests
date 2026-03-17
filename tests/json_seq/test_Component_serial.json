@@ -1,0 +1,3925 @@
+{
+"program_options":{
+  "verbose": "0",
+  "stop-at": "25us",
+  "print-timing-info": "0",
+  "timing-info-json": "",
+  "heartbeat-sim-period": "",
+  "heartbeat-wall-period": "0",
+  "timebase": "1ps",
+  "partitioner": "sst.single",
+  "timeVortex": "sst.timevortex.priority_queue",
+  "interthread-links": "false",
+  "output-prefix-core": "@x SST Core: ",
+  "checkpoint-sim-period": "",
+  "checkpoint-wall-period": "0"
+},
+"statistics_options":{
+  "statisticOutput": "sst.statOutputConsole"
+},
+"components": [
+{
+  "name": "c0_0",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c1_0",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c2_0",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c3_0",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c4_0",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c5_0",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c6_0",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c7_0",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c8_0",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c9_0",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c0_1",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c1_1",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c2_1",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c3_1",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c4_1",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c5_1",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c6_1",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c7_1",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c8_1",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c9_1",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c0_2",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c1_2",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c2_2",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c3_2",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c4_2",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c5_2",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c6_2",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c7_2",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c8_2",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c9_2",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c0_3",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c1_3",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c2_3",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c3_3",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c4_3",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c5_3",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c6_3",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c7_3",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c8_3",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c9_3",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c0_4",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c1_4",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c2_4",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c3_4",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c4_4",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c5_4",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c6_4",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c7_4",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c8_4",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c9_4",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c0_5",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c1_5",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c2_5",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c3_5",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c4_5",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c5_5",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c6_5",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c7_5",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c8_5",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c9_5",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c0_6",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c1_6",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c2_6",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c3_6",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c4_6",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c5_6",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c6_6",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c7_6",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c8_6",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c9_6",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c0_7",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c1_7",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c2_7",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c3_7",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c4_7",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c5_7",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c6_7",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c7_7",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c8_7",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c9_7",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c0_8",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c1_8",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c2_8",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c3_8",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c4_8",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c5_8",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c6_8",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c7_8",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c8_8",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c9_8",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c0_9",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c1_9",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c2_9",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c3_9",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c4_9",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c5_9",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c6_9",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c7_9",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c8_9",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+},
+{
+  "name": "c9_9",
+  "type": "coreTestElement.coreTestComponent",
+  "params": {
+    "workPerCycle": "1000",
+    "commSize": "100",
+    "commFreq": "1000"
+  }
+}
+],
+"statistics_group": null,
+"links": [
+{
+  "name": "link_s_0_10",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_0",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c0_1",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_0_90",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_0",
+    "port": "Slink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c0_9",
+    "port": "Nlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_0_1",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_0",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_0",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_0_9",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_0",
+    "port": "Wlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_0",
+    "port": "Elink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_1_11",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_0",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_1",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_1_91",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_0",
+    "port": "Slink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_9",
+    "port": "Nlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_1_2",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_0",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_0",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_2_12",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_0",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_1",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_2_92",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_0",
+    "port": "Slink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_9",
+    "port": "Nlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_2_3",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_0",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_0",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_3_13",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_0",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_1",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_3_93",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_0",
+    "port": "Slink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_9",
+    "port": "Nlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_3_4",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_0",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_0",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_4_14",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_0",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_1",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_4_94",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_0",
+    "port": "Slink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_9",
+    "port": "Nlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_4_5",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_0",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_0",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_5_15",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_0",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_1",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_5_95",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_0",
+    "port": "Slink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_9",
+    "port": "Nlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_5_6",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_0",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_0",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_6_16",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_0",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_1",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_6_96",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_0",
+    "port": "Slink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_9",
+    "port": "Nlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_6_7",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_0",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_0",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_7_17",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_0",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_1",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_7_97",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_0",
+    "port": "Slink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_9",
+    "port": "Nlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_7_8",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_0",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_0",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_8_18",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_0",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_1",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_8_98",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_0",
+    "port": "Slink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_9",
+    "port": "Nlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_8_9",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_0",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_0",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_9_19",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c9_0",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_1",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_9_99",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c9_0",
+    "port": "Slink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_9",
+    "port": "Nlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_10_20",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_1",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c0_2",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_10_11",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_1",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_1",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_10_19",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_1",
+    "port": "Wlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_1",
+    "port": "Elink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_11_21",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_1",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_2",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_11_12",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_1",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_1",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_12_22",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_1",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_2",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_12_13",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_1",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_1",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_13_23",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_1",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_2",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_13_14",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_1",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_1",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_14_24",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_1",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_2",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_14_15",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_1",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_1",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_15_25",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_1",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_2",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_15_16",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_1",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_1",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_16_26",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_1",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_2",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_16_17",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_1",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_1",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_17_27",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_1",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_2",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_17_18",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_1",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_1",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_18_28",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_1",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_2",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_18_19",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_1",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_1",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_19_29",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c9_1",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_2",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_20_30",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_2",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c0_3",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_20_21",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_2",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_2",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_20_29",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_2",
+    "port": "Wlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_2",
+    "port": "Elink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_21_31",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_2",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_3",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_21_22",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_2",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_2",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_22_32",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_2",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_3",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_22_23",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_2",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_2",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_23_33",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_2",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_3",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_23_24",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_2",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_2",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_24_34",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_2",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_3",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_24_25",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_2",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_2",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_25_35",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_2",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_3",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_25_26",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_2",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_2",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_26_36",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_2",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_3",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_26_27",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_2",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_2",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_27_37",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_2",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_3",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_27_28",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_2",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_2",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_28_38",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_2",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_3",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_28_29",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_2",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_2",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_29_39",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c9_2",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_3",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_30_40",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_3",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c0_4",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_30_31",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_3",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_3",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_30_39",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_3",
+    "port": "Wlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_3",
+    "port": "Elink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_31_41",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_3",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_4",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_31_32",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_3",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_3",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_32_42",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_3",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_4",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_32_33",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_3",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_3",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_33_43",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_3",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_4",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_33_34",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_3",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_3",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_34_44",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_3",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_4",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_34_35",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_3",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_3",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_35_45",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_3",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_4",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_35_36",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_3",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_3",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_36_46",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_3",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_4",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_36_37",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_3",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_3",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_37_47",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_3",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_4",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_37_38",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_3",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_3",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_38_48",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_3",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_4",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_38_39",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_3",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_3",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_39_49",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c9_3",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_4",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_40_50",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_4",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c0_5",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_40_41",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_4",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_4",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_40_49",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_4",
+    "port": "Wlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_4",
+    "port": "Elink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_41_51",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_4",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_5",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_41_42",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_4",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_4",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_42_52",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_4",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_5",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_42_43",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_4",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_4",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_43_53",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_4",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_5",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_43_44",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_4",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_4",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_44_54",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_4",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_5",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_44_45",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_4",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_4",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_45_55",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_4",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_5",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_45_46",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_4",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_4",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_46_56",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_4",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_5",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_46_47",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_4",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_4",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_47_57",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_4",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_5",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_47_48",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_4",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_4",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_48_58",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_4",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_5",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_48_49",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_4",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_4",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_49_59",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c9_4",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_5",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_50_60",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_5",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c0_6",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_50_51",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_5",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_5",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_50_59",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_5",
+    "port": "Wlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_5",
+    "port": "Elink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_51_61",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_5",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_6",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_51_52",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_5",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_5",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_52_62",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_5",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_6",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_52_53",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_5",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_5",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_53_63",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_5",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_6",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_53_54",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_5",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_5",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_54_64",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_5",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_6",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_54_55",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_5",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_5",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_55_65",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_5",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_6",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_55_56",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_5",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_5",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_56_66",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_5",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_6",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_56_57",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_5",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_5",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_57_67",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_5",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_6",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_57_58",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_5",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_5",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_58_68",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_5",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_6",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_58_59",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_5",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_5",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_59_69",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c9_5",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_6",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_60_70",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_6",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c0_7",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_60_61",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_6",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_6",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_60_69",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_6",
+    "port": "Wlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_6",
+    "port": "Elink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_61_71",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_6",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_7",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_61_62",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_6",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_6",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_62_72",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_6",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_7",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_62_63",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_6",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_6",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_63_73",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_6",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_7",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_63_64",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_6",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_6",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_64_74",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_6",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_7",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_64_65",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_6",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_6",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_65_75",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_6",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_7",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_65_66",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_6",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_6",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_66_76",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_6",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_7",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_66_67",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_6",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_6",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_67_77",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_6",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_7",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_67_68",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_6",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_6",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_68_78",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_6",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_7",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_68_69",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_6",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_6",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_69_79",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c9_6",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_7",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_70_80",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_7",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c0_8",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_70_71",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_7",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_7",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_70_79",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_7",
+    "port": "Wlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_7",
+    "port": "Elink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_71_81",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_7",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_8",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_71_72",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_7",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_7",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_72_82",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_7",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_8",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_72_73",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_7",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_7",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_73_83",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_7",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_8",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_73_74",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_7",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_7",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_74_84",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_7",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_8",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_74_75",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_7",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_7",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_75_85",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_7",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_8",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_75_76",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_7",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_7",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_76_86",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_7",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_8",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_76_77",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_7",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_7",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_77_87",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_7",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_8",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_77_78",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_7",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_7",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_78_88",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_7",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_8",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_78_79",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_7",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_7",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_79_89",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c9_7",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_8",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_80_90",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_8",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c0_9",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_80_81",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_8",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_8",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_80_89",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_8",
+    "port": "Wlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_8",
+    "port": "Elink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_81_91",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_8",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_9",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_81_82",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_8",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_8",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_82_92",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_8",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_9",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_82_83",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_8",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_8",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_83_93",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_8",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_9",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_83_84",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_8",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_8",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_84_94",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_8",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_9",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_84_85",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_8",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_8",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_85_95",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_8",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_9",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_85_86",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_8",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_8",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_86_96",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_8",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_9",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_86_87",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_8",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_8",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_87_97",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_8",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_9",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_87_88",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_8",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_8",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_88_98",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_8",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_9",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_88_89",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_8",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_8",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_89_99",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c9_8",
+    "port": "Nlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_9",
+    "port": "Slink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_90_91",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_9",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c1_9",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_90_99",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c0_9",
+    "port": "Wlink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_9",
+    "port": "Elink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_91_92",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c1_9",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c2_9",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_92_93",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c2_9",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c3_9",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_93_94",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c3_9",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c4_9",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_94_95",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c4_9",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c5_9",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_95_96",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c5_9",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c6_9",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_96_97",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c6_9",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c7_9",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_97_98",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c7_9",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c8_9",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+},
+{
+  "name": "link_s_98_99",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "c8_9",
+    "port": "Elink",
+    "latency": "10 ns"
+  },
+  "right": {
+    "component": "c9_9",
+    "port": "Wlink",
+    "latency": "10 ns"
+  }
+}
+]
+}
