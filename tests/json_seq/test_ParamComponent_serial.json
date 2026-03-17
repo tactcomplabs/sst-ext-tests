@@ -1,0 +1,117 @@
+{
+"program_options":{
+  "verbose": "0",
+  "stop-at": "25us",
+  "print-timing-info": "0",
+  "timing-info-json": "",
+  "heartbeat-sim-period": "",
+  "heartbeat-wall-period": "0",
+  "timebase": "1ps",
+  "partitioner": "sst.single",
+  "timeVortex": "sst.timevortex.priority_queue",
+  "interthread-links": "false",
+  "output-prefix-core": "@x SST Core: ",
+  "checkpoint-sim-period": "",
+  "checkpoint-wall-period": "0"
+},
+"shared_params":{
+  "test_set": {
+    "bool_false_param": "no",
+    "bool_true_param": "yes",
+    "scope.string": "scope test"
+  },
+  "test_set2": {
+    "string_param": "teststring123"
+  }
+},
+"statistics_options":{
+  "statisticOutput": "sst.statOutputConsole"
+},
+"components": [
+{
+  "name": "c0",
+  "type": "coreTestElement.coreTestParamComponent",
+  "params": {
+    "bool_true_param": "True",
+    "bool_false_param": "False",
+    "int32t_param": "2147483647",
+    "uint32t_param": "4294967295",
+    "int64t_param": "9223372036854775807",
+    "uint64t_param": "18446744073709551615",
+    "float_param": "1.0101",
+    "double_param": "1.3333e-10"
+  },
+  "params_shared_sets": [
+    "test_set",
+    "test_set2"
+  ]
+},
+{
+  "name": "c1",
+  "type": "coreTestElement.coreTestParamComponent",
+  "params": {
+    "bool_true_param": "true",
+    "bool_false_param": "false",
+    "int32t_param": "-2147483648",
+    "uint32t_param": "0",
+    "int64t_param": "-9223372036854775808",
+    "uint64t_param": "18446744073709551615",
+    "float_param": "1e-15",
+    "double_param": "1.3333e-52"
+  },
+  "params_shared_sets": [
+    "test_set",
+    "test_set2"
+  ]
+},
+{
+  "name": "c2",
+  "type": "coreTestElement.coreTestParamComponent",
+  "params": {
+    "bool_true_param": "1",
+    "bool_false_param": "0",
+    "int32t_param": "2147483647",
+    "uint32t_param": "4294967295",
+    "int64t_param": "-9223372036854775808",
+    "uint64t_param": "18446744073709551615",
+    "float_param": "-1.0000e-15",
+    "double_param": "-1.33e7",
+    "string_param": "teststring456"
+  },
+  "params_shared_sets": [
+    "test_set",
+    "test_set2"
+  ]
+},
+{
+  "name": "c3",
+  "type": "coreTestElement.coreTestParamComponent",
+  "params": {
+    "int32t_param": "2147483647",
+    "uint32t_param": "4294967295",
+    "int64t_param": "-9223372036854775808",
+    "uint64t_param": "18446744073709551615",
+    "float_param": "-1.0000e-15",
+    "double_param": "-1.33e7",
+    "string_param": "teststring456",
+    "scope.int32": "100",
+    "scope.bool": "no"
+  },
+  "params_shared_sets": [
+    "test_set",
+    "test_set2"
+  ]
+},
+{
+  "name": "c4",
+  "type": "coreTestElement.coreTestParamComponent",
+  "params": {
+    "array_param": "[1, 2, '4', '8']",
+    "set_param": "{'one', 3, 'two', True}",
+    "map_param": "{'one': '1', 'two': 2, 'three': 3, 'four': 4}"
+  }
+}
+],
+"statistics_group": null,
+"links": null
+}
