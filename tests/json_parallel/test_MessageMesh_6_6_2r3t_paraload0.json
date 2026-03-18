@@ -1,0 +1,1634 @@
+{
+"program_options":{
+  "verbose": "0",
+  "stop-at": "10us",
+  "print-timing-info": "0",
+  "timing-info-json": "",
+  "heartbeat-sim-period": "",
+  "heartbeat-wall-period": "0",
+  "timebase": "1ps",
+  "partitioner": "sst.linear",
+  "timeVortex": "sst.timevortex.priority_queue",
+  "interthread-links": "false",
+  "output-prefix-core": "@x SST Core: ",
+  "checkpoint-sim-period": "",
+  "checkpoint-wall-period": "0"
+},
+"statistics_options":{
+  "statisticLoadLevel": 2,
+  "statisticOutput": "sst.statOutputCSV"
+},
+"components": [
+{
+  "name": "component0",
+  "type": "coreTestElement.message_mesh.enclosing_component",
+  "params": {
+    "id": "0",
+    "mod": "1",
+    "verbose": "True",
+    "stats": "0"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "ports",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 1,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 2,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 3,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "route",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.route_message"
+    }
+  ],
+  "partition": {
+    "rank": 0,
+    "thread": 0
+  }
+},
+{
+  "name": "component1",
+  "type": "coreTestElement.message_mesh.enclosing_component",
+  "params": {
+    "id": "1",
+    "mod": "1",
+    "verbose": "True",
+    "stats": "0"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "ports",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 1,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 2,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 3,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "route",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.route_message"
+    }
+  ],
+  "partition": {
+    "rank": 0,
+    "thread": 0
+  }
+},
+{
+  "name": "component2",
+  "type": "coreTestElement.message_mesh.enclosing_component",
+  "params": {
+    "id": "2",
+    "mod": "1",
+    "verbose": "True",
+    "stats": "0"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "ports",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 1,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 2,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 3,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "route",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.route_message"
+    }
+  ],
+  "partition": {
+    "rank": 0,
+    "thread": 0
+  }
+},
+{
+  "name": "component3",
+  "type": "coreTestElement.message_mesh.enclosing_component",
+  "params": {
+    "id": "3",
+    "mod": "1",
+    "verbose": "True",
+    "stats": "0"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "ports",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 1,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 2,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 3,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "route",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.route_message"
+    }
+  ],
+  "partition": {
+    "rank": 0,
+    "thread": 0
+  }
+},
+{
+  "name": "component4",
+  "type": "coreTestElement.message_mesh.enclosing_component",
+  "params": {
+    "id": "4",
+    "mod": "1",
+    "verbose": "True",
+    "stats": "0"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "ports",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 1,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 2,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 3,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "route",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.route_message"
+    }
+  ],
+  "partition": {
+    "rank": 0,
+    "thread": 0
+  }
+},
+{
+  "name": "component5",
+  "type": "coreTestElement.message_mesh.enclosing_component",
+  "params": {
+    "id": "5",
+    "mod": "1",
+    "verbose": "True",
+    "stats": "0"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "ports",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 1,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 2,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 3,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "route",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.route_message"
+    }
+  ],
+  "partition": {
+    "rank": 0,
+    "thread": 0
+  }
+},
+{
+  "name": "component6",
+  "type": "coreTestElement.message_mesh.enclosing_component",
+  "params": {
+    "id": "6",
+    "mod": "1",
+    "verbose": "True",
+    "stats": "0"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "ports",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 1,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 2,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 3,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "route",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.route_message"
+    }
+  ],
+  "partition": {
+    "rank": 0,
+    "thread": 1
+  }
+},
+{
+  "name": "component7",
+  "type": "coreTestElement.message_mesh.enclosing_component",
+  "params": {
+    "id": "7",
+    "mod": "1",
+    "verbose": "True",
+    "stats": "0"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "ports",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 1,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 2,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 3,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "route",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.route_message"
+    }
+  ],
+  "partition": {
+    "rank": 0,
+    "thread": 1
+  }
+},
+{
+  "name": "component8",
+  "type": "coreTestElement.message_mesh.enclosing_component",
+  "params": {
+    "id": "8",
+    "mod": "1",
+    "verbose": "True",
+    "stats": "0"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "ports",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 1,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 2,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 3,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "route",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.route_message"
+    }
+  ],
+  "partition": {
+    "rank": 0,
+    "thread": 1
+  }
+},
+{
+  "name": "component9",
+  "type": "coreTestElement.message_mesh.enclosing_component",
+  "params": {
+    "id": "9",
+    "mod": "1",
+    "verbose": "True",
+    "stats": "0"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "ports",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 1,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 2,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 3,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "route",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.route_message"
+    }
+  ],
+  "partition": {
+    "rank": 0,
+    "thread": 1
+  }
+},
+{
+  "name": "component10",
+  "type": "coreTestElement.message_mesh.enclosing_component",
+  "params": {
+    "id": "10",
+    "mod": "1",
+    "verbose": "True",
+    "stats": "0"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "ports",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 1,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 2,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 3,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "route",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.route_message"
+    }
+  ],
+  "partition": {
+    "rank": 0,
+    "thread": 1
+  }
+},
+{
+  "name": "component11",
+  "type": "coreTestElement.message_mesh.enclosing_component",
+  "params": {
+    "id": "11",
+    "mod": "1",
+    "verbose": "True",
+    "stats": "0"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "ports",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 1,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 2,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 3,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "route",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.route_message"
+    }
+  ],
+  "partition": {
+    "rank": 0,
+    "thread": 1
+  }
+},
+{
+  "name": "component12",
+  "type": "coreTestElement.message_mesh.enclosing_component",
+  "params": {
+    "id": "12",
+    "mod": "1",
+    "verbose": "True",
+    "stats": "0"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "ports",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 1,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 2,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 3,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "route",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.route_message"
+    }
+  ],
+  "partition": {
+    "rank": 0,
+    "thread": 2
+  }
+},
+{
+  "name": "component13",
+  "type": "coreTestElement.message_mesh.enclosing_component",
+  "params": {
+    "id": "13",
+    "mod": "1",
+    "verbose": "True",
+    "stats": "0"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "ports",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 1,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 2,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 3,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "route",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.route_message"
+    }
+  ],
+  "partition": {
+    "rank": 0,
+    "thread": 2
+  }
+},
+{
+  "name": "component14",
+  "type": "coreTestElement.message_mesh.enclosing_component",
+  "params": {
+    "id": "14",
+    "mod": "1",
+    "verbose": "True",
+    "stats": "0"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "ports",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 1,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 2,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 3,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "route",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.route_message"
+    }
+  ],
+  "partition": {
+    "rank": 0,
+    "thread": 2
+  }
+},
+{
+  "name": "component15",
+  "type": "coreTestElement.message_mesh.enclosing_component",
+  "params": {
+    "id": "15",
+    "mod": "1",
+    "verbose": "True",
+    "stats": "0"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "ports",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 1,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 2,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 3,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "route",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.route_message"
+    }
+  ],
+  "partition": {
+    "rank": 0,
+    "thread": 2
+  }
+},
+{
+  "name": "component16",
+  "type": "coreTestElement.message_mesh.enclosing_component",
+  "params": {
+    "id": "16",
+    "mod": "1",
+    "verbose": "True",
+    "stats": "0"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "ports",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 1,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 2,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 3,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "route",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.route_message"
+    }
+  ],
+  "partition": {
+    "rank": 0,
+    "thread": 2
+  }
+},
+{
+  "name": "component17",
+  "type": "coreTestElement.message_mesh.enclosing_component",
+  "params": {
+    "id": "17",
+    "mod": "1",
+    "verbose": "True",
+    "stats": "0"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "ports",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 1,
+      "type": "coreTestElement.message_mesh.message_port"
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 2,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "ports",
+      "slot_number": 3,
+      "type": "coreTestElement.message_mesh.port_slot",
+      "subcomponents": [
+        {
+          "slot_name": "port",
+          "slot_number": 0,
+          "type": "coreTestElement.message_mesh.message_port"
+        }
+      ]
+    },
+    {
+      "slot_name": "route",
+      "slot_number": 0,
+      "type": "coreTestElement.message_mesh.route_message"
+    }
+  ],
+  "partition": {
+    "rank": 0,
+    "thread": 2
+  }
+}
+],
+"statistics_group": null,
+"links": [
+{
+  "name": "link_x0y0_x1y0",
+  "noCut": true,
+  "nonlocal": false,
+  "left": {
+    "component": "component0:ports[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component1:ports[1]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x5y0_x0y0",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component0:ports[1]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component5:ports[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x0y0_x0y1",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component0:ports[2]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component6:ports[3]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x0y5_x0y0",
+  "noCut": false,
+  "nonlocal": true,
+  "left": {
+    "component": "component0:ports[3]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "rank": 1,
+    "thread": 2
+  }
+},
+{
+  "name": "link_x1y0_x2y0",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component1:ports[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component2:ports[1]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x1y0_x1y1",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component1:ports[2]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component7:ports[3]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x1y5_x1y0",
+  "noCut": false,
+  "nonlocal": true,
+  "left": {
+    "component": "component1:ports[3]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "rank": 1,
+    "thread": 2
+  }
+},
+{
+  "name": "link_x2y0_x3y0",
+  "noCut": true,
+  "nonlocal": false,
+  "left": {
+    "component": "component2:ports[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component3:ports[1]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x2y0_x2y1",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component2:ports[2]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component8:ports[3]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x2y5_x2y0",
+  "noCut": false,
+  "nonlocal": true,
+  "left": {
+    "component": "component2:ports[3]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "rank": 1,
+    "thread": 2
+  }
+},
+{
+  "name": "link_x3y0_x4y0",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component3:ports[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component4:ports[1]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x3y0_x3y1",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component3:ports[2]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component9:ports[3]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x3y5_x3y0",
+  "noCut": false,
+  "nonlocal": true,
+  "left": {
+    "component": "component3:ports[3]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "rank": 1,
+    "thread": 2
+  }
+},
+{
+  "name": "link_x4y0_x5y0",
+  "noCut": true,
+  "nonlocal": false,
+  "left": {
+    "component": "component4:ports[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component5:ports[1]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x4y0_x4y1",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component4:ports[2]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component10:ports[3]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x4y5_x4y0",
+  "noCut": false,
+  "nonlocal": true,
+  "left": {
+    "component": "component4:ports[3]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "rank": 1,
+    "thread": 2
+  }
+},
+{
+  "name": "link_x5y0_x5y1",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component5:ports[2]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component11:ports[3]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x5y5_x5y0",
+  "noCut": false,
+  "nonlocal": true,
+  "left": {
+    "component": "component5:ports[3]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "rank": 1,
+    "thread": 2
+  }
+},
+{
+  "name": "link_x0y1_x1y1",
+  "noCut": true,
+  "nonlocal": false,
+  "left": {
+    "component": "component6:ports[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component7:ports[1]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x5y1_x0y1",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component6:ports[1]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component11:ports[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x0y1_x0y2",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component6:ports[2]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component12:ports[3]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x1y1_x2y1",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component7:ports[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component8:ports[1]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x1y1_x1y2",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component7:ports[2]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component13:ports[3]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x2y1_x3y1",
+  "noCut": true,
+  "nonlocal": false,
+  "left": {
+    "component": "component8:ports[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component9:ports[1]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x2y1_x2y2",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component8:ports[2]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component14:ports[3]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x3y1_x4y1",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component9:ports[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component10:ports[1]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x3y1_x3y2",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component9:ports[2]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component15:ports[3]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x4y1_x5y1",
+  "noCut": true,
+  "nonlocal": false,
+  "left": {
+    "component": "component10:ports[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component11:ports[1]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x4y1_x4y2",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component10:ports[2]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component16:ports[3]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x5y1_x5y2",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component11:ports[2]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component17:ports[3]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x0y2_x1y2",
+  "noCut": true,
+  "nonlocal": false,
+  "left": {
+    "component": "component12:ports[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component13:ports[1]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x5y2_x0y2",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component12:ports[1]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component17:ports[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x0y2_x0y3",
+  "noCut": false,
+  "nonlocal": true,
+  "left": {
+    "component": "component12:ports[2]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "rank": 1,
+    "thread": 0
+  }
+},
+{
+  "name": "link_x1y2_x2y2",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component13:ports[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component14:ports[1]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x1y2_x1y3",
+  "noCut": false,
+  "nonlocal": true,
+  "left": {
+    "component": "component13:ports[2]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "rank": 1,
+    "thread": 0
+  }
+},
+{
+  "name": "link_x2y2_x3y2",
+  "noCut": true,
+  "nonlocal": false,
+  "left": {
+    "component": "component14:ports[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component15:ports[1]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x2y2_x2y3",
+  "noCut": false,
+  "nonlocal": true,
+  "left": {
+    "component": "component14:ports[2]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "rank": 1,
+    "thread": 0
+  }
+},
+{
+  "name": "link_x3y2_x4y2",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "component15:ports[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component16:ports[1]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x3y2_x3y3",
+  "noCut": false,
+  "nonlocal": true,
+  "left": {
+    "component": "component15:ports[2]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "rank": 1,
+    "thread": 0
+  }
+},
+{
+  "name": "link_x4y2_x5y2",
+  "noCut": true,
+  "nonlocal": false,
+  "left": {
+    "component": "component16:ports[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "component17:ports[1]",
+    "port": "port0",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_x4y2_x4y3",
+  "noCut": false,
+  "nonlocal": true,
+  "left": {
+    "component": "component16:ports[2]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "rank": 1,
+    "thread": 0
+  }
+},
+{
+  "name": "link_x5y2_x5y3",
+  "noCut": false,
+  "nonlocal": true,
+  "left": {
+    "component": "component17:ports[2]:port[0]",
+    "port": "port0",
+    "latency": "1 ns"
+  },
+  "right": {
+    "rank": 1,
+    "thread": 0
+  }
+}
+]
+}
