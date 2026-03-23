@@ -1,6 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER NEW
-#EXT_TEST TEST_FILE_DESC "Test simple replay invoked from thread 1"
+#EXT_TEST TEST_FILE_DESC "Test shutdown action with multiple ranks"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -18,8 +18,8 @@ TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 CONFIG="dbgsst15.py"
 
-RANKS=1
-THREADS=2
+RANKS=2
+THREADS=1
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -37,29 +37,26 @@ confirm false
 # The checking convention is: CHECK <id> <regexp>
 # regexp and have multiple \n characters but not a trailing \n
 
-# CHECK 0 print cp1\ncp1
-print cp1
+# CHECK 0 time\ncurrent time = 1000000
+time
 
-# CHECK 1 thread 0\n---- Rank0:Thread0: Entering interactive mode
-thread 0
+# CHECK 1 ls\ncp0
+ls
 
-# CHECK 2 print cp0\ncp0
-print cp0
-
+cd cp0
+trace v_ull == 5 : 32 0 : v_ull : shutdown 
+run
 EOF
 
 # Update this whenever adding checks in the command comments above
-NUMCHECKS=3
+NUMCHECKS=2
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst -n $THREADS --interactive-start --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
+LAUNCH="mpirun -np $RANKS sst -n $THREADS --interactive-start --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
 echo $LAUNCH
 revVal=0
 $LAUNCH << EOF  | tee $LOGFILE
-thread 1
 replay $CMDFILE
-confirm false
-exit
 EOF
 
 retVal=$?
@@ -81,6 +78,27 @@ if [ $RC -ne 0 ]; then
   echo "ERROR: Test Failed with RC=$RC"
   exit $RC
 fi
+
+
+PSTR="Trigger action shutting down simulation"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+
+PSTR="Simulation is complete, simulated time: 0 s"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
 
 # Cleanup output file on pass
 if [ $CLEANUP -eq 1 ]; then
