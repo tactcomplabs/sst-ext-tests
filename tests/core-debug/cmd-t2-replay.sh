@@ -40,7 +40,7 @@ confirm false
 # CHECK 0 print cp1\ncp1
 print cp1
 
-# CHECK 1 thread 0\n\n---- Rank0:Thread0: Entering interactive mode
+# CHECK 1 thread 0\n---- Rank0:Thread0: Entering interactive mode
 thread 0
 
 # CHECK 2 print cp0\ncp0

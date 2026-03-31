@@ -72,7 +72,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # info current
-PSTR="Rank 0/1, Thread 0/1 (Process"
+PSTR="Rank 0/1 Thread 0/1 (Process"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -92,7 +92,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # info current 
-PSTR="Rank 0/1, Thread 1/2"
+PSTR="Rank 0/1 Thread 1/2"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -eq 0 ]; then
