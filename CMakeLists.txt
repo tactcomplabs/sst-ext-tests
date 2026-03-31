@@ -119,6 +119,19 @@ find_package(MPI)
 if(MPIEXEC_EXECUTABLE)
   message(STATUS "MPI RUN COMMAND=${MPIEXEC_EXECUTABLE}")
 endif()
+execute_process(COMMAND sst-config --MPICC
+                OUTPUT_VARIABLE SST_MPICC
+                OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+message(STATUS "SST_MPICC=${SST_MPICC}")
+
+# Allow testing using mpirun with sst compiled without mpi
+if (MPIEXEC_EXECUTABLE AND  ${SST_MPICC} MATCHES ".*mpi.*" )
+  set(SST_MPI_OK 1)
+else()
+  set(SST_MPI_OK 0)
+endif()
+message(STATUS "SST_MPI_OK=${SST_MPI_OK}")
 
 #-- setup the component build directory
 set(ENV{SST_COMPONENT_BASE} "${CMAKE_BINARY_DIR}/components")

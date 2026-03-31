@@ -51,8 +51,11 @@ if(ENABLE_CAPTCRUNCH_TESTS)
   add_subdirectory(CaptCrunch)
 endif()
 
-if (ENABLE_DEBUG_TESTS)
+if(ENABLE_DEBUG_TESTS)
   add_subdirectory(core-debug)
+  if(SST_MPI_OK)
+    add_subdirectory(core-debug-mpi)
+  endif()
 endif()
 
 # -- strictly optional tests

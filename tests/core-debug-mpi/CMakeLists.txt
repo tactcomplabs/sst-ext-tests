@@ -1,5 +1,5 @@
 #
-# sst-ext-tests/tests/core-debug CMake
+# sst-ext-tests/tests/core-debug-mpi CMake
 #
 # Copyright (C) 2017-2026 Tactical Computing Laboratories, LLC
 # All Rights Reserved
@@ -27,8 +27,8 @@ execute_process(COMMAND ${EXT_TEST_LIST_COMMAND} ${SST_VERSION} ${ENABLE_NEW_TES
 )
 #-- Convert test string to a list
 if(TEST_SRCS_TARGET_VER)
-string(REPLACE " " ";" TEST_SRCS_TARGET_VER ${TEST_SRCS_TARGET_VER})
-message(STATUS "Included tests from ${CMAKE_CURRENT_SOURCE_DIR}: ${TEST_SRCS_TARGET_VER}")
+  string(REPLACE " " ";" TEST_SRCS_TARGET_VER ${TEST_SRCS_TARGET_VER})
+  message(STATUS "Included tests from ${CMAKE_CURRENT_SOURCE_DIR}: ${TEST_SRCS_TARGET_VER}")
 else()
   message(STATUS "No tests included from ${CMAKE_CURRENT_SOURCE_DIR}")
 endif()

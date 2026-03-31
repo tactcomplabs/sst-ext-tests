@@ -18,7 +18,7 @@ CLEANUP=1
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG="dbgsst15.py"
+CONFIG=$(realpath ../core-debug/dbgsst15.py)
 PSTR=""
 
 LOGFILE=$TNAME.log

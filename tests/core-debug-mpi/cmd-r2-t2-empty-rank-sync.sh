@@ -15,7 +15,7 @@ CLEANUP=1
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG="dbg_4comp.py"
+CONFIG=$(realpath ../core-debug/dbg_4comp.py)
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
