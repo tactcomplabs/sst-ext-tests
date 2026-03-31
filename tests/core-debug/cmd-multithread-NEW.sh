@@ -71,7 +71,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-PSTR="Rank 0/1, Thread 0/2 (Process"
+PSTR="Rank 0/1 Thread 0/2 (Process"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -91,7 +91,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # printStatus
-PSTR="Rank 0/1, Thread 1/2 (Process"
+PSTR="Rank 0/1 Thread 1/2 (Process"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
