@@ -125,8 +125,8 @@ execute_process(COMMAND sst-config --MPICC
 )
 message(STATUS "SST_MPICC=${SST_MPICC}")
 
-# Allow testing using mpirun with sst compiled without mpi
-if (MPIEXEC_EXECUTABLE AND  ${SST_MPICC} MATCHES ".*mpi.*" )
+# Used for test suites invoking mpirun from shell script.
+if (${SST_MPICC} MATCHES ".*mpi.*")
   set(SST_MPI_OK 1)
 else()
   set(SST_MPI_OK 0)
