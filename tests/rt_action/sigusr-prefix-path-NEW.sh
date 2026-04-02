@@ -55,7 +55,7 @@ fi
 # 1) Launch the program in the background, running long enough to send signal
 
 echo "SST_COMPONENT_BASE=${SST_COMPONENT_BASE}"
-LAUNCH="sst --$sig=$action --checkpoint-prefix=${PREFIX} --add-lib-path=$SST_COMPONENT_BASE/tests/core-debug-components $CONFIG -- $OPTS"
+LAUNCH="sst --$sig=$action --checkpoint-prefix=${PREFIX} --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- $OPTS"
 echo $LAUNCH
 
 $LAUNCH > $OUTFILE 2>&1 &
