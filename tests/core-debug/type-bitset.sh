@@ -76,7 +76,7 @@ p 5
 
 # Watch a vector bool bit
 watch 7 changed
-# CHECK 11 run\n\n---- Rank0:Thread0: Entering interactive mode
+# CHECK 11 run\n---- Rank0:Thread0: Entering interactive mode
 run
 ls
 
@@ -87,7 +87,7 @@ unwatch
 cd ..
 cd v_bitset42/
 watch 41 changed
-# CHECK 12 run\n\n---- Rank0:Thread0: Entering interactive mode
+# CHECK 12 run\n---- Rank0:Thread0: Entering interactive mode
 run
 ls
 
