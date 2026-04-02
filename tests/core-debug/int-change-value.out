@@ -1,0 +1,68 @@
+c7, init()
+c6, init()
+c5, init()
+c4, init()
+c3, init()
+c2, init()
+c1, init()
+c0, init()
+c7, setup()
+c6, setup()
+c5, setup()
+c4, setup()
+c3, setup()
+c2, setup()
+c1, setup()
+c0, setup()
+---- Rank0:Thread0: Entering interactive mode at time 0
+Interactive start at 0
+> c7
+c6
+c5
+c4
+c3
+c2
+c1
+c0
+> > clock_handler/ 
+clock_tc = 10 us/ 
+component_state_ = 3/ 
+dist_const/ 
+dist_discrete/ 
+dist_expon/ 
+dist_gauss/ 
+dist_poisson/ 
+dist_uniform/ 
+marsaglia/ 
+mersenne/ 
+my_info_/ 
+output/ 
+shared_array[3 elements] (SST::Shared::SharedArray<int>)
+shared_array_uninit[2 elements] (SST::Shared::SharedArray<int>)
+shared_map[3 elements] (SST::Shared::SharedMap<int, int>)
+shared_map_uninit[2 elements] (SST::Shared::SharedMap<int, int>)
+shared_set[3 elements] (SST::Shared::SharedSet<int>)
+shared_set_uninit[2 elements] (SST::Shared::SharedSet<int>)
+xorshift/ 
+> Unknown object in set command: test_string
+> test_string = "hello"
+> > Simulation shutdown
+R0, T0: Exiting ObjectExplorer and shutting down simulation
+c7, complete()
+c6, complete()
+c5, complete()
+c4, complete()
+c3, complete()
+c2, complete()
+c1, complete()
+c0, complete()
+c7 finished. teststring=hello, output=('c7 talking',2)
+c6 finished. teststring=hello, output=('c6 talking',2)
+c5 finished. teststring=hello, output=('c5 talking',2)
+c4 finished. teststring=hello, output=('c4 talking',2)
+c3 finished. teststring=hello, output=('c3 talking',2)
+c2 finished. teststring=hello, output=('c2 talking',2)
+c1 finished. teststring=hello, output=('c1 talking',2)
+c0 finished. teststring=hello, output=('c0 talking',2)
+ c0.rngvals : Histogram : BinsMinValue.u32 = 0; BinsMaxValue.u32 = 3999999999; BinWidth.u32 = 400000000; TotalNumBins.u32 = 10; Sum.u32 = 0; SumSQ.u32 = 0; NumActiveBins.u32 = 0; NumItemsCollected.u64 = 0; NumItemsBinned.u64 = 0; NumOutOfBounds-MinValue.u64 = 0; NumOutOfBounds-MaxValue.u64 = 0; Bin0:0-399999999.u64 = 0; Bin1:400000000-799999999.u64 = 0; Bin2:800000000-1199999999.u64 = 0; Bin3:1200000000-1599999999.u64 = 0; Bin4:1600000000-1999999999.u64 = 0; Bin5:2000000000-2399999999.u64 = 0; Bin6:2400000000-2799999999.u64 = 0; Bin7:2800000000-3199999999.u64 = 0; Bin8:3200000000-3599999999.u64 = 0; Bin9:3600000000-3999999999.u64 = 0; 
+Simulation is complete, simulated time: 0 s
