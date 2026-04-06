@@ -81,7 +81,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # info all
-PSTR="Rank:0 Thread:7 (Process"
+PSTR="Rank 0/1 Thread 7/8 (Process"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -91,7 +91,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # thread curent for threads 0-7
-PSTR="Rank 0/1, Thread 0/8"
+PSTR="Rank 0/1 Thread 0/8"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -100,7 +100,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-PSTR="Rank 0/1, Thread 1/8"
+PSTR="Rank 0/1 Thread 1/8"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -109,7 +109,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-PSTR="Rank 0/1, Thread 2/8"
+PSTR="Rank 0/1 Thread 2/8"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -118,7 +118,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-PSTR="Rank 0/1, Thread 3/8"
+PSTR="Rank 0/1 Thread 3/8"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -127,7 +127,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-PSTR="Rank 0/1, Thread 4/8"
+PSTR="Rank 0/1 Thread 4/8"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -136,7 +136,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-PSTR="Rank 0/1, Thread 5/8"
+PSTR="Rank 0/1 Thread 5/8"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -145,7 +145,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-PSTR="Rank 0/1, Thread 6/8"
+PSTR="Rank 0/1 Thread 6/8"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -154,7 +154,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-PSTR="Rank 0/1, Thread 7/8"
+PSTR="Rank 0/1 Thread 7/8"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -174,7 +174,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # shutdown
-PSTR="Rank 0/1, Thread 7/8"
+PSTR="Rank 0/1 Thread 7/8"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then

@@ -82,6 +82,10 @@ public:
       {"numStats", "Sets the number of stats to create", "1"},
       {"numClocks", "Sets the number of clock cycles to execute", "1"}, )
 
+#ifdef SST_VER_GT_15_1
+    SST_ELI_IS_CHECKPOINTABLE()
+#endif
+
     // -------------------------------------------------------
     // CaptCrunch SubComponent Parameter Data
     // -------------------------------------------------------
@@ -109,7 +113,7 @@ public:
 private:
     // -- internal handlers
     SST::Output              output;        ///< SST output handler
-    TimeConverter*           timeConverter; ///< SST time conversion handler
+    TimeConverter            timeConverter; ///< SST time conversion handler
     SST::Clock::HandlerBase* clockHandler;  ///< Clock Handler
 
     uint64_t numStats;  ///< Number of stats to create

@@ -22,7 +22,6 @@ namespace SSTDEBUG::DbgSST15 {
 //------------------------------------------
 DbgSST15::DbgSST15(SST::ComponentId_t id, const SST::Params& params) :
     SST::Component(id),
-    timeConverter(nullptr),
     clockHandler(nullptr),
     numPorts(1),
     minData(1),

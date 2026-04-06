@@ -292,7 +292,7 @@ public:
 private:
     // -- internal handlers
     SST::Output              output;        ///< SST output handler
-    SST::TimeConverter*      timeConverter; ///< SST time conversion handler
+    SST::TimeConverter       timeConverter; ///< SST time conversion handler
     SST::Clock::HandlerBase* clockHandler;  ///< Clock Handler
 
     // -- parameters

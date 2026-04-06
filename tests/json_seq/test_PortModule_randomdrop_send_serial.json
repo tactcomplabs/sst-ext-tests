@@ -1,0 +1,313 @@
+{
+"program_options":{
+  "verbose": "0",
+  "stop-at": "0ns",
+  "print-timing-info": "0",
+  "timing-info-json": "",
+  "heartbeat-sim-period": "",
+  "heartbeat-wall-period": "0",
+  "timebase": "1ps",
+  "partitioner": "sst.single",
+  "timeVortex": "sst.timevortex.priority_queue",
+  "interthread-links": "false",
+  "output-prefix-core": "@x SST Core: ",
+  "checkpoint-sim-period": "",
+  "checkpoint-wall-period": "0"
+},
+"statistics_options":{
+  "statisticOutput": "sst.statOutputConsole",
+  "params": {
+    "outputrank": "False",
+    "outputsimtime": "True"
+  }
+},
+"components": [
+{
+  "name": "comp0",
+  "type": "coreTestElement.coreTestPortModuleComponent",
+  "params": {
+    "use_subcomponent": "False",
+    "repeat_last": "True"
+  }
+},
+{
+  "name": "comp1",
+  "type": "coreTestElement.coreTestPortModuleComponent",
+  "params": {
+    "use_subcomponent": "False",
+    "repeat_last": "True"
+  }
+},
+{
+  "name": "comp2",
+  "type": "coreTestElement.coreTestPortModuleComponent",
+  "params": {
+    "use_subcomponent": "False",
+    "repeat_last": "True"
+  }
+},
+{
+  "name": "comp3",
+  "type": "coreTestElement.coreTestPortModuleComponent",
+  "params": {
+    "use_subcomponent": "False",
+    "repeat_last": "True"
+  }
+},
+{
+  "name": "comp4",
+  "type": "coreTestElement.coreTestPortModuleComponent",
+  "params": {
+    "use_subcomponent": "False",
+    "repeat_last": "True"
+  }
+},
+{
+  "name": "comp5",
+  "type": "coreTestElement.coreTestPortModuleComponent",
+  "params": {
+    "use_subcomponent": "False",
+    "repeat_last": "True"
+  }
+},
+{
+  "name": "comp6",
+  "type": "coreTestElement.coreTestPortModuleComponent",
+  "params": {
+    "use_subcomponent": "False",
+    "repeat_last": "True"
+  }
+},
+{
+  "name": "comp7",
+  "type": "coreTestElement.coreTestPortModuleComponent",
+  "params": {
+    "use_subcomponent": "False",
+    "repeat_last": "True"
+  }
+},
+{
+  "name": "comp8",
+  "type": "coreTestElement.coreTestPortModuleComponent",
+  "params": {
+    "use_subcomponent": "False",
+    "repeat_last": "True"
+  }
+},
+{
+  "name": "comp9",
+  "type": "coreTestElement.coreTestPortModuleComponent",
+  "params": {
+    "use_subcomponent": "False",
+    "repeat_last": "True"
+  }
+},
+{
+  "name": "comp10",
+  "type": "coreTestElement.coreTestPortModuleComponent",
+  "params": {
+    "use_subcomponent": "False",
+    "repeat_last": "True"
+  },
+  "port_modules": [
+    {
+      "port": "right",
+      "type": "sst.portmodules.random_drop",
+      "params": {
+        "drop_on_send": "True",
+        "drop_prob": "0.5",
+        "verbose": "True"
+      },
+      "statistics": [
+        {
+          "name": "dropped"
+        },
+        {
+          "name": "observed"
+        }
+      ]
+    }
+  ]
+},
+{
+  "name": "comp11",
+  "type": "coreTestElement.coreTestPortModuleComponent",
+  "statistics_options": {
+    "enable_all_statistics": true,
+    "statistic_load_level": 1
+  },
+  "params": {
+    "use_subcomponent": "False",
+    "repeat_last": "True"
+  }
+}
+],
+"statistics_group": null,
+"links": [
+{
+  "name": "link_0",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "comp0",
+    "port": "right",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "comp1",
+    "port": "left",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_1",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "comp1",
+    "port": "right",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "comp2",
+    "port": "left",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_2",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "comp2",
+    "port": "right",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "comp3",
+    "port": "left",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_3",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "comp3",
+    "port": "right",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "comp4",
+    "port": "left",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_4",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "comp4",
+    "port": "right",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "comp5",
+    "port": "left",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_5",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "comp5",
+    "port": "right",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "comp6",
+    "port": "left",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_6",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "comp6",
+    "port": "right",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "comp7",
+    "port": "left",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_7",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "comp7",
+    "port": "right",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "comp8",
+    "port": "left",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_8",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "comp8",
+    "port": "right",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "comp9",
+    "port": "left",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_9",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "comp9",
+    "port": "right",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "comp10",
+    "port": "left",
+    "latency": "1 ns"
+  }
+},
+{
+  "name": "link_11",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "comp10",
+    "port": "right",
+    "latency": "1 ns"
+  },
+  "right": {
+    "component": "comp11",
+    "port": "left",
+    "latency": "1 ns"
+  }
+}
+]
+}

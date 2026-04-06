@@ -1,6 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER NEW
-#EXT_TEST TEST_FILE_DESC "Exercise std::bitset and std::vector<bool>"
+#EXT_TEST TEST_FILE_DESC "Test watch with multiple ranks"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -16,7 +16,10 @@ SCRIPT_PATH="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG="dbgsst15.py"
+CONFIG=$(realpath ../core-debug/dbgsst15.py)
+
+RANKS=2
+THREADS=1
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -30,80 +33,36 @@ fi
 
 cat << EOF > $CMDFILE
 confirm false
+
+# The checking convention is: CHECK <id> <regexp>
+# regexp and have multiple \n characters but not a trailing \n
+
+# CHECK 0 time\ncurrent time = 1000000
+time
+
+# CHECK 1 ls\ncp0
+ls
+
 cd cp0
-ls
-cd v_bitset42/
-ls
-# CHECK 0 p 0\n0 = false \(bool\)
-p 0
-# CHECK 1 p 3\n3 = true \(bool\)
-p 3
-# CHECK 2 p 38\n38 = false \(bool\)
-p 38
-# CHECK 3 p 39\n39 = true \(bool\)
-p 39
-# Flip bits 38 and 39
-set 38 1
-set 39 0
-run 1ns
-# CHECK 4 p 38\n38 = true \(bool\)
-p 38
-# CHECK 5 p 39\n39 = false \(bool\)
-p 39
-cd ..
-# std::vector<bool> v_vecbool  =  { true, false, true, true, false, false, true, true};
-p v_vecbool
-cd v_vecbool
-ls
-# CHECK 6 p 5\n5 = false \(bool\)
-p 5
-# CHECK 7 p 6\n6 = true \(bool\)
-p 6
-# flip 5 and 6
-set 5 1
-set 6 0
-run 1ns
-ls
-# CHECK 8 p 5\n5 = true \(bool\)
-p 5
-# CHECK 9 p 6\n6 = false \(bool\)
-p 6
-
-# Invalid setting
-set 5 0x10
-# CHECK 10 p 5\n5 = true \(bool\)
-p 5
-
-# Watch a vector bool bit
-watch 7 changed
-# CHECK 11 run\n---- Rank0:Thread0: Entering interactive mode
+watch v_ull == 5 
 run
-ls
 
-# clear all watches
-unwatch
+# CHECK 2 time\ncurrent time = 2000000
+time
 
-# back up to bitset and do the same
-cd ..
-cd v_bitset42/
-watch 41 changed
-# CHECK 12 run\n---- Rank0:Thread0: Entering interactive mode
+unwatch 0
 run
-ls
-
 EOF
 
 # Update this whenever adding checks in the command comments above
-NUMCHECKS=13
+NUMCHECKS=3
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
+LAUNCH="mpirun -np $RANKS sst -n $THREADS --interactive-start --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
 echo $LAUNCH
 revVal=0
-( $LAUNCH << EOF || exit 11 ) | tee $LOGFILE
+$LAUNCH << EOF  | tee $LOGFILE
 replay $CMDFILE
-confirm false
-exit
 EOF
 
 retVal=$?
@@ -125,6 +84,18 @@ if [ $RC -ne 0 ]; then
   echo "ERROR: Test Failed with RC=$RC"
   exit $RC
 fi
+
+
+
+PSTR="Simulation is complete, simulated time: 1 ms"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
 
 # Cleanup output file on pass
 if [ $CLEANUP -eq 1 ]; then

@@ -1,0 +1,152 @@
+{
+"program_options":{
+  "verbose": "0",
+  "stop-at": "0ns",
+  "print-timing-info": "0",
+  "timing-info-json": "",
+  "heartbeat-sim-period": "",
+  "heartbeat-wall-period": "0",
+  "timebase": "1ps",
+  "partitioner": "sst.single",
+  "timeVortex": "sst.timevortex.priority_queue",
+  "interthread-links": "false",
+  "output-prefix-core": "@x SST Core: ",
+  "checkpoint-sim-period": "",
+  "checkpoint-wall-period": "0"
+},
+"statistics_options":{
+  "statisticLoadLevel": 1,
+  "statisticOutput": "sst.statOutputConsole"
+},
+"components": [
+{
+  "name": "Loader0",
+  "type": "coreTestElement.SubComponentLoader",
+  "statistics_options": {
+    "enable_all_statistics": true
+  },
+  "params": {
+    "clock": "0.1GHz",
+    "verbose": "1"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "mySubComp",
+      "slot_number": 0,
+      "type": "coreTestElement.SubCompSlot",
+      "subcomponents": [
+        {
+          "slot_name": "mySubCompSlot",
+          "slot_number": 0,
+          "type": "coreTestElement.SubCompSender",
+          "statistics_options": {
+            "enable_all_statistics": true
+          },
+          "params": {
+            "verbose": "1",
+            "sendCount": "15"
+          }
+        }
+      ]
+    },
+    {
+      "slot_name": "mySubComp",
+      "slot_number": 1,
+      "type": "coreTestElement.SubCompSlot",
+      "subcomponents": [
+        {
+          "slot_name": "mySubCompSlot",
+          "slot_number": 0,
+          "type": "coreTestElement.SubCompSender",
+          "statistics_options": {
+            "enable_all_statistics": true
+          },
+          "params": {
+            "verbose": "1",
+            "sendCount": "15"
+          }
+        }
+      ]
+    }
+  ]
+},
+{
+  "name": "Loader1",
+  "type": "coreTestElement.SubComponentLoader",
+  "params": {
+    "verbose": "1"
+  },
+  "subcomponents": [
+    {
+      "slot_name": "mySubComp",
+      "slot_number": 0,
+      "type": "coreTestElement.SubCompSlot",
+      "subcomponents": [
+        {
+          "slot_name": "mySubCompSlot",
+          "slot_number": 0,
+          "type": "coreTestElement.SubCompReceiver",
+          "statistics_options": {
+            "enable_all_statistics": true
+          },
+          "params": {
+            "verbose": "1"
+          }
+        }
+      ]
+    },
+    {
+      "slot_name": "mySubComp",
+      "slot_number": 1,
+      "type": "coreTestElement.SubCompSlot",
+      "subcomponents": [
+        {
+          "slot_name": "mySubCompSlot",
+          "slot_number": 0,
+          "type": "coreTestElement.SubCompReceiver",
+          "statistics_options": {
+            "enable_all_statistics": true
+          },
+          "params": {
+            "verbose": "1"
+          }
+        }
+      ]
+    }
+  ]
+}
+],
+"statistics_group": null,
+"links": [
+{
+  "name": "myLink0",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "Loader0:mySubComp[0]:mySubCompSlot[0]",
+    "port": "sendPort",
+    "latency": "1 us"
+  },
+  "right": {
+    "component": "Loader1:mySubComp[0]:mySubCompSlot[0]",
+    "port": "recvPort",
+    "latency": "1 us"
+  }
+},
+{
+  "name": "myLink1",
+  "noCut": false,
+  "nonlocal": false,
+  "left": {
+    "component": "Loader0:mySubComp[1]:mySubCompSlot[0]",
+    "port": "sendPort",
+    "latency": "1 us"
+  },
+  "right": {
+    "component": "Loader1:mySubComp[1]:mySubCompSlot[0]",
+    "port": "recvPort",
+    "latency": "1 us"
+  }
+}
+]
+}
