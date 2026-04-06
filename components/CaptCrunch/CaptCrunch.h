@@ -113,7 +113,7 @@ public:
 private:
     // -- internal handlers
     SST::Output              output;        ///< SST output handler
-    TimeConverter*           timeConverter; ///< SST time conversion handler
+    TimeConverter            timeConverter; ///< SST time conversion handler
     SST::Clock::HandlerBase* clockHandler;  ///< Clock Handler
 
     uint64_t numStats;  ///< Number of stats to create

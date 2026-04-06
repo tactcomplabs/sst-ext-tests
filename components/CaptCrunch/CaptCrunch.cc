@@ -20,7 +20,6 @@ namespace SST::CaptCrunch {
 //------------------------------------------
 CaptCrunch::CaptCrunch(SST::ComponentId_t id, const SST::Params& params) :
     SST::Component(id),
-    timeConverter(nullptr),
     clockHandler(nullptr),
     numStats(1),
     numClocks(1)
