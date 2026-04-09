@@ -15,7 +15,7 @@ CLEANUP=1
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG=$(realpath ../core-debug/dbg_4comp.py)
+CONFIG=$(realpath ../debug-console/dbg_4comp.py)
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -49,8 +49,8 @@ echo "Found pass string \"$PSTR\""
 
 
 # Simulation Complete
-PSTR="Simulation is complete, simulated time: 1 ms"
-grep "$PSTR" $LOGFILE > /dev/null
+PSTR="Simulation is complete, simulated time: 1[.]\d* ms"
+egrep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""

@@ -49,6 +49,7 @@ DbgSST15::DbgSST15(SST::ComponentId_t id, const SST::Params& params) :
     clocks     = params.find<uint64_t>("clocks", 1000);
     sleep      = params.find<uint64_t>("sleep", 0);
     traceMode  = params.find<unsigned>("traceMode", 0);
+    selfCheck  = params.find<unsigned>("selfCheck", 0);
     cliType    = params.find<unsigned>("cliType", 0);
 
     output.verbose(CALL_INFO, 1, 0, "numPorts=%u\n", numPorts);
@@ -130,7 +131,17 @@ DbgSST15::setup()
 
 void
 DbgSST15::finish()
-{}
+{
+    // See https://github.com/tactcomplabs/sst-core/issues/55
+    if (selfCheck==0) return;
+
+    bool success = checkValues();
+    if (!success) {
+        output.fatal(CALL_INFO, -1, "error: final consistency checks failed\n");
+    } else {
+        output.verbose(CALL_INFO,0,0,"final consistency check passed\n");
+    }
+}
 
 void
 DbgSST15::init(unsigned int phase)
@@ -263,7 +274,7 @@ DbgSST15::handleEvent(SST::Event* ev)
     size_t   r     = cev->getData().size();
     rCheck         = (int64_t)r - (int64_t)(range - 1);
     size           = r;
-    output.verbose(CALL_INFO, 1, 0, "size = %ld\n", size); // skk debug
+    output.verbose(CALL_INFO, 2, 0, "size = %ld\n", size); // skk debug
 
 #endif
     delete ev;
@@ -293,7 +304,7 @@ DbgSST15::sendData()
         }
         output.verbose(
             CALL_INFO, 5, 0, "%s: sending %zu unsigned values on link %d\n", getName().c_str(), data.size(), i);
-        output.verbose(CALL_INFO, 1, 0, "data.size = %ld\n",
+        output.verbose(CALL_INFO, 2, 0, "data.size = %ld\n",
             data.size()); // skk debug
         DbgSST15Event* ev = new DbgSST15Event(data);
         linkHandlers[i]->send(ev);
@@ -385,6 +396,86 @@ DbgSST15::tickleBits()
     }
 }
 
+bool DbgSST15::checkValues() {
+    bool OK = true;
+    // output.verbose(CALL_INFO, 0,0, "tickle_counter=%zu\n", tickle_counter);
+
+    std::bitset<42> v_bitset42_expected;
+    int u_predicted = tickle_counter % 2 ? 1 : 0;
+    for ( size_t i = 0; i < v_bitset42.size(); i++ )
+        v_bitset42_expected[i] = (i&3)==3 ? u_predicted : 1-u_predicted;
+    if (v_bitset42 != v_bitset42_expected) {
+        output.verbose(CALL_INFO, 0, 0, 
+            "error: mismatch on v_bitset42. Expected 0x%" PRIx64 ", Actual 0x%" PRIx64 "\n",
+            v_bitset42_expected.to_ullong(), v_bitset42.to_ullong());
+        OK = false;
+    }
+
+    std::stack<unsigned> v_stack_unsigned_expected;
+    std::queue<unsigned> v_queue_unsigned_expected;
+    std::priority_queue<unsigned> v_priority_queue_unsigned_expected;
+    for ( unsigned i=0; i<3; i++) {
+        v_stack_unsigned_expected.push((i+1)*10);
+        v_queue_unsigned_expected.push((i+1)*100);
+        v_priority_queue_unsigned_expected.push((3-i));
+    }
+    for (size_t retickle=0; retickle<=tickle_counter - 17; retickle++) {
+        if ( retickle % 11 == 0 ) {
+            unsigned top = v_stack_unsigned_expected.top() + 1;
+            v_stack_unsigned_expected.pop();
+            v_stack_unsigned_expected.push(top);
+        }
+        if (retickle % 13 == 0 ) {
+            unsigned front = v_queue_unsigned_expected.front() + 1;
+            v_queue_unsigned_expected.pop();
+            v_queue_unsigned_expected.push(front);
+        }
+        if (retickle % 17 == 0 ) {
+            unsigned front = v_priority_queue_unsigned_expected.top() + 1;
+            v_priority_queue_unsigned_expected.pop();
+            v_priority_queue_unsigned_expected.push(front);
+        }
+    }
+    for ( size_t i=0; i<3; i++) {
+        // Check v_stack_unsigned
+        unsigned top_expected = v_stack_unsigned_expected.top();
+        unsigned top = v_stack_unsigned.top();
+        v_stack_unsigned_expected.pop();
+        v_stack_unsigned.pop();
+        if (top_expected != top) {
+            output.verbose(CALL_INFO, 0, 0, 
+                "error: mismatch on v_stack_unsigned i=%zu. Expected 0x%" PRIu32 ", Actual 0x%" PRIu32 "\n",
+                i, top_expected, top);
+            OK = false;
+        }
+        // Check v_queue_unsigned_expected
+        unsigned front_expected = v_queue_unsigned_expected.front();
+        unsigned front = v_queue_unsigned.front();
+        v_queue_unsigned_expected.pop();
+        v_queue_unsigned.pop();
+        if (front_expected != front) {
+            output.verbose(CALL_INFO, 0, 0, 
+                "error: mismatch on v_queue_unsigned u=%zu. Expected 0x%" PRIu32 ", Actual 0x%" PRIu32 "\n",
+                i, front_expected, front);
+            OK = false;
+        }
+        // Check v_priority_queue_unsigned
+        top_expected = v_priority_queue_unsigned_expected.top();
+        top = v_priority_queue_unsigned.top();
+        v_priority_queue_unsigned_expected.pop();
+        v_priority_queue_unsigned.pop();
+        if (top_expected != top) {
+            output.verbose(CALL_INFO, 0, 0, 
+                "error: mismatch on v_priority_queue_unsigned i=%zu. Expected 0x%" PRIu32 ", Actual 0x%" PRIu32 "\n",
+                i, top_expected, top);
+            OK = false;
+        }
+
+    }
+
+    return OK;
+}
+
 bool
 DbgSST15::clockTick(SST::Cycle_t currentCycle)
 {
@@ -406,6 +497,11 @@ DbgSST15::clockTick(SST::Cycle_t currentCycle)
     // check to see if we've reached the completion state
     bool rc = false;
     if ( (uint64_t)(currentCycle) >= clocks ) {
+        // For checking convenience, make sure we land on a multiple of the next largest 
+        // prime number used in the tickling routines.
+        if ( tickle_counter % NEXT_PRIME != 0 )
+            return false;
+
         output.verbose(CALL_INFO, 1, 0, "%s ready to end simulation\n", getName().c_str());
         primaryComponentOKToEndSim();
         rc = true;

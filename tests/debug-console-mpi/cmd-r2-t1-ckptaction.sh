@@ -26,7 +26,7 @@ SCRIPT_PATH="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG=$(realpath ../core-debug/test_Checkpoint_4ms.py)
+CONFIG=$(realpath ../debug-console/test_Checkpoint_4ms.py)
 RANKS=2
 THREADS=1
 

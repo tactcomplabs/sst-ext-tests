@@ -16,7 +16,7 @@ SCRIPT_PATH="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG=$(realpath ../core-debug/dbgsst15.py)
+CONFIG=$(realpath ../debug-console/dbgsst15.py)
 
 RANKS=2
 THREADS=1
@@ -87,8 +87,8 @@ fi
 
 
 
-PSTR="Simulation is complete, simulated time: 1 ms"
-grep "$PSTR" $LOGFILE > /dev/null
+PSTR="Simulation is complete, simulated time: 1[.]\d* ms"
+egrep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
