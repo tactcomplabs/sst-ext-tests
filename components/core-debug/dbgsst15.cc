@@ -170,6 +170,8 @@ void
 DbgSST15::serialize_order(SST::Core::Serialization::serializer& ser)
 {
     SST::Component::serialize_order(ser);
+    SST_SER(output);
+    SST_SER(timeConverter);
     SST_SER(clockHandler);
     SST_SER(numPorts);
     SST_SER(minData);
@@ -177,15 +179,13 @@ DbgSST15::serialize_order(SST::Core::Serialization::serializer& ser)
     SST_SER(clockDelay);
     SST_SER(clocks);
     SST_SER(curCycle);
-    SST_SER(mersenne);
-    SST_SER(mersenne2);
-    SST_SER(linkHandlers);
+    SST_SER(sleep);
 
     SST_SER(traceMode);
+    SST_SER(selfCheck);
     SST_SER(cliType);
     SST_SER(rCheck);
     SST_SER(size);
-    SST_SER(*probe_);
 
     SST_SER(v_bool);
     SST_SER(v_char);
@@ -213,6 +213,15 @@ DbgSST15::serialize_order(SST::Core::Serialization::serializer& ser)
     SST_SER(v_ag_struct);
     SST_SER(v_ag_union);
     SST_SER(v_ag_union_struct);
+    SST_SER(tickle_counter);
+
+    // Misc Objects
+    SST_SER(mersenne);
+    SST_SER(mersenne2);
+    SST_SER(linkHandlers);
+
+    // SST_SER(*probe_);
+
 
 #if TESTSER
     SST_SER(*test_uptr);
@@ -472,6 +481,8 @@ bool DbgSST15::checkValues() {
         }
 
     }
+
+    //TODO add checks for rest of the tickled members
 
     return OK;
 }

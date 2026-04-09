@@ -1,5 +1,5 @@
 #
-# sst-ext-tests/tests/core-restart CMake
+# sst-ext-tests/tests/remap CMake
 #
 # Copyright (C) 2017-2026 Tactical Computing Laboratories, LLC
 # All Rights Reserved
@@ -16,13 +16,6 @@ if (SST_VALGRIND)
   set(timeout "600")
 else()
   set(timeout "60")
-endif()
-
-# Checkpoint numbering version dependent
-if( (${SST_VERSION} STREQUAL "DEV") OR (${SST_VERSION} VERSION_GREATER_EQUAL "15.0") )
-  set(CPT_N 1)
-else()
-  set(CPT_N 0)
 endif()
 
 #-- Test files supporting current sst version
