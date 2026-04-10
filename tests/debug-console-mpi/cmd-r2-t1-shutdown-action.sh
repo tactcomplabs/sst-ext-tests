@@ -1,6 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER NEW
-#EXT_TEST TEST_FILE_DESC "Test untriggered watch with multiple ranks"
+#EXT_TEST TEST_FILE_DESC "Test shutdown action with multiple ranks"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -16,7 +16,7 @@ SCRIPT_PATH="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG=$(realpath ../core-debug/dbgsst15.py)
+CONFIG=$(realpath ../debug-console/dbgsst15.py)
 
 RANKS=2
 THREADS=1
@@ -44,9 +44,8 @@ time
 ls
 
 cd cp0
-watch v_ull == 4 
+trace v_ull == 5 : 32 0 : v_ull : shutdown 
 run
-
 EOF
 
 # Update this whenever adding checks in the command comments above
@@ -80,17 +79,18 @@ if [ $RC -ne 0 ]; then
   exit $RC
 fi
 
-PSTR="Enter interactive mode at time 2000000"
+
+PSTR="Trigger action shutting down simulation"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
-if [ $retVal -eq 0 ]; then
-  echo "ERROR found invalid string in $LOGFILE \"$PSTR\""
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
   exit $retVal
 fi
-echo "Found invalid string \"$PSTR\""
+echo "Found pass string \"$PSTR\""
 
 
-PSTR="Simulation is complete, simulated time: 1 ms"
+PSTR="Simulation is complete, simulated time: 0 s"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then

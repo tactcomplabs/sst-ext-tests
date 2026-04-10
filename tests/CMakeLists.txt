@@ -16,11 +16,12 @@ option(ENABLE_JSON_TESTS "Enable sequential JSON testing" OFF)
 option(ENABLE_DEBUG_TESTS "Interactive debug mode tests")
 option(ENABLE_RTACTION_TESTS "Enable Realtime Action testing" OFF)
 option(ENABLE_CAPTCRUNCH_TESTS "Enable Captain Crunch testing" OFF)
+option(ENABLE_REMAP_TESTS "Enable checkpoint remap on restart testing" OFF)
 
 # -- purely optional tests
 option(ENABLE_CORE_CHKPT_TESTS "Purely optional: Enable sst-core checkpointing tests" OFF)
 option(ENABLE_MPI_TESTS "Purely optional: Enable multi-rank MPI testing" OFF)
-option(ENABLE_CORE_RESTART_TESTS "Purely optional: Enable restart test from incorrect OS/Arch" OFF)
+option(ENABLE_CORE_RESTART_PLATFORM_TESTS "Purely optional: Enable restart test from incorrect OS/Arch" OFF)
 
 if (ENABLE_NEW_TESTS)
   set(ENABLE_ALL_TESTS ON CACHE BOOL "Enable ALL production tests" FORCE)
@@ -32,6 +33,7 @@ if (ENABLE_ALL_TESTS)
   set(ENABLE_RTACTION_TESTS ON CACHE BOOL "Enable Realtime Action testing" FORCE)
   set(ENABLE_CAPTCRUNCH_TESTS ON CACHE BOOL "Enable Captain Crunch testing" FORCE)
   set(ENABLE_JSON_TESTS ON CACHE BOOL "Enable sequential JSON testing" FORCE)
+  set(ENABLE_REMAP_TESTS ON CACHE BOOL "Enable checkpoint remap on restart testing" FORCE)
 endif()
 
 # -- walk each subdirectory and individually enable them
@@ -52,9 +54,9 @@ if(ENABLE_CAPTCRUNCH_TESTS)
 endif()
 
 if(ENABLE_DEBUG_TESTS)
-  add_subdirectory(core-debug)
+  add_subdirectory(debug-console)
   if(SST_MPI_OK)
-    add_subdirectory(core-debug-mpi)
+    add_subdirectory(debug-console-mpi)
   endif()
 endif()
 
@@ -74,8 +76,13 @@ if(ENABLE_MPI_TESTS)
   endif()
 endif()
 
-if(ENABLE_CORE_RESTART_TESTS)
+if(ENABLE_CORE_RESTART_PLATFORM_TESTS)
   add_subdirectory(core-restart-platform)
+endif()
+
+if (ENABLE_REMAP_TESTS)
+  add_subdirectory(remap)
+  # add_subdirectory(restart-n2m)
 endif()
 
 # EOF

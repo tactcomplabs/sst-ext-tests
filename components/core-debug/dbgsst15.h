@@ -40,6 +40,9 @@
 #define SOCKET  0
 #define TESTSER 0
 
+// See tickleBits(). Do not user prime >= NEXT_PRIME
+#define NEXT_PRIME 53
+
 #if PROBE
 using namespace SSTDEBUG::Probe;
 #endif
@@ -235,6 +238,7 @@ public:
       {"sleep", "Time (s) for comp0 to sleep on 1st clock", "0"},
       // component specific probe controls
       {"traceMode", "0-none, 1-send, 2-recv", "0"},
+      {"selfCheck", "Set to 1 to enable self-checking at end of simulation", "0"},
     // TODO Should get rest into base class. Component extends Probe instead of
     // instantiating it
 #if PROBE
@@ -305,6 +309,7 @@ private:
     uint64_t           sleep = 0;  ///< sleep time (s) for 1st clock
     // -- probing
     unsigned           traceMode; ///< 0-none, 1-send, 2-recv, 3-both
+    unsigned           selfCheck; ///< 0-disabled, 1-enabled
     unsigned           cliType;   ///< 0-serializer-entry, 1-initiateInteractive
     int64_t            rCheck;    /// < skk used for watchpoint trigger of msg size
     size_t             size;      ///< skk used for watchpoint trigger of msg size > 100
@@ -385,6 +390,7 @@ private:
 
     /// watchpoint facilitation
     void tickleBits();
+    bool checkValues();
 
 }; // class DbgSST15
 #if PROBE
