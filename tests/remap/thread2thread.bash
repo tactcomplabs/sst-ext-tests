@@ -52,7 +52,7 @@ if [[ $n -lt 10 ]]; then
   exit 1
 fi
 
-PSTR="Simulation is complete, simulated time: 1[.]\d* ms"
+PSTR="Simulation is complete, simulated time: 1.0017 ms"
 egrep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -78,7 +78,6 @@ for cptfile in ${PFX}/${PFX}_*/${PFX}_*.sstcpt; do
     exit $retVal
   fi
 
-  PSTR="Simulation is complete, simulated time: 1[.]\d* ms"
   egrep "$PSTR" $LOGFILE > /dev/null
   retVal=$?
   if [ $retVal -ne 0 ]; then

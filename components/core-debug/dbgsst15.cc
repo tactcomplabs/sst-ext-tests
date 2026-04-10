@@ -416,7 +416,7 @@ bool DbgSST15::checkValues() {
     if (v_bitset42 != v_bitset42_expected) {
         output.verbose(CALL_INFO, 0, 0, 
             "error: mismatch on v_bitset42. Expected 0x%" PRIx64 ", Actual 0x%" PRIx64 "\n",
-            v_bitset42_expected.to_ullong(), v_bitset42.to_ullong());
+	    (uint64_t) v_bitset42_expected.to_ulong(), (uint64_t) v_bitset42.to_ulong());
         OK = false;
     }
 
