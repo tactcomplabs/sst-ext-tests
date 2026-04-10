@@ -19,9 +19,9 @@ SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
 CLEANUP=1
 SCRIPT_PATH="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 SCRIPT_NAME=$(basename "$0")
-TNAME="${SCRIPT_NAME%.*}"
+TNAME="${SCRIPT_NAME%.*}_${threads_cpt}_${threads_rst}"
 echo "TESTNAME=$TNAME"
-LOGFILE=$TNAME.log
+LOGFILE=${TNAME}.log
 PFX="cpt_${TNAME}"
 CONFIG="loop101.py"
 TIMING_INFO="${TNAME}.json"
