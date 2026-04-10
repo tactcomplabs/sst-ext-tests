@@ -33,7 +33,6 @@ rm -rf ${PFX}*
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --num-threads=${threads_cpt} --timing-info-json=${TIMING_INFO} --checkpoint-sim-period=98047ns --checkpoint-prefix=$PFX --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
 echo $LAUNCH
-revVal=0
 $LAUNCH | tee $LOGFILE
 retVal=$?
 echo $TNAME Checkpointing simulation complete
@@ -69,7 +68,7 @@ for cptfile in ${PFX}/${PFX}_*/${PFX}_*.sstcpt; do
   ((n++))
   LAUNCH="sst --num-threads=${threads_rst} --load-checkpoint --timing-info-json=${TIMING_INFO}  ${cptfile}"
   echo $LAUNCH
-  revVal=0
+
   $LAUNCH | tee $LOGFILE
   retVal=$?
   echo $TNAME Restart of ${cptfile} complete
