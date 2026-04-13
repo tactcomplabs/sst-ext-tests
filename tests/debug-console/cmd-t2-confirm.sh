@@ -62,7 +62,7 @@ if [ $retVal -eq 0 ]; then
 fi
 
 # Simulation Complete
-PSTR="Simulation is complete, simulated time: 1[.]\d* ms"
+PSTR="Simulation is complete, simulated time: 1.0017 ms"
 egrep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
