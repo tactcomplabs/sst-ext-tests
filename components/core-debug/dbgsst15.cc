@@ -135,11 +135,17 @@ DbgSST15::finish()
     // See https://github.com/tactcomplabs/sst-core/issues/55
     if (selfCheck==0) return;
 
+    // This avoids a hang in final checks if we shutdown the debugger at cycle 0
+    if ( tickle_counter < 1000 ) {
+        output.fatal(CALL_INFO, -1, "error: tickle_counter must be at least 1000 to run final checks. Test failed\n");
+        return;
+    }
+
     bool success = checkValues();
     if (!success) {
         output.fatal(CALL_INFO, -1, "error: final consistency checks failed\n");
     } else {
-        output.verbose(CALL_INFO,0,0,"final consistency check passed\n");
+        output.verbose(CALL_INFO,5,0,"final consistency check passed\n");
     }
 }
 

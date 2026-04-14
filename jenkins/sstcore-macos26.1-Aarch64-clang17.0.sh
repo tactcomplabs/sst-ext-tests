@@ -68,9 +68,9 @@ if [ "$EXTTEST" = true ] ; then
 	mkdir build || exit 51
 	cd build || exit 52
 	if [ "$VALGRIND" = false ]; then
-	    cmake -DENABLE_ALL_TESTS=ON $EXTTESTASAN $EXTTESTARGS ../ || exit 53
+	    cmake $EXTTESTASAN $EXTTESTARGS ../ || exit 53
 	else
-    	    cmake -DENABLE_ALL_TESTS=ON -DENABLE_VALGRIND=ON $EXTTESTARGS ../ || exit 54
+    	cmake -DENABLE_VALGRIND=ON $EXTTESTARGS ../ || exit 54
 	fi
 	export SST_COMPONENT_BASE=`pwd`
 	make -j10 || exit 55

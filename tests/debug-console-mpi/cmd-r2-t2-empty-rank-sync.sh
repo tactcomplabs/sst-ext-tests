@@ -22,8 +22,14 @@ OUTFILE=$TNAME.console.out
 CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
+OS_TYPE=$(uname -s)
+MPIOPTS=""
+if [ ${OS_TYPE} = "Linux" ]; then
+  MPIOPTS="--bind-to socket"
+fi
+
 # Launch the program to start interactive mode at time 0
-LAUNCH="mpirun -np 2 sst -n 2 --interactive-start --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
+LAUNCH="mpirun ${MPIOPTS} -np 2 sst -n 2 --interactive-start --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
 $LAUNCH | tee $LOGFILE
 
