@@ -35,6 +35,13 @@ OUTFILE=$TNAME.console.out
 CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 CKPTPREFIX=ckpt_$TNAME
+
+OS_TYPE=$(uname -s)
+MPIOPTS=""
+if [ ${OS_TYPE} = "Linux" ]; then
+  MPIOPTS="--bind-to socket"
+fi
+
 SPOTCHECKS=$(realpath "${SCRIPT_PATH}/../../scripts/spotchecks.awk")
 if [ ! -e "${SPOTCHECKS}" ]; then
   echo "Checker script not found. [${SPOTCHECKS}]"
@@ -69,7 +76,7 @@ fi
 
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="mpirun -np $RANKS sst --verbose=$VERBOSE -n $THREADS --interactive-start=0s --checkpoint-enable --checkpoint-prefix=$CKPTPREFIX $CONFIG"
+LAUNCH="mpirun ${MPIOPTS} -np $RANKS sst --verbose=$VERBOSE -n $THREADS --interactive-start=0s --checkpoint-enable --checkpoint-prefix=$CKPTPREFIX $CONFIG"
 echo $LAUNCH
 ( $LAUNCH << EOF || exit 11 ) | tee $LOGFILE
 replay $CMDFILE

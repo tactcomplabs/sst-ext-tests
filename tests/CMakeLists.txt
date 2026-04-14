@@ -23,10 +23,6 @@ option(ENABLE_CORE_CHKPT_TESTS "Purely optional: Enable sst-core checkpointing t
 option(ENABLE_MPI_TESTS "Purely optional: Enable multi-rank MPI testing" OFF)
 option(ENABLE_CORE_RESTART_PLATFORM_TESTS "Purely optional: Enable restart test from incorrect OS/Arch" OFF)
 
-if (ENABLE_NEW_TESTS)
-  set(ENABLE_ALL_TESTS ON CACHE BOOL "Enable ALL production tests" FORCE)
-endif()
-
 if (ENABLE_ALL_TESTS)
   set(ENABLE_CLI_TESTS ON CACHE BOOL "Enable CLI testing" FORCE)
   set(ENABLE_DEBUG_TESTS ON CACHE BOOL "Interactive debug mode tests" FORCE)
@@ -60,8 +56,15 @@ if(ENABLE_DEBUG_TESTS)
   endif()
 endif()
 
+if (ENABLE_REMAP_TESTS)
+  add_subdirectory(remap)
+  # TODO
+  # if(SST_MPI_OK)
+  #   add_subdirectory(remap-mpi)
+  # endif()
+endif()
+
 # -- strictly optional tests
-# TODO these have not been updated
 if(ENABLE_CORE_CHKPT_TESTS)
   add_subdirectory(core-chkpt)
 endif()
@@ -78,11 +81,6 @@ endif()
 
 if(ENABLE_CORE_RESTART_PLATFORM_TESTS)
   add_subdirectory(core-restart-platform)
-endif()
-
-if (ENABLE_REMAP_TESTS)
-  add_subdirectory(remap)
-  # add_subdirectory(restart-n2m)
 endif()
 
 # EOF

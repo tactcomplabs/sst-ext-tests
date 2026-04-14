@@ -26,20 +26,25 @@ Flags for test selection include:
 # Enables golden (production) test suite
 ENABLE_ALL_TESTS [OFF]
 
-# Enables NEW tests (non-production) and ALL production tests
+# Enables NEW tests (non-production)
+# This must be used with another test select option like -DENABLE_ALL_TESTS=ON
+# or no tests will be selected
 # For these the test header is: #EXT_TEST TEST_FILE_MINVER NEW
 ENABLE_NEW_TESTS [OFF]
 
 #  Note: The NEW tests will be added only when SST_VERSION is DEV.
 #  This can be achieved two ways:
 #  1. sst executable points to a `devel` branch
-#     `cmake .. -DENABLE_NEW_TESTS=ON`
+#     `cmake .. -DENABLE_NEW_TESTS=ON -DENABLE_ALL_TESTS=ON`
 #  2. Use the SST_VERSION override option
-#     `cmake .. -DENABLE_NEW_TESTS=ON` -DSST_OVERRIDE=DEV
+#     `cmake .. -DENABLE_NEW_TESTS=ON -DENABLE_ALL_TESTS=ON  -DSST_OVERRIDE=DEV`
 
 # Individual suites by ENABLE_ALL_TESTS=ON
 ENABLE_CLI_TESTS [OFF]
 ENABLE_CAPTCRUNCH_TESTS [OFF]
+ENABLE_DEBUG_TESTS [OFF]
+ENABLE_JSON_TESTS [OFF]
+ENABLE_REMAP_TESTS [OFF]
 ENABLE_RTACTION_TESTS [OFF]
 
 # Currently optional tests

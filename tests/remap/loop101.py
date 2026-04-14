@@ -12,6 +12,7 @@ import argparse
 import sst
 
 parser = argparse.ArgumentParser(description="dbg_loop101.py")
+parser.add_argument("--clocks", type=int, help="minimum clock cycles to run", default=1000000)
 parser.add_argument("--numComps", type=int, help="number of components to instantiate", default=101)
 parser.add_argument("--probeStartCycle", type=int, help="cycle to initiate debug probe. 0=Off", default=0)
 parser.add_argument("--probeEndCycle", type=int, help="cycle to end debug probe. 0=Never", default=0)
@@ -45,7 +46,8 @@ TRACE_RECV = 2
 MIN_DATA = 1
 MAX_DATA = 100
 
-NUM_COMPS = args.numComps;
+CLOCKS = args.clocks
+NUM_COMPS = args.numComps
 print(f"Instantiating {NUM_COMPS} components")
 
 components = [None] * NUM_COMPS
@@ -66,7 +68,7 @@ for i in range(NUM_COMPS):
     "minData" : MIN_DATA,
     "maxData" : MAX_DATA,
     "clockDelay" : 100,
-    "clocks" : 1000000,
+    "clocks" : CLOCKS,
     "rngSeed" : 1223,
     "clockFreq" : f"{frequency}Ghz",
     # common probe controls

@@ -25,6 +25,13 @@ LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
 CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
+
+OS_TYPE=$(uname -s)
+MPIOPTS=""
+if [ ${OS_TYPE} = "Linux" ]; then
+  MPIOPTS="--bind-to socket"
+fi
+
 SPOTCHECKS=$(realpath "${SCRIPT_PATH}/../../scripts/spotchecks.awk")
 if [ ! -e "${SPOTCHECKS}" ]; then
   echo "Checker script not found. [${SPOTCHECKS}]"
@@ -53,7 +60,7 @@ EOF
 NUMCHECKS=2
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="mpirun -np $RANKS sst -n $THREADS --interactive-start --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
+LAUNCH="mpirun ${MPIOPTS} -np $RANKS sst -n $THREADS --interactive-start --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
 echo $LAUNCH
 revVal=0
 $LAUNCH << EOF  | tee $LOGFILE

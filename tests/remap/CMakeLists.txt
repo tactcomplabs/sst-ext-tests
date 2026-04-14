@@ -75,6 +75,8 @@ foreach(testSrc ${TEST_SRCS_TARGET_VER})
     set_property(TEST ${testName} PROPERTY FAIL_REGULAR_EXPRESSION "${failRegex}")
     set_property(TEST ${testName} PROPERTY PASS_REGULAR_EXPRESSION "${passRegex}")
     set_property(TEST ${testName} PROPERTY ENVIRONMENT "SST_COMPONENT_BASE=$ENV{SST_COMPONENT_BASE}")
+    # Run one multi-threaded test at a time
+    set_property(TEST ${testName} PROPERTY RUN_SERIAL TRUE)
     if(NOT ${EXT_TEST_TIMEOUT} EQUAL 0)
       set_property(TEST ${testName} PROPERTY TIMEOUT ${EXT_TEST_TIMEOUT})
       message(STATUS "Runtime ${testSrc} = ${EXT_TEST_TIMEOUT}")

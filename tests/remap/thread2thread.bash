@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Copyright (C) 2017-2026 Tactical Computing Laboratories, LLC
+# All Rights Reserved
+# contact@tactcomplabs.com
+# See LICENSE in the top level directory for licensing details
+#
+# thread2thread.sh
+
 # ensure non-zero exit code in pipe propagates and no unbound variables.
 set -uo pipefail
 
@@ -19,7 +26,7 @@ SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
 CLEANUP=1
 SCRIPT_PATH="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 SCRIPT_NAME=$(basename "$0")
-TNAME="${SCRIPT_NAME%.*}_${threads_cpt}_${threads_rst}"
+TNAME="${SCRIPT_NAME%.*}_${threads_cpt}_${threads_rst}_$$"
 echo "TESTNAME=$TNAME"
 LOGFILE=${TNAME}.log
 PFX="cpt_${TNAME}"
@@ -68,7 +75,6 @@ for cptfile in ${PFX}/${PFX}_*/${PFX}_*.sstcpt; do
   ((n++))
   LAUNCH="sst --num-threads=${threads_rst} --load-checkpoint --timing-info-json=${TIMING_INFO}  ${cptfile}"
   echo $LAUNCH
-
   $LAUNCH | tee $LOGFILE
   retVal=$?
   echo $TNAME Restart of ${cptfile} complete
