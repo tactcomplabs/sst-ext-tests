@@ -16,7 +16,7 @@ SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 CONFIG="test_Checkpoint_4ms.py"
-PSTR="test_string = my big beautiful string (std::string)"
+PSTR="test_string = \"my big beautiful string\" (std::string)"
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -31,7 +31,7 @@ cd c0
 ls
 set test_string my big beautiful string
 run 1us
-print test_string
+print -v 2 test_string
 shutdown
 EOF
 

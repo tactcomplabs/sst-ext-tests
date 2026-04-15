@@ -78,7 +78,7 @@ empty
 define tuple_0
 cd cp0
 cd v_tuple_u32_dbl_str/
-p 0
+p -v 2 0
 cd ..
 cd ..
 end
@@ -92,7 +92,7 @@ end
 define pair_0
 cd cp0
 cd v_pair_u64_str/
-p first
+p -v 2 first
 cd ..
 cd ..
 end
