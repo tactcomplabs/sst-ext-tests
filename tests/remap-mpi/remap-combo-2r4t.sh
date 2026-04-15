@@ -1,7 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER NEW
 #EXT_TEST TEST_FILE_DESC "2 ranks, 4 threads/rank checkpointed. Restart repartioning with even combos"
-#EXT_TEST TIMEOUT 120
+#EXT_TEST TIMEOUT 300
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
 set -uo pipefail

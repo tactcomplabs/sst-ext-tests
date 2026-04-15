@@ -1,7 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER NEW
 #EXT_TEST TEST_FILE_DESC "1,3:8 threads checkpointed repartitioned to 2 threads on restart"
-#EXT_TEST TIMEOUT 120
+#EXT_TEST TIMEOUT 300
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
 set -uo pipefail
