@@ -38,7 +38,7 @@ TIMING_INFO="${TNAME}.json"
 rm -rf ${PFX}*
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --num-threads=${threads_cpt} --timing-info-json=${TIMING_INFO} --checkpoint-sim-period=98047ns --checkpoint-prefix=$PFX --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
+LAUNCH="sst --num-threads=${threads_cpt} --profiling-output=${TIMING_INFO} --checkpoint-sim-period=98047ns --checkpoint-prefix=$PFX --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
 echo $LAUNCH
 $LAUNCH | tee $LOGFILE
 retVal=$?
@@ -73,7 +73,7 @@ n=0
 for cptfile in ${PFX}/${PFX}_*/${PFX}_*.sstcpt; do
 
   ((n++))
-  LAUNCH="sst --num-threads=${threads_rst} --load-checkpoint --timing-info-json=${TIMING_INFO}  ${cptfile}"
+  LAUNCH="sst --num-threads=${threads_rst} --load-checkpoint --profiling-output=${TIMING_INFO}  ${cptfile}"
   echo $LAUNCH
   $LAUNCH | tee $LOGFILE
   retVal=$?

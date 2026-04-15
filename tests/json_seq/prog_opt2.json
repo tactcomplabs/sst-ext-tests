@@ -11,7 +11,7 @@
   "stop-at": "10us",
   "timeVortex": "sst.timevortex.priority_queue",
   "timebase": "1ps",
-  "timing-info-json": "",
+  "profiling-output": "",
   "verbose": "0"
 },
 "statistics_options":{
