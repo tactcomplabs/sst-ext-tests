@@ -1,6 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER NEW
-#EXT_TEST TEST_FILE_DESC "Test checkpoint action triggers for RankSerial: 2 ranks, 1 thread/rank in rank0"
+#EXT_TEST TEST_FILE_DESC "Check trace checkpoint action triggers for RankSerial: 2 ranks, 1 thread/rank for rank1"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -30,18 +30,17 @@ CONFIG=$(realpath ../debug-console/test_Checkpoint_4ms.py)
 RANKS=2
 THREADS=1
 
-LOGFILE=$TNAME.log
-OUTFILE=$TNAME.console.out
-CMDFILE=$TNAME.cmd
-CHKFILE=$TNAME.chk
-CKPTPREFIX=ckpt_$TNAME
-
 OS_TYPE=$(uname -s)
 MPIOPTS=""
 if [ ${OS_TYPE} = "Linux" ]; then
   MPIOPTS="--bind-to socket"
 fi
 
+LOGFILE=$TNAME.log
+OUTFILE=$TNAME.console.out
+CMDFILE=$TNAME.cmd
+CHKFILE=$TNAME.chk
+CKPTPREFIX=ckpt_$TNAME
 SPOTCHECKS=$(realpath "${SCRIPT_PATH}/../../scripts/spotchecks.awk")
 if [ ! -e "${SPOTCHECKS}" ]; then
   echo "Checker script not found. [${SPOTCHECKS}]"
@@ -50,13 +49,15 @@ fi
 
 # Console commands
 cat << EOF > $CMDFILE
-cd c0
+rank 1
+cd c4
 cd xorshift
 trace w changed : 32 4 : w x y z : checkpoint
 setHandler 0 ae ac
-# CHECK 0 printWatchpoint 0\nWP0: TriggerCount 0 : AC AE : c0/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : c0/xorshift/w c0/xorshift/x c0/xorshift/y c0/xorshift/z  : checkpoint
+# CHECK 0 printWatchpoint 0\nWP0: TriggerCount 0 : AC AE : c4/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : c4/xorshift/w c4/xorshift/x c4/xorshift/y c4/xorshift/z  : checkpoint
 printWatchpoint 0
 run 100us
+rank 1
 unwatch 0
 run
 EOF
@@ -99,6 +100,16 @@ if [ $RC -ne 0 ]; then
   echo "ERROR: Test Failed with RC=$RC"
   exit $RC
 fi
+
+# rank 1
+PSTR="Rank1:Thread0: Entering interactive mode at time 1000000"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
 
 # Simulation Checkpoint
 PSTR="# Simulation Checkpoint: Simulated Time 97 us"
