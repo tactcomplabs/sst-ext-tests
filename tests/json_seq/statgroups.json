@@ -3,7 +3,6 @@
     "verbose": "0",
     "stop-at": "0ns",
     "print-timing-info": "7",
-    "profiling-output": "",
     "heartbeat-sim-period": "",
     "heartbeat-wall-period": "0",
     "timebase": "1ps",
