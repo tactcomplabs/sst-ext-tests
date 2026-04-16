@@ -34,7 +34,6 @@ echo "TESTNAME=$TNAME"
 LOGFILE=${TNAME}.log
 PFX="cpt_${TNAME}"
 CONFIG="../remap/loop101.py"
-TIMING_INFO="${TNAME}.json"
 
 OS_TYPE=$(uname -s)
 MPIOPTS=""
@@ -46,7 +45,7 @@ fi
 rm -rf ${PFX}*
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="mpirun ${MPIOPTS} -np ${ranks_cpt} sst --num-threads=${threads_cpt} --timing-info-json=${TIMING_INFO} --checkpoint-sim-period=98047ns --checkpoint-prefix=$PFX --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
+LAUNCH="mpirun ${MPIOPTS} -np ${ranks_cpt} sst --num-threads=${threads_cpt} --checkpoint-sim-period=98047ns --checkpoint-prefix=$PFX --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
 echo $LAUNCH
 $LAUNCH | tee $LOGFILE
 retVal=$?
@@ -95,7 +94,7 @@ while [ "$#" -gt 0 ]; do
   for cptfile in ${PFX}/${PFX}_*/${PFX}_*.sstcpt; do
 
     ((n++))
-    LAUNCH="mpirun ${MPIOPTS} -np ${ranks_rst} sst --num-threads=${threads_rst} --load-checkpoint --timing-info-json=${TIMING_INFO}  ${cptfile}"
+    LAUNCH="mpirun ${MPIOPTS} -np ${ranks_rst} sst --num-threads=${threads_rst} --load-checkpoint ${cptfile}"
     echo $LAUNCH
     $LAUNCH | tee $LOGFILE
     retVal=$?
@@ -125,7 +124,7 @@ done
 
 # Cleanup output file on pass
 if [ $CLEANUP -eq 1 ]; then
-  rm -f $LOGFILE $TIMING_INFO
+  rm -f $LOGFILE
   rm -rf ${PFX}*
 fi
 

@@ -31,7 +31,6 @@ echo "TESTNAME=$TNAME"
 LOGFILE=${TNAME}.log
 PFX="cpt_${TNAME}"
 CONFIG="loop101.py"
-TIMING_INFO="${TNAME}.json"
 
 
 # Clean up old checkpoint directory
@@ -101,7 +100,7 @@ fi
 
 # Cleanup output file on pass
 if [ $CLEANUP -eq 1 ]; then
-  rm -f $LOGFILE $TIMING_INFO
+  rm -f $LOGFILE
   rm -rf ${PFX}*
 fi
 
