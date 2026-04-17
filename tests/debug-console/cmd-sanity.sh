@@ -18,7 +18,7 @@ PSTR="c7 finished. teststring=HelloMyNameIsC7AndICannotQuoteAString"
 LOGFILE=$TNAME.out
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s  $CONFIG"
+LAUNCH="sst --interactive-console=sst.interactive.debugger --interactive-start=0s  $CONFIG"
 echo $LAUNCH
 $LAUNCH <<EOF | tee $LOGFILE
 ls

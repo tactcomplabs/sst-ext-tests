@@ -29,7 +29,7 @@ CMDFILE=comments.in
 CHKFILE=$TNAME.chk
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --replay-file=$CMDFILE --interactive-console=sst.interactive.simpledebug --interactive-start=0s $CONFIG"
+LAUNCH="sst --replay-file=$CMDFILE --interactive-console=sst.interactive.debugger --interactive-start=0s $CONFIG"
 echo $LAUNCH
 $LAUNCH << EOF  | tee $LOGFILE
 shutd

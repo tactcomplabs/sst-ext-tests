@@ -30,7 +30,7 @@ if [[ -f $OUTFILE ]]; then
 fi
 
 VERBOSE="--verbose=0"
-LAUNCH="sst --checkpoint-prefix=$PREFIX --checkpoint-sim-period=100ms --interactive-console=sst.interactive.simpledebug --interactive-start=1s $VERBOSE $CONFIG"
+LAUNCH="sst --checkpoint-prefix=$PREFIX --checkpoint-sim-period=100ms --interactive-console=sst.interactive.debugger --interactive-start=1s $VERBOSE $CONFIG"
 
 echo $LAUNCH
 $LAUNCH 2>&1 << EOF | tee $OUTFILE | grep -v talking
