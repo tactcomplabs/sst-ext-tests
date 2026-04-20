@@ -29,7 +29,7 @@ git status >> info.audit
 git log -1 --oneline >> info.audit
 
 # just need a later version of sst to make cmake happy at this point
-module load sst/15.1.0 || exit 89
+module load sst/15.1.2 || exit 89
 ${BIN_DIR}/sst-ext-tests -d ${TESTS_DIR} | tee tests.info || exit 90
 ${SCRIPT_DIR}/audit.sh | tee testlist.audit || exit 91
 popd
@@ -38,7 +38,7 @@ popd
 pushd $BUILD_DIR || exit 4
 
 # module av sst
-versions=("sst/13.0.0" "sst/13.1.0" "sst/14.0.0" "sst/14.1.0" "sst/15.0.0" "sst/15.1.0")
+versions=("sst/13.0.0" "sst/13.1.0" "sst/14.0.0" "sst/14.1.0" "sst/15.0.0" "sst/15.1.0" "sst/15.1.2")
 for v in "${versions[@]}"; do
     
     echo

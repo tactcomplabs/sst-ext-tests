@@ -17,7 +17,7 @@ cd ${BUILD_DIR}
 pwd
 
 # CMakeLists.txt:129
-versions=("13.0" "13.1" "14.0" "14.1" "15.0" "15.1" "DEV")
+versions=("13.0" "13.1" "14.0" "14.1" "15.0" "15.1" "15.2" "DEV")
 for v in "${versions[@]}"; do
     echo
     echo "### Checking test selection for sst version $v ###"
