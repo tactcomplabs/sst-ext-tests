@@ -66,7 +66,7 @@ if [[ -f $OUTFILE ]]; then
 fi
 
 # 3) Then restart sst with the checkpoint and interactive
-LAUNCH="sst --interactive-console=sst.interactive.debugger --interactive-start=1s --load-checkpoint $CKPTDIR"
+LAUNCH="sst --interactive-start=1s --load-checkpoint $CKPTDIR"
 echo $LAUNCH
 $LAUNCH << EOF > $OUTFILE 2>&1
 run

@@ -61,7 +61,7 @@ if [[ -f $OUTFILE ]]; then
   rm $OUTFILE
 fi
 
-LAUNCH="sst --interactive-console=sst.interactive.debugger --interactive-start=1us --load-checkpoint $CKPTDIR"
+LAUNCH="sst --interactive-start=1us --load-checkpoint $CKPTDIR"
 echo $LAUNCH
 $LAUNCH < $pipe > $OUTFILE 2>&1 &
 exec 3>$pipe

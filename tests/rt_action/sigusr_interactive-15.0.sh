@@ -34,7 +34,7 @@ if [[ -f test.$sig.$action.out ]]; then
   rm test.$sig.$action.out
 fi
 
-LAUNCH="sst --interactive-console=sst.interactive.debugger --$sig=$action $CONFIG"
+LAUNCH="sst --$sig=$action $CONFIG"
 echo $LAUNCH
 $LAUNCH < $pipe > test.$sig.$action.out &
 exec 3>$pipe    # Opens pipe for writing
