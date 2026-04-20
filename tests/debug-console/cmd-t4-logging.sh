@@ -44,7 +44,7 @@ shutdown
 EOF
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst -n $THREADS --interactive-console=sst.interactive.debugger --interactive-start=0s $CONFIG"
+LAUNCH="sst -n $THREADS --interactive-start=0s $CONFIG"
 echo $LAUNCH
 $LAUNCH < $CMDFILE | tee $LOGFILE
 

@@ -28,7 +28,7 @@ if [[ -f $OUTFILE ]]; then
   rm $OUTFILE
 fi
 
-LAUNCH="sst --checkpoint-prefix=$PREFIX --checkpoint-sim-period=1s --interactive-console=sst.interactive.debugger --interactive-start=2s  $CONFIG"
+LAUNCH="sst --checkpoint-prefix=$PREFIX --checkpoint-sim-period=1s --interactive-start=2s  $CONFIG"
 
 echo $LAUNCH
 $LAUNCH > $OUTFILE 2>&1 
