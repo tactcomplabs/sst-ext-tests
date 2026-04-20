@@ -50,9 +50,11 @@ echo "VALGRIND=$VALGRIND"
 if [[ "$(uname)" != "Darwin" ]]; then
 	# detect_leaks is not supported on Mac
 	export ASAN_OPTIONS=detect_leaks=0
+	MPI_OK=1
 else
 	# currently not running MPI on Mac
 	export DISABLE_MPI="--disable-mpi"
+	MPI_OK=0
 fi
 
 #-- SST
@@ -84,6 +86,15 @@ export PATH=$PATH:$SST_INSTALL/bin
 if [ "$SST_TEST_CORE" = true ]; then
 	which sst-test-core || exit 40
 	sst-test-core || exit 41
+	#-- Special parallel debug testing
+	if [ "$PARALLEL_DEBUG" = true ]; then
+		sst-test-core -w "*DebugConsole" || exit 42
+		sst-test-core -t 4 -w "*DebugConsole" || exit 43
+		if [ $MPI_OK -eq 1 ]; then
+			sst-test-core -r 4 -w "*DebugConsole" || exit 44
+			sst-test-core -r 2 -t 2 -w "*DebugConsole" || exit 45
+		fi
+	fi
 fi
 
 #-- Run EXT tests
