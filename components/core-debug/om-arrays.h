@@ -15,6 +15,9 @@
 
 #include "omni.h"
 
+#include <cstddef>
+#include <cstdint>
+
 namespace SST::ExtTest {
 
 // -------------------------------------------------------

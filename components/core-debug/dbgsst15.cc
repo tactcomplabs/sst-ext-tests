@@ -11,6 +11,7 @@
 #include "dbgsst15.h"
 
 #include <chrono>
+#include <cinttypes>
 #include <sstream>
 #include <thread>
 #include <type_traits>

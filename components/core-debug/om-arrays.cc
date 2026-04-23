@@ -9,6 +9,8 @@
 //
 
 #include "om-arrays.h"
+
+#include <cinttypes>
 namespace SST::ExtTest {
 
 OMArrays::OMArrays(ComponentId_t id, Params& params) : OMSubComponentAPI(id,params) {

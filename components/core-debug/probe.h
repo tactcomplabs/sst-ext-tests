@@ -20,6 +20,7 @@
 #include <map>
 #include <memory>
 #include <netinet/in.h>
+#include <ostream>
 #include <sstream>
 #include <stdexcept>
 #include <string>
