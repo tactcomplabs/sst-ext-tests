@@ -40,67 +40,67 @@ ls
 p v_stack_unsigned
 
 cd v_stack_unsigned
-# CHECK 1 ls\ncontainer/ \(
+# CHECK 1 ls\ncontainer \[3 elem.+
 ls
 
-# CHECK 2 p container\ncontainer .+\n 0 = 10 .+\n 1 = 20 .+\n 2 = 30
-p container
+# CHECK 2 p -v 2 container\ncontainer .+\n0 = 10 .+\n1 = 20 .+\n2 = 30
+p -v 2 container
 
 cd container
-# CHECK 3 ls\n0 = 10 .+\n1 = 20 .+\n2 = 30
-ls
+# CHECK 3 ls -l\n0 = 10 .+\n1 = 20 .+\n2 = 30
+ls -l
 
-# CHECK 4 p 0\n0 = 10
-p 0
+# CHECK 4 p -v 1 0\n0 = 10
+p -v 1 0
 
-# CHECK 5 p 1\n1 = 20
-p 1
+# CHECK 5 p -v 1 1\n1 = 20
+p -v 1 1
 
-# CHECK 6 p 2\n2 = 30
-p 2
+# CHECK 6 p -v 1 2\n2 = 30
+p -v 1 2
 
 watch 0 changed
 watch 1 changed
 watch 2 changed
 run
 
-# CHECK 7 pwd\ncp0/v_stack_unsigned/container
+# CHECK 7 pwd\n/cp0/v_stack_unsigned/container
 pwd
 
-# CHECK 8 ls\n0 = 10 .+\n1 = 20 .+\n2 = 31 .+
-ls
+# CHECK 8 ls -l\n0 = 10 .+\n1 = 20 .+\n2 = 31 .+
+ls -l
 
 run
-# CHECK 9 ls\n0 = 10 .+\n1 = 20 .+\n2 = 32 .+
-ls
+# CHECK 9 ls -l\n0 = 10 .+\n1 = 20 .+\n2 = 32 .+
+ls -l
 
 run
-# CHECK 10 ls\n0 = 10 .+\n1 = 20 .+\n2 = 33 .+
-ls
+# CHECK 10 ls -l\n0 = 10 .+\n1 = 20 .+\n2 = 33 .+
+ls -l
 
 run
-# CHECK 11 ls\n0 = 10 .+\n1 = 20 .+\n2 = 34 .+
-ls
+# CHECK 11 ls -l\n0 = 10 .+\n1 = 20 .+\n2 = 34 .+
+ls -l
 
 set 2 200
-# CHECK 12 ls\n0 = 10 .+\n1 = 20 .+\n2 = 200 .+
-ls
+# CHECK 12 ls -l\n0 = 10 .+\n1 = 20 .+\n2 = 200 .+
+ls -l
 
 run
 run
-# CHECK 13 ls\n0 = 10 .+\n1 = 20 .+\n2 = 201 .+
-ls
+# CHECK 13 ls -l\n0 = 10 .+\n1 = 20 .+\n2 = 201 .+
+ls -l
 
 # stack does not have an emplace member function but we can still write values in the debugger
 set 0 100
 set 1 150
-# CHECK 14 ls\n0 = 100 .+\n1 = 150 .+\n2 = 201 .+
-ls
+# CHECK 14 ls -l\n0 = 100 .+\n1 = 150 .+\n2 = 201 .+
+ls -l
 
 run
 run
-# CHECK 15 ls\n0 = 100 .+\n1 = 150 .+\n2 = 202 .+
-ls
+# CHECK 15 ls -l\n0 = 100 .+\n1 = 150 .+\n2 = 202 .+
+ls -l
 
 # now do a trace
 unwatch
