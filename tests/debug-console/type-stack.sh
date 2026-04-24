@@ -36,7 +36,7 @@ confirm false
 
 cd cp0
 ls
-# CHECK 0 p v_stack_unsigned\nv_stack_unsigned \(
+# CHECK 0 p v_stack_unsigned\nv_stack_unsigned \[
 p v_stack_unsigned
 
 cd v_stack_unsigned

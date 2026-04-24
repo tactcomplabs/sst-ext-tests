@@ -36,14 +36,14 @@ confirm false
 # regexp and have multiple \n characters but not a trailing \n
 
 cd c0
-cd function0/
+cd c0:function0/
 cd v_queue_unsigned_/
 cd container/
-# CHECK 0 pwd\nc0/function0/v_queue_unsigned_/container \(
+# CHECK 0 pwd\n/c0/c0:function0/v_queue_unsigned_/container
 pwd
 
-# CHECK 1 ls\n0 = 100 \(.+\n1 = 200 \(.+\n2 = 300 \(
-ls
+# CHECK 1 ls -ll\n0 = 100 \(.+\n1 = 200 \(.+\n2 = 300 \(
+ls -ll
 # 0 = 100 (unsigned int)
 # 1 = 200 (unsigned int)
 # 2 = 300 (unsigned int)
@@ -60,8 +60,8 @@ run 10ns
 # Entering interactive mode at time 10000 
 # Ran clock for 10000 sim cycles
 
-# CHECK 2 ls\n0 = 103 \(.+\n1 = 203 \(.+\n2 = 303 \(
-ls
+# CHECK 2 ls -ll\n0 = 103 \(.+\n1 = 203 \(.+\n2 = 303 \(
+ls -ll
 # 0 = 103 (unsigned int)
 # 1 = 203 (unsigned int)
 # 2 = 303 (unsigned int)

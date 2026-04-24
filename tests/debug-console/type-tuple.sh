@@ -37,26 +37,26 @@ ls
 p v_pair_u64_str
 cd v_pair_u64_str/
 ls
-# CHECK 0 p first\nfirst = 42 \(unsigned long( long)?\)
-p first
-# CHECK 1 p second\nsecond = forty-two \(std::string\)
-p second
+# CHECK 0 p -v 2 first\nfirst = 42 \(unsigned long( long)?\)
+p -v 2 first
+# CHECK 1 p -v 2 second\nsecond = "forty-two" \(std::string\)
+p -v 2 second
 # Change values
 set first 11
 set second eleven
 run 1ns
-# CHECK 2 p first\nfirst = 11 \(unsigned long( long)?\)
-p first
-# CHECK 3 p second\nsecond = eleven \(std::string\)
-p second
+# CHECK 2 p -v 2 first\nfirst = 11 \(unsigned long( long)?\)
+p -v 2 first
+# CHECK 3 p -v 2 second\nsecond = "eleven" \(std::string\)
+p -v 2 second
 # Set watch on numeric type (cannot do string at the moment)
 watch first changed
 run
 ls
-# CHECK 4 p first\nfirst = 5 \(unsigned long( long)?\)
-p first
-# CHECK 5 p second\nsecond = S5 \(std::string\)
-p second
+# CHECK 4 p -v 2 first\nfirst = 5 \(unsigned long( long)?\)
+p -v 2 first
+# CHECK 5 p -v 2 second\nsecond = "S5" \(std::string\)
+p -v 2 second
 unwatch
 
 # The tuple
@@ -64,34 +64,34 @@ cd ..
 p v_tuple_u32_dbl_str
 cd v_tuple_u32_dbl_str/
 ls
-# CHECK 6 p 0\n0 = 8 \(unsigned int\)
-p 0
-# CHECK 7 p 1\n1 = 0.1250.+ \(double\)
-p 1
-# CHECK 8 p 2\n2 = eight \(std::string\)
-p 2
+# CHECK 6 p -v 2 0\n0 = 8 \(unsigned int\)
+p -v 2 0
+# CHECK 7 p -v 2 1\n1 = 0.1250.+ \(double\)
+p -v 2 1
+# CHECK 8 p -v 2 2\n2 = "eight" \(std::string\)
+p -v 2 2
 # Change values
 s 0 1
 s 1 1.0
 s 2 one
 run 1ns
 ls
-# CHECK 9 p 0\n0 = 1 \(unsigned int\)
-p 0
-# CHECK 10 p 1\n1 = 1.0.+ \(double\)
-p 1
-# CHECK 11 p 2\n2 = one \(std::string\)
-p 2
+# CHECK 9 p -v 2 0\n0 = 1 \(unsigned int\)
+p -v 2 0
+# CHECK 10 p -v 2 1\n1 = 1.0.+ \(double\)
+p -v 2 1
+# CHECK 11 p -v 2 2\n2 = "one" \(std::string\)
+p -v 2 2
 # watch it
 watch 0 changed
 run
 ls
-# CHECK 12 p 0\n0 = 7 \(unsigned int\)
-p 0
-# CHECK 13 p 1\n1 = 0.142.+ \(double\)
-p 1
-# CHECK 14 p 2\n2 = S7 \(std::string\)
-p 2
+# CHECK 12 p -v 2 0\n0 = 7 \(unsigned int\)
+p -v 2 0
+# CHECK 13 p -v 2 1\n1 = 0.142.+ \(double\)
+p -v 2 1
+# CHECK 14 p -v 2 2\n2 = "S7" \(std::string\)
+p -v 2 2
 shutdown
 EOF
 

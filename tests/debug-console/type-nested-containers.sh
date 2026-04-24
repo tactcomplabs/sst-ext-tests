@@ -46,7 +46,7 @@ confirm false
 # regexp and have multiple \n characters but not a trailing \n
 
 cd c0
-cd function0/
+cd c0:function0/
 ls
 cd v_type3_
 ls
@@ -57,8 +57,8 @@ ls
 cd first
 ls
 
-# CHECK 1 ls\n0 = one \(.+\n1 = two \(.+\n2 = three \(
-ls
+# CHECK 1 ls -l\n0 = "one" \(.+\n1 = "two" \(.+\n2 = "three" \(
+ls -l
 
 shutdown
 

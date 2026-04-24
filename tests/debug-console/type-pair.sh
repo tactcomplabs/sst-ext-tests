@@ -34,10 +34,10 @@ p v_pair_u64_str
 cd v_pair_u64_str/
 watch first changed
 run
-# CHECK 0 p first\nfirst = 5 \(unsigned long( long)?\)
-p first
-# CHECK 1 p second\nsecond = S5 \(std::string\)
-p second
+# CHECK 0 p -v 1 first\nfirst = 5 \(unsigned long( long)?\)
+p -v 1 first
+# CHECK 1 p -v 1 second\nsecond = "S5" \(std::string\)
+p -v 1 second
 confirm false
 unwatch
 EOF

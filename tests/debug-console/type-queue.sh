@@ -42,19 +42,19 @@ cd ..
 cd cp0
 set clocks 1000000
 
-# CHECK 0 p v_queue_unsigned\nv_queue_unsigned \(
-p v_queue_unsigned
+# CHECK 0 p -v 1 v_queue_unsigned\nv_queue_unsigned \[1 elem
+p -v 1 v_queue_unsigned
 
 cd v_queue_unsigned
-# CHECK 1 ls\ncontainer/ \(
-ls
+# CHECK 1 ls -l\ncontainer \[3 elem
+ls -l
 
-# CHECK 2 p container\ncontainer .+\n 0 = 100 .+\n 1 = 200 .+\n 2 = 300
-p container
+# CHECK 2 p -v 2 container\ncontainer .+\n0 = 100 .+\n1 = 200 .+\n2 = 300
+p -v 2 container
 
 cd container
-# CHECK 3 ls\n0 = 100 .+\n1 = 200 .+\n2 = 300
-ls
+# CHECK 3 ls -ll\n0 = 100 .+\n1 = 200 .+\n2 = 300
+ls -ll
 
 # CHECK 4 p 0\n0 = 100
 p 0
@@ -68,8 +68,8 @@ p 2
 set 0 1100
 set 1 1200
 set 2 1300
-# CHECK 7 ls\n0 = 1100 .+\n1 = 1200 .+\n2 = 1300
-ls
+# CHECK 7 ls -ll\n0 = 1100 .+\n1 = 1200 .+\n2 = 1300
+ls -ll
 
 # advance simulator sufficiently to observe change in front data
 run 10400ns
@@ -83,11 +83,11 @@ run 10400ns
 # DbgSST15[cp0:tickleBits:7800000]: v_queue_unsigned.front()=1102
 # DbgSST15[cp0:tickleBits:9100000]: v_queue_unsigned.front()=1202
 
-# CHECK 8 pwd\ncp0/v_queue_unsigned/container \(
+# CHECK 8 pwd\n/cp0/v_queue_unsigned/container
 pwd
 
-# CHECK 9 ls\n0 = 1202 \(.+\n1 = 1302 \(.+\n2 = 1103 \(
-ls
+# CHECK 9 ls -ll\n0 = 1202 \(.+\n1 = 1302 \(.+\n2 = 1103 \(
+ls -ll
 # 0 = 1202 (unsigned int)
 # 1 = 1302 (unsigned int)
 # 2 = 1103 (unsigned int)

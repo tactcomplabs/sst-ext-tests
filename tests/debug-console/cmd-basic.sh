@@ -31,7 +31,7 @@ pwd
 ls
 cd cp0
 chdir my_info_
-list
+list -l
 run 1us
 time
 r 1us
@@ -53,7 +53,7 @@ if [ $retVal -ne 0 ]; then
 fi
 
 # pwd
-PSTR="()"
+PSTR="/"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then

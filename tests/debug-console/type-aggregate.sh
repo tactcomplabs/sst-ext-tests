@@ -48,11 +48,11 @@ ls
 
 #-- Print intial values
 
-# CHECK 0 p v_ag_class\nv_ag_class \(SSTDEBUG::DbgSST15::ag_class_t\)\n 0 = 42 \(.+\n 1 = ag_class_t \(
-p v_ag_class
+# CHECK 0 p -v 2 v_ag_class\nv_ag_class \[2 elements\] \(SSTDEBUG::DbgSST15::ag_class_t\)\n0 = 42 \(.+\n1 = \"ag_class_t\" \(
+p -v 2 v_ag_class
 
-# CHECK 1 p v_ag_struct\nv_ag_struct \(SSTDEBUG::DbgSST15::ag_struct_t\)\n 0 = 42 \(.+\n 1 = ag_struct_t \(
-p v_ag_struct
+# CHECK 1 p -v 2 v_ag_struct\nv_ag_struct \[2 elements\] \(SSTDEBUG::DbgSST15::ag_struct_t\)\n0 = 42 \(.+\n1 = "ag_struct_t" \(
+p -v 2 v_ag_struct
 
 # Trivially serializable types do not automatically map
 # CHECK 2 p v_ag_union\nUnknown object in print command: v_ag_union
@@ -64,21 +64,21 @@ p v_ag_union_struct
 #-- Navigate into objects, print, set and check values
 
 cd v_ag_class
-# CHECK 4 ls\n0 = 42 \(.+\n1 = ag_class_t \(
-ls
+# CHECK 4 ls -l\n0 = 42 \(.+\n1 = \"ag_class_t\" \(
+ls -l
 set 0 100
 set 1 howdy_class
-# CHECK 5 ls\n0 = 100 \(.+\n1 = howdy_class \(
-ls
+# CHECK 5 ls -l\n0 = 100 \(.+\n1 = \"howdy_class\" \(
+ls -l
 
 cd ..
 cd v_ag_struct
-# CHECK 6 ls\n0 = 42 \(.+\n1 = ag_struct_t \(
-ls
+# CHECK 6 ls -l\n0 = 42 \(.+\n1 = \"ag_struct_t\" \(
+ls -l
 set 0 200
 set 1 howdy_struct
-# CHECK 7 ls\n0 = 200 \(.+\n1 = howdy_struct \(
-ls
+# CHECK 7 ls -l\n0 = 200 \(.+\n1 = \"howdy_struct\" \(
+ls -l
 
 cd ..
 
@@ -86,33 +86,33 @@ cd ..
 
 cd v_ag_class
 watch 0 changed
-# CHECK 8 setHandler 0 ac\nWP 0 - cp0/v_ag_class/0
+# CHECK 8 setHandler 0 ac\nWP 0 - /cp0/v_ag_class/0 CHANGED
 setHandler 0 ac
 run
-# CHECK 9 ls\n0 = 101 \(.+\n1 = 19 \(
-ls
+# CHECK 9 ls -l\n0 = 101 \(.+\n1 = "19" \(
+ls -l
 run
-# CHECK 10 ls\n0 = 102 \(.+\n1 = 38 \(
-ls
+# CHECK 10 ls -l\n0 = 102 \(.+\n1 = "38" \(
+ls -l
 run
-# CHECK 11 ls\n0 = 103 \(.+\n1 = 57 \(
-ls
+# CHECK 11 ls -l\n0 = 103 \(.+\n1 = "57" \(
+ls -l
 unwatch
 
 cd ..
 cd v_ag_struct
 watch 0 changed
-# CHECK 12 setHandler 0 ac\nWP 0 - cp0/v_ag_struct/0
+# CHECK 12 setHandler 0 ac\nWP 0 - /cp0/v_ag_struct/0 CHANGED
 setHandler 0 ac
 run
-# CHECK 13 ls\n0 = 203 \(.+\n1 = 69 \(
-ls
+# CHECK 13 ls -l\n0 = 203 \(.+\n1 = "69" \(
+ls -l
 run
-# CHECK 14 ls\n0 = 204 \(.+\n1 = 92 \(
-ls
+# CHECK 14 ls -l\n0 = 204 \(.+\n1 = "92" \(
+ls -l
 run
-# CHECK 15 ls\n0 = 205 \(.+\n1 = 115 \(
-ls
+# CHECK 15 ls -l\n0 = 205 \(.+\n1 = "115" \(
+ls -l
 unwatch
 
 cd ..

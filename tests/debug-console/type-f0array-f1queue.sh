@@ -46,47 +46,47 @@ confirm false
 # regexp and have multiple \n characters but not a trailing \n
 
 cd c0
-cd function0/
+cd c0:function0/
 cd v_ping_t/
-# CHECK 0 pwd\nc0/function0/v_ping_t \(unsigned short \[1000\]\)
+# CHECK 0 pwd\n/c0/c0:function0/v_ping_t
 pwd
 
-# CHECK 1 p 0\n0 = 1 \(unsigned short\)
-p 0
+# CHECK 1 p -v 1 0\n0 = 1 \(unsigned short\)
+p -v 1 0
 
-# CHECK 2 p 999\n999 = 1000 \(unsigned short\)
-p 999
+# CHECK 2 p -v 1 999\n999 = 1000 \(unsigned short\)
+p -v 1 999
 
-# CHECK 3 p 1000\nUnknown object in print command: 1000
-p 1000
+# CHECK 3 p -v 1 1000\nUnknown object in print command: 1000
+p -v 1 1000
 
 # CHECK 4 p -1\nUnknown object in print command: -1
 p -1
 
 run 8ns
-# CHECK 5 p 42\n42 = 50 \(unsigned short\)
-p 42
+# CHECK 5 p -v 1 42\n42 = 50 \(unsigned short\)
+p -v 1 42
 
 watch 42 changed
 run 5ns
 
-# CHECK 6 p 42\n42 = 51 \(
-p 42
+# CHECK 6 p -v 1 42\n42 = 51 \(
+p -v 1 42
 
 unwatch
 watch 42 > 55
 run 10ns
-# CHECK 7 p 42\n42 = 55 \(
-p 42
+# CHECK 7 p -v 1 42\n42 = 55 \(
+p -v 1 42
 
 # now check pong which performs memcopy of ping.
 cd ..
 cd v_pong_t
 
-# CHECK 8 pwd\nc0/function0/v_pong_t \(unsigned short \[1000\]\)
+# CHECK 8 pwd\n/c0/c0:function0/v_pong_t
 pwd
-# CHECK 9 p 42\n42 = 54 \(
-p 42
+# CHECK 9 p -v 1 42\n42 = 54 \(
+p -v 1 42
 
 # TODO operator== appears to not be working. ( test all of them )
 # unwatch

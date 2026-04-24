@@ -46,38 +46,38 @@ confirm false
 # regexp and have multiple \n characters but not a trailing \n
 
 cd c0
-cd function0/
+cd c0:function0/
 cd v_union_int_float_method_1/
-# CHECK 0 pwd\nc0/function0/v_union_int_float_method_1 \(
+# CHECK 0 pwd\n/c0/c0:function0/v_union_int_float_method_1
 pwd
 
-# CHECK 1 ls\nf = 0\.000000.+
-ls
+# CHECK 1 ls -l\nf = 0\.000000.+
+ls -l
 
 run 1us
 
-# CHECK 2 ls\nf = 1998\.000000.+
-ls
+# CHECK 2 ls -l\nf = 1998\.000000.+
+ls -l
 
 watch f changed
 run 1us
 
-# CHECK 3 ls\nf = 2000\.000000.+
-ls
+# CHECK 3 ls -l\nf = 2000\.000000.+
+ls -l
 
 cd ..
 cd v_union_struct_method_1/ 
 
 #TODO Values are different between Mac and Ubuntu. Don't check values for now.
-# CHECK 4 ls\nv = 3621246928 \(
-ls
+# CHECK 4 ls -ll\nv = 3621246928 \(
+ls -ll
 
 unwatch
 watch v changed
 run 1us
 
-# CHECK 5 ls\nv = 3654932946 \(
-ls
+# CHECK 5 ls -ll\nv = 3654932946 \(
+ls -ll
 
 shutdown
 
