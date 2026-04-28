@@ -91,9 +91,17 @@ if [ "$SST_TEST_CORE" = true ]; then
 		sst-test-core -w "*DebugConsole" || exit 42
 		sst-test-core -t 4 -w "*DebugConsole" || exit 43
 		if [ $MPI_OK -eq 1 ]; then
-			sst-test-core -r 4 -w "*DebugConsole" || exit 44
-			sst-test-core -r 2 -t 2 -w "*DebugConsole" || exit 45
+                        sst-test-core -r 2 -w "*DebugConsole" || exit 44
+			sst-test-core -r 4 -w "*DebugConsole" || exit 45
+			sst-test-core -r 2 -t 2 -w "*DebugConsole" || exit 46
 		fi
+                sst-test-core -w "*RealTime" || exit 47
+                sst-test-core -t 2 -w "*RealTime" || exit 48
+                if [ $MPI_OK -eq 1 ]; then
+                        sst-test-core -r 2 -w "*RealTime" || exit 49
+                        sst-test-core -r 2 -t 2 -w "*RealTime" || exit 49
+                fi
+
 	fi
 fi
 
