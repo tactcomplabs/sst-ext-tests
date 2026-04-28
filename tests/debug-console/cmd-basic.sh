@@ -73,7 +73,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # cd cp0, chdir my_info_, list
-PSTR="defaultTimeBase = 1 ns"
+PSTR="defaultTimeBase (ro) = 1 ns"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
