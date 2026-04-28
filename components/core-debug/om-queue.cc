@@ -10,6 +10,9 @@
 
 #include "om-queue.h"
 
+#include <cinttypes>
+#include <cstdint>
+
 namespace SST::ExtTest {
 
 OMQueue::OMQueue(ComponentId_t id, Params& params) : OMSubComponentAPI(id,params) {

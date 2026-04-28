@@ -14,6 +14,8 @@
 #include "omni.h"
 #include "list-traits.h"
 
+#include <queue>
+
 namespace SST::ExtTest {
 
 // -------------------------------------------------------
