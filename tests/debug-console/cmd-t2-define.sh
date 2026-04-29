@@ -40,14 +40,14 @@ confirm false
 
 define foo0
 cd cp0
-print v_short
+print -v 1 v_short
 end
 
 thread 1
 
 define foo1
 cd cp1
-print v_int
+print -v 1 v_int
 end
  
 thread 0

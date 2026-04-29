@@ -120,7 +120,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-PSTR=" WP0: AC : cp0/size"
+PSTR=" WP0: AC : /cp0/size"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then

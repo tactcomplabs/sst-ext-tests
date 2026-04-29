@@ -27,6 +27,7 @@ CHKFILE=$TNAME.chk
 LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
 $LAUNCH << EOF  | tee $LOGFILE
+confirm false
 cd cp0
 ls
 set v_bool false

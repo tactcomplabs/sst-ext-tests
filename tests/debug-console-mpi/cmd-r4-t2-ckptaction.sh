@@ -57,7 +57,7 @@ cd c2
 cd xorshift
 trace w changed : 32 4 : w x y z : checkpoint
 setHandler 0 ae ac
-# CHECK 1 printWatchpoint 0\nWP0: TriggerCount 0 : AC AE : c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : c2/xorshift/w c2/xorshift/x c2/xorshift/y c2/xorshift/z  : checkpoint
+# CHECK 1 printWatchpoint 0\nWP0: TriggerCount 0 : AC AE : /c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : w x y z  : checkpoint
 printWatchpoint 0
 run 40us
 rank 1
@@ -71,7 +71,7 @@ cd c7
 cd xorshift
 trace w changed : 32 4 : w x y z : checkpoint
 setHandler 0 ae ac
-# CHECK 3 printWatchpoint 0\nWP0: TriggerCount 0 : AC AE : c7/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : c7/xorshift/w c7/xorshift/x c7/xorshift/y c7/xorshift/z  : checkpoint
+# CHECK 3 printWatchpoint 0\nWP0: TriggerCount 0 : AC AE : /c7/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : w x y z  : checkpoint
 printWatchpoint 0
 run 40us
 rank 3
@@ -136,7 +136,7 @@ if [ $retVal -ne 0 ]; then
     echo "Found pass string \"$PSTR\""
 
 # Checkpoint in WL
-PSTR="0: TriggerCount 0 : AC AE : c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : c2/xorshift/w c2/xorshift/x c2/xorshift/y c2/xorshift/z  : checkpoint"
+PSTR="0: TriggerCount 0 : AC AE : /c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : w x y z  : checkpoint"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -157,7 +157,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # Checkpoint in WL
-PSTR="0: TriggerCount 1 : AC AE : c7/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : c7/xorshift/w c7/xorshift/x c7/xorshift/y c7/xorshift/z  : checkpoint"
+PSTR="0: TriggerCount 1 : AC AE : /c7/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : w x y z  : checkpoint"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then

@@ -70,7 +70,7 @@ if [ $retVal -ne 0 ]; then
 fi
 
 #trace size > 50, printWatchpoint
-PSTR="WP0: TriggerCount 0 : ALL : cp0/size > 50  : bufsize = 32 postDelay = 4 : cp0/size  : interactive"
+PSTR="WP0: TriggerCount 0 : ALL : /cp0/size > 50  : bufsize = 32 postDelay = 4 : size  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -80,7 +80,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # addTraceVar, printWatchpoint
-PSTR="WP0: TriggerCount 0 : ALL : cp0/size > 50  : bufsize = 32 postDelay = 4 : cp0/size cp0/rCheck  : interactive"
+PSTR="WP0: TriggerCount 0 : ALL : /cp0/size > 50  : bufsize = 32 postDelay = 4 : size rCheck  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -90,7 +90,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # run, printTrace
-PSTR="LastTriggerRecord:@cycle202000: SamplesLost=0: cp0/size=100 cp0/rCheck=1"
+PSTR="LastTriggerRecord:@cycle202000: SamplesLost=0: size = 100 rCheck = 1"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -111,7 +111,7 @@ echo "Found pass string \"$PSTR\""
 
 
 # trace size changed, printWatchpoint 
-PSTR="WP1: TriggerCount 0 : ALL : cp0/size CHANGED  : bufsize = 10 postDelay = 2 : cp0/size cp0/rCheck  : interactive"
+PSTR="WP1: TriggerCount 0 : ALL : /cp0/size CHANGED  : bufsize = 10 postDelay = 2 : size rCheck  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -121,7 +121,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # run, printTrace
-PSTR="LastTriggerRecord:@cycle300000: SamplesLost=0: cp0/size=53 cp0/rCheck=-46"
+PSTR="LastTriggerRecord:@cycle300000: SamplesLost=0: size = 53 rCheck = -46"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -132,7 +132,7 @@ echo "Found pass string \"$PSTR\""
 
 
 # trace minData < size, printWP
-PSTR="WP2: TriggerCount 0 : ALL : cp0/minData < cp0/size  : bufsize = 8 postDelay = 0 : cp0/size  : interactive"
+PSTR="WP2: TriggerCount 0 : ALL : /cp0/minData < /cp0/size  : bufsize = 8 postDelay = 0 : size  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -142,7 +142,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # add, printWatchpoint
-PSTR="WP2: TriggerCount 0 : ALL : cp0/minData < cp0/size  : bufsize = 8 postDelay = 0 : cp0/size cp0/maxData  : interactive"
+PSTR="WP2: TriggerCount 0 : ALL : /cp0/minData < /cp0/size  : bufsize = 8 postDelay = 0 : size maxData  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -152,7 +152,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # run, printTrace 0
-PSTR="LastTriggerRecord:@cycle302000: SamplesLost=0: cp0/size=53 cp0/maxData=100"
+PSTR="LastTriggerRecord:@cycle302000: SamplesLost=0: size = 53 maxData = 100"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -162,7 +162,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # trace size changed && maxData > 90, printWatchpoint
-PSTR="WP3: TriggerCount 0 : ALL : cp0/size CHANGED cp0/maxData > 90 cp0/minData < cp0/maxData cp0/rCheck CHANGED  : bufsize = 4 postDelay = 2 : cp0/rCheck cp0/size cp0/minData cp0/maxData  : interactive"
+PSTR="WP3: TriggerCount 0 : ALL : /cp0/size CHANGED /cp0/maxData > 90 /cp0/minData < /cp0/maxData /cp0/rCheck CHANGED  : bufsize = 4 postDelay = 2 : rCheck size minData maxData  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -172,7 +172,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # run, printTrace 0
-PSTR="LastTriggerRecord:@cycle304000: SamplesLost=0: cp0/rCheck=-46 cp0/size=53 cp0/minData=1 cp0/maxData=100"
+PSTR="LastTriggerRecord:@cycle304000: SamplesLost=0: rCheck = -46 size = 53 minData = 1 maxData = 100"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then

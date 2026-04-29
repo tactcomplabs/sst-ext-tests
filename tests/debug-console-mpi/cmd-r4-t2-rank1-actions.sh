@@ -57,7 +57,7 @@ cd xorshift
 # printTrace action
 trace w changed : 32 4 : w x y z : printTrace
 setHandler 0 ac ae
-# CHECK 1 printWatchpoint 0\nWP0: TriggerCount 0 : AC AE : c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : c2/xorshift/w c2/xorshift/x c2/xorshift/y c2/xorshift/z  : printTrace
+# CHECK 1 printWatchpoint 0\nWP0: TriggerCount 0 : AC AE : /c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : w x y z  : printTrace
 printWatchpoint 0
 run 40us
 rank 1
@@ -65,7 +65,7 @@ unwatch 0
 #set action
 trace w changed : 32 4 : w x y z : set z 50
 setHandler 1 ac ae
-# CHECK 2 printWatchpoint 1\nWP1: TriggerCount 0 : AC AE : c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : c2/xorshift/w c2/xorshift/x c2/xorshift/y c2/xorshift/z  : set c2/xorshift/z 50
+# CHECK 2 printWatchpoint 1\nWP1: TriggerCount 0 : AC AE : /c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : w x y z  : set c2/xorshift/z 50
 printWatchpoint 1
 run 40us
 rank 1
@@ -73,7 +73,7 @@ unwatch 1
 #printStatus action
 trace w changed : 32 0 : w x y z : printStatus
 setHandler 2 ac ae
-# CHECK 3 printWatchpoint 2\nWP2: TriggerCount 0 : AC AE : c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 0 : c2/xorshift/w c2/xorshift/x c2/xorshift/y c2/xorshift/z  : printStatus
+# CHECK 3 printWatchpoint 2\nWP2: TriggerCount 0 : AC AE : /c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 0 : w x y z  : printStatus
 printWatchpoint 2
 run 40us
 rank 1
@@ -81,7 +81,7 @@ unwatch 2
 #interactive action
 trace w changed : 32 4 : w x y z : interactive
 setHandler 3 ac ae
-# CHECK 4 printWatchpoint 3\nWP3: TriggerCount 0 : AC AE : c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : c2/xorshift/w c2/xorshift/x c2/xorshift/y c2/xorshift/z  : interactive
+# CHECK 4 printWatchpoint 3\nWP3: TriggerCount 0 : AC AE : /c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : w x y z  : interactive
 printWatchpoint 3
 run 40us
 rank 1
@@ -170,7 +170,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 #PSTR=" Last Trigger: WP3: AE : c2/xorshift/w ..."
-PSTR="3: TriggerCount 2 : AC AE : c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : c2/xorshift/w c2/xorshift/x c2/xorshift/y c2/xorshift/z  : interactive"
+PSTR="3: TriggerCount 2 : AC AE : /c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : w x y z  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then

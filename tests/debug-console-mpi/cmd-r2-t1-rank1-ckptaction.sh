@@ -54,7 +54,7 @@ cd c4
 cd xorshift
 trace w changed : 32 4 : w x y z : checkpoint
 setHandler 0 ae ac
-# CHECK 0 printWatchpoint 0\nWP0: TriggerCount 0 : AC AE : c4/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : c4/xorshift/w c4/xorshift/x c4/xorshift/y c4/xorshift/z  : checkpoint
+# CHECK 0 printWatchpoint 0\nWP0: TriggerCount 0 : AC AE : /c4/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : w x y z  : checkpoint
 printWatchpoint 0
 run 100us
 rank 1

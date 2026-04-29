@@ -89,7 +89,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # printTrace
-PSTR="LastTriggerRecord:@cycle1100000: SamplesLost=0: cp1/size=92"
+PSTR="LastTriggerRecord:@cycle1100000: SamplesLost=0: size = 92"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then

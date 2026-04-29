@@ -54,7 +54,7 @@ if [ $retVal -ne 0 ]; then
 fi
 
 # Check for correct watchlist result
-PSTR="0: TriggerCount 0 : ALL : cp0/maxData > 111  : interactive"
+PSTR="0: TriggerCount 0 : ALL : /cp0/maxData > 111  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -62,7 +62,7 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 echo "Found pass string \"$PSTR\""
-PSTR="2: TriggerCount 0 : ALL : cp0/maxData > 333  : interactive"
+PSTR="2: TriggerCount 0 : ALL : /cp0/maxData > 333  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
