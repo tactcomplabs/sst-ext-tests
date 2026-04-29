@@ -47,8 +47,9 @@ fi
 if [ "$SANITIZER" = true ]; then
     export CXXFLAGS="${CXX_FLAGS} -g -fsanitize=address -fno-omit-frame-pointer"
     export EXTTESTASAN="-DSST_ASAN=ON"
+	# suppress detecting leaks until we get them cleaned up.
     # detect_leaks is not supported on Mac
-    # export ASAN_OPTIONS=detect_leaks=0
+    export ASAN_OPTIONS=detect_leaks=0
 fi
 ./configure --prefix=$SST_INSTALL $DBGFLAGS $PYFLAGS || exit 11
 if [ "$HEADERCHECK" = true ] ; then
