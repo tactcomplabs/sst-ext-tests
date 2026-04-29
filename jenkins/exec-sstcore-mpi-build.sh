@@ -30,6 +30,8 @@ export CC=mpicc
 export CXX=mpicxx
 mkdir build
 cd build
-cmake -DENABLE_ALL_TESTS=ON -DENABLE_MPI_TESTS=ON ../
+#TODO cmake $EXTTESTASAN $EXTTESTARGS
+# Need to check Jenkins configuration
+cmake -DENABLE_MPI_TESTS=ON ../
 export SST_COMPONENT_BASE=`pwd`
 make

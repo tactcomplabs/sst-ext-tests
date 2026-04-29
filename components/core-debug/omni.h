@@ -22,6 +22,9 @@
 #include "SST.h"
 #include "list-traits.h"
 
+#include <cstdint>
+#include <vector>
+
 namespace SST::ExtTest {
 
 //TODO utilize events. placeholder for now

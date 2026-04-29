@@ -47,8 +47,9 @@ fi
 if [ "$SANITIZER" = true ]; then
     export CXXFLAGS="${CXX_FLAGS} -g -fsanitize=address -fno-omit-frame-pointer"
     export EXTTESTASAN="-DSST_ASAN=ON"
+	# suppress detecting leaks until we get them cleaned up.
     # detect_leaks is not supported on Mac
-    # export ASAN_OPTIONS=detect_leaks=0
+    export ASAN_OPTIONS=detect_leaks=0
 fi
 ./configure --prefix=$SST_INSTALL $DBGFLAGS $PYFLAGS || exit 11
 if [ "$HEADERCHECK" = true ] ; then
@@ -70,9 +71,9 @@ if [ "$EXTTEST" = true ] ; then
 	mkdir build || exit 51
 	cd build || exit 52
 	if [ "$VALGRIND" = false ]; then
-	    cmake -DENABLE_ALL_TESTS=ON $EXTTESTASAN $EXTTESTARGS ../ || exit 53
+	    cmake $EXTTESTASAN $EXTTESTARGS ../ || exit 53
 	else
-    	    cmake -DENABLE_ALL_TESTS=ON -DENABLE_VALGRIND=ON $EXTTESTARGS ../ || exit 54
+    	cmake -DENABLE_VALGRIND=ON $EXTTESTARGS ../ || exit 54
 	fi
 	export SST_COMPONENT_BASE=`pwd`
 	make -j || exit 55

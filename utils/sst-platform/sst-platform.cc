@@ -8,9 +8,10 @@
 // See LICENSE in the top level directory for licensing details
 //
 
-#include <iostream>
-#include <string>
 #include <cstring>
+#include <iostream>
+#include <ostream>
+#include <string>
 #include "sst/core/sst_config.h"
 
 const std::string getPackageStr(){

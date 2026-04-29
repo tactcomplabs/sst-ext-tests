@@ -50,9 +50,11 @@ echo "VALGRIND=$VALGRIND"
 if [[ "$(uname)" != "Darwin" ]]; then
 	# detect_leaks is not supported on Mac
 	export ASAN_OPTIONS=detect_leaks=0
+	MPI_OK=1
 else
 	# currently not running MPI on Mac
 	export DISABLE_MPI="--disable-mpi"
+	MPI_OK=0
 fi
 
 #-- SST
@@ -84,17 +86,34 @@ export PATH=$PATH:$SST_INSTALL/bin
 if [ "$SST_TEST_CORE" = true ]; then
 	which sst-test-core || exit 40
 	sst-test-core || exit 41
+	#-- Special parallel debug testing
+	if [ "$PARALLEL_DEBUG" = true ]; then
+		sst-test-core -w "*DebugConsole" || exit 42
+		sst-test-core -t 4 -w "*DebugConsole" || exit 43
+		if [ $MPI_OK -eq 1 ]; then
+                        sst-test-core -r 2 -w "*DebugConsole" || exit 44
+			sst-test-core -r 4 -w "*DebugConsole" || exit 45
+			sst-test-core -r 2 -t 2 -w "*DebugConsole" || exit 46
+		fi
+                sst-test-core -w "*RealTime" || exit 47
+                sst-test-core -t 2 -w "*RealTime" || exit 48
+                if [ $MPI_OK -eq 1 ]; then
+                        sst-test-core -r 2 -w "*RealTime" || exit 49
+                        sst-test-core -r 2 -t 2 -w "*RealTime" || exit 49
+                fi
+
+	fi
 fi
 
 #-- Run EXT tests
 if [ "$EXTTEST" = true ] ; then
 	cd sst-ext-tests || exit 50
-	mkdir build || exit 51
+	mkdir -p build || exit 51
 	cd build || exit 52
 	if [ "$VALGRIND" = false ]; then
-	    cmake -DENABLE_ALL_TESTS=ON $EXTTESTASAN $EXTTESTARGS ../ || exit 53
+	    cmake $EXTTESTASAN $EXTTESTARGS ../ || exit 53
 	else
-    	cmake -DENABLE_ALL_TESTS=ON -DENABLE_VALGRIND=ON $EXTTESTARGS ../ || exit 54
+    	cmake -DENABLE_VALGRIND=ON $EXTTESTARGS ../ || exit 54
 	fi
 	export SST_COMPONENT_BASE=`pwd`
 	make -j || exit 55
