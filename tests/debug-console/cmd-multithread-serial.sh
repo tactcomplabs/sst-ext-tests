@@ -1,6 +1,6 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER NEW
-#EXT_TEST TEST_FILE_DESC "Test basic thread commands: thread, info"
+#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_DESC "Test basic thread commands in serial exec: thread, info"
 #EXT_TEST TIMEOUT 30
 #
 # SST DEV: 
@@ -11,6 +11,7 @@ set -uo pipefail
 # --add-lib-path required for Jenkins runs (does not run 'make install')
 # Set default ensure failure if not set and component not installed
 SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
+
 
 # Settings
 CLEANUP=1
@@ -26,7 +27,7 @@ CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst -n 2 --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
+LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
 $LAUNCH 2>&1 << EOF | tee $LOGFILE || exit 1
 info current
@@ -60,7 +61,6 @@ fi
 #fi
 #echo "Log file matches check file"
 
-# Need one for each action
 # Interactive
 PSTR="Entering interactive mode at time 0"
 grep "$PSTR" $LOGFILE > /dev/null
@@ -71,7 +71,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-PSTR="Rank 0/1 Thread 0/2 (Process"
+# info current
+PSTR="Rank 0/1 Thread 0/1 (Process"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -80,8 +81,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# printTrace
-PSTR="cp0"
+# thread 1
+PSTR="ThreadID 1 out of range"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -90,8 +91,18 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# printStatus
-PSTR="Rank 0/1 Thread 1/2 (Process"
+# info current 
+PSTR="Rank 0/1 Thread 1/2"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -eq 0 ]; then
+  echo "ERROR found fail string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "No fail string \"$PSTR\""
+
+# watch
+PSTR="Added watchpoint #0"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -100,8 +111,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-#set
-PSTR="cp1"
+PSTR="Entering interactive mode at time 100000"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -110,8 +120,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# shutdown
-PSTR="Entering interactive mode at time 1000000"
+PSTR=" WP0: AC : cp0/size"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then

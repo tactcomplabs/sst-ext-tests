@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER NEW
+#EXT_TEST TEST_FILE_MINVER DEV
 #EXT_TEST TEST_FILE_DESC "Check watch commands with different trigger types"
 #EXT_TEST TIMEOUT 30
 
@@ -24,7 +24,7 @@ CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-console=sst.interactive.simpledebug --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
+LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
 $LAUNCH << EOF  | tee $LOGFILE
 cd cp0

@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER NEW
+#EXT_TEST TEST_FILE_MINVER DEV
 #EXT_TEST TEST_FILE_DESC "Tests expected fail for passing path to checkpoint-prefix."
 #EXT_TEST TIMEOUT 120
 #
@@ -28,7 +28,7 @@ if [[ -f $OUTFILE ]]; then
   rm $OUTFILE
 fi
 
-LAUNCH="sst --checkpoint-prefix=$PREFIX --checkpoint-sim-period=1s --interactive-console=sst.interactive.simpledebug --interactive-start=2s  $CONFIG"
+LAUNCH="sst --checkpoint-prefix=$PREFIX --checkpoint-sim-period=1s --interactive-start=2s  $CONFIG"
 
 echo $LAUNCH
 $LAUNCH > $OUTFILE 2>&1 

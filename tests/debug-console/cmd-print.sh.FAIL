@@ -1,17 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER NEW
-#EXT_TEST TEST_FILE_DESC "Test trace actions in thread1"
+#EXT_TEST TEST_FILE_DESC "Check for seg fault with recursive print"
 #EXT_TEST TIMEOUT 30
-#
-# SST DEV: 
-
-# ensure non-zero exit code in pipe propagates and no unbound variables.
-set -uo pipefail
-
-# --add-lib-path required for Jenkins runs (does not run 'make install')
-# Set default ensure failure if not set and component not installed
-SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
-
 
 # Settings
 CLEANUP=1
@@ -27,10 +17,17 @@ CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst -n 2 --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
+LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
-$LAUNCH 2>&1 << EOF | tee $LOGFILE || exit 1
-thread 1
+$LAUNCH << EOF | tee $LOGFILE || exit 1
+# recursive prints and run with space in time used to cause a seg fault
+print 
+print -r
+print -r cp0
+print -r3 cp0
+print cp0
+run 1000ps
+run 1000 ps
 shutdown
 EOF
 
@@ -43,7 +40,9 @@ if [ $retVal -ne 0 ]; then
   echo "ERROR $TNAME returned $retVal"
   exit $retVal
 fi
-PSTR="Entering interactive mode at time 0"
+
+# print
+PSTR="Invalid format for print command"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -52,8 +51,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# thread 1
-PSTR="Rank0:Thread1:"
+# print cp0
+PSTR="cp0"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -62,9 +61,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-
-#shutdown
-PSTR="Exiting ObjectExplorer and shutting down simulation"
+# run 1000ps 
+PSTR="Entering interactive mode at time 1000"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -73,7 +71,17 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# Simulation Complete
+# run 1000 ps
+PSTR="Entering interactive mode at time 2000"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# shutdown
 PSTR="Simulation is complete, simulated time: 0 s"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
