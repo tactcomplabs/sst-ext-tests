@@ -15,6 +15,8 @@
 
 #include "omni.h"
 #include <map>
+#include <tuple>
+#include <vector>
 
 namespace SST::ExtTest {
 

@@ -10,6 +10,9 @@
 
 #include "om-unions.h"
 
+#include <cinttypes>
+#include <cstddef>
+
 namespace SST::ExtTest {
 
 OMUnions::OMUnions(ComponentId_t id, Params& params) : OMSubComponentAPI(id,params) {
