@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER NEW
+#EXT_TEST TEST_FILE_MINVER DEV
 #EXT_TEST TEST_FILE_DESC "Check that trace checkpoint action triggers checkpoints with 4 threads"
 #EXT_TEST TIMEOUT 30
 

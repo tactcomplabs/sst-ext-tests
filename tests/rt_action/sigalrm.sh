@@ -1,7 +1,7 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER 14.1
-#EXT_TEST TEST_FILE_MAXVER 15.0
+#EXT_TEST TEST_FILE_MINVER DEV
 #EXT_TEST TEST_FILE_DESC "Tests sigalrm for single real time actions"
+#EXT_TEST TIMEOUT 240
 # 
 # 0) set pass string 
 # 1) launch the program in the background
@@ -67,7 +67,7 @@ echo $sig=$action Complete retVal $retVal
 
 # 3) Check result
 if [ $retVal -ne 0 ]; then
-  cat $OUTFILE
+  #cat $OUTFILE
   echo "ERROR $sig=$action return code"
   exit $retVal
 fi
@@ -75,7 +75,7 @@ fi
 grep "$PSTR" ./$OUTFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
-  cat $OUTFILE
+  #cat $OUTFILE
   echo "ERROR did not find pass string in $OUTFILE: $PSTR"
   exit $retVal
 fi
@@ -84,7 +84,7 @@ echo
 # Check that checkpoint directory exists
 if [[ $action == "sst.rt.checkpoint" ]]; then
   if [[ ! -d "$PREFIX" ]]; then
-    cat $OUTFILE
+    #cat $OUTFILE
     echo "ERROR checkpoint directory '$PREFIX' not found"
     exit 255
   fi

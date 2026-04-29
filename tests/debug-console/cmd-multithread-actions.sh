@@ -1,6 +1,6 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER NEW
-#EXT_TEST TEST_FILE_DESC "Test basic thread commands in serial exec: thread, info"
+#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_DESC "Test trace actions in thread1"
 #EXT_TEST TIMEOUT 30
 #
 # SST DEV: 
@@ -27,18 +27,33 @@ CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
+LAUNCH="sst -n 2 --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
 $LAUNCH 2>&1 << EOF | tee $LOGFILE || exit 1
-info current
-info all
-thread 1
-info current
-thread 0
 cd cp0
 watch size changed
+thread 1
+cd cp1
+trace size changed : 8 0 : size : printTrace
 run
+thread 1
 unwatch 0
+trace size changed : 8 0 : size : set size 50
+run
+thread 1
+print size
+unwatch 1
+trace size changed : 8 0 : size : printStatus
+run
+thread 1
+unwatch 2
+trace size changed : 8 0 : size : interactive
+thread 0
+unwatch 0
+run
+thread 1
+unwatch 3
+trace size changed : 8 0 : size : shutdown
 run
 EOF
 
@@ -61,6 +76,7 @@ fi
 #fi
 #echo "Log file matches check file"
 
+# Need one for each action
 # Interactive
 PSTR="Entering interactive mode at time 0"
 grep "$PSTR" $LOGFILE > /dev/null
@@ -71,8 +87,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# info current
-PSTR="Rank 0/1 Thread 0/1 (Process"
+#set size 50
+PSTR="set cp1/size 50"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -81,8 +97,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# thread 1
-PSTR="ThreadID 1 out of range"
+PSTR="size = 50"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -91,18 +106,9 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# info current 
-PSTR="Rank 0/1 Thread 1/2"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -eq 0 ]; then
-  echo "ERROR found fail string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "No fail string \"$PSTR\""
 
-# watch
-PSTR="Added watchpoint #0"
+# printStatus
+PSTR="CurrentSimCycle:  2000000"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -111,7 +117,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-PSTR="Entering interactive mode at time 100000"
+# interactive
+PSTR="Rank:0/1 Thread:1/2 (Triggered)"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -120,7 +127,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-PSTR=" WP0: AC : cp0/size"
+#shutdown
+PSTR="Trigger action shutting down simulation"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -130,8 +138,8 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # Simulation Complete
-PSTR="Simulation is complete, simulated time: 1.0017 ms"
-egrep "$PSTR" $LOGFILE > /dev/null
+PSTR="Simulation is complete, simulated time: 0 s"
+grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""

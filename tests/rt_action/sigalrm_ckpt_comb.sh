@@ -1,6 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER 14.1
-#EXT_TEST TEST_FILE_MAXVER 15.0
+#EXT_TEST TEST_FILE_MINVER DEV
 #EXT_TEST TEST_FILE_DESC "Tests sigalrm for checkpoint combined with other real time actions"
 # 
 # 0) set pass string 
@@ -11,6 +10,22 @@
 # ensure non-zero exit code in pipe propagates and no unbound variables.
 set -uo pipefail
 
+# --add-lib-path required for Jenkins runs (does not run 'make install')
+# Set default ensure failure if not set and component not installed
+SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
+
+# Set component options
+OPTS=""
+# Optional first argument for number of clocks
+if [ $# -eq 1 ]; then
+  OPTS+=" --clocks $1"
+fi
+
+# Sleep times for sst and bash
+OPTS+=" --sleep 3"
+BASH_SLEEP=2
+
+
 # Settings
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
@@ -18,8 +33,9 @@ echo "TESTNAME=$TNAME"
 SIG="sigalrm"
 ACTION="sst.rt.checkpoint"
 ACTION2="sst.rt.exit.clean sst.rt.exit.emergency sst.rt.status.core sst.rt.status.all sst.rt.heartbeat"
-CONFIG="test_Checkpoint.py"
+CONFIG="rt_action.py"
 CLEANUP=1
+
 
 for sig in $SIG; do
   for action in $ACTION; do
@@ -63,7 +79,7 @@ fi
 
 # 1) Launch the program
 
-LAUNCH="sst --$sig=$action(interval=1s);$action2(interval=2s) --checkpoint-prefix=$PREFIX $CONFIG"
+LAUNCH="sst --$sig=$action(interval=1s);$action2(interval=2s) --checkpoint-prefix=$PREFIX --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- $OPTS"
 echo $LAUNCH
 $LAUNCH > $OUTFILE 2>&1 
 
