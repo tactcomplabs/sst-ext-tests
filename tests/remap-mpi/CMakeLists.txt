@@ -1,5 +1,5 @@
 #
-# sst-ext-tests/tests/core-debug-mpi CMake
+# sst-ext-tests/tests/remap-mpi CMake
 #
 # Copyright (C) 2017-2026 Tactical Computing Laboratories, LLC
 # All Rights Reserved
@@ -19,7 +19,6 @@ else()
 endif()
 
 #-- Test files supporting current sst version
-message(STATUS "${EXT_TEST_LIST_COMMAND} ${SST_VERSION} ${ENABLE_NEW_TESTS}")
 execute_process(COMMAND ${EXT_TEST_LIST_COMMAND} ${SST_VERSION} ${ENABLE_NEW_TESTS}
                 OUTPUT_VARIABLE TEST_SRCS_TARGET_VER
                 RESULT_VARIABLE EXT_TEST_LIST_RTN
@@ -28,8 +27,8 @@ execute_process(COMMAND ${EXT_TEST_LIST_COMMAND} ${SST_VERSION} ${ENABLE_NEW_TES
 )
 #-- Convert test string to a list
 if(TEST_SRCS_TARGET_VER)
-  string(REPLACE " " ";" TEST_SRCS_TARGET_VER ${TEST_SRCS_TARGET_VER})
-  message(STATUS "Included tests from ${CMAKE_CURRENT_SOURCE_DIR}: ${TEST_SRCS_TARGET_VER}")
+string(REPLACE " " ";" TEST_SRCS_TARGET_VER ${TEST_SRCS_TARGET_VER})
+message(STATUS "Included tests from ${CMAKE_CURRENT_SOURCE_DIR}: ${TEST_SRCS_TARGET_VER}")
 else()
   message(STATUS "No tests included from ${CMAKE_CURRENT_SOURCE_DIR}")
 endif()
@@ -76,7 +75,7 @@ foreach(testSrc ${TEST_SRCS_TARGET_VER})
     set_property(TEST ${testName} PROPERTY FAIL_REGULAR_EXPRESSION "${failRegex}")
     set_property(TEST ${testName} PROPERTY PASS_REGULAR_EXPRESSION "${passRegex}")
     set_property(TEST ${testName} PROPERTY ENVIRONMENT "SST_COMPONENT_BASE=$ENV{SST_COMPONENT_BASE}")
-    # Run one multi-threaded test at a time
+    # Run one MPI test at a time
     set_property(TEST ${testName} PROPERTY RUN_SERIAL TRUE)
     if(NOT ${EXT_TEST_TIMEOUT} EQUAL 0)
       set_property(TEST ${testName} PROPERTY TIMEOUT ${EXT_TEST_TIMEOUT})
