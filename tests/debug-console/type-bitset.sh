@@ -66,7 +66,7 @@ run 1ns
 ls
 # CHECK 8 p -v 2 5\n5 = true \(bool\)
 p -v 2 5
-# CHECK 9 p 6\n6 = false \(bool\)
+# CHECK 9 p -v 2 6\n6 = false \(bool\)
 p -v 2 6
 
 # Invalid setting
