@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER NEW
+#EXT_TEST TEST_FILE_MINVER DEV
 #EXT_TEST TEST_FILE_DESC "Check trace checkpoint action for RankParallel: 4 ranks, 2 threads/rank for ranks 1 & 3"
 #EXT_TEST TIMEOUT 30
 

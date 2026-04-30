@@ -108,7 +108,7 @@ fi
 #-- Run EXT tests
 if [ "$EXTTEST" = true ] ; then
 	cd sst-ext-tests || exit 50
-	mkdir build || exit 51
+	mkdir -p build || exit 51
 	cd build || exit 52
 	if [ "$VALGRIND" = false ]; then
 	    cmake $EXTTESTASAN $EXTTESTARGS ../ || exit 53

@@ -1,0 +1,133 @@
+#!/bin/bash
+
+# Copyright (C) 2017-2026 Tactical Computing Laboratories, LLC
+# All Rights Reserved
+# contact@tactcomplabs.com
+# See LICENSE in the top level directory for licensing details
+#
+# rt2rt.sh
+
+
+# ensure non-zero exit code in pipe propagates and no unbound variables.
+set -uo pipefail
+
+if [ "$#" -lt 4 ]; then
+  echo "Usage: rt2rt.bash cpt_ranks cpt_threads_per_rank {restart rank thread pairs}"
+  exit 1
+fi
+
+ranks_cpt=$1
+shift
+threads_cpt=$1
+shift
+
+# --add-lib-path required for Jenkins runs (does not run 'make install')
+# Set default ensure failure if not set and component not installed
+SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
+
+# Settings
+CLEANUP=1
+SCRIPT_PATH="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+SCRIPT_NAME=$(basename "$0")
+TNAME="${SCRIPT_NAME%.*}_${ranks_cpt}.${threads_cpt}_$$"
+echo "TESTNAME=$TNAME"
+LOGFILE=${TNAME}.log
+PFX="cpt_${TNAME}"
+CONFIG="../remap/loop101.py"
+
+OS_TYPE=$(uname -s)
+MPIOPTS=""
+if [ ${OS_TYPE} = "Linux" ]; then
+  MPIOPTS="--bind-to socket"
+fi
+
+# Clean up old checkpoint directory
+rm -rf ${PFX}*
+
+# Launch the program to start interactive mode at time 0
+LAUNCH="mpirun ${MPIOPTS} -np ${ranks_cpt} sst --num-threads=${threads_cpt} --checkpoint-sim-period=330003ns --checkpoint-prefix=$PFX --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0 --numComps=24 --clocks=1000000"
+echo $LAUNCH
+$LAUNCH | tee $LOGFILE
+retVal=$?
+echo $TNAME Checkpointing simulation complete
+
+# Check result
+if [ $retVal -ne 0 ]; then
+  echo "ERROR $TNAME returned $retVal"
+  exit $retVal
+fi
+
+echo "Checkpoints: "
+ls ${PFX}
+
+n=$(ls ${PFX} | wc -l)
+if [[ $n -lt 3 ]]; then
+  echo "ERROR: expected at least 3 checkpoints but found $n"
+  exit 1
+fi
+
+PSTR="Simulation is complete, simulated time: 1.0017 ms"
+egrep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# Restart each pair from command line argument pairs
+
+while [ "$#" -gt 0 ]; do
+  # get the next rank - thread pair
+  ranks_rst=$1
+  shift
+  if [ $? -ne 0 ]; then
+    echo "[rt2rt.bash] error: invalid pair following $1"
+    exit -1
+  fi
+  threads_rst=$1
+  shift
+
+  # Rerun all the checkpoints for this pair
+  echo "Restarting from all checkpoints using ${ranks_rst} ranks and ${threads_rst} per rank"
+  n=0
+  for cptfile in ${PFX}/${PFX}_*/${PFX}_*.sstcpt; do
+
+    ((n++))
+    LAUNCH="mpirun ${MPIOPTS} -np ${ranks_rst} sst --num-threads=${threads_rst} --load-checkpoint ${cptfile}"
+    echo $LAUNCH
+    $LAUNCH | tee $LOGFILE
+    retVal=$?
+    echo $TNAME Restart of ${cptfile} complete
+
+    if [ $retVal -ne 0 ]; then
+      echo "ERROR $TNAME restart of ${cptfile} returned $retVal"
+      exit $retVal
+    fi
+
+    egrep "$PSTR" $LOGFILE > /dev/null
+    retVal=$?
+    if [ $retVal -ne 0 ]; then
+      echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+      exit $retVal
+    fi
+    echo "Found pass string \"$PSTR\" for restart of ${cptfile}"
+
+  done
+
+  if [[ $n -lt 3 ]]; then
+    echo "ERROR: expected at least 3 restart simulations but found $n"
+    exit 1
+  fi
+
+done
+
+# Cleanup output file on pass
+if [ $CLEANUP -eq 1 ]; then
+  rm -f $LOGFILE
+  rm -rf ${PFX}*
+fi
+
+wait
+echo "PASS"
+exit 0

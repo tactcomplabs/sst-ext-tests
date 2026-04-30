@@ -1,6 +1,6 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER NEW
-#EXT_TEST TEST_FILE_DESC "Test basic thread commands: thread, info"
+#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_DESC "Test trace actions in thread1"
 #EXT_TEST TIMEOUT 30
 #
 # SST DEV: 
@@ -11,6 +11,7 @@ set -uo pipefail
 # --add-lib-path required for Jenkins runs (does not run 'make install')
 # Set default ensure failure if not set and component not installed
 SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
+
 
 # Settings
 CLEANUP=1
@@ -29,15 +30,30 @@ CHKFILE=$TNAME.chk
 LAUNCH="sst -n 2 --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
 $LAUNCH 2>&1 << EOF | tee $LOGFILE || exit 1
-info current
-info all
-thread 1
-info current
-thread 0
 cd cp0
 watch size changed
+thread 1
+cd cp1
+trace size changed : 8 0 : size : printTrace
 run
+thread 1
 unwatch 0
+trace size changed : 8 0 : size : set size 50
+run
+thread 1
+print size
+unwatch 1
+trace size changed : 8 0 : size : printStatus
+run
+thread 1
+unwatch 2
+trace size changed : 8 0 : size : interactive
+thread 0
+unwatch 0
+run
+thread 1
+unwatch 3
+trace size changed : 8 0 : size : shutdown
 run
 EOF
 
@@ -71,7 +87,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-PSTR="Rank 0/1 Thread 0/2 (Process"
+#set size 50
+PSTR="set cp1/size 50"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -80,8 +97,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# printTrace
-PSTR="cp0"
+PSTR="size = 50"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -89,9 +105,10 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 echo "Found pass string \"$PSTR\""
+
 
 # printStatus
-PSTR="Rank 0/1 Thread 1/2 (Process"
+PSTR="CurrentSimCycle:  2000000"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -100,8 +117,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-#set
-PSTR="cp1"
+# interactive
+PSTR="Rank:0/1 Thread:1/2 (Triggered)"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -110,8 +127,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# shutdown
-PSTR="Entering interactive mode at time 1000000"
+#shutdown
+PSTR="Trigger action shutting down simulation"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -121,8 +138,8 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # Simulation Complete
-PSTR="Simulation is complete, simulated time: 1.0017 ms"
-egrep "$PSTR" $LOGFILE > /dev/null
+PSTR="Simulation is complete, simulated time: 0 s"
+grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""

@@ -1,6 +1,6 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER NEW
-#EXT_TEST TEST_FILE_DESC "Test basic thread commands: thread, info"
+#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_DESC "Test basic thread commands in serial exec: thread, info"
 #EXT_TEST TIMEOUT 30
 #
 # SST DEV: 
@@ -12,12 +12,13 @@ set -uo pipefail
 # Set default ensure failure if not set and component not installed
 SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
 
+
 # Settings
 CLEANUP=1
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG="test_Checkpoint_4ms.py"
+CONFIG="dbgsst15.py"
 PSTR=""
 
 LOGFILE=$TNAME.log
@@ -26,29 +27,19 @@ CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst -n 8 --interactive-start=0s $CONFIG"
+LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
 $LAUNCH 2>&1 << EOF | tee $LOGFILE || exit 1
-info all
 info current
+info all
 thread 1
 info current
-thread 2
-info current
-thread 3
-info current
-thread 4
-info current
-thread 5
-info current
-thread 6
-info current
-thread 7
-info current
-cd c7
-watch output_frequency == 1
+thread 0
+cd cp0
+watch size changed
 run
-shutdown
+unwatch 0
+run
 EOF
 
 retVal=$?
@@ -80,8 +71,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# info all
-PSTR="Rank 0/1 Thread 7/8 (Process"
+# info current
+PSTR="Rank 0/1 Thread 0/1 (Process"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -90,8 +81,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# thread curent for threads 0-7
-PSTR="Rank 0/1 Thread 0/8"
+# thread 1
+PSTR="ThreadID 1 out of range"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -100,68 +91,15 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-PSTR="Rank 0/1 Thread 1/8"
+# info current 
+PSTR="Rank 0/1 Thread 1/2"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+if [ $retVal -eq 0 ]; then
+  echo "ERROR found fail string in $LOGFILE \"$PSTR\""
   exit $retVal
 fi
-echo "Found pass string \"$PSTR\""
-
-PSTR="Rank 0/1 Thread 2/8"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-PSTR="Rank 0/1 Thread 3/8"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-PSTR="Rank 0/1 Thread 4/8"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-PSTR="Rank 0/1 Thread 5/8"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-PSTR="Rank 0/1 Thread 6/8"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-PSTR="Rank 0/1 Thread 7/8"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
+echo "No fail string \"$PSTR\""
 
 # watch
 PSTR="Added watchpoint #0"
@@ -173,8 +111,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# shutdown
-PSTR="Rank 0/1 Thread 7/8"
+PSTR="Entering interactive mode at time 100000"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -183,7 +120,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-PSTR="Rank:0/1 Thread:0/8 (Not Triggered)"
+PSTR=" WP0: AC : /cp0/size"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -193,8 +130,8 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # Simulation Complete
-PSTR="Simulation is complete, simulated time: 0 s"
-grep "$PSTR" $LOGFILE > /dev/null
+PSTR="Simulation is complete, simulated time: 1.0017 ms"
+egrep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
