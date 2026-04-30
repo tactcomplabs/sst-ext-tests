@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER NEW
+#EXT_TEST TEST_FILE_MINVER DEV
 #EXT_TEST TEST_FILE_DESC "1 to 7 ranks checkpointed repartitioned to 8 ranks on restart"
 #EXT_TEST TIMEOUT 300
 

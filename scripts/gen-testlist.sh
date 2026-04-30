@@ -26,7 +26,7 @@ for f in *.sh; do
     END { \
       rangeOK = sstver>=min && sstver<=max; \
       devOK = sstver=="DEV" && max>=999.0; \
-      excluded = ennew=="OFF" && min=="NEW";  \
+      excluded = ennew=="OFF" && min=="DEV";  \
       rc = ((rangeOK || devOK) && (!excluded)) ? 0 : 1; \
       if (dbg==1) {printf("sstver=%2.1f\tmin=%2.1f\tmax=%2.1f\trc=%d\n", sstver, min, max, rc)}; \
       exit(rc)}' $f
