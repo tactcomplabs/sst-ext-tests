@@ -4,3 +4,4 @@ sst-config
 sst-info
 sst-register
 valgrind_ctest
+sst-platform
