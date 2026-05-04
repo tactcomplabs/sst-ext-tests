@@ -55,6 +55,7 @@ fi
 make -j10 || exit 30
 make install || exit 31
 export PATH=$PATH:$SST_INSTALL/bin
+export DYLD_LIBRARY_PATH="/opt/homebrew/opt/expat/lib"
 
 #-- Run SST tests
 if [ "$SST_TEST_CORE" = true ]; then
