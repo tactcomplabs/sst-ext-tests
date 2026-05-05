@@ -38,7 +38,7 @@ CONFIG="../remap/loop101.py"
 OS_TYPE=$(uname -s)
 MPIOPTS=""
 if [ ${OS_TYPE} = "Linux" ]; then
-  MPIOPTS="--bind-to socket"
+  MPIOPTS="--bind-to socket --oversubscribe"
 fi
 
 # Clean up old checkpoint directory
