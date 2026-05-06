@@ -68,6 +68,8 @@ if [ "$SST_TEST_CORE" = true ]; then
     echo "!!! BEGIN EXECUTING PARALLEL SST-TEST-CORE !!!"
     sst-test-core -r 1 -t 2 || exit 42
     sst-test-core -r 1 -t 4 || exit 43
+    sst-test-core -r 2 -t 1 || exit 44
+    sst-test-core -r 2 -t 2 || exit 45
     echo "!!! END EXECUTING PARALLEL SST-TEST-CORE !!!"
   fi
 fi
