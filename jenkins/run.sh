@@ -40,6 +40,7 @@ echo "DEBUG=$DEBUG"
 echo "CLANGFORMAT=$CLANGFORMAT"
 echo "CLANG_FORMAT_EXE=$CLANG_FORMAT_EXE"
 echo "SST_TEST_CORE=$SST_TEST_CORE"
+echo "SST_TEST_CORE_PARALLEL=$SST_TEST_CORE_PARALLEL"
 if [ $SANITIZER = true ] && [ $VALGRIND = true ]; then
 	echo "SANITIZER and VALGRIND are mutually exclusive. Using SANITIZER only"
 	VALGRIND=false
@@ -103,6 +104,14 @@ if [ "$SST_TEST_CORE" = true ]; then
                 fi
 
 	fi
+        if [ "$SST_TEST_CORE_PARALLEL" = true ]; then
+            echo "!!! BEGIN EXECUTING PARALLEL SST-TEST-CORE !!!"
+            sst-test-core -r 1 -t 2 || exit 42
+            sst-test-core -r 1 -t 4 || exit 43
+            sst-test-core -r 2 -t 1 || exit 44
+            sst-test-core -r 2 -t 2 || exit 45
+            echo "!!! END EXECUTING PARALLEL SST-TEST-CORE !!!"
+        fi
 fi
 
 #-- Run EXT tests
