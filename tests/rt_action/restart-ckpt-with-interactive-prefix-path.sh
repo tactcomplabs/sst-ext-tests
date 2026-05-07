@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_MINVER 16.0
 #EXT_TEST TEST_FILE_DESC "Tests expected fail for passing path to checkpoint-prefix."
 #EXT_TEST TIMEOUT 120
 #

@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_MINVER 16.0
 #EXT_TEST TEST_FILE_DESC "Tests to ensure that existing checkpoints fail to restart on the wrong architecture"
 #EXT_TEST DEP "coreTestElement.coreTestComponent"
 

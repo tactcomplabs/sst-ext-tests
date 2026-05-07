@@ -1,6 +1,6 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
-#EXT_TEST TEST_FILE_MAXVER DEV
+#EXT_TEST TEST_FILE_MINVER 16.0
+#EXT_TEST TEST_FILE_MAXVER 16.0
 #EXT_TEST TEST_FILE_DESC "sst-test-core sequential tests"
 #EXT_TEST TIMEOUT 120
 #EXT_TEST DEP "coreTestElement.SubComponentLoader coreTestElement.message_mesh.enclosing_component"

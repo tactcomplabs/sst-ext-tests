@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_MINVER 16.0
 #EXT_TEST TEST_FILE_DESC "8 ranks, 1 thread/rank checkpointed. Restart repartioning with even combos"
 #EXT_TEST TIMEOUT 300
 

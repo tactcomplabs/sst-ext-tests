@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_MINVER 16.0
 #EXT_TEST TEST_FILE_DESC "1:5,7:8 threads checkpointed repartitioned to 6 threads on restart"
 #EXT_TEST TIMEOUT 1000
 
