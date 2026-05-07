@@ -37,8 +37,14 @@ CONFIG="../remap/loop101.py"
 
 OS_TYPE=$(uname -s)
 MPIOPTS=""
-if [ ${OS_TYPE} = "Linux" ]; then
-  MPIOPTS="--bind-to socket"
+if [ "${OS_TYPE}" = "Linux" ]; then
+  if `mpirun --version 2>&1 | grep -q "Open MPI"`; then
+    #-- openmpi
+    MPIOPTS="--bind-to socket --oversubscribe"
+  else
+    #-- mpich
+    MPIOPTS="--bind-to socket"
+  fi
 fi
 
 # Clean up old checkpoint directory

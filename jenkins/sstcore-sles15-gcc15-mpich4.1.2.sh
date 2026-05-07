@@ -61,8 +61,17 @@ export PATH=$PATH:$SST_INSTALL/bin
 
 #-- Run SST tests
 if [ "$SST_TEST_CORE" = true ]; then
-        which sst-test-core || exit 40
-        sst-test-core || exit 41
+  which sst-test-core || exit 40
+  sst-test-core || exit 41
+
+  if [ "$SST_TEST_CORE_PARALLEL" = true ]; then
+    echo "!!! BEGIN EXECUTING PARALLEL SST-TEST-CORE !!!"
+    sst-test-core -r 1 -t 2 || exit 42
+    sst-test-core -r 1 -t 4 || exit 43
+    sst-test-core -r 2 -t 1 || exit 44
+    sst-test-core -r 2 -t 2 || exit 45
+    echo "!!! END EXECUTING PARALLEL SST-TEST-CORE !!!"
+  fi
 fi
 
 if [ "$EXTTEST" = true ] ; then

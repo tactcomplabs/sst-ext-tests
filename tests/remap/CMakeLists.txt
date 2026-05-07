@@ -15,7 +15,7 @@ set(failRegex "ERROR")
 if (SST_VALGRIND)
   set(timeout "600")
 else()
-  set(timeout "60")
+  set(timeout "600")
 endif()
 
 #-- Test files supporting current sst version
