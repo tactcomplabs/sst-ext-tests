@@ -38,7 +38,7 @@ popd
 pushd $BUILD_DIR || exit 4
 
 # module av sst
-versions=("sst/13.0.0" "sst/13.1.0" "sst/14.0.0" "sst/14.1.0" "sst/15.0.0" "sst/15.1.0" "sst/15.1.2")
+versions=("sst/13.0.0" "sst/13.1.0" "sst/14.0.0" "sst/14.1.0" "sst/15.0.0" "sst/15.1.0" "sst/15.1.2" "sst/16.0.0")
 for v in "${versions[@]}"; do
     
     echo

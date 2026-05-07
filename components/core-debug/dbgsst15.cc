@@ -9,6 +9,7 @@
 //
 
 #include "dbgsst15.h"
+#include "tcldbg.h"
 
 #include <chrono>
 #include <cinttypes>
@@ -122,6 +123,12 @@ DbgSST15::DbgSST15(SST::ComponentId_t id, const SST::Params& params) :
 #endif
     // constructor completeå
     output.verbose(CALL_INFO, 5, 0, "Constructor complete\n");
+
+    // debug spinner
+    if (getName() == "cp0") {
+        tcldbg::spinner("DBGSST15_SPINNER");
+    }
+
 }
 
 DbgSST15::~DbgSST15() {}
