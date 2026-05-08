@@ -1,6 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER 16.0
-#EXT_TEST TEST_FILE_DESC "Check for trace commands: trace, printWatchpoint, addTraceVar, printTrace, resetTrace, unwatch, quit"
+#EXT_TEST TEST_FILE_MAXVER 16.0
+#EXT_TEST TEST_FILE_DESC "Check watch commands with different trigger types"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -28,35 +29,19 @@ LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug
 echo $LAUNCH
 $LAUNCH << EOF  | tee $LOGFILE
 cd cp0
-trace size > 50 : 32 4 : size : interactive
-printWatchpoint 0
-addTraceVar 0 rCheck
+watch size > 0
 printWatchpoint 0
 run
-printTrace 0
-resetTrace 0
-printTrace 0
-unwatch 0
-trace size changed : 10 2 : size rCheck : interactive
+watch size changed
 printWatchpoint 1
 run
-prt 1
-rst 1
-prt 1
-uw 1
-trace minData < size : 8 0 : size : interactive
+watch size > minData
 printWatchpoint 2
-add 2 maxData
-printWatchpoint 2
-run 
-printTrace 2
-unwatch 2
-trace size changed && maxData > 90 || minData < maxData || rCheck changed : 4 2 : rCheck size minData maxData : interactive
+run
+watch size > minData && size < maxData || rCheck changed
 printWatchpoint 3
 run
-printTrace 3
-quit
-yes
+shutdown
 EOF
 
 retVal=$?
@@ -69,8 +54,8 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-#trace size > 50, printWatchpoint
-PSTR="WP0: TriggerCount 0 : ALL : cp0/size > 50  : bufsize = 32 postDelay = 4 : cp0/size  : interactive"
+# watch size > 0, printWatchpoint 0
+PSTR="WP0: TriggerCount 0 : ALL : cp0/size > 0  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -79,8 +64,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# addTraceVar, printWatchpoint
-PSTR="WP0: TriggerCount 0 : ALL : cp0/size > 50  : bufsize = 32 postDelay = 4 : cp0/size cp0/rCheck  : interactive"
+# run
+PSTR="Entering interactive mode at time 100000"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -89,8 +74,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# run, printTrace
-PSTR="LastTriggerRecord:@cycle202000: SamplesLost=0: cp0/size=100 cp0/rCheck=1"
+# watch size changed, printWatchpoint
+PSTR="WP1: TriggerCount 0 : ALL : cp0/size CHANGED  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -99,8 +84,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# resetTrace, printTrace 
-PSTR="No trace samples in current buffer"
+# run
+PSTR="Entering interactive mode at time 101000"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -109,9 +94,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-
-# trace size changed, printWatchpoint 
-PSTR="WP1: TriggerCount 0 : ALL : cp0/size CHANGED  : bufsize = 10 postDelay = 2 : cp0/size cp0/rCheck  : interactive"
+# watch size > minData, printWatchpoint 0
+PSTR="WP2: TriggerCount 0 : ALL : cp0/size > cp0/minData  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -120,8 +104,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# run, printTrace
-PSTR="LastTriggerRecord:@cycle300000: SamplesLost=0: cp0/size=53 cp0/rCheck=-46"
+# run
+PSTR="Entering interactive mode at time 102000"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -130,9 +114,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-
-# trace minData < size, printWP
-PSTR="WP2: TriggerCount 0 : ALL : cp0/minData < cp0/size  : bufsize = 8 postDelay = 0 : cp0/size  : interactive"
+# watch size > minData && size < maxData || rCheck changed, printWatchpoint
+PSTR="WP3: TriggerCount 0 : ALL : cp0/size > cp0/minData cp0/size < cp0/maxData cp0/rCheck CHANGED  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -141,8 +124,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# add, printWatchpoint
-PSTR="WP2: TriggerCount 0 : ALL : cp0/minData < cp0/size  : bufsize = 8 postDelay = 0 : cp0/size cp0/maxData  : interactive"
+# run
+PSTR="Entering interactive mode at time 103000"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -151,38 +134,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# run, printTrace 0
-PSTR="LastTriggerRecord:@cycle302000: SamplesLost=0: cp0/size=53 cp0/maxData=100"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-# trace size changed && maxData > 90, printWatchpoint
-PSTR="WP3: TriggerCount 0 : ALL : cp0/size CHANGED cp0/maxData > 90 cp0/minData < cp0/maxData cp0/rCheck CHANGED  : bufsize = 4 postDelay = 2 : cp0/rCheck cp0/size cp0/minData cp0/maxData  : interactive"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-# run, printTrace 0
-PSTR="LastTriggerRecord:@cycle304000: SamplesLost=0: cp0/rCheck=-46 cp0/size=53 cp0/minData=1 cp0/maxData=100"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-# quit
-PSTR="Removing all watchpoints and exiting ObjectExplorer"
+# shutdown
+PSTR="Exiting ObjectExplorer and shutting down simulation"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -200,7 +153,6 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 echo "Found pass string \"$PSTR\""
-
 
 # Cleanup output file on pass
 if [ $CLEANUP -eq 1 ]; then

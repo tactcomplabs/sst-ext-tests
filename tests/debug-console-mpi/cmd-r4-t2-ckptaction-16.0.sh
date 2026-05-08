@@ -1,6 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER 16.0
-#EXT_TEST TEST_FILE_DESC "Test checkpoint action triggers for RankSerial: 2 ranks, 1 thread/rank in rank0"
+#EXT_TEST TEST_FILE_MAXVER 16.0
+#EXT_TEST TEST_FILE_DESC "Check trace checkpoint action for RankParallel: 4 ranks, 2 threads/rank for ranks 1 & 3"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -27,8 +28,8 @@ SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 CONFIG=$(realpath ../debug-console/test_Checkpoint_4ms.py)
-RANKS=2
-THREADS=1
+RANKS=4
+THREADS=2
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -50,19 +51,43 @@ fi
 
 # Console commands
 cat << EOF > $CMDFILE
-cd c0
+# rank 1 thread 0 c2
+# CHECK 0 rank 1\n---- Rank1:Thread0: Entering interactive mode at time 1000000
+rank 1
+cd c2
 cd xorshift
 trace w changed : 32 4 : w x y z : checkpoint
 setHandler 0 ae ac
-# CHECK 0 printWatchpoint 0\nWP0: TriggerCount 0 : AC AE : c0/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : c0/xorshift/w c0/xorshift/x c0/xorshift/y c0/xorshift/z  : checkpoint
+# CHECK 1 printWatchpoint 0\nWP0: TriggerCount 0 : AC AE : c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : c2/xorshift/w c2/xorshift/x c2/xorshift/y c2/xorshift/z  : checkpoint
 printWatchpoint 0
-run 100us
+run 40us
+rank 1
+wl
+unwatch 0
+# rank 3 thread 1 c7
+rank 3
+# CHECK 2 thread 1\n---- Rank3:Thread1: Entering interactive mode at time 41000000
+thread 1
+cd c7
+cd xorshift
+trace w changed : 32 4 : w x y z : checkpoint
+setHandler 0 ae ac
+# CHECK 3 printWatchpoint 0\nWP0: TriggerCount 0 : AC AE : c7/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : c7/xorshift/w c7/xorshift/x c7/xorshift/y c7/xorshift/z  : checkpoint
+printWatchpoint 0
+run 40us
+rank 3
+thread 1
+wl
 unwatch 0
 run
 EOF
 
+# for later
+# CHECK 1 run100us.+\n# Simulation Checkpoint: Simulated Time 96 us
+# CHECK 2 shutdown.+\nSimulation is complete, simulated time: 0 s
+
 # Update this whenever adding checks in the command comments above
-NUMCHECKS=1
+NUMCHECKS=4
 
 # Remove stale checkpoint directory if necessary
 if [ -d "$CKPTPREFIX" ]; then
@@ -100,8 +125,40 @@ if [ $RC -ne 0 ]; then
   exit $RC
 fi
 
-# Simulation Checkpoint
-PSTR="# Simulation Checkpoint: Simulated Time 97 us"
+# ---- rank 1 thread 0 c2
+# Checkpoint @ 41us
+PSTR="# Simulation Checkpoint: Simulated Time 41 us"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+    exit $retVal
+    fi
+    echo "Found pass string \"$PSTR\""
+
+# Checkpoint in WL
+PSTR="0: TriggerCount 0 : AC AE : c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : c2/xorshift/w c2/xorshift/x c2/xorshift/y c2/xorshift/z  : checkpoint"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# ---- rank 3 thread 1 c7
+# Checkpoint @ 81us
+PSTR="# Simulation Checkpoint: Simulated Time 81 us"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# Checkpoint in WL
+PSTR="0: TriggerCount 1 : AC AE : c7/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : c7/xorshift/w c7/xorshift/x c7/xorshift/y c7/xorshift/z  : checkpoint"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then

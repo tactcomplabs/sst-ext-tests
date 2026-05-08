@@ -1,7 +1,10 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER 16.0
-#EXT_TEST TEST_FILE_DESC "Check watch commands with different trigger types"
+#EXT_TEST TEST_FILE_MAXVER 16.0
+#EXT_TEST TEST_FILE_DESC "Test basic thread commands in serial exec: thread, info"
 #EXT_TEST TIMEOUT 30
+#
+# SST DEV: 
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
 set -uo pipefail
@@ -10,13 +13,14 @@ set -uo pipefail
 # Set default ensure failure if not set and component not installed
 SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
 
+
 # Settings
 CLEANUP=1
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 CONFIG="dbgsst15.py"
-PSTR="^Entering interactive mode at time 140000000"
+PSTR=""
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -26,21 +30,17 @@ CHKFILE=$TNAME.chk
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
-$LAUNCH << EOF  | tee $LOGFILE
+$LAUNCH 2>&1 << EOF | tee $LOGFILE || exit 1
+info current
+info all
+thread 1
+info current
+thread 0
 cd cp0
-watch size > 0
-printWatchpoint 0
-run
 watch size changed
-printWatchpoint 1
 run
-watch size > minData
-printWatchpoint 2
+unwatch 0
 run
-watch size > minData && size < maxData || rCheck changed
-printWatchpoint 3
-run
-shutdown
 EOF
 
 retVal=$?
@@ -53,8 +53,17 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-# watch size > 0, printWatchpoint 0
-PSTR="WP0: TriggerCount 0 : ALL : cp0/size > 0  : interactive"
+# Avoid diff due to differences btwn mac and linux
+#diff $LOGFILE $CHKFILE > /dev/null
+#retVal=$?
+#if [ $retVal -ne 0 ]; then
+#  echo "ERROR in diff $LOGFILE $CHKFILE"
+#  exit $retVal
+#fi
+#echo "Log file matches check file"
+
+# Interactive
+PSTR="Entering interactive mode at time 0"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -63,7 +72,46 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# run
+# info current
+PSTR="Rank 0/1 Thread 0/1 (Process"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# thread 1
+PSTR="ThreadID 1 out of range"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# info current 
+PSTR="Rank 0/1 Thread 1/2"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -eq 0 ]; then
+  echo "ERROR found fail string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "No fail string \"$PSTR\""
+
+# watch
+PSTR="Added watchpoint #0"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
 PSTR="Entering interactive mode at time 100000"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
@@ -73,68 +121,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# watch size changed, printWatchpoint
-PSTR="WP1: TriggerCount 0 : ALL : cp0/size CHANGED  : interactive"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-# run
-PSTR="Entering interactive mode at time 101000"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-# watch size > minData, printWatchpoint 0
-PSTR="WP2: TriggerCount 0 : ALL : cp0/size > cp0/minData  : interactive"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-# run
-PSTR="Entering interactive mode at time 102000"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-# watch size > minData && size < maxData || rCheck changed, printWatchpoint
-PSTR="WP3: TriggerCount 0 : ALL : cp0/size > cp0/minData cp0/size < cp0/maxData cp0/rCheck CHANGED  : interactive"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-# run
-PSTR="Entering interactive mode at time 103000"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-# shutdown
-PSTR="Exiting ObjectExplorer and shutting down simulation"
+PSTR=" WP0: AC : cp0/size"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -144,8 +131,8 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # Simulation Complete
-PSTR="Simulation is complete"
-grep "$PSTR" $LOGFILE > /dev/null
+PSTR="Simulation is complete, simulated time: 1.0017 ms"
+egrep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""

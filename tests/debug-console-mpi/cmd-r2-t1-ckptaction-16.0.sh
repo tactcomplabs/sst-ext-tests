@@ -1,6 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER 16.0
-#EXT_TEST TEST_FILE_DESC "Check that trace checkpoint action triggers checkpoints with 4 threads"
+#EXT_TEST TEST_FILE_MAXVER 16.0
+#EXT_TEST TEST_FILE_DESC "Test checkpoint action triggers for RankSerial: 2 ranks, 1 thread/rank in rank0"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -26,15 +27,22 @@ SCRIPT_PATH="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG="test_Checkpoint_4ms.py"
-RANKS=1
-THREADS=4
+CONFIG=$(realpath ../debug-console/test_Checkpoint_4ms.py)
+RANKS=2
+THREADS=1
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
 CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 CKPTPREFIX=ckpt_$TNAME
+
+OS_TYPE=$(uname -s)
+MPIOPTS=""
+if [ ${OS_TYPE} = "Linux" ]; then
+  MPIOPTS="--bind-to socket"
+fi
+
 SPOTCHECKS=$(realpath "${SCRIPT_PATH}/../../scripts/spotchecks.awk")
 if [ ! -e "${SPOTCHECKS}" ]; then
   echo "Checker script not found. [${SPOTCHECKS}]"
@@ -50,12 +58,9 @@ setHandler 0 ae ac
 # CHECK 0 printWatchpoint 0\nWP0: TriggerCount 0 : AC AE : c0/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : c0/xorshift/w c0/xorshift/x c0/xorshift/y c0/xorshift/z  : checkpoint
 printWatchpoint 0
 run 100us
-shutdown
+unwatch 0
+run
 EOF
-
-# for later
-# CHECK 1 run100us.+\n# Simulation Checkpoint: Simulated Time 96 us
-# CHECK 2 shutdown.+\nSimulation is complete, simulated time: 0 s
 
 # Update this whenever adding checks in the command comments above
 NUMCHECKS=1
@@ -68,7 +73,7 @@ fi
 
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --verbose=$VERBOSE -n $THREADS --interactive-start=0s --checkpoint-enable --checkpoint-prefix=$CKPTPREFIX $CONFIG"
+LAUNCH="mpirun ${MPIOPTS} -np $RANKS sst --verbose=$VERBOSE -n $THREADS --interactive-start=0s --checkpoint-enable --checkpoint-prefix=$CKPTPREFIX $CONFIG"
 echo $LAUNCH
 ( $LAUNCH << EOF || exit 11 ) | tee $LOGFILE
 replay $CMDFILE
@@ -96,7 +101,7 @@ if [ $RC -ne 0 ]; then
   exit $RC
 fi
 
-# Simulation Complete
+# Simulation Checkpoint
 PSTR="# Simulation Checkpoint: Simulated Time 97 us"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
@@ -107,7 +112,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # Simulation Complete
-PSTR="Simulation is complete, simulated time: 0 s"
+PSTR="Simulation is complete, simulated time: 4.007 ms"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -118,7 +123,7 @@ echo "Found pass string \"$PSTR\""
 
 # Check that checkpoint files exist
 if [ ! -d "$CKPTPREFIX" ]; then
-	echo "ERROR checkpoint directory '$CKPTPREFIX' does not exits"
+	echo "ERROR checkpoint directory '$CKPTPREFIX' does not exist"
 	exit $retVal
 else 
 	CKPTFILE="${CKPTPREFIX}/${CKPTPREFIX}_1_30000000/${CKPTPREFIX}_1_30000000.sstcpt"

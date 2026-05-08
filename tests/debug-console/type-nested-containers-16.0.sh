@@ -1,5 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER 16.0
+#EXT_TEST TEST_FILE_MAXVER 16.0
 #EXT_TEST TEST_FILE_DESC "show handling (or not) of rediculously long type strings"
 #EXT_TEST TIMEOUT 30
 

@@ -1,5 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER 16.0
+#EXT_TEST TEST_FILE_MAXVER 16.0
 #EXT_TEST TEST_FILE_DESC "Check action triggers for RankParallel: 4 ranks, 2 threads/rank for rank3, thread1"
 #EXT_TEST TIMEOUT 30
 

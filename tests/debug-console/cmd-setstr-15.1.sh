@@ -1,6 +1,7 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER 16.0
-#EXT_TEST TEST_FILE_DESC "Check interactive console unwatch command"
+#EXT_TEST TEST_FILE_MINVER 15.1
+#EXT_TEST TEST_FILE_MAXVER 16.0
+#EXT_TEST TEST_FILE_DESC "Check set string with spaces"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -15,8 +16,8 @@ CLEANUP=1
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG="dbgsst15.py"
-PSTR=""
+CONFIG="test_Checkpoint_4ms.py"
+PSTR="test_string = my big beautiful string (std::string)"
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -24,22 +25,14 @@ CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
+LAUNCH="sst --interactive-start=0s $CONFIG"
 echo $LAUNCH
 $LAUNCH << EOF  | tee $LOGFILE
-cd cp0
-watch maxData > 10
-watch maxData > 100
-unwatch 
-yes
-watchlist
-watch maxData > 111
-watch maxData > 222
-watch maxData > 333
-unwatch 1
-unwatch 
-no
-watchlist
+cd c0
+ls
+set test_string my big beautiful string
+run 1us
+print test_string
 shutdown
 EOF
 
@@ -53,16 +46,6 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-# Check for correct watchlist result
-PSTR="0: TriggerCount 0 : ALL : cp0/maxData > 111  : interactive"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-PSTR="2: TriggerCount 0 : ALL : cp0/maxData > 333  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -83,7 +66,7 @@ echo "Found pass string \"$PSTR\""
 
 # Cleanup output file on pass
 if [ $CLEANUP -eq 1 ]; then
-  rm -f $LOGFILE $OUTFILE $CMDFILE $CHKFILE
+  rm -f $LOGFILE $OUTFILE $CMDFILE
 fi
 
 wait

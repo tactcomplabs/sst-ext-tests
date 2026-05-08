@@ -1,5 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER 16.0
+#EXT_TEST TEST_FILE_MAXVER 16.0
 #EXT_TEST TEST_FILE_DESC "Check trace checkpoint action triggers for RankSerial: 2 ranks, 1 thread/rank for rank1"
 #EXT_TEST TIMEOUT 30
 

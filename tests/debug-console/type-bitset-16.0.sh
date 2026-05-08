@@ -1,6 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER 16.0
-#EXT_TEST TEST_FILE_DESC "Exercise unions with one component"
+#EXT_TEST TEST_FILE_MAXVER 16.0
+#EXT_TEST TEST_FILE_DESC "Exercise std::bitset and std::vector<bool>"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -10,24 +11,13 @@ set -uo pipefail
 # Set default ensure failure if not set and component not installed
 SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
 
-# Convenience environment variables
-set +u
-if [[ -z "${CLEANUP}" ]]; then
+# Settings
 CLEANUP=1
-fi
-if [[ -z "${VERBOSE}" ]]; then
-  VERBOSE=0
-fi
-
-set -u
-
-# Common settings
 SCRIPT_PATH="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG="omni.py"
-CONFIG_OPTS="--function0=dbgsst15.OMUnions"
+CONFIG="dbgsst15.py"
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -41,56 +31,77 @@ fi
 
 cat << EOF > $CMDFILE
 confirm false
-
-# The checking convention is: CHECK <id> <regexp>
-# regexp and have multiple \n characters but not a trailing \n
-
-cd c0
-cd function0/
-cd v_union_int_float_method_1/
-# CHECK 0 pwd\nc0/function0/v_union_int_float_method_1 \(
-pwd
-
-# CHECK 1 ls\nf = 0\.000000.+
+cd cp0
 ls
-
-run 1us
-
-# CHECK 2 ls\nf = 1998\.000000.+
+cd v_bitset42/
 ls
-
-watch f changed
-run 1us
-
-# CHECK 3 ls\nf = 2000\.000000.+
-ls
-
+# CHECK 0 p 0\n0 = false \(bool\)
+p 0
+# CHECK 1 p 3\n3 = true \(bool\)
+p 3
+# CHECK 2 p 38\n38 = false \(bool\)
+p 38
+# CHECK 3 p 39\n39 = true \(bool\)
+p 39
+# Flip bits 38 and 39
+set 38 1
+set 39 0
+run 1ns
+# CHECK 4 p 38\n38 = true \(bool\)
+p 38
+# CHECK 5 p 39\n39 = false \(bool\)
+p 39
 cd ..
-cd v_union_struct_method_1/ 
+# std::vector<bool> v_vecbool  =  { true, false, true, true, false, false, true, true};
+p v_vecbool
+cd v_vecbool
+ls
+# CHECK 6 p 5\n5 = false \(bool\)
+p 5
+# CHECK 7 p 6\n6 = true \(bool\)
+p 6
+# flip 5 and 6
+set 5 1
+set 6 0
+run 1ns
+ls
+# CHECK 8 p 5\n5 = true \(bool\)
+p 5
+# CHECK 9 p 6\n6 = false \(bool\)
+p 6
 
-#TODO Values are different between Mac and Ubuntu. Don't check values for now.
-# CHECK 4 ls\nv = 3621246928 \(
+# Invalid setting
+set 5 0x10
+# CHECK 10 p 5\n5 = true \(bool\)
+p 5
+
+# Watch a vector bool bit
+watch 7 changed
+# CHECK 11 run\n---- Rank0:Thread0: Entering interactive mode
+run
 ls
 
+# clear all watches
 unwatch
-watch v changed
-run 1us
 
-# CHECK 5 ls\nv = 3654932946 \(
+# back up to bitset and do the same
+cd ..
+cd v_bitset42/
+watch 41 changed
+# CHECK 12 run\n---- Rank0:Thread0: Entering interactive mode
+run
 ls
-
-shutdown
 
 EOF
 
-# IMPORTANT: Update this whenever adding checks in the command comments above
-NUMCHECKS=6
+# Update this whenever adding checks in the command comments above
+NUMCHECKS=13
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug --verbose=$VERBOSE $CONFIG -- $CONFIG_OPTS"
+LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
 echo $LAUNCH
 revVal=0
-$LAUNCH << EOF  | tee $LOGFILE
+( $LAUNCH << EOF || exit 11 ) | tee $LOGFILE
 replay $CMDFILE
 confirm false
 exit

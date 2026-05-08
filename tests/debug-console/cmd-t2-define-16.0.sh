@@ -1,6 +1,9 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER 16.0
-#EXT_TEST TEST_FILE_DESC "Exercise std::queue<unsigned>"
+#EXT_TEST TEST_FILE_MAXVER 16.0
+#EXT_TEST TEST_FILE_DESC "Check user-defined commands in multiple threads."
+#NOTE: User defined commands are currently context sensitive, meaning they 
+#     are tied to the thread in which they are defined. 
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -17,6 +20,8 @@ SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 CONFIG="dbgsst15.py"
+RANKS=1
+THREADS=2
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -34,73 +39,37 @@ confirm false
 # The checking convention is: CHECK <id> <regexp>
 # regexp and have multiple \n characters but not a trailing \n
 
-# Extend the test time
-cd cp1
-ls
-set clocks 1000000
-cd ..
+define foo0
 cd cp0
-set clocks 1000000
+print v_short
+end
 
-# CHECK 0 p v_queue_unsigned\nv_queue_unsigned \(
-p v_queue_unsigned
+thread 1
 
-cd v_queue_unsigned
-# CHECK 1 ls\ncontainer/ \(
-ls
+define foo1
+cd cp1
+print v_int
+end
+ 
+thread 0
 
-# CHECK 2 p container\ncontainer .+\n 0 = 100 .+\n 1 = 200 .+\n 2 = 300
-p container
 
-cd container
-# CHECK 3 ls\n0 = 100 .+\n1 = 200 .+\n2 = 300
-ls
+# CHECK 0 foo0\nv_short = -2 \(
+foo0
 
-# CHECK 4 p 0\n0 = 100
-p 0
+thread 1
 
-# CHECK 5 p 1\n1 = 200
-p 1
-
-# CHECK 6 p 2\n2 = 300
-p 2
-
-set 0 1100
-set 1 1200
-set 2 1300
-# CHECK 7 ls\n0 = 1100 .+\n1 = 1200 .+\n2 = 1300
-ls
-
-# advance simulator sufficiently to observe change in front data
-run 10400ns
-
-# confirm cp0 front value is changing
-# DbgSST15[cp0:tickleBits:1300000]: v_queue_unsigned.front()=1200
-# DbgSST15[cp0:tickleBits:2600000]: v_queue_unsigned.front()=1300
-# DbgSST15[cp0:tickleBits:3900000]: v_queue_unsigned.front()=1101
-# DbgSST15[cp0:tickleBits:5200000]: v_queue_unsigned.front()=1201
-# DbgSST15[cp0:tickleBits:6500000]: v_queue_unsigned.front()=1301
-# DbgSST15[cp0:tickleBits:7800000]: v_queue_unsigned.front()=1102
-# DbgSST15[cp0:tickleBits:9100000]: v_queue_unsigned.front()=1202
-
-# CHECK 8 pwd\ncp0/v_queue_unsigned/container \(
-pwd
-
-# CHECK 9 ls\n0 = 1202 \(.+\n1 = 1302 \(.+\n2 = 1103 \(
-ls
-# 0 = 1202 (unsigned int)
-# 1 = 1302 (unsigned int)
-# 2 = 1103 (unsigned int)
+# CHECK 1 foo1\nv_int = -3 \(
+foo1
 
 shutdown
-
 EOF
 
 # Update this whenever adding checks in the command comments above
-NUMCHECKS=10
+NUMCHECKS=2
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
+LAUNCH="sst -n $THREADS --interactive-start --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
 echo $LAUNCH
 revVal=0
 $LAUNCH << EOF  | tee $LOGFILE

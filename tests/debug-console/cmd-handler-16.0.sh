@@ -1,9 +1,8 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER 16.0
-#EXT_TEST TEST_FILE_DESC "Test basic thread commands in serial exec: thread, info"
+#EXT_TEST TEST_FILE_MAXVER 16.0
+#EXT_TEST TEST_FILE_DESC "Check setHandler commands with trace"
 #EXT_TEST TIMEOUT 30
-#
-# SST DEV: 
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
 set -uo pipefail
@@ -12,14 +11,13 @@ set -uo pipefail
 # Set default ensure failure if not set and component not installed
 SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
 
-
 # Settings
 CLEANUP=1
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 CONFIG="dbgsst15.py"
-PSTR=""
+PSTR="^Entering interactive mode at time 140000000"
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -29,17 +27,30 @@ CHKFILE=$TNAME.chk
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
-$LAUNCH 2>&1 << EOF | tee $LOGFILE || exit 1
-info current
-info all
-thread 1
-info current
-thread 0
+$LAUNCH << EOF  | tee $LOGFILE 
 cd cp0
-watch size changed
+run 2us
+trace size changed : 16 14 : size : interactive
+printWatchpoint 0
 run
-unwatch 0
+printTrace 0
+sethandler 0 ac ae
+printWatchpoint 0
 run
+printTrace 0
+setHandler 0 bc be
+printWatchpoint 0
+run
+printTrace 0
+setHandler 0 ae
+printWatchpoint 0
+run
+printTrace 0
+setHandler 0 all
+printWatchpoint 0
+run
+printTrace 0
+shutdown
 EOF
 
 retVal=$?
@@ -52,17 +63,8 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-# Avoid diff due to differences btwn mac and linux
-#diff $LOGFILE $CHKFILE > /dev/null
-#retVal=$?
-#if [ $retVal -ne 0 ]; then
-#  echo "ERROR in diff $LOGFILE $CHKFILE"
-#  exit $retVal
-#fi
-#echo "Log file matches check file"
-
-# Interactive
-PSTR="Entering interactive mode at time 0"
+# all
+PSTR="WP0: TriggerCount 0 : ALL : cp0/size CHANGED  : bufsize = 16 postDelay = 14 : cp0/size  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -71,8 +73,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# info current
-PSTR="Rank 0/1 Thread 0/1 (Process"
+# ac ae
+PSTR="WP0: TriggerCount 2 : AC AE : cp0/size CHANGED  : bufsize = 16 postDelay = 14 : cp0/size  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -81,8 +83,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# thread 1
-PSTR="ThreadID 1 out of range"
+# bc be
+PSTR="WP0: TriggerCount 1 : BC BE : cp0/size CHANGED  : bufsize = 16 postDelay = 14 : cp0/size  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -91,36 +93,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# info current 
-PSTR="Rank 0/1 Thread 1/2"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -eq 0 ]; then
-  echo "ERROR found fail string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "No fail string \"$PSTR\""
-
-# watch
-PSTR="Added watchpoint #0"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-PSTR="Entering interactive mode at time 100000"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-PSTR=" WP0: AC : cp0/size"
+# ae
+PSTR="WP0: TriggerCount 2 : AE : cp0/size CHANGED  : bufsize = 16 postDelay = 14 : cp0/size  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -130,8 +104,8 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # Simulation Complete
-PSTR="Simulation is complete, simulated time: 1.0017 ms"
-egrep "$PSTR" $LOGFILE > /dev/null
+PSTR="Simulation is complete"
+grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""

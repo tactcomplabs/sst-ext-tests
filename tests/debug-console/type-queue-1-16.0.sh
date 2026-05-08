@@ -1,6 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER 16.0
-#EXT_TEST TEST_FILE_DESC "Exercise arrays and tuples in 1 component with 2 slots"
+#EXT_TEST TEST_FILE_MAXVER 16.0
+#EXT_TEST TEST_FILE_DESC "Exercise std::queue<unsigned> with one component"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -10,24 +11,14 @@ set -uo pipefail
 # Set default ensure failure if not set and component not installed
 SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
 
-# Convenience environment variables
-set +u
-if [[ -z "${CLEANUP}" ]]; then
+# Settings
 CLEANUP=1
-fi
-if [[ -z "${VERBOSE}" ]]; then
-  VERBOSE=0
-fi
-
-set -u
-
-# Common settings
 SCRIPT_PATH="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 CONFIG="omni.py"
-CONFIG_OPTS="--function0=dbgsst15.OMArrays --function1=dbgsst15.OMQueue"
+CONFIG_OPTS="--function0=dbgsst15.OMQueue --verbose=0"
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -47,61 +38,61 @@ confirm false
 
 cd c0
 cd function0/
-cd v_ping_t/
-# CHECK 0 pwd\nc0/function0/v_ping_t \(unsigned short \[1000\]\)
+cd v_queue_unsigned_/
+cd container/
+# CHECK 0 pwd\nc0/function0/v_queue_unsigned_/container \(
 pwd
 
-# CHECK 1 p 0\n0 = 1 \(unsigned short\)
-p 0
-
-# CHECK 2 p 999\n999 = 1000 \(unsigned short\)
-p 999
-
-# CHECK 3 p 1000\nUnknown object in print command: 1000
-p 1000
-
-# CHECK 4 p -1\nUnknown object in print command: -1
-p -1
-
-run 8ns
-# CHECK 5 p 42\n42 = 50 \(unsigned short\)
-p 42
-
-watch 42 changed
-run 5ns
-
-# CHECK 6 p 42\n42 = 51 \(
-p 42
-
-unwatch
-watch 42 > 55
+# CHECK 1 ls\n0 = 100 \(.+\n1 = 200 \(.+\n2 = 300 \(
+ls
+# 0 = 100 (unsigned int)
+# 1 = 200 (unsigned int)
+# 2 = 300 (unsigned int)
 run 10ns
-# CHECK 7 p 42\n42 = 55 \(
-p 42
+# 1000: v_queue_unsigned_.front()=200
+# 2000: v_queue_unsigned_.front()=300
+# 3000: v_queue_unsigned_.front()=101
+# 4000: v_queue_unsigned_.front()=201
+# 5000: v_queue_unsigned_.front()=301
+# 6000: v_queue_unsigned_.front()=102
+# 7000: v_queue_unsigned_.front()=202
+# 8000: v_queue_unsigned_.front()=302
+# 9000: v_queue_unsigned_.front()=103
+# Entering interactive mode at time 10000 
+# Ran clock for 10000 sim cycles
 
-# now check pong which performs memcopy of ping.
-cd ..
-cd v_pong_t
+# CHECK 2 ls\n0 = 103 \(.+\n1 = 203 \(.+\n2 = 303 \(
+ls
+# 0 = 103 (unsigned int)
+# 1 = 203 (unsigned int)
+# 2 = 303 (unsigned int)
 
-# CHECK 8 pwd\nc0/function0/v_pong_t \(unsigned short \[1000\]\)
-pwd
-# CHECK 9 p 42\n42 = 54 \(
-p 42
+# sst-core #1517 refreshes object map on break into interactive mode.
+# Solution for watchpoints is....?
 
-# TODO operator== appears to not be working. ( test all of them )
-# unwatch
-# watch 42 == 60
-# run 20ns
+# watch 0 changed
+# run
+# # check- 3 ls\n0 = 104 \(.+\n1 = 204 \(.+\n2 = 304 \(
+# ls
+
+# run
+# # check- 4 ls\n0 = 105 \(.+\n1 = 205 \(.+\n2 = 305 \(
+# ls
+
+# unwatch 0
+# watch 0 > 200
+# # check- 5 ls\n0 = 201 \(.+\n1 = 301 \(.+\n2 = 401 \(
+# ls
 
 shutdown
 
 EOF
 
-# IMPORTANT: Update this whenever adding checks in the command comments above
-NUMCHECKS=10
+# Update this whenever adding checks in the command comments above
+NUMCHECKS=3
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug --verbose=$VERBOSE $CONFIG -- $CONFIG_OPTS"
+LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- $CONFIG_OPTS"
 echo $LAUNCH
 revVal=0
 $LAUNCH << EOF  | tee $LOGFILE
