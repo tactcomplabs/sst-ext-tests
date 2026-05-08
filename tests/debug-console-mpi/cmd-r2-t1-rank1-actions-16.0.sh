@@ -1,6 +1,7 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
-#EXT_TEST TEST_FILE_DESC "Basic interactive command check: cd, ls, pwd, run, continue"
+#EXT_TEST TEST_FILE_MINVER 16.0
+#EXT_TEST TEST_FILE_MAXVER 16.0
+#EXT_TEST TEST_FILE_DESC "Test trace actions for RankSerial: 2 ranks, 1 thread/rank in rank1"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -10,13 +11,21 @@ set -uo pipefail
 # Set default ensure failure if not set and component not installed
 SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
 
+
 # Settings
 CLEANUP=1
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG="dbgsst15.py"
-PSTR="^Entering interactive mode at time 140000000"
+CONFIG=$(realpath ../debug-console/dbgsst15.py)
+RANKS=2
+THREADS=1
+
+OS_TYPE=$(uname -s)
+MPIOPTS=""
+if [ ${OS_TYPE} = "Linux" ]; then
+  MPIOPTS="--bind-to socket"
+fi
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -24,22 +33,30 @@ CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
+LAUNCH="mpirun ${MPIOPTS} -np $RANKS sst -n $THREADS --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
-$LAUNCH << EOF  | tee $LOGFILE
-pwd
-ls
-cd cp0
-chdir my_info_
-list -l
+$LAUNCH 2>&1 << EOF | tee $LOGFILE || exit 1
+rank 1
+cd cp1
+trace size changed : 8 0 : size : printTrace
 run 1us
-time
-r 1us
-continue 1us
-tm
-c 4us
-confirm false
-shutd
+rank 1
+unwatch 0
+trace size changed : 8 0 : size : set size 50
+run 1us
+rank 1
+print size
+unwatch 1
+trace size changed : 8 0 : size : printStatus
+run 1us
+rank 1
+unwatch 2
+trace size changed : 8 0 : size : interactive
+run 1us
+rank 1
+unwatch 3
+trace size changed : 8 0 : size : shutdown
+run 
 EOF
 
 retVal=$?
@@ -52,37 +69,7 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-# pwd
-PSTR="/"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-# ls
-PSTR="cp0/"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-# cd cp0, chdir my_info_, list
-PSTR="defaultTimeBase (ro) = 1 ns"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-# run 1us
+# Interactive
 PSTR="Entering interactive mode at time 1000000"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
@@ -92,8 +79,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# time
-PSTR="current time = 1000000"
+# rank 1 thread 0 cp1
+PSTR=" ---- Rank1:Thread0: Entering interactive mode at time 1000000"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -102,8 +89,18 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# r 1us
-PSTR="Entering interactive mode at time 2000000"
+# printTrace
+PSTR="LastTriggerRecord:@cycle1100000: SamplesLost=0: cp1/size=92"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+    exit $retVal
+    fi
+    echo "Found pass string \"$PSTR\""
+
+#set size 50
+PSTR="set cp1/size 50"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -112,8 +109,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# continue 1us
-PSTR="Entering interactive mode at time 3000000"
+PSTR="size = 50"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -122,8 +118,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# tm
-PSTR="> current time = 3000000"
+# printStatus
+PSTR="CurrentSimCycle:  3000000"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -132,8 +128,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# c 1us
-PSTR="Entering interactive mode at time 7000000"
+# interactive
+PSTR="Rank:1/2 Thread:0/1 (Triggered)"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -142,8 +138,18 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# Simulation Complete
-PSTR="Simulation is complete"
+# shutdown
+PSTR=" Trigger action shutting down simulation"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+
+PSTR="Simulation is complete, simulated time: 0 s"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then

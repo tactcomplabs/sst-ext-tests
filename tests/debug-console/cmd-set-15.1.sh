@@ -1,6 +1,7 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
-#EXT_TEST TEST_FILE_DESC "Basic interactive command check: cd, ls, pwd, run, continue"
+#EXT_TEST TEST_FILE_MINVER 15.1
+#EXT_TEST TEST_FILE_MAXVER 16.0
+#EXT_TEST TEST_FILE_DESC "Check for set and print commands"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -27,17 +28,38 @@ CHKFILE=$TNAME.chk
 LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
 $LAUNCH << EOF  | tee $LOGFILE
-pwd
-ls
 cd cp0
-chdir my_info_
-list -l
+ls
+set v_bool false
+set v_char 9
+set v_schar -9
+set v_short -10
+set v_ushort 10
+s v_int -11
+s v_uint 11
+s v_long -12
+s v_ulong 12
+s v_ll -13
+s v_ull 13
+s v_float 9.14159
+s v_double 10.14159
+s v_ldouble 11.14159
 run 1us
-time
-r 1us
-continue 1us
-tm
-c 4us
+print v_bool
+print v_char
+print v_schar
+print v_short
+print v_ushort
+p v_int
+p v_uint
+p v_long
+p v_ulong
+p v_ll
+p v_ull
+p v_float
+p v_double
+p v_ldouble
+run 5us
 confirm false
 shutd
 EOF
@@ -52,8 +74,18 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-# pwd
-PSTR="/"
+# v_bool
+PSTR="v_bool = (0|false)"
+egrep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# v_char
+PSTR="v_char = 9"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -62,8 +94,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# ls
-PSTR="cp0/"
+# v_schar
+PSTR="v_schar = -9"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -72,8 +104,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# cd cp0, chdir my_info_, list
-PSTR="defaultTimeBase (ro) = 1 ns"
+# v_short
+PSTR="v_short = -10"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -82,8 +114,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# run 1us
-PSTR="Entering interactive mode at time 1000000"
+# v_ushort
+PSTR="v_ushort = 10"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -92,8 +124,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# time
-PSTR="current time = 1000000"
+# v_int
+PSTR="v_int = -11"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -102,8 +134,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# r 1us
-PSTR="Entering interactive mode at time 2000000"
+# v_uint
+PSTR="v_uint = 11"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -112,8 +144,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# continue 1us
-PSTR="Entering interactive mode at time 3000000"
+# v_long
+PSTR="v_long = -12"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -122,8 +154,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# tm
-PSTR="> current time = 3000000"
+# v_ulong
+PSTR="v_ulong = 12"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -132,9 +164,49 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# c 1us
-PSTR="Entering interactive mode at time 7000000"
+# v_ll
+PSTR="v_ll = -13"
 grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# v_ull
+PSTR="v_ull = 13"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# v_float
+PSTR="v_float = 9.141590"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# v_double (full precision value varies across platforms)
+PSTR="v_double = 10.1415900000000[0-9]+"
+egrep "v_double = 10.1415900000000[0-9]+" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# v_ldouble (full precision value varies across platforms)
+PSTR="vl_double = 11.1415900000000[0-9]+"
+egrep "v_ldouble = 11.1415900000000[0-9]+" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
   echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
@@ -151,6 +223,7 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 echo "Found pass string \"$PSTR\""
+
 
 # Cleanup output file on pass
 if [ $CLEANUP -eq 1 ]; then

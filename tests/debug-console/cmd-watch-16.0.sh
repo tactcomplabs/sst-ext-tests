@@ -1,6 +1,7 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
-#EXT_TEST TEST_FILE_DESC "Basic interactive command check: cd, ls, pwd, run, continue"
+#EXT_TEST TEST_FILE_MINVER 16.0
+#EXT_TEST TEST_FILE_MAXVER 16.0
+#EXT_TEST TEST_FILE_DESC "Check watch commands with different trigger types"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -27,19 +28,20 @@ CHKFILE=$TNAME.chk
 LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
 $LAUNCH << EOF  | tee $LOGFILE
-pwd
-ls
 cd cp0
-chdir my_info_
-list -l
-run 1us
-time
-r 1us
-continue 1us
-tm
-c 4us
-confirm false
-shutd
+watch size > 0
+printWatchpoint 0
+run
+watch size changed
+printWatchpoint 1
+run
+watch size > minData
+printWatchpoint 2
+run
+watch size > minData && size < maxData || rCheck changed
+printWatchpoint 3
+run
+shutdown
 EOF
 
 retVal=$?
@@ -52,8 +54,8 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-# pwd
-PSTR="/"
+# watch size > 0, printWatchpoint 0
+PSTR="WP0: TriggerCount 0 : ALL : cp0/size > 0  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -62,8 +64,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# ls
-PSTR="cp0/"
+# run
+PSTR="Entering interactive mode at time 100000"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -72,8 +74,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# cd cp0, chdir my_info_, list
-PSTR="defaultTimeBase (ro) = 1 ns"
+# watch size changed, printWatchpoint
+PSTR="WP1: TriggerCount 0 : ALL : cp0/size CHANGED  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -82,8 +84,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# run 1us
-PSTR="Entering interactive mode at time 1000000"
+# run
+PSTR="Entering interactive mode at time 101000"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -92,8 +94,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# time
-PSTR="current time = 1000000"
+# watch size > minData, printWatchpoint 0
+PSTR="WP2: TriggerCount 0 : ALL : cp0/size > cp0/minData  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -102,8 +104,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# r 1us
-PSTR="Entering interactive mode at time 2000000"
+# run
+PSTR="Entering interactive mode at time 102000"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -112,8 +114,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# continue 1us
-PSTR="Entering interactive mode at time 3000000"
+# watch size > minData && size < maxData || rCheck changed, printWatchpoint
+PSTR="WP3: TriggerCount 0 : ALL : cp0/size > cp0/minData cp0/size < cp0/maxData cp0/rCheck CHANGED  : interactive"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -122,8 +124,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# tm
-PSTR="> current time = 3000000"
+# run
+PSTR="Entering interactive mode at time 103000"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -132,8 +134,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# c 1us
-PSTR="Entering interactive mode at time 7000000"
+# shutdown
+PSTR="Exiting ObjectExplorer and shutting down simulation"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then

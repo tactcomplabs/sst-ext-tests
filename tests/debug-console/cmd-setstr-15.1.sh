@@ -1,5 +1,6 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER NEW
+#EXT_TEST TEST_FILE_MINVER 15.1
+#EXT_TEST TEST_FILE_MAXVER 16.0
 #EXT_TEST TEST_FILE_DESC "Check set string with spaces"
 #EXT_TEST TIMEOUT 30
 
@@ -16,7 +17,7 @@ SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 CONFIG="test_Checkpoint_4ms.py"
-PSTR="test_string = \"my big beautiful string\" (std::string)"
+PSTR="test_string = my big beautiful string (std::string)"
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -31,7 +32,7 @@ cd c0
 ls
 set test_string my big beautiful string
 run 1us
-print -v 2 test_string
+print test_string
 shutdown
 EOF
 
