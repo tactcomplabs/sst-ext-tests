@@ -11,52 +11,76 @@ set -uo pipefail
 SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
 
 # Settings
-CLEANUP=0
+CLEANUP=1
+SCRIPT_PATH="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG="dbgsst15.py"
-PSTR="^Entering interactive mode at time 140000000"
+CONFIG=$(realpath dbgsst15_4.py)
+RANKS=2
+THREADS=1
+
+OS_TYPE=$(uname -s)
+MPIOPTS=""
+if [ ${OS_TYPE} = "Linux" ]; then
+  MPIOPTS="--bind-to socket"
+fi
+
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
 CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
+SPOTCHECKS=$(realpath "${SCRIPT_PATH}/../../scripts/spotchecks.awk")
+if [ ! -e "${SPOTCHECKS}" ]; then
+  echo "Checker script not found. [${SPOTCHECKS}]"
+  exit 1
+fi
 
-# Launch the program to start interactive mode at time 0
-LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
-echo $LAUNCH
-$LAUNCH << EOF  | tee $LOGFILE
+cat << EOF > $CMDFILE
+confirm false
 cd cp0
-trace size > 50 : 32 4 : size : interactive
+trace size < 70 : 32 4 : size : interactive
 printWatchpoint 0
 addTraceVar 0 rCheck
-printWatchpoint 0
 run
-printTrace 0
-resetTrace 0
 printTrace 0
 unwatch 0
-trace size changed : 10 2 : size rCheck : interactive
-printWatchpoint 1
-run
-prt 1
-rst 1
-prt 1
-uw 1
-trace minData < size : 8 0 : size : interactive
-printWatchpoint 2
-add 2 maxData
-printWatchpoint 2
-run 
-printTrace 2
-unwatch 2
-trace size changed && maxData > 90 || minData < maxData || rCheck changed : 4 2 : rCheck size minData maxData : interactive
-printWatchpoint 3
-run
-printTrace 3
-quit
-yes
+
+# rank 1
+# cd cp2
+# trace size changed : 10 2 : size rCheck : interactive
+# printWatchpoint 1
+# run
+# prt 1
+# rst 1
+# prt 1
+# uw 1
+
+# trace minData < size : 8 0 : size : interactive
+# printWatchpoint 2
+# add 2 maxData
+# printWatchpoint 2
+# run 
+# printTrace 2
+# unwatch 2
+# trace size changed && maxData > 90 || minData < maxData || rCheck changed : 4 2 : rCheck size minData maxData : interactive
+# printWatchpoint 3
+# run
+# printTrace 3
+# shutd
+EOF
+
+# Update this whenever adding checks in the command comments above
+NUMCHECKS=15
+
+# Launch the program to start interactive mode at time 0
+LAUNCH="mpirun ${MPIOPTS} -np $RANKS  sst -n $THREADS --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
+echo $LAUNCH
+$LAUNCH << EOF  | tee $LOGFILE
+replay $CMDFILE
+confirm false
+exit
 EOF
 
 retVal=$?
@@ -67,6 +91,16 @@ echo $TNAME Complete
 if [ $retVal -ne 0 ]; then
   echo "ERROR $TNAME returned $retVal"
   exit $retVal
+fi
+
+# spot checks
+# First argument is the number of expected checks
+${SPOTCHECKS} $NUMCHECKS $LOGFILE
+
+RC=$?
+if [ $RC -ne 0 ]; then
+  echo "ERROR: Test Failed with RC=$RC"
+  exit $RC
 fi
 
 #trace size > 50, printWatchpoint
