@@ -89,18 +89,16 @@ if [ "$SST_TEST_CORE" = true ]; then
 	sst-test-core || exit 41
 	#-- Special parallel debug testing
 	if [ "$PARALLEL_DEBUG" = true ]; then
-		sst-test-core -w "*DebugConsole" || exit 42
-		sst-test-core -t 4 -w "*DebugConsole" || exit 43
+		sst-test-core -t 4 -w "*DebugConsole" || exit 42
 		if [ $MPI_OK -eq 1 ]; then
-                        sst-test-core -r 2 -w "*DebugConsole" || exit 44
-			sst-test-core -r 4 -w "*DebugConsole" || exit 45
-			sst-test-core -r 2 -t 2 -w "*DebugConsole" || exit 46
+                        sst-test-core -r 2 -w "*DebugConsole" || exit 43
+			sst-test-core -r 4 -w "*DebugConsole" || exit 44
+			sst-test-core -r 2 -t 2 -w "*DebugConsole" || exit 45
 		fi
-                sst-test-core -w "*RealTime" || exit 47
-                sst-test-core -t 2 -w "*RealTime" || exit 48
+                sst-test-core -t 2 -w "*RealTime" || exit 46
                 if [ $MPI_OK -eq 1 ]; then
-                        sst-test-core -r 2 -w "*RealTime" || exit 49
-                        sst-test-core -r 2 -t 2 -w "*RealTime" || exit 49
+                        sst-test-core -r 2 -w "*RealTime" || exit 47
+                        sst-test-core -r 2 -t 2 -w "*RealTime" || exit 48
                 fi
 
 	fi
