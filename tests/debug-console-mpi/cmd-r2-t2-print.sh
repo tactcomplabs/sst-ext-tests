@@ -1,6 +1,6 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER 15.1
-#EXT_TEST TEST_FILE_DESC "Basic interactive command check: cd, ls, pwd, run, continue"
+#EXT_TEST TEST_FILE_MINVER NEW
+#EXT_TEST TEST_FILE_DESC "Verify print for rank parallel: 2 ranks, 2 threads/rank"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.

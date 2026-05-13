@@ -1,6 +1,6 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
-#EXT_TEST TEST_FILE_DESC "Verify rankserial user-defined commands"
+#EXT_TEST TEST_FILE_MINVER NEW
+#EXT_TEST TEST_FILE_DESC "Verify rankserial user-defined commands: 2 ranks, 1 thread/rank"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
