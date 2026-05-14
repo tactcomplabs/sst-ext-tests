@@ -11,7 +11,7 @@ set -uo pipefail
 SST_COMPONENT_BASE="${SST_COMPONENT_BASE:=.}"
 
 # Settings
-CLEANUP=0
+CLEANUP=1
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
