@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_MINVER 16.0
 #EXT_TEST TEST_FILE_DESC "Exercise arrays and tuples in 1 component with 2 slots"
 #EXT_TEST TIMEOUT 30
 

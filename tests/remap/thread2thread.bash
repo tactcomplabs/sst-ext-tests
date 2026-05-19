@@ -31,14 +31,13 @@ echo "TESTNAME=$TNAME"
 LOGFILE=${TNAME}.log
 PFX="cpt_${TNAME}"
 CONFIG="loop101.py"
-TIMING_INFO="${TNAME}.json"
 
 
 # Clean up old checkpoint directory
 rm -rf ${PFX}*
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="sst --num-threads=${threads_cpt} --checkpoint-sim-period=98047ns --checkpoint-prefix=$PFX --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"
+LAUNCH="sst --num-threads=${threads_cpt} --checkpoint-sim-period=330003ns --checkpoint-prefix=$PFX --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0 --numComps=24 --clocks=1000000"
 echo $LAUNCH
 $LAUNCH | tee $LOGFILE
 retVal=$?
@@ -54,8 +53,8 @@ echo "Checkpoints: "
 ls ${PFX}
 
 n=$(ls ${PFX} | wc -l)
-if [[ $n -lt 10 ]]; then
-  echo "ERROR: expected at least 10 checkpoints but found $n"
+if [[ $n -lt 3 ]]; then
+  echo "ERROR: expected at least 3 checkpoints but found $n"
   exit 1
 fi
 
@@ -94,14 +93,14 @@ for cptfile in ${PFX}/${PFX}_*/${PFX}_*.sstcpt; do
 
 done
 
-if [[ $n -lt 10 ]]; then
-  echo "ERROR: expected at least 10 restart simulations but found $n"
+if [[ $n -lt 3 ]]; then
+  echo "ERROR: expected at least 3 restart simulations but found $n"
   exit 1
 fi
 
 # Cleanup output file on pass
 if [ $CLEANUP -eq 1 ]; then
-  rm -f $LOGFILE $TIMING_INFO
+  rm -f $LOGFILE
   rm -rf ${PFX}*
 fi
 

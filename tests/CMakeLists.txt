@@ -58,10 +58,9 @@ endif()
 
 if (ENABLE_REMAP_TESTS)
   add_subdirectory(remap)
-  # TODO
-  # if(SST_MPI_OK)
-  #   add_subdirectory(remap-mpi)
-  # endif()
+  if(SST_MPI_OK)
+    add_subdirectory(remap-mpi)
+  endif()
 endif()
 
 # -- strictly optional tests
