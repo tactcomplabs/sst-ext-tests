@@ -1,0 +1,74 @@
+Test project /home/kgriesser/work/sst-ext-tests/build
+      Start  1: sst_base
+      Start  2: sstconfig_help
+      Start  3: sstconfig_list_CXXFLAGS
+      Start  4: sstconfig_list
+      Start  5: sst_heartbeat_0.1.30
+      Start  6: sst_help-14.0
+      Start  7: sst_help-MIN14.0
+      Start  8: sst_help
+      Start  9: sstinfo_help
+      Start 10: sstinfo_list_elem
+      Start 11: sstinfo_list_env
+      Start 12: sstinfo_list_nodisplay
+      Start 13: sstinfo_list_quiet
+      Start 14: sstinfo_list
+      Start 15: sstinfo_list_xml_file
+      Start 16: sstinfo_list_xml
+      Start 17: sstinfo_sst
+      Start 18: sst_numthreads
+      Start 19: sst_output_config
+      Start 20: sst_output_dot
+ 1/33 Test  #2: sstconfig_help ...................   Passed    0.26 sec
+      Start 21: sst_output_dot_verbosity
+ 2/33 Test  #3: sstconfig_list_CXXFLAGS ..........   Passed    0.27 sec
+      Start 22: sst_output_json
+ 3/33 Test  #4: sstconfig_list ...................   Passed    0.28 sec
+      Start 23: sst_output_prefix
+ 4/33 Test  #9: sstinfo_help .....................   Passed    0.37 sec
+      Start 24: sst_print_timing_info
+ 5/33 Test #17: sstinfo_sst ......................   Passed    0.37 sec
+      Start 25: sstregister_a
+ 6/33 Test #13: sstinfo_list_quiet ...............   Passed    0.64 sec
+      Start 26: sst_register_list
+ 7/33 Test #26: sst_register_list ................   Passed    0.17 sec
+      Start 27: sst_sdlfile
+ 8/33 Test #25: sstregister_a ....................   Passed    0.53 sec
+      Start 28: sst_version
+ 9/33 Test #11: sstinfo_list_env .................   Passed    0.98 sec
+      Start 29: testinfo
+10/33 Test #12: sstinfo_list_nodisplay ...........   Passed    1.08 sec
+      Start 30: testinfo
+11/33 Test #14: sstinfo_list .....................   Passed    1.09 sec
+      Start 31: testinfo
+12/33 Test #15: sstinfo_list_xml_file ............   Passed    1.11 sec
+      Start 32: testinfo
+13/33 Test #16: sstinfo_list_xml .................   Passed    1.15 sec
+      Start 33: testinfo
+14/33 Test #30: testinfo .........................   Passed    0.34 sec
+15/33 Test #31: testinfo .........................   Passed    0.32 sec
+16/33 Test #32: testinfo .........................   Passed    0.29 sec
+17/33 Test #29: testinfo .........................   Passed    0.39 sec
+18/33 Test #33: testinfo .........................   Passed    0.28 sec
+19/33 Test  #5: sst_heartbeat_0.1.30 .............   Passed    1.72 sec
+20/33 Test #28: sst_version ......................   Passed    1.25 sec
+21/33 Test  #8: sst_help .........................   Passed    2.57 sec
+22/33 Test  #6: sst_help-14.0 ....................   Passed    2.64 sec
+23/33 Test  #7: sst_help-MIN14.0 .................   Passed    2.66 sec
+24/33 Test #10: sstinfo_list_elem ................   Passed    4.57 sec
+25/33 Test  #1: sst_base .........................   Passed    5.94 sec
+26/33 Test #20: sst_output_dot ...................   Passed    5.93 sec
+27/33 Test #24: sst_print_timing_info ............   Passed    5.58 sec
+28/33 Test #19: sst_output_config ................   Passed    5.96 sec
+29/33 Test #22: sst_output_json ..................   Passed    5.70 sec
+30/33 Test #23: sst_output_prefix ................   Passed    5.70 sec
+31/33 Test #27: sst_sdlfile ......................   Passed    5.33 sec
+32/33 Test #18: sst_numthreads ...................   Passed    7.12 sec
+33/33 Test #21: sst_output_dot_verbosity .........   Passed   46.42 sec
+
+100% tests passed, 0 tests failed out of 33
+
+Label Time Summary:
+14.0    = 118.98 sec*proc (33 tests)
+
+Total Test time (real) =  46.72 sec
