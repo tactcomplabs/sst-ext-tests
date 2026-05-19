@@ -1,0 +1,220 @@
+Test project /home/kgriesser/work/sst-ext-tests/build
+        Start   1: sst_base
+        Start   2: sst_checkpoint_name_format
+        Start   3: sstconfig_help
+        Start   4: sstconfig_list_CXXFLAGS
+        Start   5: sstconfig_list
+        Start   6: sst_heartbeat_0.1.30
+        Start   7: sst_heartbeat_1s
+        Start   8: sst_heartbeat_90s
+        Start   9: sst-help-15.1
+        Start  10: sst_help-MIN14.0
+        Start  11: sst_help
+        Start  12: sstinfo_help
+        Start  13: sstinfo_list_elem
+        Start  14: sstinfo_list_env
+        Start  15: sstinfo_list_nodisplay
+        Start  16: sstinfo_list_quiet
+        Start  17: sstinfo_list
+        Start  18: sstinfo_list_xml_file
+        Start  19: sstinfo_list_xml
+        Start  20: sstinfo_sst
+  1/106 Test   #3: sstconfig_help ...................   Passed    0.26 sec
+        Start  21: sst_numthreads
+  2/106 Test   #5: sstconfig_list ...................   Passed    0.28 sec
+        Start  22: sst_output_config
+  3/106 Test   #4: sstconfig_list_CXXFLAGS ..........   Passed    0.29 sec
+        Start  23: sst_output_dir_config
+  4/106 Test  #12: sstinfo_help .....................   Passed    0.39 sec
+        Start  24: sst_output_dir_cpt
+  5/106 Test  #20: sstinfo_sst ......................   Passed    0.42 sec
+        Start  25: sst_output_dir_json
+  6/106 Test  #16: sstinfo_list_quiet ...............   Passed    1.21 sec
+        Start  26: sst_output_dir
+  7/106 Test  #15: sstinfo_list_nodisplay ...........   Passed    1.25 sec
+        Start  27: sst_output_dir_stats
+  8/106 Test  #17: sstinfo_list .....................   Passed    1.33 sec
+        Start  28: sst_output_dot
+  9/106 Test  #19: sstinfo_list_xml .................   Passed    1.34 sec
+        Start  29: sst_output_dot_verbosity
+ 10/106 Test  #14: sstinfo_list_env .................   Passed    1.38 sec
+        Start  30: sst_output_json
+ 11/106 Test  #18: sstinfo_list_xml_file ............   Passed    1.42 sec
+        Start  31: sst_output_prefix
+ 12/106 Test  #11: sst_help .........................   Passed    2.81 sec
+        Start  32: sst_print_timing_info
+ 13/106 Test   #9: sst-help-15.1 ....................   Passed    2.94 sec
+        Start  33: sstregister_a
+ 14/106 Test  #10: sst_help-MIN14.0 .................   Passed    3.01 sec
+        Start  34: sst_register_list
+ 15/106 Test  #34: sst_register_list ................   Passed    0.14 sec
+        Start  35: sst_sdlfile
+ 16/106 Test  #33: sstregister_a ....................   Passed    0.32 sec
+        Start  36: sst_version
+ 17/106 Test  #36: sst_version ......................   Passed    1.14 sec
+        Start  37: testinfo
+ 18/106 Test  #37: testinfo .........................   Passed    0.26 sec
+        Start  38: links
+ 19/106 Test  #13: sstinfo_list_elem ................   Passed    5.11 sec
+        Start  39: localstats
+ 20/106 Test  #38: links ............................   Passed    1.22 sec
+        Start  40: prog_opt1
+ 21/106 Test   #6: sst_heartbeat_0.1.30 .............   Passed    6.15 sec
+        Start  41: prog_opt2
+ 22/106 Test   #1: sst_base .........................   Passed    6.41 sec
+        Start  42: simple
+ 23/106 Test   #8: sst_heartbeat_90s ................   Passed    6.48 sec
+        Start  43: statgroups
+ 24/106 Test  #22: sst_output_config ................   Passed    6.29 sec
+        Start  44: subcomp
+ 25/106 Test  #39: localstats .......................   Passed    1.46 sec
+        Start  45: subsubcomp
+ 26/106 Test  #31: sst_output_prefix ................   Passed    5.81 sec
+        Start  46: test1
+ 27/106 Test  #30: sst_output_json ..................   Passed    5.90 sec
+        Start  47: test2
+ 28/106 Test  #28: sst_output_dot ...................   Passed    5.97 sec
+        Start  48: testinfo
+ 29/106 Test  #40: prog_opt1 ........................   Passed    1.38 sec
+        Start  49: restart-ckpt-with-heartbeat
+ 30/106 Test  #48: testinfo .........................   Passed    0.25 sec
+        Start  50: restart-ckpt-with-interactive
+ 31/106 Test  #21: sst_numthreads ...................   Passed    7.57 sec
+        Start  51: restart-heartbeat
+ 32/106 Test  #41: prog_opt2 ........................   Passed    1.78 sec
+        Start  52: restart-interactive
+ 33/106 Test  #45: subsubcomp .......................   Passed    1.43 sec
+        Start  53: sigalrm_combined
+ 34/106 Test  #42: simple ...........................   Passed    1.57 sec
+        Start  54: sigusr-interactive2
+ 35/106 Test  #43: statgroups .......................   Passed    1.52 sec
+        Start  55: sigusr-interactive-ckpt
+ 36/106 Test  #44: subcomp ..........................   Passed    1.48 sec
+        Start  56: sigusr-interactive
+ 37/106 Test  #32: sst_print_timing_info ............   Passed    5.77 sec
+        Start  57: testinfo
+ 38/106 Test  #46: test1 ............................   Passed    1.35 sec
+        Start  58: CaptCrunch_Interactive
+ 39/106 Test  #47: test2 ............................   Passed    1.33 sec
+        Start  59: CaptCrunch_Simple1
+ 40/106 Test  #57: testinfo .........................   Passed    0.27 sec
+        Start  60: testinfo
+ 41/106 Test  #35: sst_sdlfile ......................   Passed    5.77 sec
+        Start  61: cmd-basic
+ 42/106 Test  #60: testinfo .........................   Passed    0.27 sec
+        Start  62: cmd-ckptaction-err
+ 43/106 Test  #58: CaptCrunch_Interactive ...........   Passed    1.34 sec
+        Start  63: cmd-cmp-types-false
+ 44/106 Test  #61: cmd-basic ........................   Passed    1.56 sec
+        Start  64: cmd-comments-short
+ 45/106 Test  #62: cmd-ckptaction-err ...............   Passed    1.42 sec
+        Start  65: cmd-comments-ws
+ 46/106 Test  #64: cmd-comments-short ...............   Passed    1.38 sec
+        Start  66: cmd-cond
+ 47/106 Test  #65: cmd-comments-ws ..................   Passed    1.35 sec
+        Start  67: cmd-default-ic
+ 48/106 Test   #2: sst_checkpoint_name_format .......   Passed   12.74 sec
+        Start  68: cmd-history
+ 49/106 Test  #63: cmd-cmp-types-false ..............   Passed    3.02 sec
+        Start  69: cmd-logging
+ 50/106 Test  #66: cmd-cond .........................   Passed    1.47 sec
+        Start  70: cmd-replay2
+ 51/106 Test  #67: cmd-default-ic ...................   Passed    1.43 sec
+        Start  71: cmd-replay3
+ 52/106 Test  #68: cmd-history ......................   Passed    1.60 sec
+        Start  72: cmd-replay
+ 53/106 Test  #69: cmd-logging ......................   Passed    1.73 sec
+        Start  73: cmd-replay-sync
+ 54/106 Test   #7: sst_heartbeat_1s .................   Passed   15.03 sec
+        Start  74: cmd-sanity
+ 55/106 Test  #73: cmd-replay-sync ..................   Passed    1.49 sec
+        Start  75: cmd-set
+ 56/106 Test  #74: cmd-sanity .......................   Passed    1.64 sec
+        Start  76: cmd-setstr
+ 57/106 Test  #56: sigusr-interactive ...............   Passed    9.25 sec
+        Start  77: testinfo
+ 58/106 Test  #54: sigusr-interactive2 ..............   Passed    9.34 sec
+ 59/106 Test  #77: testinfo .........................   Passed    0.28 sec
+ 60/106 Test  #71: cmd-replay3 ......................   Passed    4.29 sec
+ 61/106 Test  #70: cmd-replay2 ......................   Passed    4.36 sec
+ 62/106 Test  #76: cmd-setstr .......................   Passed    1.38 sec
+ 63/106 Test  #75: cmd-set ..........................   Passed    1.91 sec
+ 64/106 Test  #72: cmd-replay .......................   Passed    4.46 sec
+ 65/106 Test  #55: sigusr-interactive-ckpt ..........   Passed   11.10 sec
+ 66/106 Test  #49: restart-ckpt-with-heartbeat ......   Passed   13.10 sec
+ 67/106 Test  #51: restart-heartbeat ................   Passed   13.40 sec
+ 68/106 Test  #50: restart-ckpt-with-interactive ....   Passed   14.07 sec
+ 69/106 Test  #52: restart-interactive ..............   Passed   13.79 sec
+ 70/106 Test  #23: sst_output_dir_config ............   Passed   23.23 sec
+ 71/106 Test  #25: sst_output_dir_json ..............   Passed   23.13 sec
+ 72/106 Test  #26: sst_output_dir ...................   Passed   22.49 sec
+ 73/106 Test  #27: sst_output_dir_stats .............   Passed   22.73 sec
+ 74/106 Test  #24: sst_output_dir_cpt ...............   Passed   24.15 sec
+ 75/106 Test  #29: sst_output_dot_verbosity .........   Passed   49.68 sec
+ 76/106 Test  #53: sigalrm_combined .................   Passed   54.57 sec
+ 77/106 Test  #59: CaptCrunch_Simple1 ...............   Passed  143.02 sec
+        Start  78: remap-threads-1to1
+ 78/106 Test  #78: remap-threads-1to1 ...............   Passed    9.98 sec
+        Start  79: remap-threads-2to1
+ 79/106 Test  #79: remap-threads-2to1 ...............   Passed    8.72 sec
+        Start  80: remap-threads-2to2
+ 80/106 Test  #80: remap-threads-2to2 ...............   Passed    9.23 sec
+        Start  81: remap-threads-3to1
+ 81/106 Test  #81: remap-threads-3to1 ...............   Passed    8.57 sec
+        Start  82: remap-threads-3to3
+ 82/106 Test  #82: remap-threads-3to3 ...............   Passed    7.94 sec
+        Start  83: remap-threads-4to1
+ 83/106 Test  #83: remap-threads-4to1 ...............   Passed    9.29 sec
+        Start  84: remap-threads-4to4
+ 84/106 Test  #84: remap-threads-4to4 ...............   Passed    9.05 sec
+        Start  85: remap-threads-5to1
+ 85/106 Test  #85: remap-threads-5to1 ...............   Passed    9.36 sec
+        Start  86: remap-threads-5to5
+ 86/106 Test  #86: remap-threads-5to5 ...............   Passed    8.82 sec
+        Start  87: remap-threads-6to1
+ 87/106 Test  #87: remap-threads-6to1 ...............   Passed    9.17 sec
+        Start  88: remap-threads-6to6
+ 88/106 Test  #88: remap-threads-6to6 ...............   Passed    8.73 sec
+        Start  89: remap-threads-7to1
+ 89/106 Test  #89: remap-threads-7to1 ...............   Passed    8.60 sec
+        Start  90: remap-threads-7to7
+ 90/106 Test  #90: remap-threads-7to7 ...............   Passed    8.10 sec
+        Start  91: remap-threads-8to1
+ 91/106 Test  #91: remap-threads-8to1 ...............   Passed    8.93 sec
+        Start  92: remap-threads-8to8
+ 92/106 Test  #92: remap-threads-8to8 ...............   Passed    8.72 sec
+        Start  93: remap-ranks-2to1
+ 93/106 Test  #93: remap-ranks-2to1 .................   Passed    9.75 sec
+        Start  94: remap-ranks-2to2
+ 94/106 Test  #94: remap-ranks-2to2 .................   Passed    9.16 sec
+        Start  95: remap-ranks-3to1
+ 95/106 Test  #95: remap-ranks-3to1 .................   Passed    9.06 sec
+        Start  96: remap-ranks-3to3
+ 96/106 Test  #96: remap-ranks-3to3 .................   Passed    8.65 sec
+        Start  97: remap-ranks-4to1
+ 97/106 Test  #97: remap-ranks-4to1 .................   Passed    9.03 sec
+        Start  98: remap-ranks-4to4
+ 98/106 Test  #98: remap-ranks-4to4 .................   Passed    8.77 sec
+        Start  99: remap-ranks-5to1
+ 99/106 Test  #99: remap-ranks-5to1 .................   Passed    8.86 sec
+        Start 100: remap-ranks-5to5
+100/106 Test #100: remap-ranks-5to5 .................   Passed    9.06 sec
+        Start 101: remap-ranks-6to1
+101/106 Test #101: remap-ranks-6to1 .................   Passed    9.13 sec
+        Start 102: remap-ranks-6to6
+102/106 Test #102: remap-ranks-6to6 .................   Passed    9.01 sec
+        Start 103: remap-ranks-7to1
+103/106 Test #103: remap-ranks-7to1 .................   Passed    8.80 sec
+        Start 104: remap-ranks-7to7
+104/106 Test #104: remap-ranks-7to7 .................   Passed    8.70 sec
+        Start 105: remap-ranks-8to1
+105/106 Test #105: remap-ranks-8to1 .................   Passed    9.10 sec
+        Start 106: remap-ranks-8to8
+106/106 Test #106: remap-ranks-8to8 .................   Passed    8.93 sec
+
+100% tests passed, 0 tests failed out of 106
+
+Label Time Summary:
+15.1    = 872.89 sec*proc (106 tests)
+
+Total Test time (real) = 411.28 sec
