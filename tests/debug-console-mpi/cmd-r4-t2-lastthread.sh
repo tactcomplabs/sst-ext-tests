@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_MINVER 16.0
 #EXT_TEST TEST_FILE_DESC "Test enter console in last thread for RankParallel: 4 ranks, 2 threads/rank"
 #EXT_TEST TIMEOUT 30
 #
