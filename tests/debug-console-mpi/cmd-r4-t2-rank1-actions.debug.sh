@@ -75,10 +75,11 @@ rank 1
 printTrace 1
 unwatch 1
 #printStatus action
+# CHECK 3 ls -l\nw = 24684 \(.+\nx = 50 \(.+\ny = 24588 \(.+\nz = 50357088
 ls -l
 trace w changed : 32 0 : w x y z : printStatus
 setHandler 2 ac ae
-# CHECK 3 printWatchpoint 2\nWP2: TriggerCount 0 : AC AE : /c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 0 : w x y z  : printStatus
+# CHECK 4 printWatchpoint 2\nWP2: TriggerCount 0 : AC AE : /c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 0 : w x y z  : printStatus
 printWatchpoint 2
 run 40us
 rank 1
@@ -88,7 +89,7 @@ unwatch 2
 ls -l
 trace w changed : 32 4 : w x y z : interactive
 setHandler 3 ac ae
-# CHECK 4 printWatchpoint 3\nWP3: TriggerCount 0 : AC AE : /c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : w x y z  : interactive
+# CHECK 5 printWatchpoint 3\nWP3: TriggerCount 0 : AC AE : /c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : w x y z  : interactive
 printWatchpoint 3
 run 40us
 rank 1
@@ -103,7 +104,7 @@ EOF
 # CHECK 2 shutdown.+\nSimulation is complete, simulated time: 0 s
 
 # Update this whenever adding checks in the command comments above
-NUMCHECKS=5
+NUMCHECKS=6
 
 # Launch the program to start interactive mode at time 0
 LAUNCH="mpirun ${MPIOPTS} --np $RANKS sst --verbose=$VERBOSE -n $THREADS --interactive-start=0s $CONFIG"
@@ -137,8 +138,7 @@ fi
 
 # ---- rank 1 thread 0 c2
 # printTrace action
-PSTR="LastTriggerRecord:@cycle10000000: SamplesLost=0: c2/xorshift/w=24684 c2/xorshift/x=0 c2/xorshift/y=0 c2/xorshift/z=
-0"
+PSTR="LastTriggerRecord:@cycle10000000: SamplesLost=0: w = 24684 x = 0 y = 0 z = 0"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -146,6 +146,35 @@ if [ $retVal -ne 0 ]; then
     exit $retVal
     fi
     echo "Found pass string \"$PSTR\""
+
+PSTR="buf\[0\] AE @2000000 (-) w = 0 x = 12 y = 0 z = 0"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+    exit $retVal
+    fi
+    echo "Found pass string \"$PSTR\""
+
+PSTR="buf\[5\] AE @26000000 (+) w = 24684 x = 0 y = 0 z = 24684"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+    exit $retVal
+    fi
+    echo "Found pass string \"$PSTR\""
+
+
+PSTR="buf\[2\] AC @40000000 (-) w = 24684 x = 0 y = 24684 z = 24684"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+    exit $retVal
+    fi
+    echo "Found pass string \"$PSTR\""
+
 
 # set action
 PSTR="set c2/xorshift/z 50"
@@ -156,6 +185,26 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 echo "Found pass string \"$PSTR\""
+
+PSTR="buf\[0\] AC @70000000 (!) w = 50357088 x = 24684 y = 50 z = 24588"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+    exit $retVal
+    fi
+    echo "Found pass string \"$PSTR\""
+
+PSTR="buf\[2\] AC @80000000 (+) w = 50357088 x = 24684 y = 50 z = 24588"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+    exit $retVal
+    fi
+    echo "Found pass string \"$PSTR\""
+
+
 
 # printStatus
 PSTR="CurrentSimCycle:  9000000"
