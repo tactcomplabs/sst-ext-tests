@@ -1,5 +1,6 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_MINVER 15.1
+#EXT_TEST TEST_FILE_MAXVER 16.0
 #EXT_TEST TEST_FILE_DESC "Basic interactive command check: cd, ls, pwd, run, continue"
 #EXT_TEST TIMEOUT 30
 
@@ -31,7 +32,7 @@ pwd
 ls
 cd cp0
 chdir my_info_
-list -l
+list
 run 1us
 time
 r 1us
@@ -53,7 +54,7 @@ if [ $retVal -ne 0 ]; then
 fi
 
 # pwd
-PSTR="/"
+PSTR="()"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -73,7 +74,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # cd cp0, chdir my_info_, list
-PSTR="defaultTimeBase (ro) = 1 ns"
+PSTR="defaultTimeBase = 1 ns"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then

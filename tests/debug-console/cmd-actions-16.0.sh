@@ -1,6 +1,7 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
-#EXT_TEST TEST_FILE_DESC "Basic interactive command check: cd, ls, pwd, run, continue"
+#EXT_TEST TEST_FILE_MINVER 16.0
+#EXT_TEST TEST_FILE_MAXVER 16.0
+#EXT_TEST TEST_FILE_DESC "Check for interactive, printTrace, printStatus, and set actions"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -16,7 +17,7 @@ SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
 CONFIG="dbgsst15.py"
-PSTR="^Entering interactive mode at time 140000000"
+PSTR=""
 
 LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
@@ -26,20 +27,26 @@ CHKFILE=$TNAME.chk
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
-$LAUNCH << EOF  | tee $LOGFILE
-pwd
-ls
+$LAUNCH 2>&1 << EOF | tee $LOGFILE
 cd cp0
-chdir my_info_
-list -l
+ls
+trace maxData > 10 : 8 0 : maxData : interactive
+run
+printTrace 0
+unwatch 0
+trace maxData > 11 : 8 0 : maxData : printTrace
 run 1us
-time
-r 1us
-continue 1us
-tm
-c 4us
-confirm false
-shutd
+unwatch 1
+trace maxData > 12 : 8 0 : maxData : printStatus
+run 1us
+unwatch 2
+ls
+trace maxData > 13 : 8 0 : minData : set minData 10
+run 1us
+print minData
+trace maxData > 14 : 8 0 : maxData : shutdown
+run
+# previous trace will trigger shutdown
 EOF
 
 retVal=$?
@@ -52,8 +59,18 @@ if [ $retVal -ne 0 ]; then
   exit $retVal
 fi
 
-# pwd
-PSTR="/"
+# Avoid diff due to differences btwn mac and linux
+#diff $LOGFILE $CHKFILE > /dev/null
+#retVal=$?
+#if [ $retVal -ne 0 ]; then
+#  echo "ERROR in diff $LOGFILE $CHKFILE"
+#  exit $retVal
+#fi
+#echo "Log file matches check file"
+
+# Need one for each action
+# Interactive
+PSTR="Entering interactive mode at time 1000"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -62,8 +79,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# ls
-PSTR="cp0/"
+PSTR="LastTriggerRecord:@cycle1000: SamplesLost=0: cp0/maxData=100"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -72,8 +88,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# cd cp0, chdir my_info_, list
-PSTR="defaultTimeBase (ro) = 1 ns"
+# printTrace
+PSTR="LastTriggerRecord:@cycle68000: SamplesLost=0: cp0/maxData=100"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -82,8 +98,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# run 1us
-PSTR="Entering interactive mode at time 1000000"
+# printStatus
+PSTR="to be delivered at time: 1100000"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -92,8 +108,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# time
-PSTR="current time = 1000000"
+#set
+PSTR="> minData = 10"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -102,38 +118,8 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-# r 1us
-PSTR="Entering interactive mode at time 2000000"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-# continue 1us
-PSTR="Entering interactive mode at time 3000000"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-# tm
-PSTR="> current time = 3000000"
-grep "$PSTR" $LOGFILE > /dev/null
-retVal=$?
-if [ $retVal -ne 0 ]; then
-  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
-  exit $retVal
-fi
-echo "Found pass string \"$PSTR\""
-
-# c 1us
-PSTR="Entering interactive mode at time 7000000"
+# shutdown
+PSTR="Trigger action shutting down simulation"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -143,7 +129,7 @@ fi
 echo "Found pass string \"$PSTR\""
 
 # Simulation Complete
-PSTR="Simulation is complete"
+PSTR="Simulation is complete, simulated time: 0 s"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
