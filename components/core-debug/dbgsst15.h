@@ -312,7 +312,7 @@ private:
     unsigned           selfCheck; ///< 0-disabled, 1-enabled
     unsigned           cliType;   ///< 0-serializer-entry, 1-initiateInteractive
     int64_t            rCheck;    /// < skk used for watchpoint trigger of msg size
-    size_t             size;      ///< skk used for watchpoint trigger of msg size > 100
+    size_t             size=90;   ///< skk used for watchpoint trigger of msg size > 100
     // -- testing interactive console
     bool               v_bool    = true;
     char               v_char    = 1;
