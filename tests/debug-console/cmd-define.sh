@@ -66,13 +66,9 @@ doc ls
 # CHECK 7 doc nothing\n"nothing" must be defined before documenting
 doc nothing
 
-# empty commands should do nothing
+# CHECK 8 define empty\n.+\n> end\nIgnore empty user-defined command
 define empty
 end
-
-# CHECK 8 empty\n.+ #nada
-empty
-#nada
 
 # define a more useful command using built-in commands only
 define tuple_0
