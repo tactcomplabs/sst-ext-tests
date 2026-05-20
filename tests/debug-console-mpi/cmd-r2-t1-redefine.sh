@@ -16,7 +16,7 @@ SCRIPT_PATH="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 SCRIPT_NAME=$(basename "$0")
 TNAME="${SCRIPT_NAME%.*}"
 echo "TESTNAME=$TNAME"
-CONFIG=$(realpath dbgsst15.py)
+CONFIG=$(realpath ../debug-console/dbgsst15.py)
 RANKS=2
 THREADS=1
 
