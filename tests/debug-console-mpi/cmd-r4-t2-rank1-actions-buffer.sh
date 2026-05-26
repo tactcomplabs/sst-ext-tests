@@ -1,6 +1,6 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER NEW
-#EXT_TEST TEST_FILE_DESC "Check set action trigger and trace buffer: 4 ranks each w/2 threads"
+#EXT_TEST TEST_FILE_DESC "Check action triggers and buffersor RankParallel: 4 ranks, 2 threads/rank for rank1, thread0"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -49,6 +49,8 @@ fi
 
 # Console commands
 cat << EOF > $CMDFILE
+# rank 1 thread 0 c2
+# CHECK 0 rank 1\n---- Rank1:Thread0: Entering interactive mode at time 1000000
 rank 1
 cd c2
 cd xorshift
@@ -56,42 +58,56 @@ cd xorshift
 ls -l
 trace w changed : 32 4 : w x y z : printTrace
 setHandler 0 ac ae
-# CHECK 0 printWatchpoint 0\nWP0: TriggerCount 0 : AC AE : /c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : w x y z  : printTrace
+# CHECK 1 printWatchpoint 0\nWP0: TriggerCount 0 : AC AE : /c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : w x y z  : printTrace
 printWatchpoint 0
 run 40us
-ls -l
+rank 1
 printTrace 0
 unwatch 0
 #set action
 ls -l
-trace w == 50357088 : 32 4 : w x y z : set w 50
-ls -l
-# CHECK 1 printWatchpoint 1\nWP1: TriggerCount 0 : ALL : /c2/xorshift/w == 50357088  : bufsize = 32 postDelay = 4 : w x y z  : set c2/xorshift/w 50
+trace w changed : 32 4 : w x y z : set z 50
+setHandler 1 ac ae
+# CHECK 2 printWatchpoint 1\nWP1: TriggerCount 0 : AC AE : /c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : w x y z  : set c2/xorshift/z 50
 printWatchpoint 1
-run 80us
+run 40us
+rank 1
 printTrace 1
 unwatch 1
-#interactive action
+#printStatus action
+# CHECK 3 ls -l\nw = 24684 \(.+\nx = 50 \(.+\ny = 24588 \(.+\nz = 50357088
 ls -l
-trace w changed : 32 8 : w x y z : interactive
+trace w changed : 32 0 : w x y z : printStatus
 setHandler 2 ac ae
-# CHECK 2 printWatchpoint 2\nWP2: TriggerCount 0 : AC AE : /c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 8 : w x y z  : interactive
+# CHECK 4 printWatchpoint 2\nWP2: TriggerCount 0 : AC AE : /c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 0 : w x y z  : printStatus
 printWatchpoint 2
 run 40us
-watchlist
+rank 1
 printTrace 2
 unwatch 2
-
-shutd
+#interactive action
+ls -l
+trace w changed : 32 4 : w x y z : interactive
+setHandler 3 ac ae
+# CHECK 5 printWatchpoint 3\nWP3: TriggerCount 0 : AC AE : /c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : w x y z  : interactive
+printWatchpoint 3
+run 40us
+rank 1
+watchlist
+printTrace 3
+unwatch 3
+run
 EOF
 
+# for later
+# CHECK 1 run100us.+\n# Simulation Checkpoint: Simulated Time 96 us
+# CHECK 2 shutdown.+\nSimulation is complete, simulated time: 0 s
+
 # Update this whenever adding checks in the command comments above
-NUMCHECKS=3
+NUMCHECKS=6
 
 # Launch the program to start interactive mode at time 0
-#LAUNCH="mpirun ${MPIOPTS} --np $RANKS sst --verbose=$VERBOSE -n $THREADS --interactive-start=0s $CONFIG"
-LAUNCH="sst --verbose=$VERBOSE -n $THREADS --interactive-start=0s $CONFIG"
-
+LAUNCH="mpirun ${MPIOPTS} --np $RANKS sst --verbose=$VERBOSE -n $THREADS --interactive-start=0s $CONFIG"
 echo $LAUNCH
 #( $LAUNCH << EOF || exit 11 ) | tee $LOGFILE
 ( $LAUNCH 2>&1 << EOF || exit 11 ) | tee  $LOGFILE
@@ -150,8 +166,18 @@ if [ $retVal -ne 0 ]; then
     echo "Found pass string \"$PSTR\""
 
 
+PSTR="buf\[2\] AC @40000000 (-) w = 24684 x = 24684 y = 24684 z = 24684"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+    exit $retVal
+    fi
+    echo "Found pass string \"$PSTR\""
+
+
 # set action
-PSTR="LastTriggerRecord:@cycle80000000: SamplesLost=0: w = 50357088 x = 24684 y = 50356992 z = 24588"
+PSTR="LastTriggerRecord:@cycle60000000: SamplesLost=0: w = 24588 x = 24684 y = 24684 z = 50356992"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -160,7 +186,7 @@ if [ $retVal -ne 0 ]; then
 fi
 echo "Found pass string \"$PSTR\""
 
-PSTR="buf\[0\] BE @82000000 (-) w = 50 x = 50356992 y = 24588 z = 50357088"
+PSTR="buf\[0\] AC @70000000 (!) w = 50357088 x = 24684 y = 50 z = 24588"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -169,7 +195,7 @@ if [ $retVal -ne 0 ]; then
     fi
     echo "Found pass string \"$PSTR\""
 
-PSTR="buf\[15\] AE @114000000 (-) w = 50332478 x = 50 y = 1604433 z = 52132702"
+PSTR="buf\[2\] AC @80000000 (+) w = 24684 x = 50 y = 24588 z = 50357088"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -178,8 +204,40 @@ if [ $retVal -ne 0 ]; then
     fi
     echo "Found pass string \"$PSTR\""
 
-# Simulation end (shutdown)
-PSTR="Simulation is complete, simulated time: 0 s"
+
+
+# printStatus
+PSTR="CurrentSimCycle:  9000000"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# interactive
+PSTR="Rank:1/4 Thread:0/2 (Triggered)"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+#PSTR=" Last Trigger: WP3: AE : c2/xorshift/w ..."
+PSTR="3: TriggerCount 2 : AC AE : /c2/xorshift/w CHANGED  : bufsize = 32 postDelay = 4 : w x y z  : interactive"
+grep "$PSTR" $LOGFILE > /dev/null
+retVal=$?
+if [ $retVal -ne 0 ]; then
+  echo "ERROR could not find pass string in $LOGFILE \"$PSTR\""
+  exit $retVal
+fi
+echo "Found pass string \"$PSTR\""
+
+# Simulation Complete
+PSTR="Simulation is complete, simulated time: 4.007 ms"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
