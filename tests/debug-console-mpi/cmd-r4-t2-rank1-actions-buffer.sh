@@ -1,6 +1,6 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
-#EXT_TEST TEST_FILE_DESC "Check action triggers for RankParallel: 4 ranks, 2 threads/rank for rank1, thread0"
+#EXT_TEST TEST_FILE_MINVER NEW
+#EXT_TEST TEST_FILE_DESC "Check action triggers and buffersor RankParallel: 4 ranks, 2 threads/rank for rank1, thread0"
 #EXT_TEST TIMEOUT 30
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
@@ -166,7 +166,7 @@ if [ $retVal -ne 0 ]; then
     echo "Found pass string \"$PSTR\""
 
 
-PSTR="buf\[2\] AC @40000000 (-) w = 24684 x = 0 y = 24684 z = 24684"
+PSTR="buf\[2\] AC @40000000 (-) w = 24684 x = 24684 y = 24684 z = 24684"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -177,7 +177,7 @@ if [ $retVal -ne 0 ]; then
 
 
 # set action
-PSTR="set c2/xorshift/z 50"
+PSTR="LastTriggerRecord:@cycle60000000: SamplesLost=0: w = 24588 x = 24684 y = 24684 z = 50356992"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
@@ -195,7 +195,7 @@ if [ $retVal -ne 0 ]; then
     fi
     echo "Found pass string \"$PSTR\""
 
-PSTR="buf\[2\] AC @80000000 (+) w = 50357088 x = 24684 y = 50 z = 24588"
+PSTR="buf\[2\] AC @80000000 (+) w = 24684 x = 50 y = 24588 z = 50357088"
 grep "$PSTR" $LOGFILE > /dev/null
 retVal=$?
 if [ $retVal -ne 0 ]; then
