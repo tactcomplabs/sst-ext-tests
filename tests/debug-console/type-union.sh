@@ -68,7 +68,7 @@ ls -l
 cd ..
 cd v_union_struct_method_1/ 
 
-#TODO Values are different between Mac and Ubuntu. Don't check values for now.
+# Beware: values differ by platform
 # CHECK 4 ls -ll\nv = 3621246928 \(
 ls -ll
 

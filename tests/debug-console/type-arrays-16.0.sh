@@ -89,7 +89,7 @@ pwd
 # CHECK 9 p 42\n42 = 54 \(
 p 42
 
-# TODO operator== not working for integers (overloaded with indices)
+# This behavior is ambigous. See
 # https://github.com/tactcomplabs/sst-core/issues/38
 # unwatch
 # watch 42 == 60
@@ -112,12 +112,13 @@ run 20ns
 # CHECK 11 p 6\n6 = 121.000.+ \(
 p 6
 
-# TODO Post BUG: this is not less than 122.0
+# This is not less than 122.0. See
+# https://github.com/tactcomplabs/sst-core/issues/81
 run 20ns
 # CHECK 12 p 6\n6 = 122.000.+ \(
 p 6
 
-# TODO see above. Why breaking here?
+# See bug reference above
 run 20ns
 # CHECK 13 p 6\n6 = 122.000.+ \(
 p 6

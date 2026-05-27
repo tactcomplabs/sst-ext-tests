@@ -112,7 +112,7 @@ trace 2 changed  : 4 2 : 0 1 2 : interactive
 sethandler 0 ac
 run
 
-# TODO add this check when iconsole is merged. The current checker can't handle optional lines.
+# The current checker can't handle optional lines.
 # --check-- 17 printTrace 0\nTriggerRecord:@cycle7700000: samples lost = 0:.+\nbuf\[2] AC .+ \(-) cp0.+/2=202[ ]*\nbuf\[3] AC .+ \(\!) cp0.+/2=203[ ]*\nbuf\[0] AC .+ \(\+) cp0.+/2=203[ ]*\nbuf\[1] AC .+ \(\+) cp0.+/2=203
 printTrace 0
 

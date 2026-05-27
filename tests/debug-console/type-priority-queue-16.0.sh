@@ -100,7 +100,7 @@ ls
 # 1 = 1100 (unsigned int)
 # 2 = 1200 (unsigned int)
 
-#TODO Depending on how we handle the above add trace testing.
+#Tracing is not supported for these kinds of containers
 
 shutdown
 

@@ -111,25 +111,15 @@ trace 2 changed  : 4 2 : 0 1 2 : interactive
 sethandler 0 ac
 run
 
-# TODO add this check when iconsole is merged. The current checker can't handle optional lines.
-# --check-- 17 printTrace 0\nTriggerRecord:@cycle7700000: samples lost = 0:.+\nbuf\[2] AC .+ \(-) cp0.+/2=202[ ]*\nbuf\[3] AC .+ \(\!) cp0.+/2=203[ ]*\nbuf\[0] AC .+ \(\+) cp0.+/2=203[ ]*\nbuf\[1] AC .+ \(\+) cp0.+/2=203
+# CHECK 17 printTrace 0\nTriggerCount=1\nLastTriggerRecord:@cycle7700000: SamplesLost=0: 0 = 100 1 = 150 2 = 203.*\nbuf\[2] AC @7699000 \(-) 0 = 100 1 = 150 2 = 202
 printTrace 0
-
-# Expected when iconsole branch merged
-# TriggerCount=1 <-- HERE this is being added
-# TriggerRecord:@cycle7700000: samples lost = 0: cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 
-# buf[2] AC @7699000 (-) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=202 
-# buf[3] AC @7700000 (!) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 
-# buf[0] AC @7701000 (+) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 
-# buf[1] AC @7702000 (+) cp0/v_stack_unsigned/container/0=100 cp0/v_stack_unsigned/container/1=150 cp0/v_stack_unsigned/container/2=203 
-
 
 shutdown
 
 EOF
 
 # Update this whenever adding checks in the command comments above
-NUMCHECKS=17
+NUMCHECKS=18
 
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG -- --verbose=0"

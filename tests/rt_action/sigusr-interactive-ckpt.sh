@@ -27,7 +27,7 @@ LOGFILE=$TNAME.log
 OUTFILE=$TNAME.console.out
 CMDFILE=$TNAME.cmd
 CHKFILE=$TNAME.chk
-# TODO if this is an absolute path the checkpoint directory is incorrect.
+
 CKPTPREFIX="ckpt_${TNAME}"
 PIPE="/tmp/${TNAME}-${PPID}.pipe"
 

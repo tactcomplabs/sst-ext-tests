@@ -47,7 +47,7 @@ confirm false
 cd cp0
 ls
 
-#-- Print intial values
+#-- Print initial values
 
 # CHECK 0 p v_ag_class\nv_ag_class \(SSTDEBUG::DbgSST15::ag_class_t\)\n 0 = 42 \(.+\n 1 = ag_class_t \(
 p v_ag_class
@@ -115,10 +115,6 @@ run
 # CHECK 15 ls\n0 = 205 \(.+\n1 = 115 \(
 ls
 unwatch
-
-cd ..
-
-#TODO Traces
 
 shutdown
 

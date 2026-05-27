@@ -88,7 +88,8 @@ pwd
 # CHECK 9 p -v 1 42\n42 = 54 \(
 p -v 1 42
 
-# TODO operator== appears to not be working. ( test all of them )
+# This behavior is ambigous. See
+# https://github.com/tactcomplabs/sst-core/issues/38
 # unwatch
 # watch 42 == 60
 # run 20ns
