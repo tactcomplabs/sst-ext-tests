@@ -61,7 +61,6 @@ fi
 #-- SST
 rm -Rf $SST_INSTALL/*
 if [ "$CLANGFORMAT" = true ]; then
-	# TODO since sst-ext-bench is in this directory it needs to be clang format clean or ignored.
 	./scripts/clang-format-test.sh --format-exe "${CLANG_FORMAT_EXE}" || exit 10
 fi
 ./autogen.sh || exit 3

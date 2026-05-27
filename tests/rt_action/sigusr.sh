@@ -66,7 +66,6 @@ if [[ -f $OUTFILE ]]; then
   rm $OUTFILE
 fi
 
-# TODO directory creation fails when using a relative path
 PREFIX="ckpt_${TNAME}_${sig}_$action"
 # Remove stale checkpoint dir if needed
 if [[ -d $PREFIX ]]; then

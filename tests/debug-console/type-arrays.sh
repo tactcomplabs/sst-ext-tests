@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_MINVER NEW
 #EXT_TEST TEST_FILE_DESC "Exercise arrays with one component"
 #EXT_TEST TIMEOUT 30
 
@@ -88,11 +88,13 @@ pwd
 # CHECK 9 p -v 1 42\n42 = 54 \(
 p -v 1 42
 
-# TODO operator== not working for integers (overloaded with indices)
+# This behavior is ambigous. See
 # https://github.com/tactcomplabs/sst-core/issues/38
-# unwatch
-# watch 42 == 60
-# run 20ns
+unwatch
+watch 42 < 60
+# CHECK 91 watchlist\nR0,T0: Current watch points:\n0: TriggerCount 0 : ALL : \/c0\/c0:function0\/v_pong_t\/42 < \/c0\/c0:function0\/v_pong_t\/60
+watchlist
+unwatch
 
 # But we can use array of floats
 cd ..
@@ -111,12 +113,13 @@ run 20ns
 # CHECK 11 p -v 1 6\n6 = 121.000.+ \(
 p -v 1 6
 
-# TODO Post BUG: this is not less than 122.0
+# This is not less than 122.0. See
+# https://github.com/tactcomplabs/sst-core/issues/81
 run 20ns
 # CHECK 12 p -v 1 6\n6 = 122.000.+ \(
 p -v 1 6
 
-# TODO see above. Why breaking here?
+# See bug reference above
 run 20ns
 # CHECK 13 p -v 1 6\n6 = 122.000.+ \(
 p -v 1 6
@@ -130,7 +133,7 @@ shutdown
 EOF
 
 # IMPORTANT: Update this whenever adding checks in the command comments above
-NUMCHECKS=15
+NUMCHECKS=16
 
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug --verbose=$VERBOSE $CONFIG -- $CONFIG_OPTS"

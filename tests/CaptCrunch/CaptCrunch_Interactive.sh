@@ -21,8 +21,6 @@ EOL
 wait
 
 # -- for starters just enter 1 component and do not segfault
-# -- TODO print and check. Each data member through the heirarchy
-# -- run the first pass through the sim
 
 sst --interactive-start=0 --add-lib-path=$SST_COMPONENT_BASE/CaptCrunch/ $TEST_NAME.py <<EOF
 ls

@@ -1,5 +1,5 @@
 #!/bin/bash
-#EXT_TEST TEST_FILE_MINVER DEV
+#EXT_TEST TEST_FILE_MINVER NEW
 #EXT_TEST TEST_FILE_DESC "Exercise aggregate types"
 #EXT_TEST TIMEOUT 30
 
@@ -114,17 +114,29 @@ run
 # CHECK 15 ls -l\n0 = 205 \(.+\n1 = "115" \(
 ls -l
 unwatch
-
 cd ..
 
-#TODO Traces
+# Tracing
+ls -l
+trace tickle_counter changed : 2 1 : tickle_counter : interactive
+cd v_ag_struct
+addTraceVar 0 0 1
+cd ..
+cd v_ag_class
+addTraceVar 0 0 1
+setHandler 0 ac
+watchlist
+cd ..
+run
+# CHECK 16 printtrace 0\nTriggerCount=1\nLastTriggerRecord:@cycle11600000: SamplesLost=0: tickle_counter = 116 0 = 205 1 = "115" 0 = 106 1 = "114".*\nbuf\[1] AC @11600000 \(!) tickle_counter = 116 0 = 205 1 = "115" 0 = 106 1 = "114".*\nbuf\[0] AC @11601000 \(\+) tickle_counter = 116 0 = 205 1 = "115" 0 = 106 1 = "114"
+printtrace 0
 
 shutdown
 
 EOF
 
 # Update this whenever adding checks in the command comments above
-NUMCHECKS=16
+NUMCHECKS=17
 
 # Launch the program to start interactive mode at time 0
 LAUNCH="sst --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug --verbose=$VERBOSE $CONFIG"
