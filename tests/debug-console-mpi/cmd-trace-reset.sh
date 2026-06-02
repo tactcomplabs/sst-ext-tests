@@ -100,7 +100,7 @@ EOF
 NUMCHECKS=2
 
 # Launch the program to start interactive mode at time 0
-LAUNCH="mpirun ${MPIOPTS} -np $RANKS sst --checkpoint-enable  --verbose=$VERBOSE -n $THREADS --interactive-start=0s $CONFIG"
+LAUNCH="mpirun ${MPIOPTS} -np $RANKS sst --checkpoint-enable  --verbose=$VERBOSE -n $THREADS --interactive-start=0s --add-lib-path=$SST_COMPONENT_BASE/core-debug $CONFIG"
 echo $LAUNCH
 ( $LAUNCH 2>&1 << EOF || exit 11 ) | tee  $LOGFILE
 replay $CMDFILE
