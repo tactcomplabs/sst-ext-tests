@@ -1,0 +1,5 @@
+log cmd-replay-log.in
+log cmd-replay-log.console.out
+cd c7
+print test_string
+shutd
