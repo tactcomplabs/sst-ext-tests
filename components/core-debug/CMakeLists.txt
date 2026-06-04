@@ -22,6 +22,8 @@ set(DbgSST15Srcs
   dbgsst15.h
   probe.cc
   probe.h
+  test_cpt.cc
+  test_cpt.h
 )
 
 add_library(dbgsst15 SHARED ${DbgSST15Srcs})

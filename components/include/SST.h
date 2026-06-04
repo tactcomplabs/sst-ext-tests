@@ -49,6 +49,9 @@
 #include <sst/core/rng/mersenne.h>
 #include <sst/core/serialization/serialize.h>
 #include <sst/core/serialization/serializer.h>
+#include "sst/core/shared/sharedArray.h"
+#include "sst/core/shared/sharedMap.h"
+#include "sst/core/shared/sharedSet.h"
 #include <sst/core/subcomponent.h>
 #if 1 // Used for interactive console
 #include <sst/core/baseComponent.h>
