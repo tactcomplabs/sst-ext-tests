@@ -16,18 +16,6 @@
 #define SST_EXT_TESTS_TEST_CPT_H
 
 #include "SST.h"
-// #include "sst/core/component.h"
-// #include "sst/core/event.h"
-// #include "sst/core/link.h"
-// #include "sst/core/rng/distrib.h"
-// #include "sst/core/rng/rng.h"
-// #include "sst/core/shared/sharedArray.h"
-// #include "sst/core/shared/sharedMap.h"
-// #include "sst/core/shared/sharedSet.h"
-
-#include <cstdint>
-#include <string>
-
 namespace SST::ExtTest {
 
 // Very simple starting case
