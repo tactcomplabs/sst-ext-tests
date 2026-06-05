@@ -18,10 +18,14 @@ set(DbgSST15Srcs
   om-nested-containers.cc
   om-unions.cc
   om-unions.h
+  dbgmin.h
+  dbgmin.cc
   dbgsst15.cc
   dbgsst15.h
   probe.cc
   probe.h
+  test_cpt.cc
+  test_cpt.h
 )
 
 add_library(dbgsst15 SHARED ${DbgSST15Srcs})
