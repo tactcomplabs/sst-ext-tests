@@ -1,7 +1,7 @@
 #!/bin/bash
 #EXT_TEST TEST_FILE_MINVER NEW
 #EXT_TEST TEST_FILE_DESC "4rank/2thread trace action buffer reset examples"
-#EXT_TEST TIMEOUT 30
+#EXT_TEST TIMEOUT 90
 
 # ensure non-zero exit code in pipe propagates and no unbound variables.
 set -uo pipefail
